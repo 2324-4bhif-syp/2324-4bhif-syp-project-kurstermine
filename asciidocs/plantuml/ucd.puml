@@ -1,0 +1,16 @@
+@startuml
+left to right direction
+actor "Participant" as p
+actor "Organisator" as o
+rectangle Course {
+  usecase "book course" as UC1
+  usecase "quit course" as UC2
+  usecase "manage course" as UC3
+  usecase "view course schedule" as UC4
+}
+p -- UC1
+p -- UC2
+o -- UC3
+p -- UC4
+o -- UC4
+@enduml

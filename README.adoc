@@ -1,4 +1,13 @@
 = Kurstermine
+ifndef::imagesdir[:imagesdir: images]
+:icons: font
+:experimental:
+:sectnums:
+:toc: left
+:source-highlighter: rouge
 
-
-== Das ist ein blabalaban
+== Use-Case Diagram
+[plantuml,ucd, svg]
+----
+include::asciidocs/plantuml/ucd.puml[]
+----
