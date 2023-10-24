@@ -1,0 +1,37 @@
+@startuml
+left to right direction
+
+class Course {
+}
+
+class Appointment {
+}
+
+class Participant {
+}
+
+class Organisator {
+}
+
+class Manager {
+}
+
+class Person {
+}
+
+Course "1"-left-"*" Appointment: > consists of
+Course "*"--"1" Organisator: < owns
+Manager --|> Person
+Participant --|> Person
+(Appointment, Participant) .. Participation
+(Appointment, Manager) .. AppointmentManagement
+(Person, Person) .. Companion
+
+@enduml
+
+@startuml
+left to right direction
+
+
+
+@enduml

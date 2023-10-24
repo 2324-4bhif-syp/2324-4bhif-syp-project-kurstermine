@@ -1,4 +1,4 @@
-= Index page
+= Course Management
 ifndef::imagesdir[:imagesdir: images]
 
 image::img.png[]
