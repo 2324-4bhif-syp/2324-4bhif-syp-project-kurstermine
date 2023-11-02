@@ -1,4 +1,14 @@
-= Course Management
+= Documentation Course Management
+Ilming, Gruber, Sonnleitner, Berg
+:toc: left
+:sectnums:
+:toclevels: 1
+:table-caption:
+:linkattrs:
 ifndef::imagesdir[:imagesdir: images]
 
-image::img.png[]
+== Class Diagram
+https://2324-4bhif-syp.github.io/2324-4bhif-syp-project-kurstermine/cld[CLD]
+
+== Use-Case Diagram
+https://2324-4bhif-syp.github.io/2324-4bhif-syp-project-kurstermine/ucd[UCD]
