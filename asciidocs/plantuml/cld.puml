@@ -1,7 +1,7 @@
 @startuml
 left to right direction
 
-class Course {
+class Package {
 }
 
 class Appointment {
@@ -13,25 +13,20 @@ class Participant {
 class Organisator {
 }
 
-class Manager {
+class Instructor {
 }
 
 class Person {
 }
 
-Course "1"-left-"*" Appointment: > consists of
-Course "*"--"1" Organisator: < owns
-Manager --|> Person
+Package -left- Appointment
+Package "*"--"1" Organisator: < owns
+Instructor --|> Person
 Participant --|> Person
+Offer .. (Package, Appointment)
+(Appointment, Instructor) .. AppointmentManagement
 (Appointment, Participant) .. Participation
-(Appointment, Manager) .. AppointmentManagement
-(Person, Person) .. Companion
-
-@enduml
-
-@startuml
-left to right direction
-
-
+(Package, Participant) .. Purchase
+(Person, Person) .. Relative
 
 @enduml
