@@ -1,13 +1,17 @@
 package at.htl.courseschedule.entity;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class Customer {
+    //region member variables
     private String firstName;
     private String lastName;
     private String email;
     private LocalDate dateOfBirth;
+    //endregion
 
+    //region constructors
     public Customer() {
     }
 
@@ -17,7 +21,9 @@ public class Customer {
         this.email = email;
         this.dateOfBirth = dateOfBirth;
     }
+    //endregion
 
+    //region getter and setter
     public String getFirstName() {
         return firstName;
     }
@@ -49,6 +55,7 @@ public class Customer {
     public void setDateOfBirth(LocalDate dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
+    //endregion
 
     @Override
     public String toString() {
@@ -56,7 +63,11 @@ public class Customer {
                 "firstName='" + firstName +
                 ", lastName=" + lastName +
                 ", email=" + email +
-                ", dateOfBirth=" + dateOfBirth +
+                ", dateOfBirth=" + dateOfBirth.format(DateTimeFormatter.ISO_LOCAL_DATE) +
                 "}";
+    }
+
+    public String toCsvString() {
+        return String.format("%s,%s,%s,%s", firstName, lastName, email, dateOfBirth.format(DateTimeFormatter.ISO_LOCAL_DATE));
     }
 }

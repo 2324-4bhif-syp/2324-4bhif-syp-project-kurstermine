@@ -3,3 +3,14 @@ GET http://localhost:8080/customers
 Accept: application/json
 
 ###
+POST http://localhost:8080/customers
+Content-Type: application/json
+
+{
+  "firstName": "Lukas",
+  "lastName": "Sonnleitner",
+  "email": "l.sonnleitner@gmail.com",
+  "dateOfBirth": "2006-02-28"
+}
+
+###
