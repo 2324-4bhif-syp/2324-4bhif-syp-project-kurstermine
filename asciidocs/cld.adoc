@@ -1,0 +1,12 @@
+= Class Diagram
+:toc: left
+:sectnums:
+:toclevels: 1
+:table-caption:
+:linkattrs:
+
+== Diagram
+[plantuml,cld,svg]
+----
+include::plantuml/cld.puml[]
+----
