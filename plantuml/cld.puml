@@ -1,0 +1,32 @@
+@startuml
+left to right direction
+
+class Package {
+}
+
+class Appointment {
+}
+
+class Participant {
+}
+
+class Organisator {
+}
+
+class Instructor {
+}
+
+class Person {
+}
+
+Package -left- Appointment
+Package "*"--"1" Organisator: < owns
+Instructor --|> Person
+Participant --|> Person
+Offer .. (Package, Appointment)
+(Appointment, Instructor) .. AppointmentManagement
+(Appointment, Participant) .. Participation
+(Package, Participant) .. Purchase
+(Person, Person) .. Relative
+
+@enduml
