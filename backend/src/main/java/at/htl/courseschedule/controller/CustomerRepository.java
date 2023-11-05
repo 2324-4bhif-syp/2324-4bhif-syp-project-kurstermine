@@ -2,6 +2,7 @@ package at.htl.courseschedule.controller;
 
 import at.htl.courseschedule.entity.Customer;
 import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.validation.constraints.NotNull;
 
 import java.util.HashMap;
 import java.util.List;
@@ -17,11 +18,7 @@ public class CustomerRepository {
         this.lastKey = 0L;
     }
 
-    public void addCustomer(Customer customer) {
-        if (customer == null) {
-            return;
-        }
-
+    public void addCustomer(@NotNull Customer customer) {
         customers.put(++lastKey, customer);
         customer.setId(lastKey);
     }
@@ -30,17 +27,9 @@ public class CustomerRepository {
         return customers.values().stream().toList();
     }
 
-    /*private void addCustomerToCsv(Customer customer) {
-        String filename = "src/main/resources/appointment.csv";
-
-        try {
-            Files.writeString(Path.of(filename),
-                    "\n" + customer.toCsvString(),
-                    StandardCharsets.UTF_8,
-                    StandardOpenOption.APPEND);
-        }
-        catch (IOException e) {
-            Log.error("Error while writing to file: " + e.getMessage());
-        }
-    }*/
+    public Customer getCustomer(Long id) {
+        return customers.values().stream()
+                .filter(customer -> customer.getId().equals(id))
+                .findAny().orElse(null);
+    }
 }
