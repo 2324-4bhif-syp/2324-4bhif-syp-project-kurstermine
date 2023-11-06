@@ -1,6 +1,5 @@
 package at.htl.courseschedule.controller;
 
-import at.htl.courseschedule.entity.Customer;
 import io.quarkus.logging.Log;
 import io.quarkus.runtime.ShutdownEvent;
 import io.quarkus.runtime.StartupEvent;
@@ -10,32 +9,18 @@ import jakarta.inject.Inject;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 @ApplicationScoped
 public class InitBean {
+    public static final String FILE_LOCATION = "csv/appointment.csv";
 
     @Inject
     CustomerRepository customerRepository;
 
-    private static final String FILE_LOCATION = "csv/appointment.csv";
-
     void startUp(@Observes StartupEvent event) {
-        try {
-            List<String> lines = Files.readAllLines(Path.of(FILE_LOCATION));
-            lines.stream()
-                    .skip(1)
-                    .filter(s -> !s.isBlank() && !s.isEmpty())
-                    .forEach(line -> {
-                String[] elements = line.split(",");
-                this.customerRepository.addCustomer(
-                        new Customer(elements[0], elements[1], elements[2], LocalDate.parse(elements[3])));
-            });
-        } catch (Exception e) {
-            Log.error("Error while reading from file: " + e.getMessage());
-        }
+        customerRepository.loadCustomers(FILE_LOCATION);
     }
 
     void shutDown(@Observes ShutdownEvent event) {
