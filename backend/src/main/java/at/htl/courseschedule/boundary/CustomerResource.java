@@ -22,7 +22,13 @@ public class CustomerResource {
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getCustomer(@PathParam("id") Long id) {
-        return Response.ok(customerRepository.getCustomer(id)).build();
+        Customer customer = customerRepository.getCustomer(id);
+
+        if (customer == null) {
+            return Response.status(404).build();
+        }
+
+        return Response.ok(customer).build();
     }
 
     @POST
