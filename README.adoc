@@ -6,6 +6,24 @@ ifndef::imagesdir[:imagesdir: images]
 :toc: left
 :source-highlighter: rouge
 
+== Description
+Since some people have been dropping out of courses more and more often for some time now, which ultimately leads to allocated but unused places, a system is now needed that offers participants the opportunity to register for courses or withdraw from them independently, if the participant cannot appear on the scheduled date for any reason. When a person cancels an appointment, a person that didn't get a place can still register for the course to fill it up again.
+
+== How to start
+Follow the steps below to start the application:
+
+* Go to the backend folder in your console.
+[source, bash]
+----
+cd ./backend
+----
+
+* Now you can start the quarkus app with the following command.
+[source, bash]
+----
+./mvnw clean quarkus:dev
+----
+
 == Class Diagram
 image::http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/2324-4bhif-syp/2324-4bhif-syp-project-kurstermine/develop/asciidocs/plantuml/cld.puml[]
 

@@ -1,14 +1,21 @@
 package at.htl.courseschedule.entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class Customer {
     //region member variables
+    @JsonProperty("id")
     private Long id;
+    @JsonProperty("first_name")
     private String firstName;
+    @JsonProperty("last_name")
     private String lastName;
+    @JsonProperty("email")
     private String email;
+    @JsonProperty("date_of_birth")
     private LocalDate dateOfBirth;
     //endregion
 
@@ -17,6 +24,14 @@ public class Customer {
     }
 
     public Customer(String firstName, String lastName, String email, LocalDate dateOfBirth) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.dateOfBirth = dateOfBirth;
+    }
+
+    public Customer(Long id, String firstName, String lastName, String email, LocalDate dateOfBirth) {
+        this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;

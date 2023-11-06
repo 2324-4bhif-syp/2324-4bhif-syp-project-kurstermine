@@ -1,16 +1,20 @@
 package at.htl.courseschedule.controller;
 
 import at.htl.courseschedule.entity.Customer;
+import io.quarkus.logging.Log;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.validation.constraints.NotNull;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 @ApplicationScoped
 public class CustomerRepository {
-    private final Map<Long, Customer> customers;
+    private Map<Long, Customer> customers;
     private Long lastKey;
 
     public CustomerRepository() {
@@ -31,5 +35,26 @@ public class CustomerRepository {
         return customers.values().stream()
                 .filter(customer -> customer.getId().equals(id))
                 .findAny().orElse(null);
+    }
+
+    /**
+     * Loads the Content of the Repository
+     * <p>Should only be used on startup and after unittests</p>
+     */
+    public void loadCustomers(String fileLocation) {
+        this.customers = new HashMap<>();
+
+        try {
+            List<String> lines = Files.readAllLines(Path.of(fileLocation));
+            lines.stream()
+                    .skip(1)
+                    .filter(s -> !s.isBlank() && !s.isEmpty())
+                    .forEach(line -> {
+                        String[] elements = line.split(",");
+                        addCustomer(new Customer(elements[0], elements[1], elements[2], LocalDate.parse(elements[3])));
+                    });
+        } catch (Exception e) {
+            Log.error("Error while reading from file: " + e.getMessage());
+        }
     }
 }
