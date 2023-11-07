@@ -8,6 +8,7 @@ import jakarta.validation.constraints.NotNull;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -43,6 +44,7 @@ public class CustomerRepository {
      */
     public void loadCustomers(String fileLocation) {
         this.customers = new HashMap<>();
+        lastKey = 0L;
 
         try {
             List<String> lines = Files.readAllLines(Path.of(fileLocation));
@@ -54,7 +56,20 @@ public class CustomerRepository {
                         addCustomer(new Customer(elements[0], elements[1], elements[2], LocalDate.parse(elements[3])));
                     });
         } catch (Exception e) {
-            Log.error("Error while reading from file: " + e.getMessage());
+            Log.error("Error while reading from file", e);
+        }
+    }
+
+    public void writeCustomersToFile(String filepath) {
+        List<String> lines = new ArrayList<>();
+        lines.add("Firstname,Lastname,Email,Birthdate"); // add headline
+
+        getAllCustomers().forEach(customer -> lines.add(customer.toCsvString()));
+
+        try {
+            Files.write(Path.of(filepath), lines);
+        } catch (Exception e) {
+            Log.error("Error while writing to file", e);
         }
     }
 }

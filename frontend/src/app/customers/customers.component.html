@@ -7,30 +7,30 @@
   </tr>
   <tr *ngFor="let customer of customers">
     <td>
-      {{ customer?.firstName }}
+      {{ customer?.first_name }}
     </td>
     <td>
-      {{ customer?.lastName }}
+      {{ customer?.last_name }}
     </td>
     <td>
       {{ customer?.email }}
     </td>
     <td>
-      {{ customer?.dateOfBirth?.toLocaleDateString() }}
+      {{ customer?.date_of_birth?.toLocaleDateString() }}
     </td>
   </tr>
   <tr>
     <td>
-        <input type="text" placeholder="first name" [(ngModel)]="newCustomer.firstName">
+        <input type="text" placeholder="first name" [(ngModel)]="newCustomer.first_name">
     </td>
     <td>
-        <input type="text" placeholder="last name" [(ngModel)]="newCustomer.lastName">
+        <input type="text" placeholder="last name" [(ngModel)]="newCustomer.last_name">
     </td>
     <td>
         <input type="text" placeholder="email" [(ngModel)]="newCustomer.email">
     </td>
     <td>
-        <input type="date" placeholder="birthday" [valueAsDate]="newCustomer.dateOfBirth" (input)="newCustomer.dateOfBirth = parseDate($event)">
+        <input type="date" placeholder="birthday" [valueAsDate]="newCustomer.date_of_birth" (input)="newCustomer.date_of_birth = parseDate($event)">
     </td>
     <td>
         <button (click)="add()">Add</button>

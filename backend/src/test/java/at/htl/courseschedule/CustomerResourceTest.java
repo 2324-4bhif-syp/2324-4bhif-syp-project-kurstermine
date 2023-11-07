@@ -1,7 +1,6 @@
 package at.htl.courseschedule;
 
 import at.htl.courseschedule.controller.CustomerRepository;
-import at.htl.courseschedule.controller.InitBean;
 import at.htl.courseschedule.entity.Customer;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.response.Response;
@@ -12,15 +11,21 @@ import java.time.LocalDate;
 import java.util.List;
 
 import static io.restassured.RestAssured.given;
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 @QuarkusTest
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class CustomerResourceTest {
+    private final static String TEST_FILE = "csv/test-appointment.csv";
 
     @Inject
     CustomerRepository customerRepository;
+
+    @BeforeAll
+    public void loadTestRepository() {
+        customerRepository.loadCustomers(TEST_FILE);
+    }
 
     @Test
     @Order(0)
@@ -268,6 +273,6 @@ public class CustomerResourceTest {
 
     @AfterAll
     public void resetRepository() {
-        customerRepository.loadCustomers(InitBean.FILE_LOCATION);
+        customerRepository.loadCustomers(TEST_FILE);
     }
 }

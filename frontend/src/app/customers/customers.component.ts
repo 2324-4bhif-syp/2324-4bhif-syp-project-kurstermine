@@ -1,6 +1,5 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component } from '@angular/core';
 import { CustomerService } from '../shared/services/customer.service';
-import { Observable, Subscription } from 'rxjs';
 import { Customer } from '../shared/models/customer';
 
 @Component({
@@ -19,15 +18,16 @@ export class CustomersComponent {
     this.init();
 
     this.newCustomer = {
-      firstName:"",
-      lastName:"",
-      dateOfBirth:new Date(),
+      first_name:"",
+      last_name:"",
+      date_of_birth: new Date(),
       email:""
     }
   }
 
   async init() {
     this.customers = await this.customerService.getCustomers();
+    console.debug(this.customerService);
   }
 
   parseDate(eventdate: Event): Date {
@@ -36,7 +36,7 @@ export class CustomersComponent {
     let date = new Date();
     if(dateString) {
       date = new Date(dateString);
-    } 
+    }
 
     return date;
   }
@@ -44,9 +44,9 @@ export class CustomersComponent {
   add() {
     this.customerService.addCustomer(this.newCustomer);
     this.newCustomer = {
-      firstName:"",
-      lastName:"",
-      dateOfBirth:new Date(),
+      first_name:"",
+      last_name:"",
+      date_of_birth:new Date(),
       email:""
     }
   }

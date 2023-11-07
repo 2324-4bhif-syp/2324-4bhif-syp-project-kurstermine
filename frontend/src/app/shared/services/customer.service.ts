@@ -1,6 +1,4 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { of, Observable, catchError, map, tap, timeInterval } from 'rxjs';
 import { Customer } from '../models/customer';
 
 @Injectable({
@@ -10,17 +8,15 @@ export class CustomerService {
   private url = 'http://localhost:8080/customers';
   private customers: Customer[] = [];
 
-  constructor(private http: HttpClient) {}
-
   public async getCustomers(): Promise<Customer[]> {
     let response = await fetch(this.url);
     let data = await response.json();
     this.customers = data.map((item: any) => {
-      let customer: Customer = { 
-        firstName: item.firstName,
-        lastName: item.lastName,
+      let customer: Customer = {
+        first_name: item.first_name,
+        last_name: item.last_name,
         email: item.email,
-        dateOfBirth: new Date(item.dateOfBirth)
+        date_of_birth: new Date(item.date_of_birth)
       }
       return customer;
     });
@@ -38,7 +34,7 @@ export class CustomerService {
         headers: headers,
         method: "POST"
       });
-  
+
       if(response.status !== 201) {
         alert("Error adding customer!");
         return;
@@ -46,7 +42,7 @@ export class CustomerService {
     } catch (error) {
       alert("Error adding customer!");
     }
-    
+
     this.customers.push(customer);
   }
 }

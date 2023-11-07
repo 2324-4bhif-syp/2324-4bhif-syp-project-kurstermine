@@ -1,6 +1,6 @@
 export interface Customer {
-    firstName: string;
-    lastName: string;
+    first_name: string;
+    last_name: string;
     email: string;
-    dateOfBirth: Date;
+    date_of_birth: Date;
 }
