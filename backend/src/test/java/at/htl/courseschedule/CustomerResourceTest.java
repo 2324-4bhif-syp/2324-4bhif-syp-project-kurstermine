@@ -36,7 +36,7 @@ public class CustomerResourceTest {
                 "Herbert",
                 "Huber",
                 "herbert.huber@gmx.com",
-                LocalDate.of(2011,10,11));
+                LocalDate.of(1980,10,11));
 
         Customer c3Result = new Customer(3L,
                 "Julia",
@@ -48,13 +48,13 @@ public class CustomerResourceTest {
                 "Paul",
                 "Schulz",
                 "paul.schulz@aol.com",
-                LocalDate.of(2011,4,15));
+                LocalDate.of(1970,4,15));
 
         Customer c5Result = new Customer(5L,
                 "Anna",
                 "Struff",
                 "anna.struff@juno.com",
-                LocalDate.of(2012,6,30));
+                LocalDate.of(1975,6,30));
 
         // Act
         Response res = given()
@@ -151,7 +151,7 @@ public class CustomerResourceTest {
                 "Herbert",
                 "Huber",
                 "herbert.huber@gmx.com",
-                LocalDate.of(2011,10,11));
+                LocalDate.of(1980,10,11));
 
         Customer c3Result = new Customer(3L,
                 "Julia",
@@ -163,13 +163,13 @@ public class CustomerResourceTest {
                 "Paul",
                 "Schulz",
                 "paul.schulz@aol.com",
-                LocalDate.of(2011,4,15));
+                LocalDate.of(1970,4,15));
 
         Customer c5Result = new Customer(5L,
                 "Anna",
                 "Struff",
                 "anna.struff@juno.com",
-                LocalDate.of(2012,6,30));
+                LocalDate.of(1975,6,30));
 
         Customer c6Result = new Customer(6L,
                 "Winnie",
