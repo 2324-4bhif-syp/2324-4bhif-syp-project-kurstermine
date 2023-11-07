@@ -1,5 +1,4 @@
-= Erste Sprintplanung
-firstname lastname
+= Zweite Sprintplanung
 1.0, yyyy-mm-dd: Some notes
 ifndef::imagesdir[:imagesdir: images]
 :icons: font
@@ -40,23 +39,21 @@ endif::backend-html5[]
 |HTL Leonding, 4BHIF
 
 |von-bis
-|Di. 2023-10-17, 4. EH
+|Di. 2023-11-07, 7. EH
 |Dauer
-|30 min
+|20 min
 |===
 
 
 
 == Besprochene Themen
 
-* Das erste zu erstellende Produkt (MVP)
-** html Seite
-*** Als Betreuer möchte ich die Teilnehmer meiner Kurse sehen (derweil nur 1 Kurs)
-*** Als Betreuer möchte ich neue Teilnehmer in einen Kurs eintragen
-*** Kursteilnehmer:
-**** Nachname der betreuenden Person
-**** Babyname
-** csv-file mit Kursteilnehmern eines Kurses
+* 1 Package
+** wir zeigen 1 Package an
+** dieses enthält mehrere Appointments
+** Kunde kann sich 1 Package "kaufen"
+*** Kunde ist bei einer bestimmten Anzahl von Appointments eingetragen
+*** Kunde kann auch aus einzelnen Appointments ausgetragen werden
 
 
 == Vereinbarungen und Entscheidungen
@@ -68,18 +65,18 @@ endif::backend-html5[]
 
 | Hr. Ilming
 a| ...
-| 07.11.2023
+| 21.11.2023
 
 | Hr. Gruber
 a| ...
-| 07.11.2023
+| 21.11.2023
 
 | Hr. Sonnleitner
 a| ...
-| 07.11.2023
+| 21.11.2023
 
 | Hr. Berg
 a| ...
-| 07.11.2023
+| 21.11.2023
 
 |===
