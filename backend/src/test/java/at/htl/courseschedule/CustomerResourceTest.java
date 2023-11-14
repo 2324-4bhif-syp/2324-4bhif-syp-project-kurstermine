@@ -1,10 +1,8 @@
 package at.htl.courseschedule;
 
-import at.htl.courseschedule.controller.CustomerRepository;
 import at.htl.courseschedule.entity.Customer;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.response.Response;
-import jakarta.inject.Inject;
 import org.junit.jupiter.api.*;
 
 import java.time.LocalDate;
@@ -15,17 +13,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @QuarkusTest
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class CustomerResourceTest {
-    private final static String TEST_FILE = "csv/test-appointment.csv";
-
-    @Inject
-    CustomerRepository customerRepository;
-
-    @BeforeAll
-    public void loadTestRepository() {
-        customerRepository.loadCustomers(TEST_FILE);
-    }
 
     @Test
     @Order(0)
@@ -269,10 +257,5 @@ public class CustomerResourceTest {
                 .statusCode(404);
 
         // Assert
-    }
-
-    @AfterAll
-    public void resetRepository() {
-        customerRepository.loadCustomers(TEST_FILE);
     }
 }
