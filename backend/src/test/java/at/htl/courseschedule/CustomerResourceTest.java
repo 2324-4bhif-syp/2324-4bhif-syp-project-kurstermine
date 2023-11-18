@@ -3,7 +3,10 @@ package at.htl.courseschedule;
 import at.htl.courseschedule.entity.Customer;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.response.Response;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -66,23 +69,18 @@ public class CustomerResourceTest {
         assertThat(customers).hasSize(5);
 
         assertThat(customers.get(0))
-                .usingRecursiveComparison()
                 .isEqualTo(c1Result);
 
         assertThat(customers.get(1))
-                .usingRecursiveComparison()
                 .isEqualTo(c2Result);
 
         assertThat(customers.get(2))
-                .usingRecursiveComparison()
                 .isEqualTo(c3Result);
 
         assertThat(customers.get(3))
-                .usingRecursiveComparison()
                 .isEqualTo(c4Result);
 
         assertThat(customers.get(4))
-                .usingRecursiveComparison()
                 .isEqualTo(c5Result);
     }
 
@@ -187,27 +185,21 @@ public class CustomerResourceTest {
         assertThat(customers).hasSize(6);
 
         assertThat(customers.get(0))
-                .usingRecursiveComparison()
                 .isEqualTo(c1Result);
 
         assertThat(customers.get(1))
-                .usingRecursiveComparison()
                 .isEqualTo(c2Result);
 
         assertThat(customers.get(2))
-                .usingRecursiveComparison()
                 .isEqualTo(c3Result);
 
         assertThat(customers.get(3))
-                .usingRecursiveComparison()
                 .isEqualTo(c4Result);
 
         assertThat(customers.get(4))
-                .usingRecursiveComparison()
                 .isEqualTo(c5Result);
 
         assertThat(customers.get(5))
-                .usingRecursiveComparison()
                 .isEqualTo(c6Result);
     }
 
@@ -237,7 +229,6 @@ public class CustomerResourceTest {
 
         // Assert
         assertThat(customer)
-                .usingRecursiveComparison()
                 .isEqualTo(cResult);
     }
 
