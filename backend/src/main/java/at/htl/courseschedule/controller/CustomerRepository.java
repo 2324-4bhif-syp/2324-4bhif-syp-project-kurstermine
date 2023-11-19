@@ -35,7 +35,6 @@ public class CustomerRepository {
     }
 
     public Customer update(Long id, Customer newCustomer) {
-
         if (getById(id) == null) {
             return null;
         }
