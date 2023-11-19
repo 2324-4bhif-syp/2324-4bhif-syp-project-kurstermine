@@ -5,6 +5,7 @@ import at.htl.courseschedule.entity.ids.ParticipationId;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.TypedQuery;
 import jakarta.validation.constraints.NotNull;
 
 import java.util.List;
@@ -20,6 +21,13 @@ public class ParticipationRepository {
 
     public Participation getById(ParticipationId id) {
         return em.find(Participation.class, id);
+    }
+
+    public List<Participation> getByAppointmentId(Long id) {
+        TypedQuery<Participation> query = em.createQuery(
+                "SELECT p from Participation p where p.appointment.id = :appointmentId", Participation.class);
+        query.setParameter("appointmentId", id);
+        return query.getResultList();
     }
 
     public void create(@NotNull Participation participation) {

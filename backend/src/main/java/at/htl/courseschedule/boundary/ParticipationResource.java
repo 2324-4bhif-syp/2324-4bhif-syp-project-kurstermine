@@ -8,6 +8,8 @@ import jakarta.transaction.Transactional;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.*;
 
+import java.util.List;
+
 @Path("/participations")
 public class ParticipationResource {
     @Inject
@@ -20,14 +22,12 @@ public class ParticipationResource {
     }
 
     @GET
-    @Path("{appointmentId}/{customerId}")
+    @Path("{appointmentId}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getParticipation(@PathParam("appointmentId") Long appointmentId,
-                                     @PathParam("customerId") Long customerId) {
-        Participation participation = participationRepository.getById(
-                new ParticipationId(appointmentId, customerId));
+    public Response getParticipation(@PathParam("appointmentId") Long appointmentId) {
+        List<Participation> participation = participationRepository.getByAppointmentId(appointmentId);
 
-        if (participation == null) {
+        if (participation.isEmpty()) {
             return Response.status(404).build();
         }
 
