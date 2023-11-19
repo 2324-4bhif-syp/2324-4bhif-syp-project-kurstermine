@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { getTestBed } from '@angular/core/testing';
 import { Observable, map } from 'rxjs';
 import { environment } from 'src/environments/environment.development';
-import { AppointmentDto } from '../../models/dto/appointment-dto';
+import { AppointmentDto } from '../../models/dtos/appointment-dto';
 import { Appointment } from '../../models/appointment';
 
 @Injectable({
