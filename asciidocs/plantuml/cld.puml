@@ -7,7 +7,7 @@ class Package {
 class Appointment {
 }
 
-class Participant {
+class Customer {
 }
 
 class Organisator {
@@ -22,11 +22,11 @@ class Person {
 Package -left- Appointment
 Package "*"--"1" Organisator: < owns
 Instructor --|> Person
-Participant --|> Person
+Customer --|> Person
 Offer .. (Package, Appointment)
 (Appointment, Instructor) .. AppointmentManagement
-(Appointment, Participant) .. Participation
-(Package, Participant) .. Purchase
+(Appointment, Customer) .. Participation
+(Package, Customer) .. Purchase
 (Person, Person) .. Relative
 
 @enduml
