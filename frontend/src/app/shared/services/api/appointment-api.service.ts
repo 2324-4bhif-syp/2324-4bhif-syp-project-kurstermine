@@ -1,10 +1,9 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { getTestBed } from '@angular/core/testing';
 import { Observable, map } from 'rxjs';
 import { environment } from 'src/environments/environment.development';
-import { AppointmentDto } from '../../models/dtos/appointment-dto';
-import { Appointment } from '../../models/appointment';
+import { AppointmentDto, fromAppointment } from '../../models/dtos/appointment-dto';
+import { Appointment, fromAppointmentDto } from '../../models/appointment';
 
 @Injectable({
   providedIn: 'root'
@@ -35,6 +34,16 @@ export class AppointmentApiService {
             name: appointment.name
           }
         });
+      })
+    )
+  }
+
+  public add(appointment: Appointment): Observable<Appointment> {
+    return this.http.post<AppointmentDto>(`${this.url}/appointments`, fromAppointment(appointment), {
+      headers: this.headers.set("Conent-Type", "application/json")
+    }).pipe(
+      map(appointment => {
+        return fromAppointmentDto(appointment)
       })
     )
   }

@@ -22,4 +22,12 @@ export class AppointmentService extends Service<Appointment> {
       }
     })
   }
+
+  override add(item: Appointment): void {
+    this.api.add(item).subscribe({
+      next: (appointment => {
+        super.add(appointment);
+      })
+    });
+  }
 }

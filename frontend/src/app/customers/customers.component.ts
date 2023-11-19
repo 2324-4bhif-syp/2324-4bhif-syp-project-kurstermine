@@ -8,26 +8,17 @@ import { Customer } from '../shared/models/customer';
   styleUrls: ['./customers.component.css'],
 })
 export class CustomersComponent {
-  private customerService: CustomerService;
-  protected customers: Customer[];
+  protected customerService: CustomerService;
   protected newCustomer: Customer;
 
   constructor(customerService: CustomerService) {
     this.customerService = customerService;
-    this.customers = [];
-    this.init();
-
     this.newCustomer = {
-      first_name:"",
-      last_name:"",
-      date_of_birth: new Date(),
-      email:""
+      firstName: "",
+      lastName: "",
+      dateOfBirth: new Date(),
+      email: ""
     }
-  }
-
-  async init() {
-    this.customers = await this.customerService.getCustomers();
-    console.debug(this.customerService);
   }
 
   parseDate(eventdate: Event): Date {
@@ -42,12 +33,17 @@ export class CustomersComponent {
   }
 
   add() {
-    this.customerService.addCustomer(this.newCustomer);
+    if(this.newCustomer === undefined) {
+      return;
+    }
+
+    this.customerService.add(this.newCustomer);
+
     this.newCustomer = {
-      first_name:"",
-      last_name:"",
-      date_of_birth:new Date(),
-      email:""
+      firstName: "",
+      lastName: "",
+      dateOfBirth: new Date(),
+      email: ""
     }
   }
 }
