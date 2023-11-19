@@ -11,21 +11,21 @@ public class Appointment {
     //region member variables
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    protected Long id;
+    private Long id;
 
     @JsonProperty("name")
     @Column(name = "name")
-    protected String name;
+    private String name;
     @JsonProperty("date")
     @Column(name = "date")
-    protected LocalDate startDate;
+    private LocalDate startDate;
 
     @JsonProperty("duration")
     @Column(name = "duration")
-    protected Duration duration;
+    private Duration duration;
     @JsonProperty("adress")
     @Column(name = "adress")
-    protected String address;
+    private String address;
     //endregion
 
     //region constructors
