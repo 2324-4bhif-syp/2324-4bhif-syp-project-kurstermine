@@ -9,6 +9,7 @@ import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.*;
 
 @ApplicationScoped
+@Path("/instructors")
 public class InstructorResource {
     @Inject
     InstructorRepository instructorRepository;

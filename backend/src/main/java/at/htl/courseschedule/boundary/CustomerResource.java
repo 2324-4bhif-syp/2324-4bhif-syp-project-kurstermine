@@ -2,11 +2,13 @@ package at.htl.courseschedule.boundary;
 
 import at.htl.courseschedule.controller.CustomerRepository;
 import at.htl.courseschedule.entity.Customer;
+import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.*;
 
+@ApplicationScoped
 @Path("/customers")
 public class CustomerResource {
 
