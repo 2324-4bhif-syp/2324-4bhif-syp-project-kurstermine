@@ -64,19 +64,19 @@ endif::backend-html5[]
 |wer |macht was |bis wann
 
 | Hr. Ilming
-a| ...
+a| link:https://vm81.htl-leonding.ac.at/agiles/99-373/current[Youtrack]
 | 21.11.2023
 
 | Hr. Gruber
-a| ...
+a| link:https://vm81.htl-leonding.ac.at/agiles/99-373/current[Youtrack]
 | 21.11.2023
 
 | Hr. Sonnleitner
-a| ...
+a| link:https://vm81.htl-leonding.ac.at/agiles/99-373/current[Youtrack]
 | 21.11.2023
 
 | Hr. Berg
-a| ...
+a| link:https://vm81.htl-leonding.ac.at/agiles/99-373/current[Youtrack]
 | 21.11.2023
 
 |===
