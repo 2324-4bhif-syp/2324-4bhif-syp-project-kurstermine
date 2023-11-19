@@ -23,3 +23,8 @@ insert into Appointment (name, date, duration, adress)
 values ('Yoga', '2022-11-09', 1800000000000, 'Sophiengutstraße'),
        ('Kinderschwimmen', '2023-04-26', 1800000000000, 'Taubenmarkt'),
        ('WATSU', '2022-08-15', 1800000000000, 'Goethestraße');
+
+insert into Participation (appointment_id, customer_id) values (1, 1);
+insert into Participation (appointment_id, customer_id) values (1, 2);
+insert into Participation (appointment_id, customer_id) values (1, 3);
+insert into Appointment_Management (appointment_id, instructor_id) values (1, 4);
