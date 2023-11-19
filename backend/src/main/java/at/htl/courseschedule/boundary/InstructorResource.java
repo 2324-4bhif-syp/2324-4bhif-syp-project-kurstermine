@@ -21,7 +21,7 @@ public class InstructorResource {
     }
 
     @GET
-    @Path("/{id}")
+    @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getInstructor(@PathParam("id") Long id) {
         Instructor instructor = instructorRepository.getById(id);
@@ -52,7 +52,7 @@ public class InstructorResource {
 
     @DELETE
     @Transactional
-    @Path("/{id}")
+    @Path("{id}")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response deleteInstructorById(@PathParam("id") Long id) {
@@ -62,7 +62,7 @@ public class InstructorResource {
 
     @PUT
     @Transactional
-    @Path("/{id}")
+    @Path("{id}")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response updateInstructorById(@PathParam("id") Long id, Instructor newInstructor) {

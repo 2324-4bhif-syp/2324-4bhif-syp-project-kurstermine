@@ -2,13 +2,11 @@ package at.htl.courseschedule.boundary;
 
 import at.htl.courseschedule.controller.CustomerRepository;
 import at.htl.courseschedule.entity.Customer;
-import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.*;
 
-@ApplicationScoped
 @Path("/customers")
 public class CustomerResource {
 
@@ -22,7 +20,7 @@ public class CustomerResource {
     }
 
     @GET
-    @Path("/{id}")
+    @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getCustomer(@PathParam("id") Long id) {
         Customer customer = customerRepository.getById(id);
@@ -53,7 +51,7 @@ public class CustomerResource {
 
     @DELETE
     @Transactional
-    @Path("/{id}")
+    @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response deleteCustomerById(@PathParam("id") Long id) {
         customerRepository.delete(id);
@@ -62,7 +60,7 @@ public class CustomerResource {
 
     @PUT
     @Transactional
-    @Path("/{id}")
+    @Path("{id}")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response updatePlayerPut(@PathParam("id") Long id, Customer newCustomer) {

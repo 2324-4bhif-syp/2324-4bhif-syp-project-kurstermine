@@ -2,13 +2,11 @@ package at.htl.courseschedule.boundary;
 
 import at.htl.courseschedule.controller.AppointmentRepository;
 import at.htl.courseschedule.entity.Appointment;
-import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.*;
 
-@ApplicationScoped
 @Path("/appointments")
 public class AppointmentResource {
     @Inject
@@ -21,7 +19,7 @@ public class AppointmentResource {
     }
 
     @GET
-    @Path("/{id}")
+    @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAppointment(@PathParam("id") Long id) {
         Appointment appointment = appointmentRepository.getById(id);
@@ -52,7 +50,7 @@ public class AppointmentResource {
 
     @DELETE
     @Transactional
-    @Path("/{id}")
+    @Path("{id}")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response deleteAppointmentById(@PathParam("id") Long id) {
@@ -62,7 +60,7 @@ public class AppointmentResource {
 
     @PUT
     @Transactional
-    @Path("/{id}")
+    @Path("{id}")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response updateAppointmentById(@PathParam("id") Long id, Appointment newAppointment) {
