@@ -3,6 +3,7 @@ package at.htl.courseschedule.entity;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 
+import java.time.Duration;
 import java.time.LocalDate;
 
 @Entity
@@ -17,20 +18,29 @@ public class Appointment {
     protected String name;
     @JsonProperty("date")
     @Column(name = "date")
-    private LocalDate date;
+    protected LocalDate startDate;
+
+    @JsonProperty("duration")
+    @Column(name = "duration")
+    protected Duration duration;
+    @JsonProperty("adress")
+    @Column(name = "adress")
+    protected String address;
     //endregion
 
     //region constructors
     public Appointment() {
     }
 
-    public Appointment(String name, LocalDate date) {
+    public Appointment(String name, LocalDate startDate, Duration duration, String address) {
         this.name = name;
-        this.date = date;
+        this.startDate = startDate;
+        this.duration = duration;
+        this.address = address;
     }
 
-    public Appointment(Long id, String name, LocalDate date) {
-        this(name, date);
+    public Appointment(Long id, String name, LocalDate startDate, Duration duration, String address) {
+        this(name, startDate, duration, address);
         this.id = id;
     }
     //endregion
@@ -44,12 +54,28 @@ public class Appointment {
         this.name = name;
     }
 
-    public LocalDate getDate() {
-        return date;
+    public LocalDate getStartDate() {
+        return startDate;
     }
 
-    public void setDate(LocalDate date) {
-        this.date = date;
+    public void setStartDate(LocalDate date) {
+        this.startDate = date;
+    }
+
+    public Duration getDuration() {
+        return duration;
+    }
+
+    public void setDuration(Duration duration) {
+        this.duration = duration;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public Long getId() {
@@ -65,7 +91,9 @@ public class Appointment {
     public String toString() {
         return "Appointment{" +
                 "name='" + name + '\'' +
-                ", date=" + date +
+                ", startDate=" + startDate + '\'' +
+                ", duration=" + duration + '\'' +
+                ", address='" + address + '\'' +
                 '}';
     }
 }
