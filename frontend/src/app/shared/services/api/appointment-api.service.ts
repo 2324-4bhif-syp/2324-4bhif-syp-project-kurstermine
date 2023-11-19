@@ -21,7 +21,7 @@ export class AppointmentApiService {
   }
 
   public getAll(): Observable<Appointment[]> {
-    return this.http.get<AppointmentDto[]>(`${this.url}/appointments`, {
+    return this.http.get<AppointmentDto[]>(`${this.url}`, {
       headers: this.headers
     }).pipe(
       map(appointments => {
@@ -39,7 +39,7 @@ export class AppointmentApiService {
   }
 
   public add(appointment: Appointment): Observable<Appointment> {
-    return this.http.post<AppointmentDto>(`${this.url}/appointments`, fromAppointment(appointment), {
+    return this.http.post<AppointmentDto>(`${this.url}`, fromAppointment(appointment), {
       headers: this.headers.set("Conent-Type", "application/json")
     }).pipe(
       map(appointment => {

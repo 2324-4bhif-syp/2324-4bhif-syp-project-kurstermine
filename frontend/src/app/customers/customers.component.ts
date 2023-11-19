@@ -33,10 +33,6 @@ export class CustomersComponent {
   }
 
   add() {
-    if(this.newCustomer === undefined) {
-      return;
-    }
-
     this.customerService.add(this.newCustomer);
 
     this.newCustomer = {

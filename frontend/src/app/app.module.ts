@@ -5,11 +5,13 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { CustomersComponent } from './customers/customers.component';
 import { FormsModule } from '@angular/forms';
+import { AppointmentsComponent } from './appointments/appointments.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     CustomersComponent,
+    AppointmentsComponent,
   ],
   imports: [
     BrowserModule,

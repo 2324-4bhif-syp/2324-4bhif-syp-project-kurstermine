@@ -16,12 +16,12 @@ export class CustomerApiService {
 
   constructor(http: HttpClient) {
     this.http = http;
-    this.url = environment.apiUrl;
+    this.url = `${environment.apiUrl}/customers`;
     this.headers = new HttpHeaders().set("Accept", "application/json");
   }
 
   public getAll(): Observable<Customer[]> {
-    return this.http.get<CustomerDto[]>(`${this.url}/customers`, {
+    return this.http.get<CustomerDto[]>(this.url, {
       headers: this.headers
     }).pipe(
       map(customers => {
@@ -31,7 +31,7 @@ export class CustomerApiService {
   }
 
   public add(customer: Customer): Observable<Customer> {
-    return this.http.post<CustomerDto>(`${this.url}/customers`, fromCustomer(customer), {
+    return this.http.post<CustomerDto>(this.url, fromCustomer(customer), {
       headers: this.headers.set("Conent-Type", "application/json")
     }).pipe(
       map(customer => {
