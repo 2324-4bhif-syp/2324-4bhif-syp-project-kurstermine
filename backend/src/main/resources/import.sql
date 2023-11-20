@@ -20,9 +20,9 @@ values (1, '2012-12-23'),
 insert into Instructor (id, hiring_date)
 values (4, '2000-05-24');
 insert into Appointment (name, date, duration, address)
-values ('Yoga', '2022-11-09', 1800000000000, 'Sophiengutstraße'),
-       ('Kinderschwimmen', '2023-04-26', 1800000000000, 'Taubenmarkt'),
-       ('WATSU', '2022-08-15', 1800000000000, 'Goethestraße');
+values ('Yoga', '2022-11-09 12:00:00', 1800000000000, 'Sophiengutstraße'),
+       ('Kinderschwimmen', '2023-04-26 18:00:00', 1800000000000, 'Taubenmarkt'),
+       ('WATSU', '2022-08-15 16:00:00', 1800000000000, 'Goethestraße');
 
 insert into Participation (appointment_id, customer_id) values (1, 1);
 insert into Participation (appointment_id, customer_id) values (1, 2);

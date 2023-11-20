@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 
 import java.time.Duration;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 public class Appointment {
@@ -18,7 +18,7 @@ public class Appointment {
     private String name;
     @JsonProperty("date")
     @Column(name = "date")
-    private LocalDate startDate;
+    private LocalDateTime startDate;
 
     @JsonProperty("duration")
     @Column(name = "duration")
@@ -32,14 +32,14 @@ public class Appointment {
     public Appointment() {
     }
 
-    public Appointment(String name, LocalDate startDate, Duration duration, String address) {
+    public Appointment(String name, LocalDateTime startDate, Duration duration, String address) {
         this.name = name;
         this.startDate = startDate;
         this.duration = duration;
         this.address = address;
     }
 
-    public Appointment(Long id, String name, LocalDate startDate, Duration duration, String address) {
+    public Appointment(Long id, String name, LocalDateTime startDate, Duration duration, String address) {
         this(name, startDate, duration, address);
         this.id = id;
     }
@@ -54,11 +54,11 @@ public class Appointment {
         this.name = name;
     }
 
-    public LocalDate getStartDate() {
+    public LocalDateTime getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(LocalDate date) {
+    public void setStartDate(LocalDateTime date) {
         this.startDate = date;
     }
 
