@@ -4,7 +4,6 @@ import { Service } from './service';
 import { Participation } from '../models/participation';
 import { CustomerService } from './customer.service';
 import { AppointmentService } from './appointment.service';
-import { Customer } from '../models/customer';
 
 @Injectable({
   providedIn: 'root'
@@ -25,7 +24,7 @@ export class ParticipationService extends Service<Participation> {
     api.getAll().subscribe({
       next: (participations) => {
         participations.forEach(participation => {
-          this.add({
+          super.add({
             id: participation.id,
             appointment: appointmentService.get(a => a.id === participation.id?.appointmentId)[0],
             customer: customerService.get(c => c.id === participation.id?.customerId)[0]

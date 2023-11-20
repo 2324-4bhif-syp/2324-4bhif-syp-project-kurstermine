@@ -9,6 +9,7 @@ import { AppointmentsComponent } from './appointments/appointments.component';
 import { AppointmentComponent } from './appointment/appointment.component';
 import { ParticipationComponent } from './participations/participation.component';
 import {InstructorsComponent} from "./instructors/instructors.component";
+import { AppointmentManagementComponent } from './appointment-management/appointment-management.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import {InstructorsComponent} from "./instructors/instructors.component";
     AppointmentsComponent,
     AppointmentComponent,
     ParticipationComponent,
-    InstructorsComponent
+    InstructorsComponent,
+    AppointmentManagementComponent
   ],
   imports: [
     BrowserModule,

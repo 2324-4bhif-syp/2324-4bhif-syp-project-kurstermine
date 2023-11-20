@@ -11,7 +11,6 @@ import { Participation } from '../shared/models/participation';
   styleUrls: ['./participation.component.css']
 })
 export class ParticipationComponent {
-
   @Input() appointment: Appointment | undefined;
   protected participationService: ParticipationService;
   protected customerService: CustomerService;

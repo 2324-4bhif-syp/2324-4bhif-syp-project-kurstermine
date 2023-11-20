@@ -3,7 +3,7 @@
 
     <select [(ngModel)]="appointment">
         <option *ngFor="let a of appointmentService.get()" [ngValue]="a">
-            {{ a.name }} {{ a.date.toLocaleDateString() }} ({{ a.id }}) 
+            {{ a.name }} {{ a.date.toLocaleDateString() }} ({{ a.id }})
         </option>
     </select>
 </label>
@@ -13,7 +13,7 @@
 
     <h3>Instructors</h3>
 
-    
+    <app-appointment-management [appointment]="appointment"/>
 
     <h3>Participants</h3>
 
