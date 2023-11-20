@@ -1,6 +1,6 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, map } from 'rxjs';
+import { Observable, catchError, map } from 'rxjs';
 import { environment } from 'src/environments/environment.development';
 import { Customer } from '../../models/customer';
 import { CustomerDto } from '../../models/dtos/customer-dto';
@@ -42,7 +42,7 @@ export class ParticipationApiService {
     )
   }
 
-  public remove(participation: Participation): Observable<Participation> {
-    return this.http.delete<any>(`${this.url}/${participation.appointment.id}/${participation.customer.id}`);
+  public remove(participation: Participation): Observable<object> {
+    return this.http.delete(`${this.url}/${participation.appointment.id}/${participation.customer.id}`);
   }
 }

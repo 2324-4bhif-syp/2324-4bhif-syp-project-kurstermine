@@ -44,6 +44,10 @@ export class ParticipationService extends Service<Participation> {
   }
 
   override remove(item: Participation): void {
-      
+      this.api.remove(item).subscribe({
+        next: () => {
+          super.remove(item);
+        }
+      })
   }
 }

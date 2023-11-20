@@ -7,7 +7,7 @@ import { CustomersComponent } from './customers/customers.component';
 import { FormsModule } from '@angular/forms';
 import { AppointmentsComponent } from './appointments/appointments.component';
 import { AppointmentComponent } from './appointment/appointment.component';
-import { ParticipantsComponent } from './participants/participants.component';
+import { ParticipationsComponent } from './participations/participations.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +15,7 @@ import { ParticipantsComponent } from './participants/participants.component';
     CustomersComponent,
     AppointmentsComponent,
     AppointmentComponent,
-    ParticipantsComponent,
+    ParticipationsComponent,
   ],
   imports: [
     BrowserModule,
