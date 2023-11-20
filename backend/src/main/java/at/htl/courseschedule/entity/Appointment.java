@@ -23,8 +23,8 @@ public class Appointment {
     @JsonProperty("duration")
     @Column(name = "duration")
     private Duration duration;
-    @JsonProperty("adress")
-    @Column(name = "adress")
+    @JsonProperty("address")
+    @Column(name = "address")
     private String address;
     //endregion
 
