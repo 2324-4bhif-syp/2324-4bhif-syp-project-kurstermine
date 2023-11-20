@@ -1,0 +1,47 @@
+<table>
+  <tr>
+    <th>Id</th>
+    <th>First Name</th>
+    <th>Last Name</th>
+    <th>Email</th>
+    <th>Hire Date</th>
+  </tr>
+  <tr *ngFor="let instructor of instructorService.get()">
+    <td>
+      {{ instructor?.id }}
+    </td>
+    <td>
+      {{ instructor?.firstName }}
+    </td>
+    <td>
+      {{ instructor?.lastName }}
+    </td>
+    <td>
+      {{ instructor?.email }}
+    </td>
+    <td>
+      {{ instructor?.hireDate?.toLocaleDateString() }}
+    </td>
+  </tr>
+  <tr>
+    <td>
+
+    </td>
+    <td>
+      <input type="text" placeholder="first name" [(ngModel)]="newInstructor.firstName">
+    </td>
+    <td>
+      <input type="text" placeholder="last name" [(ngModel)]="newInstructor.lastName">
+    </td>
+    <td>
+      <input type="text" placeholder="email" [(ngModel)]="newInstructor.email">
+    </td>
+    <td>
+      <input type="date" placeholder="birthday" [valueAsDate]="newInstructor.hireDate"
+             (input)="newInstructor.hireDate = parseDate($event)">
+    </td>
+    <td>
+      <button (click)="add()">Add</button>
+    </td>
+  </tr>
+</table>

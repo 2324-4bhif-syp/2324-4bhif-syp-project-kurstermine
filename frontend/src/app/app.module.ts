@@ -8,6 +8,7 @@ import { FormsModule } from '@angular/forms';
 import { AppointmentsComponent } from './appointments/appointments.component';
 import { AppointmentComponent } from './appointment/appointment.component';
 import { ParticipationComponent } from './participations/participation.component';
+import {InstructorsComponent} from "./instructors/instructors.component";
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import { ParticipationComponent } from './participations/participation.component
     AppointmentsComponent,
     AppointmentComponent,
     ParticipationComponent,
+    InstructorsComponent
   ],
   imports: [
     BrowserModule,
