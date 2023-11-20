@@ -1,3 +1,32 @@
-= Some Slide
+= Kurstermine
 
-Testing filter by changing documentation file
+:revealjs_theme: white
+:customcss: css/slides.css
+ifndef::imagesdir[:imagesdir: ../images]
+
+[.font-xx-large]
+== Team
+* Winnie Ilming
+* Moritz Gruber
+* Lukas Sonnleitner
+* Bajtik Berg
+
+[.font-xx-large]
+== Warum Kurstermine?
+* Ermöglicht Kunden, sich in Kursen zu registrieren
+** Kunden können auch abgemeldet werden, falls sie zu vereinbartem Termin nicht erscheinen
+* Im Falle einer Absage eines Kunden, kann sich ein anderer Kunde für den Termin anmelden
+
+[.font-xx-large]
+=== [.margin-b-10]#Terminologie#
+* *Server*: Quarkus backend zum Verwalten der Entitäten
+* *Frontend*: Angular frontend zum Anzeigen von Kursen, Packages und Kunden
+** *Login*: für unterschiedliche Benutzerrollen
+
+[.font-xx-large]
+=== Konfiguration
+
+* Projekt wird auf Oracle Cloud gehostet
+
+[.font-xx-large]
+=== Live Demo
