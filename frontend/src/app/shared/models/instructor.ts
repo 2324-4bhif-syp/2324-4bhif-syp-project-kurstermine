@@ -5,7 +5,7 @@ export interface Instructor {
   firstName: string;
   lastName: string;
   email: string;
-  hireDate: Date;
+  hiringDate: Date;
 }
 
 export const fromInstructorDto = (instructor: InstructorDto): Instructor => {
@@ -14,6 +14,6 @@ export const fromInstructorDto = (instructor: InstructorDto): Instructor => {
     firstName: instructor.first_name,
     lastName: instructor.last_name,
     email: instructor.email,
-    hireDate: new Date(instructor.hire_date)
+    hiringDate: new Date(instructor.hiring_date)
   }
 }

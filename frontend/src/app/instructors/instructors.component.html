@@ -20,7 +20,7 @@
       {{ instructor?.email }}
     </td>
     <td>
-      {{ instructor?.hireDate?.toLocaleDateString() }}
+      {{ instructor?.hiringDate?.toLocaleDateString() }}
     </td>
   </tr>
   <tr>
@@ -37,8 +37,8 @@
       <input type="text" placeholder="email" [(ngModel)]="newInstructor.email">
     </td>
     <td>
-      <input type="date" placeholder="birthday" [valueAsDate]="newInstructor.hireDate"
-             (input)="newInstructor.hireDate = parseDate($event)">
+      <input type="date" placeholder="birthday" [valueAsDate]="newInstructor.hiringDate"
+             (input)="newInstructor.hiringDate = parseDate($event)">
     </td>
     <td>
       <button (click)="add()">Add</button>

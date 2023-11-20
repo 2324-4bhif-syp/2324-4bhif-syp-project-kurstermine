@@ -17,7 +17,7 @@ export class InstructorsComponent {
       firstName: "",
       lastName: "",
       email: "",
-      hireDate: new Date()
+      hiringDate: new Date()
     }
   }
 
@@ -39,7 +39,7 @@ export class InstructorsComponent {
       firstName: "",
       lastName: "",
       email: "",
-      hireDate: new Date()
+      hiringDate: new Date()
     }
   }
 }
