@@ -4,7 +4,7 @@
         <th>Name</th>
         <th>Address</th>
         <th>Duration [min]</th>
-        <th>Date</th>
+        <th>Start</th>
     </tr>
     <tr *ngFor="let customer of appointmentService.get()">
         <td>
@@ -20,7 +20,7 @@
             {{ customer?.duration }}
         </td>
         <td>
-            {{ customer?.date?.toLocaleDateString() }}
+            {{ customer?.date?.toLocaleDateString() }} {{ customer.date.toLocaleTimeString() }}
         </td>
     </tr>
     <tr>
@@ -37,7 +37,7 @@
             <input type="number" placeholder="duration" [(ngModel)]="newAppointment.duration">
         </td>
         <td>
-            <input type="date" placeholder="date" [valueAsDate]="newAppointment.date" (input)="newAppointment.date = parseDate($event)">
+            <input type="datetime-local" placeholder="date" [valueAsDate]="newAppointment.date" (input)="newAppointment.date = parseDate($event)">
         </td>
         <td>
             <button (click)="add()">Add</button>
