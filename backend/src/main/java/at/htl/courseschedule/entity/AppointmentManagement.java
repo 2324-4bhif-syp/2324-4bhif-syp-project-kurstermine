@@ -19,7 +19,7 @@ public class AppointmentManagement {
     private Appointment appointment;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @MapsId("customerId")
+    @MapsId("instructorId")
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Instructor instructor;
     //endregion

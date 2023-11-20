@@ -1,5 +1,6 @@
 package at.htl.courseschedule.entity.ids;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 
@@ -7,8 +8,11 @@ import java.io.Serializable;
 
 @Embeddable
 public class AppointmentManagementId implements Serializable {
+    @JsonProperty("appointment_id")
     @Column(name = "appointment_id")
     private Long appointmentId;
+
+    @JsonProperty("instructor_id")
     @Column(name = "instructor_id")
     private Long instructorId;
 

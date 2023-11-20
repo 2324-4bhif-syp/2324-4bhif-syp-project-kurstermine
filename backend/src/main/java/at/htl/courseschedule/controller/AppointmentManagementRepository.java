@@ -26,13 +26,12 @@ public class AppointmentManagementRepository {
         return query.getResultList();
     }
 
-    public AppointmentManagement create(@NotNull AppointmentManagement appointmentManagement) {
+    public void create(@NotNull AppointmentManagement appointmentManagement) {
         if (appointmentManagement.getId() == null) {
-            return null;
+            return;
         }
 
-        em.persist(appointmentManagement);
-        return appointmentManagement;
+        em.merge(appointmentManagement);
     }
 
     public void delete(AppointmentManagementId id) {
