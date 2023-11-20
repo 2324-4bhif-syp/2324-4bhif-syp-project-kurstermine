@@ -13,7 +13,7 @@ export const fromAppointment = (appointment: Appointment): AppointmentDto => {
         id: appointment.id,
         address: appointment.address,
         date: appointment.date.toISOString(),
-        duration: appointment.duration,
+        duration: appointment.duration * 60,
         name: appointment.name
     }
 }

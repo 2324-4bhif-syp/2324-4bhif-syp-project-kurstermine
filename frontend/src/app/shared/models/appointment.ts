@@ -13,7 +13,7 @@ export const fromAppointmentDto = (appointment: AppointmentDto): Appointment => 
         id: appointment.id,
         address: appointment.address,
         date: new Date(appointment.date),
-        duration: appointment.duration,
+        duration: appointment.duration / 60,
         name: appointment.name
     }
 }

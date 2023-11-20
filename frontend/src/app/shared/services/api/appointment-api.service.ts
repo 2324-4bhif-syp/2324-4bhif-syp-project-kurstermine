@@ -25,15 +25,7 @@ export class AppointmentApiService {
       headers: this.headers
     }).pipe(
       map(appointments => {
-        return appointments.map<Appointment>(appointment => {
-          return {
-            id: appointment.id,
-            address: appointment.address,
-            date: new Date(appointment.date),
-            duration: appointment.duration,
-            name: appointment.name
-          }
-        });
+        return appointments.map<Appointment>(fromAppointmentDto);
       })
     )
   }
