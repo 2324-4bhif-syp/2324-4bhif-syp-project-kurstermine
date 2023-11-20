@@ -1,0 +1,22 @@
+<ul>
+    <li *ngFor="let particpation of particpationService.get()">
+        <div style="display: flex; align-items: center;">
+            <p>
+                {{ particpation.customer.lastName }} 
+                {{ particpation.customer.firstName }} 
+                ({{ particpation.customer.id }})
+            </p>
+            <button style="height: min-content;" (click)="remove(particpation)">-</button>
+        </div>
+    </li>
+
+    <select [(ngModel)]="selectedCustomer">
+        <option *ngFor="let customer of customerService.get()">
+            {{ customer.lastName }} 
+            {{ customer.firstName }} 
+            ({{ customer.id }})
+        </option>
+    </select>
+
+    <button (click)="add()">Add</button>
+</ul>
