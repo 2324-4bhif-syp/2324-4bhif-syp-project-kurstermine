@@ -32,7 +32,7 @@ export class CustomerApiService {
 
   public add(customer: Customer): Observable<Customer> {
     return this.http.post<CustomerDto>(this.url, fromCustomer(customer), {
-      headers: this.headers.set("Conent-Type", "application/json")
+      headers: this.headers.set("Content-Type", "application/json")
     }).pipe(
       map(customer => {
         return fromCustomerDto(customer)

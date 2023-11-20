@@ -1,9 +1,7 @@
-import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, catchError, map } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { environment } from 'src/environments/environment.development';
-import { Customer } from '../../models/customer';
-import { CustomerDto } from '../../models/dtos/customer-dto';
 import { Participation, fromParticipationDto } from '../../models/participation';
 import { ParticipationDto, fromParticipation } from '../../models/dtos/participation-dto';
 
@@ -34,7 +32,7 @@ export class ParticipationApiService {
 
   public add(participation: Participation): Observable<Participation> {
     return this.http.post<ParticipationDto>(this.url, fromParticipation(participation), {
-      headers: this.headers.set("Conent-Type", "application/json")
+      headers: this.headers.set("Content-Type", "application/json")
     }).pipe(
       map(participation => {
         return fromParticipationDto(participation)
