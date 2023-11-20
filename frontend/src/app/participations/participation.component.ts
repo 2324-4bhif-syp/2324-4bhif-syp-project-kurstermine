@@ -7,23 +7,23 @@ import { Participation } from '../shared/models/participation';
 
 @Component({
   selector: 'app-participations',
-  templateUrl: './participations.component.html',
-  styleUrls: ['./participations.component.css']
+  templateUrl: './participation.component.html',
+  styleUrls: ['./participation.component.css']
 })
-export class ParticipationsComponent {
+export class ParticipationComponent {
 
   @Input() appointment: Appointment | undefined;
   protected participationService: ParticipationService;
   protected customerService: CustomerService;
   protected selectedCustomer: Customer | undefined;
 
-  constructor(particpationService: ParticipationService, customerService: CustomerService) {
-    this.participationService = particpationService;
+  constructor(participationService: ParticipationService, customerService: CustomerService) {
+    this.participationService = participationService;
     this.customerService = customerService;
   }
 
-  protected getPartipations() {
-    return this.participationService.get(p => 
+  protected getParticipation() {
+    return this.participationService.get(p =>
       p.appointment.id == this.appointment?.id
     )
   }

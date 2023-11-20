@@ -1,9 +1,9 @@
 <ul>
-    <li *ngFor="let participation of getPartipations()">
+    <li *ngFor="let participation of getParticipation()">
         <div style="display: flex; align-items: center;">
             <p>
-                {{ participation.customer.lastName }} 
-                {{ participation.customer.firstName }} 
+                {{ participation.customer.lastName }}
+                {{ participation.customer.firstName }}
                 ({{ participation.customer.id }})
             </p>
             <button style="height: min-content;" (click)="remove(participation)">-</button>
@@ -12,8 +12,8 @@
 
     <select [(ngModel)]="selectedCustomer">
         <option *ngFor="let customer of customerService.get()" [ngValue]="customer">
-            {{ customer.lastName }} 
-            {{ customer.firstName }} 
+            {{ customer.lastName }}
+            {{ customer.firstName }}
             ({{ customer.id }})
         </option>
     </select>
