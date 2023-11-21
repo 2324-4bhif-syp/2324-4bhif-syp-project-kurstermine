@@ -1,3 +1,5 @@
+db-postgres/
+
 #Maven
 target/
 pom.xml.tag

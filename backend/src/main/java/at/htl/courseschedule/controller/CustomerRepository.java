@@ -1,75 +1,47 @@
 package at.htl.courseschedule.controller;
 
 import at.htl.courseschedule.entity.Customer;
-import io.quarkus.logging.Log;
 import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.validation.constraints.NotNull;
+import jakarta.inject.Inject;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.TypedQuery;
 
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @ApplicationScoped
 public class CustomerRepository {
-    private Map<Long, Customer> customers;
-    private Long lastKey;
+    @Inject
+    EntityManager em;
 
-    public CustomerRepository() {
-        this.customers = new HashMap<>();
-        this.lastKey = 0L;
+    public Customer getById(Long id) {
+        return em.find(Customer.class, id);
     }
 
-    public void addCustomer(@NotNull Customer customer) {
-        customers.put(++lastKey, customer);
-        customer.setId(lastKey);
+    public List<Customer> getAll() {
+        TypedQuery<Customer> query = em.createQuery("select c from Customer c", Customer.class);
+        return query.getResultList();
     }
 
-    public List<Customer> getAllCustomers() {
-        return customers.values().stream().toList();
+    public Customer create(Customer customer) {
+        em.persist(customer);
+        return customer;
     }
 
-    public Customer getCustomer(Long id) {
-        return customers.values().stream()
-                .filter(customer -> customer.getId().equals(id))
-                .findAny().orElse(null);
-    }
-
-    /**
-     * Loads the Content of the Repository
-     * <p>Should only be used on startup and after unittests</p>
-     */
-    public void loadCustomers(String fileLocation) {
-        this.customers = new HashMap<>();
-        lastKey = 0L;
-
-        try {
-            List<String> lines = Files.readAllLines(Path.of(fileLocation));
-            lines.stream()
-                    .skip(1)
-                    .filter(s -> !s.isBlank() && !s.isEmpty())
-                    .forEach(line -> {
-                        String[] elements = line.split(",");
-                        addCustomer(new Customer(elements[0], elements[1], elements[2], LocalDate.parse(elements[3])));
-                    });
-        } catch (Exception e) {
-            Log.error("Error while reading from file", e);
+    public void delete(Long id) {
+        Customer customer = getById(id);
+        if (customer != null) {
+            em.remove(customer);
         }
     }
 
-    public void writeCustomersToFile(String filepath) {
-        List<String> lines = new ArrayList<>();
-        lines.add("Firstname,Lastname,Email,Birthdate"); // add headline
-
-        getAllCustomers().forEach(customer -> lines.add(customer.toCsvString()));
-
-        try {
-            Files.write(Path.of(filepath), lines);
-        } catch (Exception e) {
-            Log.error("Error while writing to file", e);
+    public Customer update(Long id, Customer newCustomer) {
+        if (getById(id) == null) {
+            return null;
         }
+
+        newCustomer.setId(id);
+        em.merge(newCustomer);
+
+        return newCustomer;
     }
 }

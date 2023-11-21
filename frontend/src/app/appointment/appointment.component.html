@@ -1,0 +1,22 @@
+<label>
+    Select an appointment
+
+    <select [(ngModel)]="appointment">
+        <option *ngFor="let a of appointmentService.get()" [ngValue]="a">
+            {{ a.name }} {{ a.date.toLocaleDateString() }} ({{ a.id }})
+        </option>
+    </select>
+</label>
+
+<div *ngIf="appointment">
+    <p>{{ appointment.name }} on {{ appointment.date.toDateString() }} at {{ appointment.address }} ({{ appointment.duration }} min)</p>
+
+    <h3>Instructors</h3>
+
+    <app-appointment-management [appointment]="appointment"/>
+
+    <h3>Participants</h3>
+
+    <app-participations [appointment]="appointment" />
+</div>
+

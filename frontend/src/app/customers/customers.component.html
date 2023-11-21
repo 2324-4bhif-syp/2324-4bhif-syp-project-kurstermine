@@ -1,39 +1,47 @@
 <table>
   <tr>
+    <th>Id</th>
     <th>First Name</th>
     <th>Last Name</th>
     <th>Email</th>
     <th>Birthday</th>
   </tr>
-  <tr *ngFor="let customer of customers">
+  <tr *ngFor="let customer of customerService.get()">
     <td>
-      {{ customer?.first_name }}
+      {{ customer?.id }}
     </td>
     <td>
-      {{ customer?.last_name }}
+      {{ customer?.firstName }}
+    </td>
+    <td>
+      {{ customer?.lastName }}
     </td>
     <td>
       {{ customer?.email }}
     </td>
     <td>
-      {{ customer?.date_of_birth?.toLocaleDateString() }}
+      {{ customer?.dateOfBirth?.toLocaleDateString() }}
     </td>
   </tr>
   <tr>
     <td>
-        <input type="text" placeholder="first name" [(ngModel)]="newCustomer.first_name">
+
     </td>
     <td>
-        <input type="text" placeholder="last name" [(ngModel)]="newCustomer.last_name">
+      <input type="text" placeholder="first name" [(ngModel)]="newCustomer.firstName">
     </td>
     <td>
-        <input type="text" placeholder="email" [(ngModel)]="newCustomer.email">
+      <input type="text" placeholder="last name" [(ngModel)]="newCustomer.lastName">
     </td>
     <td>
-        <input type="date" placeholder="birthday" [valueAsDate]="newCustomer.date_of_birth" (input)="newCustomer.date_of_birth = parseDate($event)">
+      <input type="text" placeholder="email" [(ngModel)]="newCustomer.email">
     </td>
     <td>
-        <button (click)="add()">Add</button>
+      <input type="date" placeholder="birthday" [valueAsDate]="newCustomer.dateOfBirth"
+        (input)="newCustomer.dateOfBirth = parseDate($event)">
+    </td>
+    <td>
+      <button (click)="add()">Add</button>
     </td>
   </tr>
 </table>

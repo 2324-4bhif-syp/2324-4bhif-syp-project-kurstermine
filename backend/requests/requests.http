@@ -3,14 +3,32 @@ GET http://localhost:8080/customers
 Accept: application/json
 
 ###
+GET http://localhost:8080/customers/1
+Accept: application/json
+
+###
 POST http://localhost:8080/customers
 Content-Type: application/json
 
 {
-  "firstName": "Lukas",
-  "lastName": "Sonnleitner",
+  "first_name": "Lukas",
+  "last_name": "Sonnleitner",
   "email": "l.sonnleitner@gmail.com",
-  "dateOfBirth": "2006-02-28"
+  "date_of_birth": "2006-02-28"
 }
+
+###
+PUT http://localhost:8080/customers/1
+Content-Type: application/json
+
+{
+  "first_name": "Luki",
+  "last_name": "Sonni",
+  "email": "l.sonni@gmail.com",
+  "date_of_birth": "2006-02-28"
+}
+
+###
+DELETE http://localhost:8080/customers/1
 
 ###

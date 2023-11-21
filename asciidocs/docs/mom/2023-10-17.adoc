@@ -1,4 +1,4 @@
-= Erstes Sprint-planing
+= Erste Sprintplanung
 firstname lastname
 1.0, yyyy-mm-dd: Some notes
 ifndef::imagesdir[:imagesdir: images]
@@ -19,8 +19,6 @@ endif::backend-html5[]
 .Teilnehmer
 |===
 |anwesend
-
-|Vorname Nachname
 
 |Herr Prof. Aberger
 

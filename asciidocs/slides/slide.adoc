@@ -1,0 +1,26 @@
+= Kurstermine
+
+:revealjs_theme: white
+:customcss: css/slides.css
+ifndef::imagesdir[:imagesdir: ../images]
+
+== Team
+* Winnie Ilming
+* Moritz Gruber
+* Lukas Sonnleitner
+* Bajtik Berg
+
+== Warum Kurstermine?
+* Ermöglicht Kunden, sich in Kursen zu registrieren
+** Kunden können auch abgemeldet werden, falls sie zu einem vereinbarten Termin nicht erscheinen können
+* Im Falle einer Absage eines Kunden kann sich ein anderer Kunde für den Termin anmelden
+
+=== [.margin-b-10]#Terminologie#
+* *Server*: Quarkus backend zum Verwalten der Entitäten
+* *Frontend*: Angular frontend zum Anzeigen von Kursen, Packages und Kunden
+** *Login*: für unterschiedliche Benutzerrollen
+
+=== Konfiguration
+* Projekt wird auf Oracle Cloud gehostet
+
+=== Live Demo

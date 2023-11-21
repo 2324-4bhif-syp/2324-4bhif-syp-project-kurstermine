@@ -1,0 +1,23 @@
+<ul>
+  <li *ngFor="let appointmentManagement of get()">
+    <div style="display: flex; align-items: center;">
+      <p>
+        {{ appointmentManagement.instructor.lastName }}
+        {{ appointmentManagement.instructor.firstName }}
+        ({{ appointmentManagement.instructor.id }})
+      </p>
+      <button style="height: min-content;" (click)="remove(appointmentManagement)">-</button>
+    </div>
+  </li>
+
+  <select [(ngModel)]="selectedInstructor">
+    <option *ngFor="let instructor of instructorService.get()" [ngValue]="instructor">
+      {{ instructor.lastName }}
+      {{ instructor.firstName }}
+      ({{ instructor.id }})
+    </option>
+  </select>
+
+  <button (click)="add()">Add</button>
+</ul>
+

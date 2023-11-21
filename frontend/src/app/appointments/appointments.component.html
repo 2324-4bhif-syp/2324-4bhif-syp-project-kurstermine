@@ -1,0 +1,46 @@
+<table>
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Address</th>
+        <th>Duration [min]</th>
+        <th>Start</th>
+    </tr>
+    <tr *ngFor="let customer of appointmentService.get()">
+        <td>
+            {{ customer?.id }}
+        </td>
+        <td>
+            {{ customer?.name }}
+        </td>
+        <td>
+            {{ customer?.address }}
+        </td>
+        <td>
+            {{ customer?.duration }}
+        </td>
+        <td>
+            {{ customer?.date?.toLocaleDateString() }} {{ customer.date.toLocaleTimeString() }}
+        </td>
+    </tr>
+    <tr>
+        <td>
+
+        </td>
+        <td>
+            <input type="text" placeholder="name" [(ngModel)]="newAppointment.name">
+        </td>
+        <td>
+            <input type="text" placeholder="address" [(ngModel)]="newAppointment.address">
+        </td>
+        <td>
+            <input type="number" placeholder="duration" [(ngModel)]="newAppointment.duration">
+        </td>
+        <td>
+            <input type="datetime-local" placeholder="date" [valueAsDate]="newAppointment.date" (input)="newAppointment.date = parseDate($event)">
+        </td>
+        <td>
+            <button (click)="add()">Add</button>
+        </td>
+    </tr>
+</table>
