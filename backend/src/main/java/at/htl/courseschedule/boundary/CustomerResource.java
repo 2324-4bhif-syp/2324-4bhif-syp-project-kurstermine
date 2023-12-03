@@ -2,6 +2,7 @@ package at.htl.courseschedule.boundary;
 
 import at.htl.courseschedule.controller.CustomerRepository;
 import at.htl.courseschedule.entity.Customer;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.*;
@@ -15,6 +16,7 @@ public class CustomerResource {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
+    @RolesAllowed("admin")
     public Response getAllCustomers() {
         return Response.ok(customerRepository.getAll()).build();
     }
@@ -22,6 +24,7 @@ public class CustomerResource {
     @GET
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
+    @RolesAllowed("admin")
     public Response getCustomer(@PathParam("id") Long id) {
         Customer customer = customerRepository.getById(id);
 
@@ -36,6 +39,7 @@ public class CustomerResource {
     @Transactional
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
+    @RolesAllowed("admin")
     public Response createCustomer(Customer customer, @Context UriInfo uriInfo) {
         if (customer == null) {
             return Response.status(400).build();
@@ -53,6 +57,7 @@ public class CustomerResource {
     @Transactional
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
+    @RolesAllowed("admin")
     public Response deleteCustomerById(@PathParam("id") Long id) {
         customerRepository.delete(id);
         return Response.status(200).build();
@@ -63,7 +68,8 @@ public class CustomerResource {
     @Path("{id}")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response updatePlayerPut(@PathParam("id") Long id, Customer newCustomer) {
+    @RolesAllowed("admin")
+    public Response updatePlayer(@PathParam("id") Long id, Customer newCustomer) {
         Customer updatedCustomer = customerRepository.update(id, newCustomer);
 
         if (updatedCustomer == null) {
