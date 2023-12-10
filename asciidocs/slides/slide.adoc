@@ -51,3 +51,7 @@ image::architecture.png[height=80%, width=80%]
 
 [background-video="baby-video4.mp4",background-video-loop=true,background-video-muted=true,background-opacity="0.5"]
 === Live Demo
+
+=== Quellen
+* Videos: link:https://www.pexels.com/search/videos/baby%20swimming/[Pexels]
+* Architecture-Image: link:https://htl-leonding-college.github.io/quarkus-security-lecture-notes/keycloak-angular.html[Stütz ● Punkt]
