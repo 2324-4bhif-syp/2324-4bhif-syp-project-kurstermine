@@ -3,6 +3,7 @@ package at.htl.courseschedule.boundary;
 import at.htl.courseschedule.controller.ParticipationRepository;
 import at.htl.courseschedule.entity.Participation;
 import at.htl.courseschedule.entity.ids.ParticipationId;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.*;
@@ -17,6 +18,7 @@ public class ParticipationResource {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
+    @RolesAllowed({"organisator", "admin"})
     public Response getAllParticipations() {
         return Response.ok(participationRepository.getAll()).build();
     }
@@ -24,6 +26,7 @@ public class ParticipationResource {
     @GET
     @Path("{appointmentId}")
     @Produces(MediaType.APPLICATION_JSON)
+    @RolesAllowed({"instructor", "organisator", "admin"})
     public Response getParticipation(@PathParam("appointmentId") Long appointmentId) {
         List<Participation> participation = participationRepository.getByAppointmentId(appointmentId);
 
@@ -38,6 +41,7 @@ public class ParticipationResource {
     @Transactional
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
+    @RolesAllowed({"user","organisator", "admin"})
     public Response createParticipation(Participation participation, @Context UriInfo uriInfo) {
         if (participation == null) {
             return Response.status(400).build();
@@ -54,6 +58,7 @@ public class ParticipationResource {
     @DELETE
     @Transactional
     @Path("{appointmentId}/{customerId}")
+    @RolesAllowed({"instructor", "organisator", "admin"})
     @Produces(MediaType.APPLICATION_JSON)
     public Response deleteParticipationById(@PathParam("appointmentId") Long appointmentId,
                                             @PathParam("customerId") Long customerId) {

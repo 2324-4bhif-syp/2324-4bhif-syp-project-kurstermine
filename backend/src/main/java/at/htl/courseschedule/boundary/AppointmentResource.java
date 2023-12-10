@@ -2,6 +2,7 @@ package at.htl.courseschedule.boundary;
 
 import at.htl.courseschedule.controller.AppointmentRepository;
 import at.htl.courseschedule.entity.Appointment;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.*;
@@ -35,6 +36,7 @@ public class AppointmentResource {
     @Transactional
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
+    @RolesAllowed({"organisator", "admin"})
     public Response createAppointment(Appointment appointment, @Context UriInfo uriInfo) {
         if (appointment == null) {
             return Response.status(400).build();
@@ -53,6 +55,7 @@ public class AppointmentResource {
     @Path("{id}")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
+    @RolesAllowed({"organisator", "admin"})
     public Response deleteAppointmentById(@PathParam("id") Long id) {
         appointmentRepository.delete(id);
         return Response.status(200).build();
@@ -63,6 +66,7 @@ public class AppointmentResource {
     @Path("{id}")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
+    @RolesAllowed({"organisator", "admin"})
     public Response updateAppointmentById(@PathParam("id") Long id, Appointment newAppointment) {
         Appointment appointment = appointmentRepository.update(id, newAppointment);
 
