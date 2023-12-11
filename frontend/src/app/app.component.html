@@ -1,15 +1,15 @@
-<h1>Customers</h1>
+<h1>Course Schedule</h1>
 
-<app-customers/>
+<ul class="nav nav-tabs">
+  <li routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+    <a routerLink="/">Customers</a>
+  </li>
+  <li routerLinkActive="active">
+    <a routerLink="instructors">Instructors</a>
+  </li>
+  <li routerLinkActive="active">
+    <a routerLink="appointments">Appointments</a>
+  </li>
+</ul>
 
-<h1>Instructors</h1>
-
-<app-instructors/>
-
-<h1>Appointments</h1>
-
-<app-appointments/>
-
-<h1>Appointment</h1>
-
-<app-appointment/>
+<router-outlet></router-outlet>
