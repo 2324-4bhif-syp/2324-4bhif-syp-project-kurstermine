@@ -57,6 +57,12 @@ Authorization: Bearer {{access_token}}
 
 ###
 
+GET localhost:8080/appointments/user
+Authorization: Bearer {{access_token}}
+Content-Type: */*
+
+###
+
 ### admin: Authorization by token, part 1. Retrieve and save token.
 
 POST http://localhost:8180/realms/htl/protocol/openid-connect/token

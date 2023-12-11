@@ -2,7 +2,6 @@ package at.htl.courseschedule.boundary;
 
 import at.htl.courseschedule.controller.AppointmentRepository;
 import at.htl.courseschedule.entity.Appointment;
-import at.htl.courseschedule.entity.Customer;
 import io.quarkus.security.identity.SecurityIdentity;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
@@ -40,8 +39,10 @@ public class AppointmentResource {
     @GET
     @Path("/user")
     @Produces(MediaType.APPLICATION_JSON)
+    @RolesAllowed("user")
     public Response getAppointmentByParticipationId() {
-        return Response.ok(appointmentRepository.getAppointmentByUserName(identity.getPrincipal().getName())).build();
+        return Response.ok(appointmentRepository.getAppointmentByUserName(
+                identity.getPrincipal().getName())).build();
     }
 
     @POST

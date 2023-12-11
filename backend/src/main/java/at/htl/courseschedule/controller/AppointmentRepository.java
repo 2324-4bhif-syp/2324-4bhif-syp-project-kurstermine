@@ -1,6 +1,8 @@
 package at.htl.courseschedule.controller;
 
 import at.htl.courseschedule.entity.Appointment;
+import at.htl.courseschedule.entity.Customer;
+import at.htl.courseschedule.entity.Participation;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
@@ -10,6 +12,11 @@ import java.util.List;
 
 @ApplicationScoped
 public class AppointmentRepository {
+    @Inject
+    CustomerRepository customerRepository;
+    @Inject
+    ParticipationRepository participationRepository;
+
     @Inject
     EntityManager em;
 
@@ -21,11 +28,9 @@ public class AppointmentRepository {
     }
 
     public List<Appointment> getAppointmentByUserName(String name) {
-        TypedQuery<Appointment> query = em.createQuery(
-                "select a from Appointment a where a.id = " +
-                        "(select p.appointment.id from Participation p where p.customer.firstName = :name)", Appointment.class);
-        query.setParameter("name", name);
-        return query.getResultList();
+        Customer customer = customerRepository.getByName(name);
+        List<Participation> participations = participationRepository.getAllByUserId(customer.getId());
+        return participations.stream().map(Participation::getAppointment).toList();
     }
 
     public Appointment create(Appointment appointment) {
