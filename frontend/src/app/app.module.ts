@@ -16,12 +16,15 @@ import {RouterModule, Routes} from "@angular/router";
 import {AuthGuard} from "./guard/auth.guard";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {UserAppointmentsComponent} from "./user-appointments/user-appointments.component";
+import { UserComponent } from './user/user.component';
+import { RoleGuard } from './guard/role.guard';
 
 const routes: Routes = [
   { path: '', redirectTo: 'customers', pathMatch: 'full'},
-  { path: 'customers', component: CustomersComponent, canActivate: [AuthGuard] },
-  { path: 'instructors', component: InstructorsComponent },
-  { path: 'appointments', component: UserAppointmentsComponent }
+  { path: 'customers', component: CustomersComponent, canActivate: [AuthGuard, RoleGuard],  data: { roles: ['admin'] } },
+  { path: 'instructors', component: InstructorsComponent, canActivate: [AuthGuard, RoleGuard], data: { roles: ['admin'] } },
+  { path: 'appointments', component: UserAppointmentsComponent },
+  { path: 'user', component: UserComponent, canActivate: [AuthGuard] },
 ];
 
 @NgModule({
