@@ -20,6 +20,14 @@ public class AppointmentRepository {
         return query.getResultList();
     }
 
+    public List<Appointment> getAppointmentByUserName(String name) {
+        TypedQuery<Appointment> query = em.createQuery(
+                "select a from Appointment a where a.id = " +
+                        "(select p.appointment.id from Participation p where p.customer.firstName = :name)", Appointment.class);
+        query.setParameter("name", name);
+        return query.getResultList();
+    }
+
     public Appointment create(Appointment appointment) {
         em.persist(appointment);
         return appointment;

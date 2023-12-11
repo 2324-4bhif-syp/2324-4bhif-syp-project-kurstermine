@@ -10,7 +10,7 @@ values ('Johann', 'Maier', 'johann.maier@yahoo.com'),
        ('Herbert', 'Huber', 'herbert.huber@gmx.com'),
        ('Julia', 'Schneider', 'julia.schneider@outlook.com'),
        ('Paul', 'Schulz', 'paul.schulz@aol.com'),
-       ('Anna', 'Struff', 'anna.struff@juno.com');
+       ('Elise', 'Struff', 'anna.struff@juno.com');
 insert into Customer (id, date_of_birth)
 values (1, '2012-12-23'),
        (2, '1980-10-11'),
