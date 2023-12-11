@@ -16,8 +16,6 @@ export class UserComponent {
   constructor(keycloak: KeycloakService) {
     this.keycloak = keycloak;
 
-    console.log(this.keycloak.isLoggedIn());
-
     keycloak.loadUserProfile().then(profile => {
       this.userProfile = profile;
     })

@@ -24,11 +24,6 @@ public class AppointmentRepository {
         return query.getResultList();
     }
 
-    public List<Appointment> getAppointmentByCustomerId(Long id) {
-        List<Participation> participations = participationRepository.getAllByUserId(id);
-        return participations.stream().map(Participation::getAppointment).toList();
-    }
-
     public Appointment create(Appointment appointment) {
         em.persist(appointment);
         return appointment;

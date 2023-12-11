@@ -24,6 +24,14 @@ public class ParticipationResource {
     }
 
     @GET
+    @Path("/customer/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    @RolesAllowed("user")
+    public Response getParticipationsByCustomerId(@PathParam("id") Long id) {
+        return Response.ok(participationRepository.getAllByUserId(id)).build();
+    }
+
+    @GET
     @Path("{appointmentId}")
     @Produces(MediaType.APPLICATION_JSON)
     @RolesAllowed({"instructor", "organisator", "admin"})

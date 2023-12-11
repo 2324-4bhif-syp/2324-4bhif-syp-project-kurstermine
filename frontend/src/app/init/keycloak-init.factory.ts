@@ -14,8 +14,8 @@ export function initializeKeycloak(keycloak: KeycloakService) {
         redirectUri: 'http://localhost:4200',
         // this will solved the error
         checkLoginIframe: false,
-        
-      }
+      },
+      loadUserProfileAtStartUp: true
     }
   );
 }

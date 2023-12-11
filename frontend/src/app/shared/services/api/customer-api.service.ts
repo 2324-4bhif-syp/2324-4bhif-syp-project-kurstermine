@@ -1,33 +1,16 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
-import { environment } from 'src/environments/environment.development';
 import { Customer, fromCustomerDto } from '../../models/customer';
 import { CustomerDto, fromCustomer } from '../../models/dtos/customer-dto';
+import {ApiService} from "./api.service";
 
 @Injectable({
   providedIn: 'root'
 })
-export class CustomerApiService {
-
-  protected http: HttpClient;
-  protected url: string;
-  protected headers: HttpHeaders;
-
+export class CustomerApiService extends ApiService<Customer, CustomerDto>{
   constructor(http: HttpClient) {
-    this.http = http;
-    this.url = `${environment.apiUrl}/customers`;
-    this.headers = new HttpHeaders().set("Accept", "application/json");
-  }
-
-  public getAll(): Observable<Customer[]> {
-    return this.http.get<CustomerDto[]>(this.url, {
-      headers: this.headers
-    }).pipe(
-      map(customers => {
-          return customers.map<Customer>(fromCustomerDto);
-      })
-    )
+    super(http, "customers", fromCustomerDto)
   }
 
   public getLoggedInCustomer() {

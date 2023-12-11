@@ -21,6 +21,18 @@ export class RoleGuard extends KeycloakAuthGuard {
     if (!this.roles || this.roles.length === 0) {
       return false;
     }
-    return requiredRoles.every(role => this.roles.includes(role));
+    return requiredRoles.every(role => {
+      let includesRole = this.roles.includes(role);
+
+      if (role === 'user' && !includesRole) {
+        this.router.navigate(['admin']);
+        return true;
+      } else if (role === 'admin' && !includesRole) {
+        this.router.navigate(['']);
+        return true;
+      }
+
+      return includesRole
+    });
   }
 }

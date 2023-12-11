@@ -10,28 +10,56 @@ import { AppointmentService } from './appointment.service';
 })
 export class ParticipationService extends Service<Participation> {
 
-  protected api: ParticipationApiService;
-  protected customerService: CustomerService;
-  protected appointmentService: AppointmentService;
-
-  constructor(api: ParticipationApiService, customerService: CustomerService, appointmentService: AppointmentService) {
+  constructor(protected api: ParticipationApiService, protected customerService: CustomerService,
+              protected appointmentService: AppointmentService) {
     super();
 
-    this.api = api;
-    this.customerService = customerService;
-    this.appointmentService = appointmentService;
+    if (!customerService.finished && !appointmentService.finished) {
+      let isServiceFinished = false;
 
-    api.getAll().subscribe({
+      customerService.finishedListeners.push(() => {
+        isServiceFinished = !isServiceFinished
+
+        if (!isServiceFinished) {
+          this.getItems();
+        }
+      });
+
+      appointmentService.finishedListeners.push(() => {
+        isServiceFinished = !isServiceFinished
+
+        if (!isServiceFinished) {
+          this.getItems();
+        }
+      });
+      return;
+    }
+
+    if (customerService.finished) {
+      appointmentService.finishedListeners.push(() => this.getItems());
+      return;
+    }
+
+    if (appointmentService.finished) {
+      customerService.finishedListeners.push(() => this.getItems());
+      return;
+    }
+
+    this.getItems();
+  }
+
+  getItems() {
+    this.api.getAll().subscribe({
       next: (participations) => {
         participations.forEach(participation => {
           super.add({
             id: participation.id,
-            appointment: appointmentService.get(a => a.id === participation.id?.appointmentId)[0],
-            customer: customerService.get(c => c.id === participation.id?.customerId)[0]
+            appointment: this.appointmentService.get(a => a.id === participation.id?.appointmentId)[0],
+            customer: this.customerService.get(c => c.id === participation.id?.customerId)[0]
           })
         });
       }
-    })
+    });
   }
 
   override add(item: Participation): void {
@@ -48,5 +76,19 @@ export class ParticipationService extends Service<Participation> {
           super.remove(item);
         }
       })
+  }
+
+  getAllFromUser(id: number): void {
+    this.api.getAllFromCustomer(id).subscribe({
+      next: (participations) => {
+        participations.forEach(participation => {
+          super.add({
+            id: participation.id,
+            appointment: this.appointmentService.get(a => a.id === participation.id?.appointmentId)[0],
+            customer: this.customerService.get(c => c.id === participation.id?.customerId)[0]
+          })
+        });
+      }
+    });
   }
 }

@@ -32,14 +32,6 @@ public class AppointmentResource {
         return Response.ok(appointment).build();
     }
 
-    @GET
-    @Path("/customer/{id}")
-    @Produces(MediaType.APPLICATION_JSON)
-    @RolesAllowed("user")
-    public Response getAppointmentsByCustomerId(@PathParam("id") Long id) {
-        return Response.ok(appointmentRepository.getAppointmentByCustomerId(id)).build();
-    }
-
     @POST
     @Transactional
     @Consumes(MediaType.APPLICATION_JSON)

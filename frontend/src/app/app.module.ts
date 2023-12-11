@@ -12,21 +12,9 @@ import {InstructorsComponent} from "./instructors/instructors.component";
 import { AppointmentManagementComponent } from './appointment-management/appointment-management.component';
 import {initializeKeycloak} from "./init/keycloak-init.factory";
 import {KeycloakAngularModule, KeycloakService} from "keycloak-angular";
-import {RouterModule, Routes} from "@angular/router";
-import {AuthGuard} from "./guard/auth.guard";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {UserAppointmentsComponent} from "./user-appointments/user-appointments.component";
-import { UserComponent } from './user/user.component';
-import { RoleGuard } from './guard/role.guard';
-
-const routes: Routes = [
-  { path: '', redirectTo: 'customers', pathMatch: 'full'},
-  { path: 'customers', component: CustomersComponent, canActivate: [AuthGuard, RoleGuard],  data: { roles: ['admin'] } },
-  { path: 'instructors', component: InstructorsComponent, canActivate: [AuthGuard, RoleGuard], data: { roles: ['admin'] } },
-  { path: 'appointments-user', component: UserAppointmentsComponent, canActivate: [AuthGuard, RoleGuard], data: { roles: ['user'] } },
-  { path: 'appointments-admin', component: AppointmentsComponent, canActivate: [AuthGuard, RoleGuard], data: { roles: ['admin'] } },
-  { path: 'user', component: UserComponent, canActivate: [AuthGuard] },
-];
+import {MatButtonModule} from "@angular/material/button";
+import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
   declarations: [
@@ -39,12 +27,13 @@ const routes: Routes = [
     AppointmentManagementComponent
   ],
   imports: [
-    BrowserModule,
-    HttpClientModule,
-    FormsModule,
-    KeycloakAngularModule,
-    RouterModule.forRoot(routes),
-    BrowserAnimationsModule
+      BrowserModule,
+      HttpClientModule,
+      FormsModule,
+      KeycloakAngularModule,
+      BrowserAnimationsModule,
+      MatButtonModule,
+      AppRoutingModule
   ],
   providers: [
     {

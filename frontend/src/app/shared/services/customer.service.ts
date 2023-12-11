@@ -10,6 +10,7 @@ import {Observable} from "rxjs";
 export class CustomerService extends Service<Customer> {
 
   protected api: CustomerApiService;
+  finished = false;
 
   constructor(customerApiService: CustomerApiService) {
     super();
@@ -18,7 +19,9 @@ export class CustomerService extends Service<Customer> {
 
     this.api.getAll().subscribe({
       next: (customers) => {
-        super.add(...customers)
+        super.add(...customers);
+        this.finished = true;
+        this.notifyListeners();
       }
     });
   }
@@ -34,4 +37,10 @@ export class CustomerService extends Service<Customer> {
   getLoggedInCustomer(): Observable<Customer> {
     return this.api.getLoggedInCustomer();
   }
+
+  notifyListeners() {
+    this.finishedListeners.forEach(listener => listener());
+  }
+
+  finishedListeners: (() => void)[] = [];
 }

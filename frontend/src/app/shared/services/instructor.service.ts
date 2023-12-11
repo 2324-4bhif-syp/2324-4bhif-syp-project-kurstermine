@@ -9,6 +9,7 @@ import {InstructorApiService} from "./api/instructor-api.service";
 export class InstructorService extends Service<Instructor> {
 
   protected api: InstructorApiService;
+  finished = false;
 
   constructor(instructorApiService: InstructorApiService) {
     super();
@@ -17,9 +18,11 @@ export class InstructorService extends Service<Instructor> {
 
     this.api.getAll().subscribe({
       next: (instructors) => {
-        super.add(...instructors)
+        super.add(...instructors);
+        this.finished = true;
+        this.notifyListeners();
       }
-    })
+    });
   }
 
   override add(item: Instructor): void {
@@ -29,4 +32,10 @@ export class InstructorService extends Service<Instructor> {
       })
     });
   }
+
+  notifyListeners() {
+    this.finishedListeners.forEach(listener => listener());
+  }
+
+  finishedListeners: (() => void)[] = [];
 }

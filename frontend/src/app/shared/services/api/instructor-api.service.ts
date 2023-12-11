@@ -1,33 +1,16 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {environment} from "../../../../environments/environment.development";
+import {HttpClient} from "@angular/common/http";
 import {map, Observable} from "rxjs";
 import {fromInstructor, InstructorDto} from "../../models/dtos/instructor-dto";
 import {fromInstructorDto, Instructor} from "../../models/instructor";
+import {ApiService} from "./api.service";
 
 @Injectable({
   providedIn: 'root'
 })
-export class InstructorApiService {
-
-  protected http: HttpClient;
-  protected url: string;
-  protected headers: HttpHeaders;
-
+export class InstructorApiService extends ApiService<Instructor, InstructorDto>{
   constructor(http: HttpClient) {
-    this.http = http;
-    this.url = `${environment.apiUrl}/instructors`;
-    this.headers = new HttpHeaders().set("Accept", "application/json");
-  }
-
-  public getAll(): Observable<Instructor[]> {
-    return this.http.get<InstructorDto[]>(this.url, {
-      headers: this.headers
-    }).pipe(
-      map(instructors => {
-        return instructors.map<Instructor>(fromInstructorDto);
-      })
-    )
+    super(http, "instructors", fromInstructorDto);
   }
 
   public add(instructor: Instructor): Observable<Instructor> {

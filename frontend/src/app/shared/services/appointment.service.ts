@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { AppointmentApiService } from './api/appointment-api.service';
 import { Service } from './service';
 import { Appointment } from '../models/appointment';
-import {Observable} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +9,7 @@ import {Observable} from "rxjs";
 export class AppointmentService extends Service<Appointment> {
 
   protected api: AppointmentApiService;
+  finished = false;
 
   constructor(appointmentApiService: AppointmentApiService) {
     super()
@@ -19,6 +19,8 @@ export class AppointmentService extends Service<Appointment> {
     this.api.getAll().subscribe({
       next: (appointments) => {
         super.add(...appointments);
+        this.finished = true;
+        this.notifyListeners();
       }
     });
   }
@@ -31,7 +33,9 @@ export class AppointmentService extends Service<Appointment> {
     });
   }
 
-  getAllFromUser(id: number): Observable<Appointment[]> {
-    return this.api.getAllFromCustomer(id);
+  notifyListeners() {
+    this.finishedListeners.forEach(listener => listener());
   }
+
+  finishedListeners: (() => void)[] = [];
 }

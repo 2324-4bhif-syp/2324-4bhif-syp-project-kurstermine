@@ -1,18 +1,31 @@
-<h1 class="font-bold">Course Schedule</h1>
+<table style="width: 85%">
+  <tr>
+    <td>
+      <button mat-button (click)="keycloak.logout()">Log out</button>
+    </td>
+    <td>
+      <h1>Course Schedule</h1>
+    </td>
+  </tr>
+</table>
 
 <ul class="nav nav-tabs">
-  <li routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+  @if (isAdmin) {
+    <!--li routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
     <a routerLink="/">Customers</a>
-  </li>
-  <li routerLinkActive="active">
-    <a routerLink="instructors">Instructors</a>
-  </li>
-  <li routerLinkActive="active">
-    <a routerLink="appointments-user">Appointments-User</a>
-  </li>
-  <li routerLinkActive="active">
-    <a routerLink="appointments-admin">Appointments-Admin</a>
-  </li>
+  </li-->
+    <li routerLinkActive="active">
+      <a routerLink="instructors">Instructors</a>
+    </li>
+    <li routerLinkActive="active">
+      <a routerLink="appointments">Appointments</a>
+    </li>
+  } @else {
+    <li routerLinkActive="active">
+      <a routerLink="appointments-user">Appointments</a>
+    </li>
+  }
+
   <li routerLinkActive="active">
     <a routerLink="user">User</a>
   </li>

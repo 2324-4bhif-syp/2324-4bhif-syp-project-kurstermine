@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {KeycloakService} from "keycloak-angular";
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'frontend';
+  constructor(protected keycloak: KeycloakService) {
+    this.isAdmin = keycloak.getUserRoles().includes("admin")
+  }
+
+  isAdmin = false
 }

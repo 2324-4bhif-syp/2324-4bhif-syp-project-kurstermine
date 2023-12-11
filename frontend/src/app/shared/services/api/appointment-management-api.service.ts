@@ -1,30 +1,16 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
-import { environment } from 'src/environments/environment.development';
 import {AppointmentManagement, fromAppointmentManagementDto} from "../../models/appointmentManagement";
 import {AppointmentManagementDto, fromAppointmentManagement} from "../../models/dtos/appointment-management-dto";
+import {ApiService} from "./api.service";
 
 @Injectable({
   providedIn: 'root'
 })
-export class AppointmentManagementApiService {
-
-  protected http: HttpClient;
-  protected url: string;
-  protected headers: HttpHeaders;
-
+export class AppointmentManagementApiService extends ApiService<AppointmentManagement, AppointmentManagementDto> {
   constructor(http: HttpClient) {
-    this.http = http;
-    this.url = `${environment.apiUrl}/appointment-managements`;
-    this.headers = new HttpHeaders().set("Accept", "application/json");
-  }
-
-  public getAll(): Observable<AppointmentManagement[]> {
-    return this.http.get<AppointmentManagementDto[]>(this.url, {
-      headers: this.headers
-    }).pipe(map(appointmentManagements =>
-          appointmentManagements.map<AppointmentManagement>(fromAppointmentManagementDto)));
+    super(http, "appointment-managements", fromAppointmentManagementDto)
   }
 
   public add(appointmentManagement: AppointmentManagement): Observable<AppointmentManagement> {

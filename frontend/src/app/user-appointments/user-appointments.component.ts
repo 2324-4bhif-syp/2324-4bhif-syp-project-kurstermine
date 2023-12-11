@@ -4,6 +4,7 @@ import {UserAppointmentComponent} from "../user-appointment/user-appointment.com
 import {Appointment} from "../shared/models/appointment";
 import {CustomerService} from "../shared/services/customer.service";
 import {Customer} from "../shared/models/customer";
+import {ParticipationService} from "../shared/services/participation.service";
 
 @Component({
   selector: 'app-user-appointments',
@@ -16,24 +17,18 @@ import {Customer} from "../shared/models/customer";
 })
 export class UserAppointmentsComponent {
   constructor(public appointmentService: AppointmentService,
-              private customerService: CustomerService) {
-
+              public participationService: ParticipationService,
+              customerService: CustomerService) {
     customerService.getLoggedInCustomer().subscribe({
       next: (customer: Customer) => {
         this.loggedInCustomer = customer;
-        appointmentService.getAllFromUser(customer.id!).subscribe({
-            next: (appointments: Appointment[]) => {
-              this.appointmentsFromUser = appointments;
-            }
-        });
+        this.participationService.getAllFromUser(customer.id!)
       }
     });
   }
-
-  appointmentsFromUser: Appointment[] = [];
   loggedInCustomer!: Customer;
 
   isIncluded(appointment: Appointment): boolean {
-    return this.appointmentsFromUser.filter(a => a.id === appointment.id).length === 1;
+    return this.participationService.get(participation => participation.appointment.id === appointment.id).length === 1;
   }
 }
