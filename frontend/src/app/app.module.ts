@@ -23,7 +23,8 @@ const routes: Routes = [
   { path: '', redirectTo: 'customers', pathMatch: 'full'},
   { path: 'customers', component: CustomersComponent, canActivate: [AuthGuard, RoleGuard],  data: { roles: ['admin'] } },
   { path: 'instructors', component: InstructorsComponent, canActivate: [AuthGuard, RoleGuard], data: { roles: ['admin'] } },
-  { path: 'appointments', component: UserAppointmentsComponent },
+  { path: 'appointments-user', component: UserAppointmentsComponent, canActivate: [AuthGuard, RoleGuard], data: { roles: ['user'] } },
+  { path: 'appointments-admin', component: AppointmentsComponent, canActivate: [AuthGuard, RoleGuard], data: { roles: ['admin'] } },
   { path: 'user', component: UserComponent, canActivate: [AuthGuard] },
 ];
 

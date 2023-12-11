@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 import { Customer } from '../models/customer';
 import { Service } from './service';
 import { CustomerApiService } from './api/customer-api.service';
+import {Observable} from "rxjs";
 
 @Injectable({
   providedIn: 'root',
 })
 export class CustomerService extends Service<Customer> {
- 
+
   protected api: CustomerApiService;
 
   constructor(customerApiService: CustomerApiService) {
@@ -19,7 +20,7 @@ export class CustomerService extends Service<Customer> {
       next: (customers) => {
         super.add(...customers)
       }
-    })
+    });
   }
 
   override add(item: Customer): void {
@@ -28,5 +29,9 @@ export class CustomerService extends Service<Customer> {
         super.add(customer);
       })
     });
+  }
+
+  getLoggedInCustomer(): Observable<Customer> {
+    return this.api.getLoggedInCustomer();
   }
 }

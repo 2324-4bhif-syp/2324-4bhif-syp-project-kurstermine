@@ -30,6 +30,16 @@ export class AppointmentApiService {
     )
   }
 
+  public getAllFromCustomer(id: number): Observable<Appointment[]> {
+    return this.http.get<AppointmentDto[]>(`${this.url}/customer/${id}`, {
+      headers: this.headers
+    }).pipe(
+      map(appointments => {
+        return appointments.map<Appointment>(fromAppointmentDto);
+      })
+    )
+  }
+
   public add(appointment: Appointment): Observable<Appointment> {
     return this.http.post<AppointmentDto>(`${this.url}`, fromAppointment(appointment), {
       headers: this.headers.set("Content-Type", "application/json")

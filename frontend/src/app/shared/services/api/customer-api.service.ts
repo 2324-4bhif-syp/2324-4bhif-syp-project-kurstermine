@@ -30,6 +30,16 @@ export class CustomerApiService {
     )
   }
 
+  public getLoggedInCustomer() {
+    return this.http.get<CustomerDto>(`${this.url}/name`, {
+      headers: this.headers
+    }).pipe(
+      map(customer => {
+        return fromCustomerDto(customer);
+      })
+    )
+  }
+
   public add(customer: Customer): Observable<Customer> {
     return this.http.post<CustomerDto>(this.url, fromCustomer(customer), {
       headers: this.headers.set("Content-Type", "application/json")

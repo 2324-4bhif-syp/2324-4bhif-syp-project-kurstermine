@@ -8,7 +8,11 @@
     <p>Start: {{appointment.date.toISOString()}}</p>
   </mat-card-content>
   <mat-card-actions>
-    <button mat-button>Sign In</button>
-    <button mat-button>Cancel</button>
+    @if (showSignIn) {
+      <button mat-button (click)="onBtnSignIn()">Sign In</button>
+    } @else {
+      <p>&nbsp; ✅</p>
+    }
+    <!--<button mat-button>Cancel</button>-->
   </mat-card-actions>
 </mat-card>
