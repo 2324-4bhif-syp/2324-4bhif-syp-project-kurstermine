@@ -1,7 +1,6 @@
 package at.htl.courseschedule.controller;
 
 import at.htl.courseschedule.entity.Appointment;
-import at.htl.courseschedule.entity.Customer;
 import at.htl.courseschedule.entity.Participation;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
@@ -12,8 +11,6 @@ import java.util.List;
 
 @ApplicationScoped
 public class AppointmentRepository {
-    @Inject
-    CustomerRepository customerRepository;
     @Inject
     ParticipationRepository participationRepository;
 
@@ -27,9 +24,8 @@ public class AppointmentRepository {
         return query.getResultList();
     }
 
-    public List<Appointment> getAppointmentByUserName(String name) {
-        Customer customer = customerRepository.getByName(name);
-        List<Participation> participations = participationRepository.getAllByUserId(customer.getId());
+    public List<Appointment> getAppointmentByCustomerId(Long id) {
+        List<Participation> participations = participationRepository.getAllByUserId(id);
         return participations.stream().map(Participation::getAppointment).toList();
     }
 

@@ -2,6 +2,7 @@ package at.htl.courseschedule.boundary;
 
 import at.htl.courseschedule.controller.CustomerRepository;
 import at.htl.courseschedule.entity.Customer;
+import io.quarkus.security.identity.SecurityIdentity;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
@@ -10,6 +11,8 @@ import jakarta.ws.rs.core.*;
 
 @Path("/customers")
 public class CustomerResource {
+    @Inject
+    SecurityIdentity identity;
 
     @Inject
     CustomerRepository customerRepository;
@@ -27,6 +30,20 @@ public class CustomerResource {
     @RolesAllowed("admin")
     public Response getCustomer(@PathParam("id") Long id) {
         Customer customer = customerRepository.getById(id);
+
+        if (customer == null) {
+            return Response.status(404).build();
+        }
+
+        return Response.ok(customer).build();
+    }
+
+    @GET
+    @Path("/name")
+    @Produces(MediaType.APPLICATION_JSON)
+    @RolesAllowed("user")
+    public Response getCustomerByName() {
+        Customer customer = customerRepository.getByName(identity.getPrincipal().getName());
 
         if (customer == null) {
             return Response.status(404).build();
