@@ -38,16 +38,23 @@ endif::[]
 [%auto-animate]
 === [.margin-b-10]#Terminologie#
 * *Server*: Quarkus backend zum Verwalten der Entitäten
-* *Frontend*: Angular frontend zum Anzeigen von Kursen, Packages und Kunden
+* *Keycloak-Server*: Für die User- und Rollenverwaltung
 ** *Login*: für unterschiedliche Benutzerrollen
+* *Frontend*: Angular frontend zum Anzeigen von Kursen, Packages und Kunden
 
 [%auto-animate]
 === [.margin-b-10]#Terminologie#
 image::architecture.png[height=80%, width=80%]
 
+////
 [background-video="baby-video3.mp4",background-video-loop=true,background-video-muted=true,background-opacity="0.5"]
 === Konfiguration
 * Projekt wird auf Oracle Cloud gehostet
+////
 
 [background-video="baby-video4.mp4",background-video-loop=true,background-video-muted=true,background-opacity="0.5"]
 === Live Demo
+
+=== Quellen
+* Videos: link:https://www.pexels.com/search/videos/baby%20swimming/[Pexels]
+* Architecture-Image: link:https://htl-leonding-college.github.io/quarkus-security-lecture-notes/keycloak-angular.html[Stütz ● Punkt]
