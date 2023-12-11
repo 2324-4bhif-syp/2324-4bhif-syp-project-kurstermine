@@ -11,7 +11,7 @@
     </li>
 
     <select [(ngModel)]="selectedCustomer">
-        <option *ngFor="let customer of customerService.get()" [ngValue]="customer">
+        <option *ngFor="let customer of getCustomers()" [ngValue]="customer">
             {{ customer.lastName }}
             {{ customer.firstName }}
             ({{ customer.id }})

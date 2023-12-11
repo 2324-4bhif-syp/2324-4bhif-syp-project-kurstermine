@@ -1,26 +1,53 @@
 = Kurstermine
 
-:revealjs_theme: white
+:revdate: {docdate}
+:encoding: utf-8
+:lang: de
+:doctype: article
+:icons: font
 :customcss: css/slides.css
-ifndef::imagesdir[:imagesdir: ../images]
+:revealjs_theme: white
+:revealjs_width: 1408
+:revealjs_height: 792
+:source-highlighter: highlightjs
+ifdef::env-ide[]
+:imagesdir: ../images
+endif::[]
+ifndef::env-ide[]
+:imagesdir: images
+endif::[]
+:title-slide-transition: zoom
+:title-slide-transition-speed: fast
 
+[background-video="baby-video2.mp4",background-video-loop=true,background-video-muted=true,background-opacity="0.5"]
 == Team
+
 * Winnie Ilming
 * Moritz Gruber
 * Lukas Sonnleitner
 * Bajtik Berg
 
+[background-video="baby-video.mp4",background-video-loop=true,background-video-muted=true,background-opacity="0.5"]
 == Warum Kurstermine?
+
 * Ermöglicht Kunden, sich in Kursen zu registrieren
 ** Kunden können auch abgemeldet werden, falls sie zu einem vereinbarten Termin nicht erscheinen können
 * Im Falle einer Absage eines Kunden kann sich ein anderer Kunde für den Termin anmelden
 
+
+[%auto-animate]
 === [.margin-b-10]#Terminologie#
 * *Server*: Quarkus backend zum Verwalten der Entitäten
 * *Frontend*: Angular frontend zum Anzeigen von Kursen, Packages und Kunden
 ** *Login*: für unterschiedliche Benutzerrollen
 
+[%auto-animate]
+=== [.margin-b-10]#Terminologie#
+image::architecture.png[height=80%, width=80%]
+
+[background-video="baby-video3.mp4",background-video-loop=true,background-video-muted=true,background-opacity="0.5"]
 === Konfiguration
 * Projekt wird auf Oracle Cloud gehostet
 
+[background-video="baby-video4.mp4",background-video-loop=true,background-video-muted=true,background-opacity="0.5"]
 === Live Demo
