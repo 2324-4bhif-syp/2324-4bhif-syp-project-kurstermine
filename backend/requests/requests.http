@@ -56,8 +56,13 @@ GET localhost:8080/test/me
 Authorization: Bearer {{access_token}}
 
 ###
+GET localhost:8080/customers/name
+Authorization: Bearer {{access_token}}
+Content-Type: */*
 
-GET localhost:8080/appointments/user
+###
+
+GET localhost:8080/appointments/customer/5
 Authorization: Bearer {{access_token}}
 Content-Type: */*
 

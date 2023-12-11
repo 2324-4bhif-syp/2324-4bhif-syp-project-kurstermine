@@ -2412,7 +2412,7 @@
     } ],
     "disableableCredentialTypes" : [ "password" ],
     "requiredActions" : [ ],
-    "realmRoles" : [ "admin", "organisator", "instructor", "user" ],
+    "realmRoles" : [ "admin", "organisator"],
     "notBefore" : 0,
     "groups" : [ ]
   }, {
@@ -2458,7 +2458,7 @@
     }],
     "disableableCredentialTypes" : [ "password" ],
     "requiredActions" : [ ],
-    "realmRoles" : [ "instructor", "user" ],
+    "realmRoles" : [ "instructor" ],
     "notBefore" : 0,
     "groups" : [ ]
   }],
