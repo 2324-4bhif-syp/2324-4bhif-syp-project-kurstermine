@@ -19,6 +19,14 @@ public class ParticipationRepository {
         return em.createQuery("SELECT p from Participation p", Participation.class).getResultList();
     }
 
+    public List<Participation> getAllByUserId(Long customerId) {
+        TypedQuery<Participation> query =
+                em.createQuery("SELECT p from Participation p WHERE p.customer.id = :userId",
+                        Participation.class);
+        query.setParameter("userId", customerId);
+        return query.getResultList();
+    }
+
     public Participation getById(ParticipationId id) {
         return em.find(Participation.class, id);
     }

@@ -1,15 +1,34 @@
-<h1>Customers</h1>
+<table style="width: 85%">
+  <tr>
+    <td>
+      <button mat-button (click)="keycloak.logout()">Log out</button>
+    </td>
+    <td>
+      <h1>Course Schedule</h1>
+    </td>
+  </tr>
+</table>
 
-<app-customers/>
+<ul class="nav nav-tabs">
+  @if (isAdmin) {
+    <!--li routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+    <a routerLink="/">Customers</a>
+  </li-->
+    <li routerLinkActive="active">
+      <a routerLink="instructors">Instructors</a>
+    </li>
+    <li routerLinkActive="active">
+      <a routerLink="appointments">Appointments</a>
+    </li>
+  } @else {
+    <li routerLinkActive="active">
+      <a routerLink="appointments-user">Appointments</a>
+    </li>
+  }
 
-<h1>Instructors</h1>
+  <li routerLinkActive="active">
+    <a routerLink="user">User</a>
+  </li>
+</ul>
 
-<app-instructors/>
-
-<h1>Appointments</h1>
-
-<app-appointments/>
-
-<h1>Appointment</h1>
-
-<app-appointment/>
+<router-outlet></router-outlet>

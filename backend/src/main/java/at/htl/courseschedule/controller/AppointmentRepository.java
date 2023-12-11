@@ -1,6 +1,7 @@
 package at.htl.courseschedule.controller;
 
 import at.htl.courseschedule.entity.Appointment;
+import at.htl.courseschedule.entity.Participation;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
@@ -10,6 +11,9 @@ import java.util.List;
 
 @ApplicationScoped
 public class AppointmentRepository {
+    @Inject
+    ParticipationRepository participationRepository;
+
     @Inject
     EntityManager em;
 

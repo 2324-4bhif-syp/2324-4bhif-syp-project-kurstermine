@@ -1,31 +1,24 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
-import { environment } from 'src/environments/environment.development';
 import { Participation, fromParticipationDto } from '../../models/participation';
 import { ParticipationDto, fromParticipation } from '../../models/dtos/participation-dto';
+import {ApiService} from "./api.service";
 
 @Injectable({
   providedIn: 'root'
 })
-export class ParticipationApiService {
-
-  protected http: HttpClient;
-  protected url: string;
-  protected headers: HttpHeaders;
-
+export class ParticipationApiService extends ApiService<Participation, ParticipationDto> {
   constructor(http: HttpClient) {
-    this.http = http;
-    this.url = `${environment.apiUrl}/participations`;
-    this.headers = new HttpHeaders().set("Accept", "application/json");
+    super(http, "participations", fromParticipationDto)
   }
 
-  public getAll(): Observable<Participation[]> {
-    return this.http.get<ParticipationDto[]>(this.url, {
+  public getAllFromCustomer(id: number): Observable<Participation[]> {
+    return this.http.get<ParticipationDto[]>(`${this.url}/customer/${id}`, {
       headers: this.headers
     }).pipe(
-      map(participations => {
-          return participations.map<Participation>(fromParticipationDto);
+      map(appointments => {
+        return appointments.map<Participation>(fromParticipationDto);
       })
     )
   }

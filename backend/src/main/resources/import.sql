@@ -10,7 +10,7 @@ values ('Johann', 'Maier', 'johann.maier@yahoo.com'),
        ('Herbert', 'Huber', 'herbert.huber@gmx.com'),
        ('Julia', 'Schneider', 'julia.schneider@outlook.com'),
        ('Paul', 'Schulz', 'paul.schulz@aol.com'),
-       ('Anna', 'Struff', 'anna.struff@juno.com');
+       ('alice', 'Struff', 'anna.struff@juno.com');
 insert into Customer (id, date_of_birth)
 values (1, '2012-12-23'),
        (2, '1980-10-11'),
@@ -27,4 +27,6 @@ values ('Yoga', '2022-11-09 12:00:00', 1800000000000, 'Sophiengutstraße'),
 insert into Participation (appointment_id, customer_id) values (1, 1);
 insert into Participation (appointment_id, customer_id) values (1, 2);
 insert into Participation (appointment_id, customer_id) values (1, 3);
+insert into Participation (appointment_id, customer_id) values (2, 5);
+insert into Participation (appointment_id, customer_id) values (3, 5);
 insert into Appointment_Management (appointment_id, instructor_id) values (1, 4);

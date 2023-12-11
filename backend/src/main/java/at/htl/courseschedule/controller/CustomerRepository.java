@@ -44,4 +44,11 @@ public class CustomerRepository {
 
         return newCustomer;
     }
+
+    public Customer getByName(String name) {
+        TypedQuery<Customer> query = em.createQuery("select c from Customer c where c.firstName = :name",
+                Customer.class);
+        query.setParameter("name", name);
+        return query.getSingleResult();
+    }
 }

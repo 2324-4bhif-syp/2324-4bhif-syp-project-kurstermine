@@ -9,7 +9,7 @@ import { Appointment } from '../models/appointment';
 export class AppointmentService extends Service<Appointment> {
 
   protected api: AppointmentApiService;
-
+  finished = false;
 
   constructor(appointmentApiService: AppointmentApiService) {
     super()
@@ -19,8 +19,10 @@ export class AppointmentService extends Service<Appointment> {
     this.api.getAll().subscribe({
       next: (appointments) => {
         super.add(...appointments);
+        this.finished = true;
+        this.notifyListeners();
       }
-    })
+    });
   }
 
   override add(item: Appointment): void {
@@ -30,4 +32,10 @@ export class AppointmentService extends Service<Appointment> {
       })
     });
   }
+
+  notifyListeners() {
+    this.finishedListeners.forEach(listener => listener());
+  }
+
+  finishedListeners: (() => void)[] = [];
 }

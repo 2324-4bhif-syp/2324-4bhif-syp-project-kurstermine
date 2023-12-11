@@ -18,9 +18,14 @@ export class AppointmentManagementComponent {
               protected instructorService: InstructorService) {
   }
 
-  protected get() : AppointmentManagement[] {
-    return this.appointmentManagementService.get(p =>
-        p.appointment.id == this.appointment?.id);
+  protected getAppointmentManagement() : AppointmentManagement[] {
+    return this.appointmentManagementService.get(appointmentManagement =>
+      appointmentManagement.appointment.id == this.appointment?.id);
+  }
+
+  protected getInstructors() : Instructor[] {
+    return this.instructorService.get(instructor => !this.getAppointmentManagement()
+      .some(appointmentManagement => appointmentManagement.instructor.id === instructor.id));
   }
 
   public add() {

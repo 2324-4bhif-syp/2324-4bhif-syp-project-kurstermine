@@ -1,0 +1,10 @@
+<table>
+    <tr>
+        <th>Roles for {{ userProfile?.username }} ({{ userProfile?.id }}) </th>
+    </tr>
+    @for (item of keycloak.getUserRoles(); track $index) {
+        <tr>
+            <td>{{ item }}</td>
+        </tr>
+    }
+</table>

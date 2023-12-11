@@ -32,3 +32,66 @@ Content-Type: application/json
 DELETE http://localhost:8080/customers/1
 
 ###
+
+### alice: Authorization by token, part 1. Retrieve and save token.
+
+POST http://localhost:8180/realms/htl/protocol/openid-connect/token
+Content-Type: application/x-www-form-urlencoded
+
+username=alice&password=alice&grant_type=password&client_id=quarkus-service&client_secret=1f9M7z1QjSfkC5fIjfYNCikO4RU2MCtk
+
+> {%
+    client.global.set("access_token", response.body.access_token);
+    client.log(client.global.get("access_token"));
+%}
+
+### alice: Authorization by token, part 2a. Use token to authorize.
+
+GET localhost:8080/test/admin
+Authorization: Bearer {{access_token}}
+
+### alice: Authorization by token, part 2b. Use token to authorize.
+
+GET localhost:8080/test/me
+Authorization: Bearer {{access_token}}
+
+###
+GET localhost:8080/customers/name
+Authorization: Bearer {{access_token}}
+Content-Type: */*
+
+###
+
+GET localhost:8080/appointments/customer/5
+Authorization: Bearer {{access_token}}
+Content-Type: */*
+
+###
+
+### admin: Authorization by token, part 1. Retrieve and save token.
+
+POST http://localhost:8180/realms/htl/protocol/openid-connect/token
+Content-Type: application/x-www-form-urlencoded
+
+username=admin&password=admin&grant_type=password&client_id=quarkus-service&client_secret=1f9M7z1QjSfkC5fIjfYNCikO4RU2MCtk
+
+> {%
+    client.global.set("access_token", response.body.access_token);
+%}
+
+### admin: Authorization by token, part 2a. Use token to authorize.
+
+GET localhost:8080/test/admin
+Authorization: Bearer {{access_token}}
+
+### admin: Authorization by token, part 2b. Use token to authorize.
+
+GET localhost:8080/test/me
+Authorization: Bearer {{access_token}}
+
+###
+
+GET localhost:8080/customers
+Authorization: Bearer {{access_token}}
+
+###

@@ -12,13 +12,49 @@ export class AppointmentManagementService extends Service<AppointmentManagement>
   constructor(protected api: AppointmentManagementApiService, protected instructorService: InstructorService,
               protected appointmentService: AppointmentService) {
     super();
-    api.getAll().subscribe({
+
+    if (!instructorService.finished && !appointmentService.finished) {
+      let isServiceFinished = false;
+
+      instructorService.finishedListeners.push(() => {
+        isServiceFinished = !isServiceFinished
+
+        if (!isServiceFinished) {
+          this.getItems();
+        }
+      });
+
+      appointmentService.finishedListeners.push(() => {
+        isServiceFinished = !isServiceFinished
+
+        if (!isServiceFinished) {
+          this.getItems();
+        }
+      });
+      return;
+    }
+
+    if (instructorService.finished) {
+      appointmentService.finishedListeners.push(() => this.getItems());
+      return;
+    }
+
+    if (appointmentService.finished) {
+      instructorService.finishedListeners.push(() => this.getItems());
+      return;
+    }
+
+    this.getItems();
+  }
+
+  getItems() {
+    this.api.getAll().subscribe({
       next: (appointmentManagements) => {
         appointmentManagements.forEach(appointmentManagement => {
           super.add({
             id: appointmentManagement.id,
-            appointment: appointmentService.get(a => a.id === appointmentManagement.id?.appointmentId)[0],
-            instructor: instructorService.get(c => c.id === appointmentManagement.id?.instructorId)[0]
+            appointment: this.appointmentService.get(a => a.id === appointmentManagement.id?.appointmentId)[0],
+            instructor: this.instructorService.get(c => c.id === appointmentManagement.id?.instructorId)[0]
           })
         });
       }

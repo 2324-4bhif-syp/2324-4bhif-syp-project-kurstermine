@@ -22,9 +22,14 @@ export class ParticipationComponent {
   }
 
   protected getParticipation() {
-    return this.participationService.get(p =>
-      p.appointment.id == this.appointment?.id
+    return this.participationService.get(participation =>
+      participation.appointment.id == this.appointment?.id
     )
+  }
+
+  protected getCustomers() : Customer[] {
+    return this.customerService.get(customer => !this.getParticipation()
+      .some(participation => participation.customer.id === customer.id));
   }
 
   public add() {

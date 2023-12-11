@@ -1,5 +1,5 @@
 <ul>
-  <li *ngFor="let appointmentManagement of get()">
+  <li *ngFor="let appointmentManagement of getAppointmentManagement()">
     <div style="display: flex; align-items: center;">
       <p>
         {{ appointmentManagement.instructor.lastName }}
@@ -10,14 +10,16 @@
     </div>
   </li>
 
-  <select [(ngModel)]="selectedInstructor">
-    <option *ngFor="let instructor of instructorService.get()" [ngValue]="instructor">
-      {{ instructor.lastName }}
-      {{ instructor.firstName }}
-      ({{ instructor.id }})
-    </option>
-  </select>
+  <div *ngIf="getInstructors().length != 0">
+    <select [(ngModel)]="selectedInstructor">
+      <option *ngFor="let instructor of getInstructors()" [ngValue]="instructor">
+        {{ instructor.lastName }}
+        {{ instructor.firstName }}
+        ({{ instructor.id }})
+      </option>
+    </select>
 
-  <button (click)="add()">Add</button>
+    <button (click)="add()">Add</button>
+  </div>
 </ul>
 
