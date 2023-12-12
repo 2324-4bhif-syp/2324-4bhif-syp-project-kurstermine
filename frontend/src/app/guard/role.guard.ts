@@ -32,8 +32,6 @@ export class RoleGuard extends KeycloakAuthGuard {
         return true;
       }
 
-      console.log("YES")
-      console.log(includesRole)
       return includesRole
     });
   }
