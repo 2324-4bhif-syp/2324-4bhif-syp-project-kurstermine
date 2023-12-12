@@ -3,23 +3,28 @@ import { Customer } from '../models/customer';
 import { Service } from './service';
 import { CustomerApiService } from './api/customer-api.service';
 import {Observable} from "rxjs";
+import {ParticipationService} from "./participation.service";
 
 @Injectable({
   providedIn: 'root',
 })
 export class CustomerService extends Service<Customer> {
-
-  protected api: CustomerApiService;
   finished = false;
 
-  constructor(customerApiService: CustomerApiService) {
+  constructor(protected api: CustomerApiService) {
     super();
-
-    this.api = customerApiService;
 
     this.api.getAll().subscribe({
       next: (customers) => {
         super.add(...customers);
+        this.finished = true;
+        this.notifyListeners();
+      }
+    });
+
+    this.getLoggedInCustomer().subscribe({
+      next: (customer: Customer) => {
+        super.add(customer);
         this.finished = true;
         this.notifyListeners();
       }

@@ -16,17 +16,24 @@ import {ParticipationService} from "../shared/services/participation.service";
   styleUrl: './user-appointments.component.css'
 })
 export class UserAppointmentsComponent {
-  constructor(public appointmentService: AppointmentService,
-              public participationService: ParticipationService,
-              customerService: CustomerService) {
-    customerService.getLoggedInCustomer().subscribe({
-      next: (customer: Customer) => {
-        this.loggedInCustomer = customer;
-        this.participationService.getAllFromUser(customer.id!)
+  constructor(protected appointmentService: AppointmentService,
+              protected participationService: ParticipationService,
+              protected customerService: CustomerService) {
+    if (this.participationService.get().length === 0) {
+      if (!this.customerService.finished) {
+        this.customerService.finishedListeners.push(
+          () => {
+            this.customer = this.customerService.get()[0];
+            this.participationService.getAllFromUser(this.customer.id!);
+          });
+      } else {
+        this.customer = this.customerService.get()[0];
+        this.participationService.getAllFromUser(this.customer.id!);
       }
-    });
+    }
   }
-  loggedInCustomer!: Customer;
+
+  customer: Customer | undefined;
 
   isIncluded(appointment: Appointment): boolean {
     return this.participationService.get(participation => participation.appointment.id === appointment.id).length === 1;

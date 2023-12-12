@@ -1,7 +1,7 @@
 <h2>Appointments</h2>
 
 @for (a of appointmentService.get(); track a.id) {
-  <app-user-appointment [loggedInCustomer]="loggedInCustomer" [showSignIn]="!isIncluded(a)" [appointment]="a"></app-user-appointment>
+  <app-user-appointment [loggedInCustomer]="customer!" [showSignIn]="!isIncluded(a)" [appointment]="a"></app-user-appointment>
 } @empty {
   No appointments available!
 }

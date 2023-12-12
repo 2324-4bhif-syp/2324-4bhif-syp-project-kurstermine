@@ -7,10 +7,11 @@ import {UserAppointmentsComponent} from "./user-appointments/user-appointments.c
 import {AppointmentsComponent} from "./appointments/appointments.component";
 import {UserComponent} from "./user/user.component";
 import {AdminViewComponent} from "./admin-view/admin-view.component";
+import {CustomersComponent} from "./customers/customers.component";
 
 const routes: Routes = [
   { path: '', redirectTo: 'appointments-user', pathMatch: 'full'},
-  /*{ path: 'customers', component: CustomersComponent, canActivate: [AuthGuard, RoleGuard],  data: { roles: ['admin'] } },*/
+  { path: 'customers', component: CustomersComponent, canActivate: [AuthGuard, RoleGuard],  data: { roles: ['admin'] } },
   { path: 'instructors', component: InstructorsComponent, canActivate: [AuthGuard, RoleGuard], data: { roles: ['admin'] } },
   { path: 'appointments-user', component: UserAppointmentsComponent, canActivate: [AuthGuard, RoleGuard], data: { roles: ['user'] } },
   { path: 'appointments', component: AppointmentsComponent, canActivate: [AuthGuard, RoleGuard], data: { roles: ['admin'] } },
