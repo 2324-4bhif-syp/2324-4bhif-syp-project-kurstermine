@@ -1,4 +1,4 @@
-= Erste Sprintplanung
+= Vierte Sprintplanung
 ifndef::imagesdir[:imagesdir: images]
 :icons: font
 //:sectnums:    // Nummerierung der Überschriften / section numbering
@@ -18,9 +18,9 @@ endif::backend-html5[]
 |===
 |anwesend
 
-|Herr Prof. Aberger
-
 |Herr Prof. Stütz
+
+|Herr Prof. Aberger
 
 |Winnie Ilming
 
@@ -38,23 +38,18 @@ endif::backend-html5[]
 |HTL Leonding, 4BHIF
 
 |von-bis
-|Di. 2023-10-17, 4. EH
+|Di. 2023-12-12, 7. EH
 |Dauer
-|30 min
+|20 min
 |===
 
 
 
 == Besprochene Themen
+* Deployment
+* Workflow: Anmeldung eines Appointments => Bestätigung des Users erforderlich
+* User aus Keycloak mit Customers aus Quarkus abstimmen
 
-* Das erste zu erstellende Produkt (MVP)
-** html Seite
-*** Als Betreuer möchte ich die Teilnehmer meiner Kurse sehen (derweil nur 1 Kurs)
-*** Als Betreuer möchte ich neue Teilnehmer in einen Kurs eintragen
-*** Kursteilnehmer:
-**** Nachname der betreuenden Person
-**** Babyname
-** csv-file mit Kursteilnehmern eines Kurses
 
 
 == Vereinbarungen und Entscheidungen
@@ -65,19 +60,19 @@ endif::backend-html5[]
 |wer |macht was |bis wann
 
 | Hr. Ilming
-a| ...
-| 07.11.2023
+a| link:https://vm81.htl-leonding.ac.at/agiles/99-373/current[Youtrack]
+| 09.01.2024
 
 | Hr. Gruber
-a| ...
-| 07.11.2023
+a| link:https://vm81.htl-leonding.ac.at/agiles/99-373/current[Youtrack]
+| 09.01.2024
 
 | Hr. Sonnleitner
-a| ...
-| 07.11.2023
+a| link:https://vm81.htl-leonding.ac.at/agiles/99-373/current[Youtrack]
+| 09.01.2024
 
 | Hr. Berg
-a| ...
-| 07.11.2023
+a| link:https://vm81.htl-leonding.ac.at/agiles/99-373/current[Youtrack]
+| 09.01.2024
 
 |===
