@@ -9,7 +9,6 @@ import { AppointmentService } from './appointment.service';
   providedIn: 'root'
 })
 export class ParticipationService extends Service<Participation> {
-
   constructor(protected api: ParticipationApiService, protected customerService: CustomerService,
               protected appointmentService: AppointmentService) {
     super();
@@ -60,6 +59,7 @@ export class ParticipationService extends Service<Participation> {
         });
       }
     });
+    this.getAllFromCustomer(this.customerService.get()[0].id!);
   }
 
   override add(item: Participation): void {
@@ -78,7 +78,7 @@ export class ParticipationService extends Service<Participation> {
       })
   }
 
-  getAllFromUser(id: number): void {
+  getAllFromCustomer(id: number): void {
     this.api.getAllFromCustomer(id).subscribe({
       next: (participations) => {
         participations.forEach(participation => {

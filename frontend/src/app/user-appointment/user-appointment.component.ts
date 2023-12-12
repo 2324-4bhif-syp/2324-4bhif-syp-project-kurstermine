@@ -20,7 +20,7 @@ import {Customer} from "../shared/models/customer";
   styleUrl: './user-appointment.component.css'
 })
 export class UserAppointmentComponent {
-  constructor(private participationService: ParticipationService) {
+  constructor(protected participationService: ParticipationService) {
   }
 
   @Input({required: true}) appointment!: Appointment;
