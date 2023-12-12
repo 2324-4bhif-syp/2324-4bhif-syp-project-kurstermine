@@ -1,5 +1,4 @@
 = Dritte Sprintplanung
-1.0, yyyy-mm-dd: Some notes
 ifndef::imagesdir[:imagesdir: images]
 :icons: font
 //:sectnums:    // Nummerierung der Überschriften / section numbering
