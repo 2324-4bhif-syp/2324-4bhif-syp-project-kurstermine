@@ -4,8 +4,9 @@ import {Appointment} from "../shared/models/appointment";
 import {MatButtonModule} from "@angular/material/button";
 import {MatTreeModule} from "@angular/material/tree";
 import {ParticipationService} from "../shared/services/participation.service";
-import {Participation} from "../shared/models/participation";
 import {Customer} from "../shared/models/customer";
+import {MatDialog, MatDialogRef} from "@angular/material/dialog";
+import {ConfirmDialogComponent} from "../confirm-dialog/confirm-dialog.component";
 
 
 @Component({
@@ -20,7 +21,8 @@ import {Customer} from "../shared/models/customer";
   styleUrl: './user-appointment.component.css'
 })
 export class UserAppointmentComponent {
-  constructor(protected participationService: ParticipationService) {
+  constructor(protected participationService: ParticipationService,
+              private dialog: MatDialog) {
   }
 
   @Input({required: true}) appointment!: Appointment;
@@ -28,6 +30,15 @@ export class UserAppointmentComponent {
   @Input({required: true}) showSignIn!: boolean;
 
   onBtnSignIn() {
+    let dialogRef: MatDialogRef<ConfirmDialogComponent> = this.dialog.open(ConfirmDialogComponent,{
+        height: '200px',
+        width: '600px',
+        data: {
+            appointment: this.appointment!,
+            loggedInCustomer: this.loggedInCustomer!
+        }
+    });
+    /*
     let participation: Participation = {
       id: {
         appointmentId: this.appointment.id!,
@@ -38,5 +49,6 @@ export class UserAppointmentComponent {
     }
 
     this.participationService.add(participation);
+     */
   }
 }

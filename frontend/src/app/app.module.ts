@@ -14,6 +14,15 @@ import {initializeKeycloak} from "./init/keycloak-init.factory";
 import {KeycloakAngularModule, KeycloakService} from "keycloak-angular";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatButtonModule} from "@angular/material/button";
+import {
+    MatDialog,
+    MAT_DIALOG_DATA,
+    MatDialogRef,
+    MatDialogTitle,
+    MatDialogContent,
+    MatDialogActions,
+    MatDialogClose,
+} from '@angular/material/dialog';
 import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
@@ -33,7 +42,11 @@ import { AppRoutingModule } from './app-routing.module';
       KeycloakAngularModule,
       BrowserAnimationsModule,
       MatButtonModule,
-      AppRoutingModule
+      AppRoutingModule,
+      MatDialogTitle,
+      MatDialogContent,
+      MatDialogActions,
+      MatDialogClose,
   ],
   providers: [
     {
