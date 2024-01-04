@@ -36,7 +36,7 @@ public class AppointmentResource {
     @Transactional
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    @RolesAllowed({"organisator", "admin"})
+    @RolesAllowed({Role.Organisator, Role.Admin})
     public Response createAppointment(Appointment appointment, @Context UriInfo uriInfo) {
         if (appointment == null) {
             return Response.status(400).build();
@@ -55,7 +55,7 @@ public class AppointmentResource {
     @Path("{id}")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    @RolesAllowed({"organisator", "admin"})
+    @RolesAllowed({Role.Organisator, Role.Admin})
     public Response deleteAppointmentById(@PathParam("id") Long id) {
         appointmentRepository.delete(id);
         return Response.status(200).build();
@@ -66,7 +66,7 @@ public class AppointmentResource {
     @Path("{id}")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    @RolesAllowed({"organisator", "admin"})
+    @RolesAllowed({Role.Organisator, Role.Admin})
     public Response updateAppointmentById(@PathParam("id") Long id, Appointment newAppointment) {
         Appointment appointment = appointmentRepository.update(id, newAppointment);
 

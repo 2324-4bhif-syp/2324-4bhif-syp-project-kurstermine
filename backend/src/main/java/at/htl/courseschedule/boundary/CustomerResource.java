@@ -19,7 +19,7 @@ public class CustomerResource {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @RolesAllowed("admin")
+    @RolesAllowed(Role.Admin)
     public Response getAllCustomers() {
         return Response.ok(customerRepository.getAll()).build();
     }
@@ -27,7 +27,7 @@ public class CustomerResource {
     @GET
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    @RolesAllowed("admin")
+    @RolesAllowed(Role.Admin)
     public Response getCustomer(@PathParam("id") Long id) {
         Customer customer = customerRepository.getById(id);
 
@@ -41,7 +41,7 @@ public class CustomerResource {
     @GET
     @Path("/name")
     @Produces(MediaType.APPLICATION_JSON)
-    @RolesAllowed("user")
+    @RolesAllowed(Role.User)
     public Response getCustomerByName() {
         Customer customer = customerRepository.getByName(identity.getPrincipal().getName());
 
@@ -56,7 +56,7 @@ public class CustomerResource {
     @Transactional
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    @RolesAllowed("admin")
+    @RolesAllowed(Role.Admin)
     public Response createCustomer(Customer customer, @Context UriInfo uriInfo) {
         if (customer == null) {
             return Response.status(400).build();
@@ -74,7 +74,7 @@ public class CustomerResource {
     @Transactional
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    @RolesAllowed("admin")
+    @RolesAllowed(Role.Admin)
     public Response deleteCustomerById(@PathParam("id") Long id) {
         customerRepository.delete(id);
         return Response.status(200).build();
@@ -85,7 +85,7 @@ public class CustomerResource {
     @Path("{id}")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    @RolesAllowed("admin")
+    @RolesAllowed(Role.Admin)
     public Response updatePlayer(@PathParam("id") Long id, Customer newCustomer) {
         Customer updatedCustomer = customerRepository.update(id, newCustomer);
 
