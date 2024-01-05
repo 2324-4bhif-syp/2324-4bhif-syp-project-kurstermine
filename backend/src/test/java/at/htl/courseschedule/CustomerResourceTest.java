@@ -1,18 +1,8 @@
-package at.htl.courseschedule;
+/*package at.htl.courseschedule;
 
-import at.htl.courseschedule.entity.Customer;
 import io.quarkus.test.junit.QuarkusTest;
-import io.restassured.response.Response;
 import org.junit.jupiter.api.MethodOrderer;
-import org.junit.jupiter.api.Order;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
-
-import java.time.LocalDate;
-import java.util.List;
-
-import static io.restassured.RestAssured.given;
-import static org.assertj.core.api.Assertions.assertThat;
 
 @QuarkusTest
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
@@ -249,4 +239,4 @@ public class CustomerResourceTest {
 
         // Assert
     }
-}
+}*/

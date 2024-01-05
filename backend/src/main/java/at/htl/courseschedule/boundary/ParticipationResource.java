@@ -27,7 +27,7 @@ public class ParticipationResource {
     @Path("/customer/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     @RolesAllowed(Role.User)
-    public Response getParticipationsByCustomerId(@PathParam("id") Long id) {
+    public Response getParticipationsByCustomerId(@PathParam("id") String id) {
         return Response.ok(participationRepository.getAllByUserId(id)).build();
     }
 
@@ -69,7 +69,7 @@ public class ParticipationResource {
     @RolesAllowed({Role.Instructor, Role.Organisator, Role.Admin})
     @Produces(MediaType.APPLICATION_JSON)
     public Response deleteParticipationById(@PathParam("appointmentId") Long appointmentId,
-                                            @PathParam("customerId") Long customerId) {
+                                            @PathParam("customerId") String customerId) {
         participationRepository.delete(new ParticipationId(appointmentId, customerId));
         return Response.status(200).build();
     }

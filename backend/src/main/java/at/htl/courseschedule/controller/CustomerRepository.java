@@ -1,54 +1,49 @@
 package at.htl.courseschedule.controller;
 
-import at.htl.courseschedule.entity.Customer;
+import at.htl.courseschedule.boundary.Role;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.TypedQuery;
+import org.keycloak.admin.client.Keycloak;
+import org.keycloak.admin.client.resource.UsersResource;
+import org.keycloak.representations.idm.UserRepresentation;
 
 import java.util.List;
 
 @ApplicationScoped
 public class CustomerRepository {
     @Inject
-    EntityManager em;
+    Keycloak keycloak;
 
-    public Customer getById(Long id) {
-        return em.find(Customer.class, id);
+    public UserRepresentation getById(String id) {
+        return keycloak.realm("htl").users().list().stream().filter(user -> user.getId().equals(id))
+                .findFirst().orElse(null);
     }
 
-    public List<Customer> getAll() {
-        TypedQuery<Customer> query = em.createQuery("select c from Customer c", Customer.class);
-        return query.getResultList();
+    public List<UserRepresentation> getAll() {
+        UsersResource users = keycloak.realm("htl").users(); // TODO: extract config prop
+        List<String> ids = users.list().stream().map(UserRepresentation::getId).toList();
+        return ids.stream().filter(id -> users.get(id).roles().getAll().getRealmMappings().stream()
+                .anyMatch(role -> role.getName().equals(Role.User)))
+                .map(id -> users.list().stream().filter(user -> user.getId().equals(id))
+                        .findFirst().orElse(null)).toList();
     }
 
-    public Customer create(Customer customer) {
-        em.persist(customer);
-        return customer;
-    }
+    /*public void delete(String id) {
+        keycloak.realm("htl").users().delete(id);
 
-    public void delete(Long id) {
-        Customer customer = getById(id);
-        if (customer != null) {
-            em.remove(customer);
-        }
-    }
+        // TODO: implement properly usage
+    }*/
 
-    public Customer update(Long id, Customer newCustomer) {
+    public UserRepresentation update(String id, UserRepresentation newCustomer) {
+
+        // TODO: Use DTO
         if (getById(id) == null) {
             return null;
         }
 
         newCustomer.setId(id);
-        em.merge(newCustomer);
+        //em.merge(newCustomer);
 
         return newCustomer;
-    }
-
-    public Customer getByName(String name) {
-        TypedQuery<Customer> query = em.createQuery("select c from Customer c where c.firstName = :name",
-                Customer.class);
-        query.setParameter("name", name);
-        return query.getSingleResult();
     }
 }

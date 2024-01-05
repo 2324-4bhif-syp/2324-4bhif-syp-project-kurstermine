@@ -1,18 +1,19 @@
 package at.htl.courseschedule.boundary;
 
 import at.htl.courseschedule.controller.CustomerRepository;
-import at.htl.courseschedule.entity.Customer;
-import io.quarkus.security.identity.SecurityIdentity;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.*;
-import jakarta.ws.rs.core.*;
+import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response;
+import org.eclipse.microprofile.jwt.JsonWebToken;
+import org.keycloak.representations.idm.UserRepresentation;
 
 @Path("/customers")
 public class CustomerResource {
     @Inject
-    SecurityIdentity identity;
+    JsonWebToken jsonWebToken;
 
     @Inject
     CustomerRepository customerRepository;
@@ -28,8 +29,8 @@ public class CustomerResource {
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
     @RolesAllowed(Role.Admin)
-    public Response getCustomer(@PathParam("id") Long id) {
-        Customer customer = customerRepository.getById(id);
+    public Response getCustomer(@PathParam("id") String id) {
+        UserRepresentation customer = customerRepository.getById(id);
 
         if (customer == null) {
             return Response.status(404).build();
@@ -39,11 +40,12 @@ public class CustomerResource {
     }
 
     @GET
-    @Path("/name")
+    @Path("/id")
     @Produces(MediaType.APPLICATION_JSON)
     @RolesAllowed(Role.User)
-    public Response getCustomerByName() {
-        Customer customer = customerRepository.getByName(identity.getPrincipal().getName());
+    public Response getCustomerByIdGiven() {
+        // TODO: fix getting single customer;
+        UserRepresentation customer = customerRepository.getById(jsonWebToken.getClaim("sub"));
 
         if (customer == null) {
             return Response.status(404).build();
@@ -52,33 +54,35 @@ public class CustomerResource {
         return Response.ok(customer).build();
     }
 
-    @POST
+    /*@POST
     @Transactional
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @RolesAllowed(Role.Admin)
     public Response createCustomer(Customer customer, @Context UriInfo uriInfo) {
+        keycloak.realm("htl").users().create(new )
+
         if (customer == null) {
             return Response.status(400).build();
         }
 
-        customerRepository.create(customer);
+        //customerRepository.create(customer);
         UriBuilder uriBuilder = uriInfo
                 .getAbsolutePathBuilder()
                 .path(customer.getId().toString());
 
         return Response.created(uriBuilder.build()).entity(customer).build();
-    }
+    }*/
 
-    @DELETE
+    /*@DELETE
     @Transactional
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
     @RolesAllowed(Role.Admin)
-    public Response deleteCustomerById(@PathParam("id") Long id) {
+    public Response deleteCustomerById(@PathParam("id") String id) {
         customerRepository.delete(id);
         return Response.status(200).build();
-    }
+    }*/
 
     @PUT
     @Transactional
@@ -86,8 +90,9 @@ public class CustomerResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @RolesAllowed(Role.Admin)
-    public Response updatePlayer(@PathParam("id") Long id, Customer newCustomer) {
-        Customer updatedCustomer = customerRepository.update(id, newCustomer);
+    public Response updatePlayer(@PathParam("id") String id, UserRepresentation newCustomer) {
+        // TODO: Use DTO
+        UserRepresentation updatedCustomer = customerRepository.update(id, newCustomer);
 
         if (updatedCustomer == null) {
             return Response.status(404).build();

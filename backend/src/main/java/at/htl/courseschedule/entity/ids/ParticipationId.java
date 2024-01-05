@@ -14,11 +14,11 @@ public class ParticipationId implements Serializable {
 
     @JsonProperty("customer_id")
     @Column(name = "customer_id")
-    private Long customerId;
+    private String customerId;
 
     public ParticipationId() {}
 
-    public ParticipationId(Long appointmentId, Long customerId) {
+    public ParticipationId(Long appointmentId, String customerId) {
         this.appointmentId = appointmentId;
         this.customerId = customerId;
     }
