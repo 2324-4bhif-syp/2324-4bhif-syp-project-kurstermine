@@ -11,9 +11,9 @@ export interface Customer {
 export const fromCustomerDto = (customer: CustomerDto):Customer => {
     return {
         id: customer.id,
-        firstName: customer.first_name,
-        lastName: customer.last_name,
-        email: customer.email, 
-        dateOfBirth: new Date(customer.date_of_birth)
+        firstName: customer.firstName,
+        lastName: customer.lastName,
+        email: customer.email,
+        dateOfBirth: new Date(customer.createdTimestamp)
     }
 }

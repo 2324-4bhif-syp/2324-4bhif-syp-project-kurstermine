@@ -8,10 +8,6 @@ import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.*;
-import org.keycloak.admin.client.Keycloak;
-import org.keycloak.representations.idm.UserRepresentation;
-
-import java.util.List;
 
 @Path("/customers")
 public class CustomerResource {
@@ -21,22 +17,11 @@ public class CustomerResource {
     @Inject
     CustomerRepository customerRepository;
 
-    @Inject
-    Keycloak keycloak;
-
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @RolesAllowed(Role.Admin)
     public Response getAllCustomers() {
-        List<UserRepresentation> list = keycloak.realm("htl")
-                .users()
-                .list()
-                .stream()
-                .filter(user -> user.getRealmRoles().contains("user"))
-                .toList();
-
-
-        return Response.ok(list).build();
+        return Response.ok(customerRepository.getAll()).build();
     }
 
     @GET
