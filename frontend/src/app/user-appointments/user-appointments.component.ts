@@ -23,7 +23,7 @@ export class UserAppointmentsComponent {
         return (
             this.participationService.get(
                 (participation) =>
-                    participation.appointment.id === appointment.id,
+                    participation.id?.appointmentId === appointment.id,
             ).length === 1
         );
     }

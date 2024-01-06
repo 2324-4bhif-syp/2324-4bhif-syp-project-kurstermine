@@ -6,7 +6,7 @@ import { ParticipationDto } from './dtos/participation-dto';
 export interface Participation {
     id?: {
         appointmentId: number;
-        customerId: number;
+        customerId: string;
     };
     appointment: Appointment;
     customer: Customer;
@@ -22,7 +22,7 @@ export const fromParticipationDto = (
                   customerId: participation.id.customer_id,
               }
             : undefined,
-        appointment: fromAppointmentDto(participation.appointment),
-        customer: fromCustomerDto(participation.customer),
+        appointment: null!,
+        customer: null!,
     };
 };

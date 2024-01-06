@@ -1,11 +1,10 @@
 import { Customer } from '../customer';
 
 export interface CustomerDto {
-    id?: number;
+    id?: string;
     email: string;
     firstName: string;
     lastName: string;
-    createdTimestamp: number;
 }
 
 export const fromCustomer = (customer: Customer): CustomerDto => {
@@ -14,6 +13,5 @@ export const fromCustomer = (customer: Customer): CustomerDto => {
         firstName: customer.firstName,
         lastName: customer.lastName,
         email: customer.email,
-        createdTimestamp: customer.dateOfBirth.getTime(),
     };
 };

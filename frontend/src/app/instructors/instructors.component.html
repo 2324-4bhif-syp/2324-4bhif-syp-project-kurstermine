@@ -1,15 +1,10 @@
 <table>
     <tr>
-        <th>Id</th>
         <th>First Name</th>
         <th>Last Name</th>
         <th>Email</th>
-        <th>Hire Date</th>
     </tr>
     <tr *ngFor="let instructor of instructorService.get()">
-        <td>
-            {{ instructor?.id }}
-        </td>
         <td>
             {{ instructor?.firstName }}
         </td>
@@ -19,12 +14,8 @@
         <td>
             {{ instructor?.email }}
         </td>
-        <td>
-            {{ instructor?.hiringDate?.toLocaleDateString() }}
-        </td>
     </tr>
     <tr>
-        <td></td>
         <td>
             <input
                 type="text"
@@ -44,14 +35,6 @@
                 type="text"
                 placeholder="email"
                 [(ngModel)]="newInstructor.email"
-            />
-        </td>
-        <td>
-            <input
-                type="date"
-                placeholder="birthday"
-                [valueAsDate]="newInstructor.hiringDate"
-                (input)="newInstructor.hiringDate = parseDate($event)"
             />
         </td>
         <td>

@@ -5,10 +5,8 @@ import { CustomerDto, fromCustomer } from './customer-dto';
 export interface ParticipationDto {
     id?: {
         appointment_id: number;
-        customer_id: number;
+        customer_id: string;
     };
-    appointment: AppointmentDto;
-    customer: CustomerDto;
 }
 
 export const fromParticipation = (
@@ -21,7 +19,5 @@ export const fromParticipation = (
                   customer_id: participation.id.customerId,
               }
             : undefined,
-        appointment: fromAppointment(participation.appointment),
-        customer: fromCustomer(participation.customer),
     };
 };

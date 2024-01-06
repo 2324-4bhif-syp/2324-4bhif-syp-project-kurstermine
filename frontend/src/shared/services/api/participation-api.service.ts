@@ -22,7 +22,7 @@ export class ParticipationApiService extends ApiService<
         super(http, 'participations', fromParticipationDto);
     }
 
-    public getAllFromCustomer(id: number): Observable<Participation[]> {
+    public getAllFromCustomer(id: string): Observable<Participation[]> {
         return this.http
             .get<ParticipationDto[]>(`${this.url}/customer/${id}`, {
                 headers: this.headers,
@@ -57,7 +57,7 @@ export class ParticipationApiService extends ApiService<
 
     public remove(participation: Participation): Observable<object> {
         return this.http.delete(
-            `${this.url}/${participation.appointment.id}/${participation.customer.id}`,
+            `${this.url}/${participation.id?.appointmentId}/${participation.id?.customerId}`,
         );
     }
 }

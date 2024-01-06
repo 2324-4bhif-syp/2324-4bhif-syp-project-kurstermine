@@ -90,7 +90,7 @@
           "realm": [
             "offline_access",
             "uma_authorization",
-            "user"
+            "customer"
           ],
           "client": {
             "account": [
@@ -928,7 +928,7 @@
             "logic": "POSITIVE",
             "decisionStrategy": "UNANIMOUS",
             "config": {
-              "roles": "[{\"id\":\"user\",\"required\":false}]"
+              "roles": "[{\"id\":\"customer\",\"required\":false}]"
             }
           },
           {

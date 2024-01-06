@@ -15,7 +15,7 @@ export class CustomerApiService extends ApiService<Customer, CustomerDto> {
 
     public getLoggedInCustomer() {
         return this.http
-            .get<CustomerDto>(`${this.url}/name`, {
+            .get<CustomerDto>(`${this.url}/id`, {
                 headers: this.headers,
             })
             .pipe(

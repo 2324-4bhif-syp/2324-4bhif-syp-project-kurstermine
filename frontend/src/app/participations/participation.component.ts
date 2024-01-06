@@ -27,7 +27,7 @@ export class ParticipationComponent {
     protected getParticipation() {
         return this.participationService.get(
             (participation) =>
-                participation.appointment.id == this.appointment?.id,
+                participation.id?.appointmentId == this.appointment?.id
         );
     }
 
@@ -36,7 +36,7 @@ export class ParticipationComponent {
             (customer) =>
                 !this.getParticipation().some(
                     (participation) =>
-                        participation.customer.id === customer.id,
+                        participation.id?.customerId === customer.id,
                 ),
         );
     }

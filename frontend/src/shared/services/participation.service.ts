@@ -72,7 +72,11 @@ export class ParticipationService extends Service<Participation> {
     override add(item: Participation): void {
         this.api.add(item).subscribe({
             next: (participation) => {
-                super.add(participation);
+                super.add({
+                    id: participation.id,
+                    appointment: this.appointmentService.get(a => a.id === participation.id?.appointmentId)[0],
+                    customer: this.customerService.get(c => c.id === participation.id?.customerId)[0]
+                });
             },
         });
     }
@@ -85,7 +89,7 @@ export class ParticipationService extends Service<Participation> {
         });
     }
 
-    getAllFromCustomer(id: number): void {
+    getAllFromCustomer(id: string): void {
         this.api.getAllFromCustomer(id).subscribe({
             next: (participations) => {
                 participations.forEach((participation) => {

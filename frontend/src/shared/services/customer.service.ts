@@ -3,7 +3,6 @@ import { Customer } from '../models/customer';
 import { Service } from './service';
 import { CustomerApiService } from './api/customer-api.service';
 import { Observable } from 'rxjs';
-import { ParticipationService } from './participation.service';
 
 @Injectable({
     providedIn: 'root',

@@ -16,20 +16,8 @@ export class CustomersComponent {
         this.newCustomer = {
             firstName: '',
             lastName: '',
-            dateOfBirth: new Date(),
             email: '',
         };
-    }
-
-    parseDate(eventdate: Event): Date {
-        const dateString = (eventdate.target as HTMLInputElement).value;
-
-        let date = new Date();
-        if (dateString) {
-            date = new Date(dateString);
-        }
-
-        return date;
     }
 
     add() {
@@ -38,7 +26,6 @@ export class CustomersComponent {
         this.newCustomer = {
             firstName: '',
             lastName: '',
-            dateOfBirth: new Date(),
             email: '',
         };
     }
