@@ -1,6 +1,7 @@
 package at.htl.courseschedule.boundary;
 
-import at.htl.courseschedule.controller.CustomerRepository;
+import at.htl.courseschedule.controller.UserRepository;
+import at.htl.courseschedule.dto.UserDTO;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
@@ -16,13 +17,13 @@ public class CustomerResource {
     JsonWebToken jsonWebToken;
 
     @Inject
-    CustomerRepository customerRepository;
+    UserRepository userRepository;
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @RolesAllowed(Role.Admin)
     public Response getAllCustomers() {
-        return Response.ok(customerRepository.getAll()).build();
+        return Response.ok(userRepository.getAll(Role.Customer)).build();
     }
 
     @GET
@@ -30,7 +31,7 @@ public class CustomerResource {
     @Produces(MediaType.APPLICATION_JSON)
     @RolesAllowed(Role.Admin)
     public Response getCustomer(@PathParam("id") String id) {
-        UserRepresentation customer = customerRepository.getById(id);
+        UserRepresentation customer = userRepository.getById(id, Role.Customer);
 
         if (customer == null) {
             return Response.status(404).build();
@@ -44,14 +45,13 @@ public class CustomerResource {
     @Produces(MediaType.APPLICATION_JSON)
     @RolesAllowed(Role.Customer)
     public Response getCustomerByIdGiven() {
-        // TODO: fix getting single customer;
-        UserRepresentation customer = customerRepository.getById(jsonWebToken.getClaim("sub"));
+        UserRepresentation customer = userRepository.getById(jsonWebToken.getClaim("sub"), Role.Customer);
 
         if (customer == null) {
             return Response.status(404).build();
         }
 
-        return Response.ok(customer).build();
+        return Response.ok(UserDTO.fromUserRepresentation(customer)).build();
     }
 
     /*@POST
@@ -90,9 +90,24 @@ public class CustomerResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @RolesAllowed(Role.Admin)
-    public Response updatePlayer(@PathParam("id") String id, UserRepresentation newCustomer) {
-        // TODO: Use DTO
-        UserRepresentation updatedCustomer = customerRepository.update(id, newCustomer);
+    public Response updateCustomer(@PathParam("id") String id, UserDTO newCustomer) {
+        UserDTO updatedCustomer = userRepository.update(id, newCustomer, Role.Customer);
+
+        if (updatedCustomer == null) {
+            return Response.status(404).build();
+        }
+
+        return Response.ok(updatedCustomer).build();
+    }
+
+    @PUT
+    @Transactional
+    @Path("{id}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    @RolesAllowed(Role.Customer)
+    public Response updateCustomerByIdGiven(UserDTO newCustomer) {
+        UserDTO updatedCustomer = userRepository.update(jsonWebToken.getClaim("sub"), newCustomer, Role.Customer);
 
         if (updatedCustomer == null) {
             return Response.status(404).build();
