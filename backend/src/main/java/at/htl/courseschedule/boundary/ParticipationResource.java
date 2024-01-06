@@ -26,7 +26,7 @@ public class ParticipationResource {
     @GET
     @Path("/customer/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    @RolesAllowed(Role.User)
+    @RolesAllowed(Role.Customer)
     public Response getParticipationsByCustomerId(@PathParam("id") String id) {
         return Response.ok(participationRepository.getAllByUserId(id)).build();
     }
@@ -49,7 +49,7 @@ public class ParticipationResource {
     @Transactional
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    @RolesAllowed({Role.User,Role.Organisator, Role.Admin})
+    @RolesAllowed({Role.Customer,Role.Organisator, Role.Admin})
     public Response createParticipation(Participation participation, @Context UriInfo uriInfo) {
         if (participation == null) {
             return Response.status(400).build();

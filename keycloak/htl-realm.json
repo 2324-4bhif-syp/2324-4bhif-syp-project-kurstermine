@@ -75,7 +75,7 @@
       },
       {
         "id": "5afce544-6a3c-495f-b805-fd737cf5081e",
-        "name": "user",
+        "name": "customer",
         "composite": false,
         "clientRole": false,
         "containerId": "36382947-8ffa-4a8a-9881-2b7eeb84f800",
@@ -2458,7 +2458,7 @@
     } ],
     "disableableCredentialTypes" : [ "password" ],
     "requiredActions" : [ ],
-    "realmRoles" : [ "user" ],
+    "realmRoles" : [ "customer" ],
     "notBefore" : 0,
     "groups" : [ ]
   }, {

@@ -42,7 +42,7 @@ public class CustomerResource {
     @GET
     @Path("/id")
     @Produces(MediaType.APPLICATION_JSON)
-    @RolesAllowed(Role.User)
+    @RolesAllowed(Role.Customer)
     public Response getCustomerByIdGiven() {
         // TODO: fix getting single customer;
         UserRepresentation customer = customerRepository.getById(jsonWebToken.getClaim("sub"));

@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {ActivatedRouteSnapshot, Router, RouterStateSnapshot, UrlTree} from '@angular/router';
 import {KeycloakAuthGuard, KeycloakService} from 'keycloak-angular';
+import {Roles} from "../shared/models/roles";
 
 @Injectable({
     providedIn: 'root'
@@ -24,10 +25,10 @@ export class RoleGuard extends KeycloakAuthGuard {
         return requiredRoles.every(role => {
             let includesRole = this.roles.includes(role);
 
-            if (role === 'user' && !includesRole) {
+            if (role === Roles.Customer && !includesRole) {
                 this.router.navigate(['admin']);
                 return true;
-            } else if (role === 'admin' && !includesRole) {
+            } else if (role === Roles.Admin && !includesRole) {
                 this.router.navigate(['']);
                 return true;
             }

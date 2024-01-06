@@ -23,7 +23,7 @@ public class CustomerRepository {
         UsersResource users = keycloak.realm("htl").users(); // TODO: extract config prop
         List<String> ids = users.list().stream().map(UserRepresentation::getId).toList();
         return ids.stream().filter(id -> users.get(id).roles().getAll().getRealmMappings().stream()
-                .anyMatch(role -> role.getName().equals(Role.User)))
+                .anyMatch(role -> role.getName().equals(Role.Customer)))
                 .map(id -> users.list().stream().filter(user -> user.getId().equals(id))
                         .findFirst().orElse(null)).toList();
     }

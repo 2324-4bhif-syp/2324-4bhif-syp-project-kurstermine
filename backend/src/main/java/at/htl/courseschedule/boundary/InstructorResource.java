@@ -26,7 +26,7 @@ public class InstructorResource {
     @GET
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    @RolesAllowed({Role.User, Role.Instructor, Role.Organisator, Role.Admin})
+    @RolesAllowed({Role.Customer, Role.Instructor, Role.Organisator, Role.Admin})
     public Response getInstructor(@PathParam("id") Long id) {
         Instructor instructor = instructorRepository.getById(id);
 

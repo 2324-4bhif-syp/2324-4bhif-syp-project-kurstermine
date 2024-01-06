@@ -8,30 +8,31 @@ import {AppointmentsComponent} from "./appointments/appointments.component";
 import {UserComponent} from "./user/user.component";
 import {AdminViewComponent} from "./admin-view/admin-view.component";
 import {CustomersComponent} from "./customers/customers.component";
+import {Roles} from "./shared/models/roles";
 
 const routes: Routes = [
     {path: '', redirectTo: 'appointments-user', pathMatch: 'full'},
-    {path: 'customers', component: CustomersComponent, canActivate: [AuthGuard, RoleGuard], data: {roles: ['admin']}},
+    {path: 'customers', component: CustomersComponent, canActivate: [AuthGuard, RoleGuard], data: {roles: [Roles.Admin]}},
     {
         path: 'instructors',
         component: InstructorsComponent,
         canActivate: [AuthGuard, RoleGuard],
-        data: {roles: ['admin']}
+        data: {roles: [Roles.Admin]}
     },
     {
         path: 'appointments-user',
         component: UserAppointmentsComponent,
         canActivate: [AuthGuard, RoleGuard],
-        data: {roles: ['user']}
+        data: {roles: [Roles.Customer]}
     },
     {
         path: 'appointments',
         component: AppointmentsComponent,
         canActivate: [AuthGuard, RoleGuard],
-        data: {roles: ['admin']}
+        data: {roles: [Roles.Admin]}
     },
     {path: 'user', component: UserComponent, canActivate: [AuthGuard]},
-    {path: 'admin', component: AdminViewComponent, canActivate: [AuthGuard, RoleGuard], data: {roles: ['admin']}},
+    {path: 'admin', component: AdminViewComponent, canActivate: [AuthGuard, RoleGuard], data: {roles: [Roles.Admin]}},
 ];
 
 @NgModule({
