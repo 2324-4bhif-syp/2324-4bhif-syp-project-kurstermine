@@ -102,7 +102,6 @@ public class CustomerResource {
 
     @PUT
     @Transactional
-    @Path("{id}")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @RolesAllowed(Role.Customer)
