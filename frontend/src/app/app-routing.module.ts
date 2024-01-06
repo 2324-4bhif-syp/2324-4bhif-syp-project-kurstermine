@@ -8,7 +8,7 @@ import { AppointmentsComponent } from './appointments/appointments.component';
 import { UserComponent } from './user/user.component';
 import { AdminViewComponent } from './admin-view/admin-view.component';
 import { CustomersComponent } from './customers/customers.component';
-import { Roles } from './shared/models/roles';
+import { Roles } from '../shared/models/roles';
 
 const routes: Routes = [
     { path: '', redirectTo: 'appointments-user', pathMatch: 'full' },

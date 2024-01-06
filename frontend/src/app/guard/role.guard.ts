@@ -6,7 +6,7 @@ import {
     UrlTree,
 } from '@angular/router';
 import { KeycloakAuthGuard, KeycloakService } from 'keycloak-angular';
-import { Roles } from '../shared/models/roles';
+import { Roles } from '../../shared/models/roles';
 
 @Injectable({
     providedIn: 'root',

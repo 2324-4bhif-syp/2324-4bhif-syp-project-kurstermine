@@ -1,9 +1,9 @@
 import { Component, Input } from '@angular/core';
-import { Appointment } from '../shared/models/appointment';
-import { InstructorService } from '../shared/services/instructor.service';
-import { Instructor } from '../shared/models/instructor';
-import { AppointmentManagement } from '../shared/models/appointmentManagement';
-import { AppointmentManagementService } from '../shared/services/appointment-management.service';
+import { Appointment } from '../../shared/models/appointment';
+import { InstructorService } from '../../shared/services/instructor.service';
+import { Instructor } from '../../shared/models/instructor';
+import { AppointmentManagement } from '../../shared/models/appointmentManagement';
+import { AppointmentManagementService } from '../../shared/services/appointment-management.service';
 
 @Component({
     selector: 'app-appointment-management',

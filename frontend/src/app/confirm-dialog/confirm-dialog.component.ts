@@ -1,9 +1,9 @@
 import { Component, Inject } from '@angular/core';
-import { Participation } from '../shared/models/participation';
-import { ParticipationService } from '../shared/services/participation.service';
+import { Participation } from '../../shared/models/participation';
+import { ParticipationService } from '../../shared/services/participation.service';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { Appointment } from '../shared/models/appointment';
-import { Customer } from '../shared/models/customer';
+import { Appointment } from '../../shared/models/appointment';
+import { Customer } from '../../shared/models/customer';
 import { MatButtonModule } from '@angular/material/button';
 
 @Component({

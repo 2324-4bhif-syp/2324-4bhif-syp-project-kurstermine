@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { InstructorService } from '../shared/services/instructor.service';
-import { Instructor } from '../shared/models/instructor';
+import { InstructorService } from '../../shared/services/instructor.service';
+import { Instructor } from '../../shared/models/instructor';
 
 @Component({
     selector: 'app-instructors',

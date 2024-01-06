@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { KeycloakService } from 'keycloak-angular';
-import { Roles } from './shared/models/roles';
+import { Roles } from '../shared/models/roles';
 
 @Component({
     selector: 'app-root',

@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { AppointmentService } from '../shared/services/appointment.service';
+import { AppointmentService } from '../../shared/services/appointment.service';
 import { UserAppointmentComponent } from '../user-appointment/user-appointment.component';
-import { Appointment } from '../shared/models/appointment';
-import { CustomerService } from '../shared/services/customer.service';
-import { ParticipationService } from '../shared/services/participation.service';
+import { Appointment } from '../../shared/models/appointment';
+import { CustomerService } from '../../shared/services/customer.service';
+import { ParticipationService } from '../../shared/services/participation.service';
 
 @Component({
     selector: 'app-user-appointments',

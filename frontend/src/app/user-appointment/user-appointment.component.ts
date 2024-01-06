@@ -1,10 +1,10 @@
 import { Component, Input } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
-import { Appointment } from '../shared/models/appointment';
+import { Appointment } from '../../shared/models/appointment';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTreeModule } from '@angular/material/tree';
-import { ParticipationService } from '../shared/services/participation.service';
-import { Customer } from '../shared/models/customer';
+import { ParticipationService } from '../../shared/services/participation.service';
+import { Customer } from '../../shared/models/customer';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 

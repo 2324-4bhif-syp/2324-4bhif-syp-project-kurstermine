@@ -1,9 +1,9 @@
 import { Component, Input } from '@angular/core';
-import { CustomerService } from '../shared/services/customer.service';
-import { ParticipationService } from '../shared/services/participation.service';
-import { Appointment } from '../shared/models/appointment';
-import { Customer } from '../shared/models/customer';
-import { Participation } from '../shared/models/participation';
+import { CustomerService } from '../../shared/services/customer.service';
+import { ParticipationService } from '../../shared/services/participation.service';
+import { Appointment } from '../../shared/models/appointment';
+import { Customer } from '../../shared/models/customer';
+import { Participation } from '../../shared/models/participation';
 
 @Component({
     selector: 'app-participations',
