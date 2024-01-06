@@ -1,11 +1,11 @@
-import { Appointment } from "../appointment"
+import { Appointment } from '../appointment';
 
 export interface AppointmentDto {
-    id?: number,
-    name: string,
-    date: string,
-    duration: number,
-    address: string
+    id?: number;
+    name: string;
+    date: string;
+    duration: number;
+    address: string;
 }
 
 export const fromAppointment = (appointment: Appointment): AppointmentDto => {
@@ -14,6 +14,6 @@ export const fromAppointment = (appointment: Appointment): AppointmentDto => {
         address: appointment.address,
         date: appointment.date.toISOString(),
         duration: appointment.duration * 60,
-        name: appointment.name
-    }
-}
+        name: appointment.name,
+    };
+};

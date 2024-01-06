@@ -1,13 +1,13 @@
-import {Component} from '@angular/core';
-import {KeycloakService} from 'keycloak-angular';
-import {KeycloakProfile} from 'keycloak-js';
+import { Component } from '@angular/core';
+import { KeycloakService } from 'keycloak-angular';
+import { KeycloakProfile } from 'keycloak-js';
 
 @Component({
     selector: 'app-user',
     standalone: true,
     imports: [],
     templateUrl: './user.component.html',
-    styleUrl: './user.component.css'
+    styleUrl: './user.component.css',
 })
 export class UserComponent {
     protected readonly keycloak: KeycloakService;
@@ -16,8 +16,8 @@ export class UserComponent {
     constructor(keycloak: KeycloakService) {
         this.keycloak = keycloak;
 
-        keycloak.loadUserProfile().then(profile => {
+        keycloak.loadUserProfile().then((profile) => {
             this.userProfile = profile;
-        })
+        });
     }
 }

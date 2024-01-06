@@ -3,21 +3,20 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { UserAppointmentsComponent } from './user-appointments.component';
 
 describe('Appointments1Component', () => {
-  let component: UserAppointmentsComponent;
-  let fixture: ComponentFixture<UserAppointmentsComponent>;
+    let component: UserAppointmentsComponent;
+    let fixture: ComponentFixture<UserAppointmentsComponent>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [UserAppointmentsComponent]
-    })
-    .compileComponents();
+    beforeEach(async () => {
+        await TestBed.configureTestingModule({
+            imports: [UserAppointmentsComponent],
+        }).compileComponents();
 
-    fixture = TestBed.createComponent(UserAppointmentsComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+        fixture = TestBed.createComponent(UserAppointmentsComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+    });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+    it('should create', () => {
+        expect(component).toBeTruthy();
+    });
 });

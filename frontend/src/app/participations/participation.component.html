@@ -1,12 +1,14 @@
 <ul>
     <li *ngFor="let participation of getParticipation()">
-        <div style="display: flex; align-items: center;">
+        <div style="display: flex; align-items: center">
             <p>
                 {{ participation.customer.lastName }}
                 {{ participation.customer.firstName }}
                 ({{ participation.customer.id }})
             </p>
-            <button style="height: min-content;" (click)="remove(participation)">-</button>
+            <button style="height: min-content" (click)="remove(participation)">
+                -
+            </button>
         </div>
     </li>
 

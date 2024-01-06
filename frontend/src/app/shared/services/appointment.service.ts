@@ -4,38 +4,37 @@ import { Service } from './service';
 import { Appointment } from '../models/appointment';
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root',
 })
 export class AppointmentService extends Service<Appointment> {
+    protected api: AppointmentApiService;
+    finished = false;
 
-  protected api: AppointmentApiService;
-  finished = false;
+    constructor(appointmentApiService: AppointmentApiService) {
+        super();
 
-  constructor(appointmentApiService: AppointmentApiService) {
-    super()
+        this.api = appointmentApiService;
 
-    this.api = appointmentApiService;
+        this.api.getAll().subscribe({
+            next: (appointments) => {
+                super.add(...appointments);
+                this.finished = true;
+                this.notifyListeners();
+            },
+        });
+    }
 
-    this.api.getAll().subscribe({
-      next: (appointments) => {
-        super.add(...appointments);
-        this.finished = true;
-        this.notifyListeners();
-      }
-    });
-  }
+    override add(item: Appointment): void {
+        this.api.add(item).subscribe({
+            next: (appointment) => {
+                super.add(appointment);
+            },
+        });
+    }
 
-  override add(item: Appointment): void {
-    this.api.add(item).subscribe({
-      next: (appointment => {
-        super.add(appointment);
-      })
-    });
-  }
+    notifyListeners() {
+        this.finishedListeners.forEach((listener) => listener());
+    }
 
-  notifyListeners() {
-    this.finishedListeners.forEach(listener => listener());
-  }
-
-  finishedListeners: (() => void)[] = [];
+    finishedListeners: (() => void)[] = [];
 }

@@ -6,49 +6,58 @@ import { Customer } from '../shared/models/customer';
 import { Participation } from '../shared/models/participation';
 
 @Component({
-  selector: 'app-participations',
-  templateUrl: './participation.component.html',
-  styleUrls: ['./participation.component.css']
+    selector: 'app-participations',
+    templateUrl: './participation.component.html',
+    styleUrls: ['./participation.component.css'],
 })
 export class ParticipationComponent {
-  @Input() appointment: Appointment | undefined;
-  protected participationService: ParticipationService;
-  protected customerService: CustomerService;
-  protected selectedCustomer: Customer | undefined;
+    @Input() appointment: Appointment | undefined;
+    protected participationService: ParticipationService;
+    protected customerService: CustomerService;
+    protected selectedCustomer: Customer | undefined;
 
-  constructor(participationService: ParticipationService, customerService: CustomerService) {
-    this.participationService = participationService;
-    this.customerService = customerService;
-  }
-
-  protected getParticipation() {
-    return this.participationService.get(participation =>
-      participation.appointment.id == this.appointment?.id
-    )
-  }
-
-  protected getCustomers() : Customer[] {
-    return this.customerService.get(customer => !this.getParticipation()
-      .some(participation => participation.customer.id === customer.id));
-  }
-
-  public add() {
-    if(!this.selectedCustomer || !this.appointment) return;
-    if(!this.selectedCustomer.id || !this.appointment.id) return;
-
-    let participation: Participation = {
-      id: {
-        appointmentId: this.appointment.id,
-        customerId: this.selectedCustomer.id
-      },
-      customer: this.selectedCustomer,
-      appointment: this.appointment
+    constructor(
+        participationService: ParticipationService,
+        customerService: CustomerService,
+    ) {
+        this.participationService = participationService;
+        this.customerService = customerService;
     }
 
-    this.participationService.add(participation)
-  }
+    protected getParticipation() {
+        return this.participationService.get(
+            (participation) =>
+                participation.appointment.id == this.appointment?.id,
+        );
+    }
 
-  public remove(participation: Participation) {
-    this.participationService.remove(participation);
-  }
+    protected getCustomers(): Customer[] {
+        return this.customerService.get(
+            (customer) =>
+                !this.getParticipation().some(
+                    (participation) =>
+                        participation.customer.id === customer.id,
+                ),
+        );
+    }
+
+    public add() {
+        if (!this.selectedCustomer || !this.appointment) return;
+        if (!this.selectedCustomer.id || !this.appointment.id) return;
+
+        let participation: Participation = {
+            id: {
+                appointmentId: this.appointment.id,
+                customerId: this.selectedCustomer.id,
+            },
+            customer: this.selectedCustomer,
+            appointment: this.appointment,
+        };
+
+        this.participationService.add(participation);
+    }
+
+    public remove(participation: Participation) {
+        this.participationService.remove(participation);
+    }
 }

@@ -9,14 +9,16 @@
 </label>
 
 <div *ngIf="appointment">
-    <p>{{ appointment.name }} on {{ appointment.date.toDateString() }} at {{ appointment.address }} ({{ appointment.duration }} min)</p>
+    <p>
+        {{ appointment.name }} on {{ appointment.date.toDateString() }} at
+        {{ appointment.address }} ({{ appointment.duration }} min)
+    </p>
 
     <h3>Instructors</h3>
 
-    <app-appointment-management [appointment]="appointment"/>
+    <app-appointment-management [appointment]="appointment" />
 
     <h3>Participants</h3>
 
     <app-participations [appointment]="appointment" />
 </div>
-
