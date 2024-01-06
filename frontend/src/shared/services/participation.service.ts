@@ -4,6 +4,8 @@ import { Service } from './service';
 import { Participation } from '../models/participation';
 import { CustomerService } from './customer.service';
 import { AppointmentService } from './appointment.service';
+import { KeycloakService } from 'keycloak-angular';
+import { Roles } from '../models/roles';
 
 @Injectable({
     providedIn: 'root',
@@ -13,6 +15,7 @@ export class ParticipationService extends Service<Participation> {
         protected api: ParticipationApiService,
         protected customerService: CustomerService,
         protected appointmentService: AppointmentService,
+        protected keycloak: KeycloakService
     ) {
         super();
 
@@ -51,6 +54,11 @@ export class ParticipationService extends Service<Participation> {
     }
 
     getItems() {
+        if(this.keycloak.getUserRoles().includes(Roles.Customer)) {
+            this.getAllFromCustomer(this.customerService.get()[0].id!);
+            return;
+        }
+        
         this.api.getAll().subscribe({
             next: (participations) => {
                 participations.forEach((participation) => {
@@ -66,7 +74,7 @@ export class ParticipationService extends Service<Participation> {
                 });
             },
         });
-        this.getAllFromCustomer(this.customerService.get()[0].id!);
+
     }
 
     override add(item: Participation): void {
