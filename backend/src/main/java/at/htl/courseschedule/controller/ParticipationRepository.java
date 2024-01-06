@@ -1,7 +1,6 @@
 package at.htl.courseschedule.controller;
 
 import at.htl.courseschedule.boundary.Role;
-import at.htl.courseschedule.boundary.TestResource;
 import at.htl.courseschedule.entity.Appointment;
 import at.htl.courseschedule.entity.Participation;
 import at.htl.courseschedule.entity.ids.ParticipationId;

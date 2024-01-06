@@ -24,7 +24,7 @@ public class AppointmentManagementResource {
     @Path("{appointmentId}/{instructorId}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAppointmentManagement(@PathParam("appointmentId") Long appointmentId,
-                                     @PathParam("instructorId") Long instructorId) {
+                                     @PathParam("instructorId") String instructorId) {
         AppointmentManagement appointmentManagement = appointmentManagementRepository.getById(
                 new AppointmentManagementId(appointmentId, instructorId));
 
@@ -59,7 +59,7 @@ public class AppointmentManagementResource {
     @Produces(MediaType.APPLICATION_JSON)
     @RolesAllowed({Role.Organisator, Role.Admin})
     public Response deleteAppointmentManagementById(@PathParam("appointmentId") Long appointmentId,
-                                            @PathParam("instructorId") Long instructorId) {
+                                            @PathParam("instructorId") String instructorId) {
         appointmentManagementRepository.delete(new AppointmentManagementId(appointmentId, instructorId));
         return Response.status(200).build();
     }

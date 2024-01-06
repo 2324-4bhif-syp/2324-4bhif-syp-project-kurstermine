@@ -22,6 +22,8 @@ export class ParticipationComponent {
     ) {
         this.participationService = participationService;
         this.customerService = customerService;
+
+        console.log(customerService.get());
     }
 
     protected getParticipation() {

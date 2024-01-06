@@ -14,14 +14,32 @@ public class AppointmentManagementId implements Serializable {
 
     @JsonProperty("instructor_id")
     @Column(name = "instructor_id")
-    private Long instructorId;
+    private String instructorId;
 
     public AppointmentManagementId() {}
 
-    public AppointmentManagementId(Long appointmentId, Long instructorId) {
+    public AppointmentManagementId(Long appointmentId, String instructorId) {
         this.appointmentId = appointmentId;
         this.instructorId = instructorId;
     }
+
+
+    public Long getAppointmentId() {
+        return this.appointmentId;
+    }
+
+    public void setAppointmentId(Long appointmentId) {
+        this.appointmentId = appointmentId;
+    }
+
+    public String getInstructorId() {
+        return this.instructorId;
+    }
+
+    public void setInstructorId(String instructorId) {
+        this.instructorId = instructorId;
+    }
+
 
     @Override
     public boolean equals(Object o) {

@@ -74,8 +74,19 @@ export class AppointmentManagementService extends Service<AppointmentManagement>
     override add(item: AppointmentManagement): void {
         this.api.add(item).subscribe({
             next: (appointmentManagement) => {
-                super.add(appointmentManagement);
-            },
+                super.add({
+                    id: appointmentManagement.id,
+                    appointment: this.appointmentService.get(
+                        (a) =>
+                            a.id ===
+                            appointmentManagement.id?.appointmentId,
+                    )[0],
+                    instructor: this.instructorService.get(
+                        (c) =>
+                            c.id === appointmentManagement.id?.instructorId,
+                    )[0],
+                });
+            }
         });
     }
 

@@ -1,11 +1,11 @@
-import { Appointment, fromAppointmentDto } from './appointment';
-import { Instructor, fromInstructorDto } from './instructor';
+import { Appointment } from './appointment';
+import { Instructor } from './instructor';
 import { AppointmentManagementDto } from './dtos/appointment-management-dto';
 
 export interface AppointmentManagement {
     id?: {
         appointmentId: number;
-        instructorId: number;
+        instructorId: string;
     };
     appointment: Appointment;
     instructor: Instructor;
@@ -21,7 +21,7 @@ export const fromAppointmentManagementDto = (
                   instructorId: appointmentManagement.id.instructor_id,
               }
             : undefined,
-        appointment: fromAppointmentDto(appointmentManagement.appointment),
-        instructor: fromInstructorDto(appointmentManagement.instructor),
+        appointment: null!, // :)
+        instructor: null!, // :)
     };
 };

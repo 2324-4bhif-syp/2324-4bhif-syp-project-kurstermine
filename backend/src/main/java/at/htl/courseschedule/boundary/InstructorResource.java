@@ -1,11 +1,12 @@
 package at.htl.courseschedule.boundary;
 
-import at.htl.courseschedule.controller.InstructorRepository;
-import at.htl.courseschedule.entity.Instructor;
+import org.keycloak.representations.idm.UserRepresentation;
+
+import at.htl.courseschedule.controller.UserRepository;
+import at.htl.courseschedule.dto.UserDTO;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
-import jakarta.transaction.Transactional;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.*;
 
@@ -13,72 +14,28 @@ import jakarta.ws.rs.core.*;
 @Path("/instructors")
 public class InstructorResource {
     @Inject
-    InstructorRepository instructorRepository;
+    UserRepository userRepository;
 
     // TODO: get instructors only by organisations
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @RolesAllowed({Role.Organisator, Role.Admin})
     public Response getAllInstructors() {
-        return Response.ok(instructorRepository.getAll()).build();
+
+        return Response.ok(userRepository.getAll(Role.Instructor)).build();
     }
 
     @GET
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
     @RolesAllowed({Role.Customer, Role.Instructor, Role.Organisator, Role.Admin})
-    public Response getInstructor(@PathParam("id") Long id) {
-        Instructor instructor = instructorRepository.getById(id);
+    public Response getInstructor(@PathParam("id") String id) {
+        UserRepresentation instructor = userRepository.getById(id, Role.Instructor);
 
         if (instructor == null) {
             return Response.status(404).build();
         }
 
-        return Response.ok(instructor).build();
-    }
-
-    @POST
-    @Transactional
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
-    @RolesAllowed({Role.Organisator, Role.Admin})
-    public Response createInstructor(Instructor instructor, @Context UriInfo uriInfo) {
-        if (instructor == null) {
-            return Response.status(400).build();
-        }
-
-        instructorRepository.create(instructor);
-        UriBuilder uriBuilder = uriInfo
-                .getAbsolutePathBuilder()
-                .path(instructor.getId().toString());
-
-        return Response.created(uriBuilder.build()).entity(instructor).build();
-    }
-
-    @DELETE
-    @Transactional
-    @Path("{id}")
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
-    @RolesAllowed({Role.Organisator, Role.Admin})
-    public Response deleteInstructorById(@PathParam("id") Long id) {
-        instructorRepository.delete(id);
-        return Response.status(200).build();
-    }
-
-    @PUT
-    @Transactional
-    @Path("{id}")
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
-    @RolesAllowed({Role.Instructor, Role.Organisator, Role.Admin})
-    public Response updateInstructorById(@PathParam("id") Long id, Instructor newInstructor) {
-        Instructor instructor = instructorRepository.update(id, newInstructor);
-
-        if (instructor == null) {
-            return Response.status(404).build();
-        }
-
-        return Response.ok(instructor).build();
+        return Response.ok(UserDTO.fromUserRepresentation(instructor)).build();
     }
 }

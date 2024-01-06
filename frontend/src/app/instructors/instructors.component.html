@@ -15,30 +15,4 @@
             {{ instructor?.email }}
         </td>
     </tr>
-    <tr>
-        <td>
-            <input
-                type="text"
-                placeholder="first name"
-                [(ngModel)]="newInstructor.firstName"
-            />
-        </td>
-        <td>
-            <input
-                type="text"
-                placeholder="last name"
-                [(ngModel)]="newInstructor.lastName"
-            />
-        </td>
-        <td>
-            <input
-                type="text"
-                placeholder="email"
-                [(ngModel)]="newInstructor.email"
-            />
-        </td>
-        <td>
-            <button (click)="add()">Add</button>
-        </td>
-    </tr>
 </table>

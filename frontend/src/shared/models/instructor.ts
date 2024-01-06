@@ -1,19 +1,17 @@
 import { InstructorDto } from './dtos/instructor-dto';
 
 export interface Instructor {
-    id?: number;
+    id?: string;
     firstName: string;
     lastName: string;
     email: string;
-    hiringDate: Date;
 }
 
 export const fromInstructorDto = (instructor: InstructorDto): Instructor => {
     return {
         id: instructor.id,
-        firstName: instructor.first_name,
-        lastName: instructor.last_name,
+        firstName: instructor.firstName,
+        lastName: instructor.lastName,
         email: instructor.email,
-        hiringDate: new Date(instructor.hiring_date),
     };
 };

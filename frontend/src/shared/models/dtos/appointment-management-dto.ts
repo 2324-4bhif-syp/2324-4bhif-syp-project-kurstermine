@@ -5,10 +5,8 @@ import { fromInstructor, InstructorDto } from './instructor-dto';
 export interface AppointmentManagementDto {
     id?: {
         appointment_id: number;
-        instructor_id: number;
+        instructor_id: string;
     };
-    appointment: AppointmentDto;
-    instructor: InstructorDto;
 }
 
 export const fromAppointmentManagement = (
@@ -20,8 +18,6 @@ export const fromAppointmentManagement = (
                   appointment_id: appointmentManagement.id.appointmentId,
                   instructor_id: appointmentManagement.id.instructorId,
               }
-            : undefined,
-        appointment: fromAppointment(appointmentManagement.appointment),
-        instructor: fromInstructor(appointmentManagement.instructor),
+            : undefined
     };
 };
