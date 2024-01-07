@@ -1,14 +1,17 @@
 package at.htl.courseschedule.boundary;
 
-import org.keycloak.representations.idm.UserRepresentation;
-
 import at.htl.courseschedule.controller.UserRepository;
 import at.htl.courseschedule.dto.UserDTO;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
-import jakarta.ws.rs.*;
-import jakarta.ws.rs.core.*;
+import jakarta.ws.rs.GET;
+import jakarta.ws.rs.Path;
+import jakarta.ws.rs.PathParam;
+import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response;
+import org.keycloak.representations.idm.UserRepresentation;
 
 @ApplicationScoped
 @Path("/instructors")
@@ -21,8 +24,8 @@ public class InstructorResource {
     @Produces(MediaType.APPLICATION_JSON)
     @RolesAllowed({Role.Organisator, Role.Admin})
     public Response getAllInstructors() {
-
-        return Response.ok(userRepository.getAll(Role.Instructor)).build();
+        return Response.ok(userRepository.getAll(Role.Instructor).stream()
+                .map(UserDTO::fromUserRepresentation)).build();
     }
 
     @GET

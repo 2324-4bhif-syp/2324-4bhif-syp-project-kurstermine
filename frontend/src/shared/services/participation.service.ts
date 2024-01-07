@@ -54,27 +54,29 @@ export class ParticipationService extends Service<Participation> {
     }
 
     getItems() {
-        if(this.keycloak.getUserRoles().includes(Roles.Customer)) {
-            this.getAllFromCustomer(this.customerService.get()[0].id!);
+        if(this.keycloak.getUserRoles().includes(Roles.Admin)) {
+            this.api.getAll().subscribe({
+                next: (participations) => {
+                    participations.forEach((participation) => {
+                        super.add({
+                            id: participation.id,
+                            appointment: this.appointmentService.get(
+                                (a) => a.id === participation.id?.appointmentId,
+                            )[0],
+                            customer: this.customerService.get(
+                                (c) => c.id === participation.id?.customerId,
+                            )[0],
+                        });
+                    });
+                },
+            });
+
             return;
         }
-        
-        this.api.getAll().subscribe({
-            next: (participations) => {
-                participations.forEach((participation) => {
-                    super.add({
-                        id: participation.id,
-                        appointment: this.appointmentService.get(
-                            (a) => a.id === participation.id?.appointmentId,
-                        )[0],
-                        customer: this.customerService.get(
-                            (c) => c.id === participation.id?.customerId,
-                        )[0],
-                    });
-                });
-            },
-        });
 
+        if (this.keycloak.getUserRoles().includes(Roles.Customer)) {
+            this.getAllFromCustomer(this.customerService.get()[0].id!);
+        }
     }
 
     override add(item: Participation): void {

@@ -23,7 +23,7 @@ public class CustomerResource {
     @Produces(MediaType.APPLICATION_JSON)
     @RolesAllowed(Role.Admin)
     public Response getAllCustomers() {
-        return Response.ok(userRepository.getAll(Role.Customer)).build();
+        return Response.ok(userRepository.getAll(Role.Customer).stream().map(UserDTO::fromUserRepresentation)).build();
     }
 
     @GET
@@ -37,7 +37,7 @@ public class CustomerResource {
             return Response.status(404).build();
         }
 
-        return Response.ok(customer).build();
+        return Response.ok(UserDTO.fromUserRepresentation(customer)).build();
     }
 
     @GET

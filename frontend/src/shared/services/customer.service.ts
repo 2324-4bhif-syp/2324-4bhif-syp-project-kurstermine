@@ -3,7 +3,6 @@ import { Customer } from '../models/customer';
 import { Service } from './service';
 import { CustomerApiService } from './api/customer-api.service';
 import { Observable } from 'rxjs';
-import { ParticipationService } from './participation.service';
 import { KeycloakService } from 'keycloak-angular';
 import { Roles } from '../models/roles';
 
@@ -24,9 +23,12 @@ export class CustomerService extends Service<Customer> {
                     this.finished = true;
                     this.notifyListeners();
                 },
-            });    
+            });
+
+            return;
         }
-        else if(keycloak.getUserRoles().includes(Roles.Customer)) {
+
+        if(keycloak.getUserRoles().includes(Roles.Customer)) {
             this.getLoggedInCustomer().subscribe({
                 next: (customer: Customer) => {
                     super.add(customer);
@@ -34,7 +36,7 @@ export class CustomerService extends Service<Customer> {
                     this.notifyListeners();
                 },
             });
-        } 
+        }
     }
 
     override add(item: Customer): void {

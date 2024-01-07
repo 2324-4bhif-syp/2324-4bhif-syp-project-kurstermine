@@ -23,7 +23,7 @@ public class UserRepository {
     }
 
     public UserRepresentation getById(String id, String role) {
-        if (getUsers().get(id).roles().getAll().getRealmMappings().stream()
+        if (getUsers().get(id).roles().realmLevel().listEffective().stream()
                 .noneMatch(r -> r.getName().equals(role))) {
             return null;
         }
