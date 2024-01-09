@@ -19,6 +19,24 @@ class Instructor {
 class Person {
 }
 
+package Keycloak {
+    class K_User {
+    }
+
+    class K_Customer {
+    }
+
+    class K_Organisator {
+    }
+
+    class K_Instructor {
+    }
+}
+
+K_Instructor -- K_User
+K_Customer -- K_User
+K_Organisator -- K_User
+
 Package -left- Appointment
 Package "*"--"1" Organisator: < owns
 Instructor --|> Person
