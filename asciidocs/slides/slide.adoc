@@ -34,14 +34,104 @@ endif::[]
 * Überarbeitung der User-Verwaltung
 
 == CLD
-
 === Vorher:
 
-plantuml::../docs/plantuml/cldOld.puml[]
+[plantuml, svg]
+----
+@startuml
+left to right direction
+
+class Package {
+}
+
+class Appointment {
+}
+
+class Customer {
+}
+
+class Organisator {
+}
+
+class Instructor {
+}
+
+class Person {
+}
+
+package Keycloak {
+    class K_User {
+    }
+
+    class K_Customer {
+    }
+
+    class K_Organisator {
+    }
+
+    class K_Instructor {
+    }
+}
+
+K_Instructor -- K_User
+K_Customer -- K_User
+K_Organisator -- K_User
+
+Package -left- Appointment
+Package "*"--"1" Organisator: < owns
+Instructor --|> Person
+Customer --|> Person
+Offer .. (Package, Appointment)
+(Appointment, Instructor) .. AppointmentManagement
+(Appointment, Customer) .. Participation
+(Package, Customer) .. Purchase
+(Person, Person) .. Relative
+
+@enduml
+----
+//plantuml::../docs/plantuml/cldOld.puml[]
 
 === Nachher:
 
-plantuml::../docs/plantuml/cldNew.puml[]
+[plantuml, svg2]
+----
+@startuml
+left to right direction
+
+class Package {
+}
+
+class Appointment {
+}
+
+package Keycloak {
+    class User {
+    }
+
+    class Customer {
+    }
+
+    class Organisator {
+    }
+
+    class Instructor {
+    }
+}
+
+Package -left- Appointment
+Package "*"--"1" Organisator: < owns
+Instructor -- User
+Customer -- User
+Organisator -- User
+Offer .. (Package, Appointment)
+(Appointment, Instructor) .. AppointmentManagement
+(Appointment, Customer) .. Participation
+(Package, Customer) .. Purchase
+
+@enduml
+----
+
+//plantuml::../docs/plantuml/cldNew.puml[]
 
 [%auto-animate]
 === [.margin-b-10]#Terminologie#
