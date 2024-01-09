@@ -16,17 +16,11 @@ public class Participation {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Appointment appointment;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @MapsId("customerId")
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    private Customer customer;
-
     public Participation() {}
 
-    public Participation(@NotNull Appointment appointment, @NotNull Customer customer) {
+    public Participation(@NotNull Appointment appointment, @NotNull String customerId) {
         this.appointment = appointment;
-        this.customer = customer;
-        this.id = new ParticipationId(appointment.getId(), customer.getId());
+        this.id = new ParticipationId(appointment.getId(), customerId);
     }
 
     public ParticipationId getId() {
@@ -43,14 +37,6 @@ public class Participation {
 
     public void setAppointment(Appointment appointment) {
         this.appointment = appointment;
-    }
-
-    public Customer getCustomer() {
-        return customer;
-    }
-
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
     }
 
     @Override

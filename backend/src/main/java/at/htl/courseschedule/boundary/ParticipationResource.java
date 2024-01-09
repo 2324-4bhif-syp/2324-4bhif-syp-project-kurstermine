@@ -18,7 +18,7 @@ public class ParticipationResource {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @RolesAllowed({"organisator", "admin"})
+    @RolesAllowed({Role.Organisator, Role.Admin})
     public Response getAllParticipations() {
         return Response.ok(participationRepository.getAll()).build();
     }
@@ -26,15 +26,15 @@ public class ParticipationResource {
     @GET
     @Path("/customer/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    @RolesAllowed("user")
-    public Response getParticipationsByCustomerId(@PathParam("id") Long id) {
+    @RolesAllowed(Role.Customer)
+    public Response getParticipationsByCustomerId(@PathParam("id") String id) {
         return Response.ok(participationRepository.getAllByUserId(id)).build();
     }
 
     @GET
     @Path("{appointmentId}")
     @Produces(MediaType.APPLICATION_JSON)
-    @RolesAllowed({"instructor", "organisator", "admin"})
+    @RolesAllowed({Role.Instructor, Role.Organisator, Role.Admin})
     public Response getParticipation(@PathParam("appointmentId") Long appointmentId) {
         List<Participation> participation = participationRepository.getByAppointmentId(appointmentId);
 
@@ -49,7 +49,7 @@ public class ParticipationResource {
     @Transactional
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    @RolesAllowed({"user","organisator", "admin"})
+    @RolesAllowed({Role.Customer,Role.Organisator, Role.Admin})
     public Response createParticipation(Participation participation, @Context UriInfo uriInfo) {
         if (participation == null) {
             return Response.status(400).build();
@@ -66,10 +66,10 @@ public class ParticipationResource {
     @DELETE
     @Transactional
     @Path("{appointmentId}/{customerId}")
-    @RolesAllowed({"instructor", "organisator", "admin"})
+    @RolesAllowed({Role.Instructor, Role.Organisator, Role.Admin})
     @Produces(MediaType.APPLICATION_JSON)
     public Response deleteParticipationById(@PathParam("appointmentId") Long appointmentId,
-                                            @PathParam("customerId") Long customerId) {
+                                            @PathParam("customerId") String customerId) {
         participationRepository.delete(new ParticipationId(appointmentId, customerId));
         return Response.status(200).build();
     }

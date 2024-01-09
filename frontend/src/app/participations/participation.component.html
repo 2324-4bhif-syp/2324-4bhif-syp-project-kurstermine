@@ -1,22 +1,26 @@
 <ul>
-    <li *ngFor="let participation of getParticipation()">
-        <div style="display: flex; align-items: center;">
-            <p>
-                {{ participation.customer.lastName }}
-                {{ participation.customer.firstName }}
-                ({{ participation.customer.id }})
-            </p>
-            <button style="height: min-content;" (click)="remove(participation)">-</button>
-        </div>
-    </li>
+    @for (participation of getParticipation(); track participation.id) {
+        <li>
+            <div style="display: flex; align-items: center;">
+                <p>
+                    {{ participation.customer.lastName }}
+                    {{ participation.customer.firstName }}
+                </p>
+                <button style="height: min-content" (click)="remove(participation)">
+                    -
+                </button>
+            </div>
+        </li>
+    }
 
-    <select [(ngModel)]="selectedCustomer">
-        <option *ngFor="let customer of getCustomers()" [ngValue]="customer">
-            {{ customer.lastName }}
-            {{ customer.firstName }}
-            ({{ customer.id }})
-        </option>
-    </select>
+    @if (getCustomers().length !== 0) {
+        <select [(ngModel)]="selectedCustomer">
+            <option *ngFor="let customer of getCustomers()" [ngValue]="customer">
+                {{ customer.lastName }}
+                {{ customer.firstName }}
+            </option>
+        </select>
 
-    <button (click)="add()">Add</button>
+        <button (click)="add()">Add</button>
+    }
 </ul>

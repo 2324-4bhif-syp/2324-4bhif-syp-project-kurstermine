@@ -75,7 +75,7 @@
       },
       {
         "id": "5afce544-6a3c-495f-b805-fd737cf5081e",
-        "name": "user",
+        "name": "customer",
         "composite": false,
         "clientRole": false,
         "containerId": "36382947-8ffa-4a8a-9881-2b7eeb84f800",
@@ -89,7 +89,8 @@
         "composites": {
           "realm": [
             "offline_access",
-            "uma_authorization"
+            "uma_authorization",
+            "customer"
           ],
           "client": {
             "account": [
@@ -449,7 +450,25 @@
       ]
     }
   },
-  "groups": [],
+  "groups": [
+    {
+      "id": "6a15c276-edb1-4d33-80a0-2e0aa9f8488c",
+      "name": "clients",
+      "path": "/clients",
+      "clientRoles": {
+        "account": [
+          "manage-account",
+          "delete-account",
+          "view-applications",
+          "manage-consent",
+          "view-groups",
+          "view-profile",
+          "manage-account-links",
+          "view-consent"
+        ]
+      }
+    }
+  ],
   "defaultRole": {
     "id": "d70f9032-c77a-4aca-88d8-d914ee2905a4",
     "name": "default-roles-quarkus",
@@ -458,6 +477,9 @@
     "clientRole": false,
     "containerId": "36382947-8ffa-4a8a-9881-2b7eeb84f800"
   },
+  "defaultGroups": [
+    "/clients"
+  ],
   "requiredCredentials": [
     "password"
   ],
@@ -502,8 +524,8 @@
   "webAuthnPolicyPasswordlessExtraOrigins": [],
   "users": [
     {
-      "id": "dd41ac87-ee3d-4e73-bc3e-cc500c093149",
-      "createdTimestamp": 1702245033103,
+      "id": "068f2b63-363b-4af0-8c32-b2981517c1f4",
+      "createdTimestamp": 1704386236229,
       "username": "service-account-quarkus-service",
       "enabled": true,
       "totp": false,
@@ -712,6 +734,7 @@
       "protocol": "openid-connect",
       "attributes": {
         "oidc.ciba.grant.enabled": "false",
+        "post.logout.redirect.uris": "+",
         "oauth2.device.authorization.grant.enabled": "false",
         "display.on.consent.screen": "false",
         "backchannel.logout.session.required": "true",
@@ -905,7 +928,7 @@
             "logic": "POSITIVE",
             "decisionStrategy": "UNANIMOUS",
             "config": {
-              "roles": "[{\"id\":\"user\",\"required\":false}]"
+              "roles": "[{\"id\":\"customer\",\"required\":false}]"
             }
           },
           {
@@ -2435,7 +2458,7 @@
     } ],
     "disableableCredentialTypes" : [ "password" ],
     "requiredActions" : [ ],
-    "realmRoles" : [ "user" ],
+    "realmRoles" : [ "customer" ],
     "notBefore" : 0,
     "groups" : [ ]
   }, {

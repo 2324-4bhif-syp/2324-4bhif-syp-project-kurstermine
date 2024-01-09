@@ -28,12 +28,20 @@ endif::[]
 * Bajtik Berg
 
 [background-video="baby-video.mp4",background-video-loop=true,background-video-muted=true,background-opacity="0.5"]
-== Warum Kurstermine?
+== Sprintvereinbarungen
 
-* Ermöglicht Kunden, sich in Kursen zu registrieren
-** Kunden können auch abgemeldet werden, falls sie zu einem vereinbarten Termin nicht erscheinen können
-* Im Falle einer Absage eines Kunden kann sich ein anderer Kunde für den Termin anmelden
+* Deployment
+* Überarbeitung der User-Verwaltung
 
+== CLD
+
+=== Vorher:
+
+plantuml::../docs/plantuml/cldOld.puml[]
+
+=== Nachher:
+
+plantuml::../docs/plantuml/cldNew.puml[]
 
 [%auto-animate]
 === [.margin-b-10]#Terminologie#

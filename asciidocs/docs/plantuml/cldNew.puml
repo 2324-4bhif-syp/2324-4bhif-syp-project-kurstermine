@@ -1,0 +1,34 @@
+@startuml
+left to right direction
+
+class Package {
+}
+
+class Appointment {
+}
+
+package Keycloak {
+    class User {
+    }
+
+    class Customer {
+    }
+
+    class Organisator {
+    }
+
+    class Instructor {
+    }
+}
+
+Package -left- Appointment
+Package "*"--"1" Organisator: < owns
+Instructor -- User
+Customer -- User
+Organisator -- User
+Offer .. (Package, Appointment)
+(Appointment, Instructor) .. AppointmentManagement
+(Appointment, Customer) .. Participation
+(Package, Customer) .. Purchase
+
+@enduml

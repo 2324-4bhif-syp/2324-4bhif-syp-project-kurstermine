@@ -1,25 +1,29 @@
 <ul>
-  <li *ngFor="let appointmentManagement of getAppointmentManagement()">
-    <div style="display: flex; align-items: center;">
-      <p>
-        {{ appointmentManagement.instructor.lastName }}
-        {{ appointmentManagement.instructor.firstName }}
-        ({{ appointmentManagement.instructor.id }})
-      </p>
-      <button style="height: min-content;" (click)="remove(appointmentManagement)">-</button>
-    </div>
-  </li>
+    @for (appointmentManagement of getAppointmentManagement(); track appointmentManagement.id) {
+        <li>
+            <div style="display: flex; align-items: center;">
+                <p>
+                    {{ appointmentManagement.instructor.lastName }}
+                    {{ appointmentManagement.instructor.firstName }}
+                </p>
+                <button
+                    style="height: min-content"
+                    (click)="remove(appointmentManagement)"
+                >
+                    -
+                </button>
+            </div>
+        </li>
+    }
 
-  <div *ngIf="getInstructors().length != 0">
-    <select [(ngModel)]="selectedInstructor">
-      <option *ngFor="let instructor of getInstructors()" [ngValue]="instructor">
-        {{ instructor.lastName }}
-        {{ instructor.firstName }}
-        ({{ instructor.id }})
-      </option>
-    </select>
+    @if (getInstructors().length !== 0) {
+        <select [(ngModel)]="selectedInstructor">
+            <option *ngFor="let instructor of getInstructors()" [ngValue]="instructor">
+                {{ instructor.lastName }}
+                {{ instructor.firstName }}
+            </option>
+        </select>
 
-    <button (click)="add()">Add</button>
-  </div>
+        <button (click)="add()">Add</button>
+    }
 </ul>
-

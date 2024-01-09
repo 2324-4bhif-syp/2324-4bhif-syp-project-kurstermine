@@ -8,7 +8,7 @@ ifndef::imagesdir[:imagesdir: images]
 ifdef::backend-html5[]
 
 // https://fontawesome.com/v4.7.0/icons/
-icon:file-text-o[link=https://raw.githubusercontent.com/2324-4bhif-syp/2324-4bhif-syp-project-kurstermine/master/asciidocs/mom/{docname}.adoc] ‏ ‏ ‎
+icon:file-text-o[link=https://raw.githubusercontent.com/2324-4bhif-syp/2324-4bhif-syp-project-kurstermine/main/asciidocs/docs/mom/{docname}.adoc] ‏ ‏ ‎
 icon:github-square[link=https://github.com/2324-4bhif-syp/2324-4bhif-syp-project-kurstermine] ‏ ‏ ‎
 icon:home[link=https://htl-leonding.github.io/]
 endif::backend-html5[]

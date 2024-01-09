@@ -1,43 +1,54 @@
 <table>
     <tr>
-        <th>Id</th>
         <th>Name</th>
         <th>Address</th>
         <th>Duration [min]</th>
         <th>Start</th>
     </tr>
-    <tr *ngFor="let customer of appointmentService.get()">
+    <tr *ngFor="let appointment of appointmentService.get()">
         <td>
-            {{ customer?.id }}
+            {{ appointment?.name }}
         </td>
         <td>
-            {{ customer?.name }}
+            {{ appointment?.address }}
         </td>
         <td>
-            {{ customer?.address }}
+            {{ appointment?.duration }}
         </td>
         <td>
-            {{ customer?.duration }}
-        </td>
-        <td>
-            {{ customer?.date?.toLocaleDateString() }} {{ customer.date.toLocaleTimeString() }}
+            {{ appointment?.date?.toLocaleDateString() }}
+            {{ appointment.date.toLocaleTimeString() }}
         </td>
     </tr>
     <tr>
         <td>
-
+            <input
+                type="text"
+                placeholder="name"
+                [(ngModel)]="newAppointment.name"
+            />
         </td>
         <td>
-            <input type="text" placeholder="name" [(ngModel)]="newAppointment.name">
+            <input
+                type="text"
+                placeholder="address"
+                [(ngModel)]="newAppointment.address"
+            />
         </td>
         <td>
-            <input type="text" placeholder="address" [(ngModel)]="newAppointment.address">
+            <input
+                type="number"
+                placeholder="duration"
+                [(ngModel)]="newAppointment.duration"
+            />
         </td>
         <td>
-            <input type="number" placeholder="duration" [(ngModel)]="newAppointment.duration">
-        </td>
-        <td>
-            <input type="datetime-local" placeholder="date" [valueAsDate]="newAppointment.date" (input)="newAppointment.date = parseDate($event)">
+            <input
+                type="datetime-local"
+                placeholder="date"
+                [valueAsDate]="newAppointment.date"
+                (input)="newAppointment.date = parseDate($event)"
+            />
         </td>
         <td>
             <button (click)="add()">Add</button>
@@ -45,6 +56,6 @@
     </tr>
 </table>
 
-<br><br>
+<br/><br/>
 
 <app-appointment></app-appointment>
