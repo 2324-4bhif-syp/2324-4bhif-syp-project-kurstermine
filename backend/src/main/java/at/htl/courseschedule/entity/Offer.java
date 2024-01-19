@@ -16,14 +16,20 @@ public class Offer {
     @MapsId("appointmentId")
     @OnDelete(action = OnDeleteAction.CASCADE)
     Appointment appointment;
+
+    @ManyToOne
+    @MapsId("packetId")
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    Packet packet;
     //endregion
 
     //region constructors
     public Offer() {}
 
-    public Offer(@NotNull Appointment appointment, @NotNull Long packageId) {
+    public Offer(@NotNull Appointment appointment, @NotNull Packet packet) {
         this.appointment = appointment;
-        this.id = new OfferId(appointment.getId(), packageId);
+        this.packet = packet;
+        this.id = new OfferId(appointment.getId(), packet.getId());
     }
     //endregion
 
@@ -56,9 +62,8 @@ public class Offer {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Offer)) return false;
+        if (!(o instanceof Offer offer)) return false;
 
-        Offer offer = (Offer) o;
 
         return getId().equals(offer.getId());
     }

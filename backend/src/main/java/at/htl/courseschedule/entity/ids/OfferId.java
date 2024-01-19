@@ -12,14 +12,14 @@ public class OfferId implements Serializable {
     @Column(name = "appointment_id")
     private Long appointmentId;
 
-    @JsonProperty("package_id")
-    @Column(name = "package_id")
-    private Long packageId;
+    @JsonProperty("packet_id")
+    @Column(name = "packet_id")
+    private Long packetId;
 
     public OfferId() {}
 
-    public OfferId(Long appointmentId, Long packageId) {
+    public OfferId(Long appointmentId, Long packetId) {
         this.appointmentId = appointmentId;
-        this.packageId = packageId;
+        this.packetId = packetId;
     }
 }
