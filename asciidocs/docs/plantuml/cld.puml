@@ -1,7 +1,7 @@
 @startuml
 left to right direction
 
-class Package {
+class Packet {
 }
 
 class Appointment {
@@ -21,14 +21,14 @@ package Keycloak {
     }
 }
 
-Package -left- Appointment
-Package "*"--"1" Organisator: < owns
+Packet -left- Appointment
+Packet "*"--"1" Organisator: < owns
 Instructor -- User
 Customer -- User
 Organisator -- User
-Offer .. (Package, Appointment)
+Offer .. (Packet, Appointment)
 (Appointment, Instructor) .. AppointmentManagement
 (Appointment, Customer) .. Participation
-(Package, Customer) .. Purchase
+(Packet, Customer) .. Purchase
 
 @enduml
