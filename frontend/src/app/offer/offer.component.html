@@ -1,0 +1,18 @@
+<p style="display: flex; flex-direction: column;">
+    <label>
+        Name:
+        {{ offer.appointment.name }}
+    </label>
+    <label>
+        Adress:
+        {{ offer.appointment.address }}
+    </label>
+    <label>
+        Date:
+        {{ offer.appointment.date.toISOString() }}
+    </label>
+    <label>
+        Duration:
+        {{ offer.appointment.duration }}
+    </label>
+</p>

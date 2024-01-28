@@ -4,7 +4,7 @@ export function initializeKeycloak(keycloak: KeycloakService) {
     return () =>
         keycloak.init({
             config: {
-                url: 'https://babyapp.ddns.net/keycloak',
+                url: 'http://localhost:8180',
                 realm: 'htl',
                 clientId: 'angular-service',
             },

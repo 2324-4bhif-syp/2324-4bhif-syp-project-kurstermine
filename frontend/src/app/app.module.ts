@@ -23,7 +23,13 @@ import {
     MatDialogActions,
     MatDialogClose,
 } from '@angular/material/dialog';
+import {CdkAccordionModule} from '@angular/cdk/accordion';
 import { AppRoutingModule } from './app-routing.module';
+import { PacketComponent } from './packet/packet.component';
+import { PacketsComponent } from './packets/packets.component';
+import { OfferComponent } from './offer/offer.component';
+import { MatCard, MatCardModule } from '@angular/material/card';
+import { MatTreeModule } from '@angular/material/tree';
 
 @NgModule({
     declarations: [
@@ -34,6 +40,9 @@ import { AppRoutingModule } from './app-routing.module';
         ParticipationComponent,
         InstructorsComponent,
         AppointmentManagementComponent,
+        PacketComponent,
+        PacketsComponent,
+        OfferComponent
     ],
     imports: [
         BrowserModule,
@@ -47,6 +56,10 @@ import { AppRoutingModule } from './app-routing.module';
         MatDialogContent,
         MatDialogActions,
         MatDialogClose,
+        MatCardModule,
+        MatButtonModule,
+        MatTreeModule,
+        CdkAccordionModule,
     ],
     providers: [
         {

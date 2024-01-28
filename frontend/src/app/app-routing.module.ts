@@ -9,6 +9,7 @@ import { UserComponent } from './user/user.component';
 import { AdminViewComponent } from './admin-view/admin-view.component';
 import { CustomersComponent } from './customers/customers.component';
 import { Roles } from '../shared/models/roles';
+import { PacketsComponent } from './packets/packets.component';
 
 const routes: Routes = [
     { path: '', redirectTo: 'appointments-user', pathMatch: 'full' },
@@ -43,10 +44,11 @@ const routes: Routes = [
         canActivate: [AuthGuard, RoleGuard],
         data: { roles: [Roles.Admin] },
     },
+    { path: 'packets', component: PacketsComponent, canActivate: [AuthGuard] },
 ];
 
 @NgModule({
     imports: [RouterModule.forRoot(routes)],
     exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }
