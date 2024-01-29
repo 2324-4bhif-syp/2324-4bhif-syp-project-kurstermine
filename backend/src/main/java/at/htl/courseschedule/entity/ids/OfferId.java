@@ -22,4 +22,12 @@ public class OfferId implements Serializable {
         this.appointmentId = appointmentId;
         this.packetId = packetId;
     }
+
+    public Long getAppointmentId() {
+        return this.appointmentId;
+    }
+
+    public Long getPacketId() {
+        return this.packetId;
+    }
 }

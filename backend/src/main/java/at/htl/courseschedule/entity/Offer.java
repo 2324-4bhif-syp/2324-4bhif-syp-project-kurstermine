@@ -49,6 +49,14 @@ public class Offer {
     public void setAppointment(Appointment appointment) {
         this.appointment = appointment;
     }
+
+    public Packet getPacket() {
+        return this.packet;
+    }
+
+    public void setPacket(Packet packet) {
+        this.packet = packet;
+    }
     //endregion
 
     @Override
