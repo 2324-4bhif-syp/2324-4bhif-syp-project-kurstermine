@@ -1,4 +1,4 @@
-@for (offer of packet.offers; track $index) {
+@for (offer of getOffers(packet.id); track $index) {
     <app-offer [offer]="offer"></app-offer>
 }
 

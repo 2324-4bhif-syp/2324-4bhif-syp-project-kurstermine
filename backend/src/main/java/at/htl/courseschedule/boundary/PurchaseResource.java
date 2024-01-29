@@ -1,6 +1,7 @@
 package at.htl.courseschedule.boundary;
 
 import at.htl.courseschedule.controller.PurchaseRepository;
+import at.htl.courseschedule.entity.Participation;
 import at.htl.courseschedule.entity.Purchase;
 import at.htl.courseschedule.entity.ids.PurchaseId;
 import jakarta.annotation.security.RolesAllowed;
@@ -55,12 +56,12 @@ public class PurchaseResource {
             return Response.status(400).build();
         }
 
-        purchaseRepository.create(purchase);
+        List<Participation> participations = purchaseRepository.create(purchase);
         UriBuilder uriBuilder = uriInfo
                 .getAbsolutePathBuilder()
                 .path(purchase.getId().toString());
 
-        return Response.created(uriBuilder.build()).entity(purchase).build();
+        return Response.created(uriBuilder.build()).entity(participations).build();
     }
 
     @DELETE

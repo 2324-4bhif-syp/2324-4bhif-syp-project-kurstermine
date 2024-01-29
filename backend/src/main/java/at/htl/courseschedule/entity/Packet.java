@@ -1,11 +1,7 @@
 package at.htl.courseschedule.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 public class Packet {
@@ -15,36 +11,20 @@ public class Packet {
     /*@ManyToOne
     private Organisator organisator;*/
 
-    /*@ManyToOne
-    private List<Purchase> purchases = new ArrayList<>();*/
-
-    @OneToMany(
-            mappedBy = "packet",
-            fetch = FetchType.LAZY,
-            cascade = {
-                    CascadeType.DETACH,
-                    CascadeType.MERGE,
-                    CascadeType.PERSIST,
-                    CascadeType.REFRESH
-            }
-    )
-    private List<Offer> offers = new ArrayList<>();
+    @JsonProperty("name")
+    @Column(name = "name")
+    private String name;
 
     @JsonProperty("price")
     @Column(name = "price")
     private double price;
 
-    @JsonProperty("amount_of_max_appointments")
-    @Column(name = "amount_of_max_appointments")
-    private int amountOfMaxAppointments;
-
     public Packet() {
     }
 
-    public Packet(List<Offer> offers, double price, int amountOfMaxAppointments) {
-        this.offers = offers;
+    public Packet(String name, double price) {
+        this.name = name;
         this.price = price;
-        this.amountOfMaxAppointments = Math.min(offers.size(), amountOfMaxAppointments);
     }
 
     public Long getId() {
@@ -55,14 +35,6 @@ public class Packet {
         this.id = id;
     }
 
-    public List<Offer> getOffers() {
-        return offers;
-    }
-
-    public void setOffers(List<Offer> appointments) {
-        this.offers = appointments;
-    }
-
     public double getPrice() {
         return price;
     }
@@ -71,21 +43,19 @@ public class Packet {
         this.price = price;
     }
 
-    public int getAmountOfMaxAppointments() {
-        return amountOfMaxAppointments;
+    public String getName() {
+        return name;
     }
 
-    public void setAmountOfMaxAppointments(int amountOfMaxAppointments) {
-        this.amountOfMaxAppointments = amountOfMaxAppointments;
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Override
     public String toString() {
         return "Packet{" +
                 "id=" + id +
-                ", offers=" + offers +
                 ", price=" + price +
-                ", amountOfMaxAppointments=" + amountOfMaxAppointments +
                 '}';
     }
 }

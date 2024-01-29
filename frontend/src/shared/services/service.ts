@@ -3,7 +3,7 @@ export abstract class Service<T> {
         this.items = items;
     }
 
-    protected items: T[] = [];
+    public items: T[] = [];
 
     get(predicate?: ((item: T) => boolean) | undefined): T[] {
         if (predicate) return this.get().filter(predicate);

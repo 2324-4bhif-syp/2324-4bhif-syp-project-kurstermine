@@ -3,6 +3,7 @@ import { Packet } from 'src/shared/models/packet';
 import {MatDialog, MatDialogRef} from "@angular/material/dialog";
 import {BuyPacketConfirmDialogComponent} from "../buy-packet-confirm-dialog/buy-packet-confirm-dialog.component";
 import {Customer} from "../../shared/models/customer";
+import {OfferService} from "../../shared/services/offer.service";
 
 @Component({
   selector: 'app-packet',
@@ -11,7 +12,7 @@ import {Customer} from "../../shared/models/customer";
 })
 export class PacketComponent {
 
-    constructor(private dialog: MatDialog) {
+    constructor(private dialog: MatDialog, protected offerService: OfferService) {
     }
 
     @Input({required: true})
@@ -33,5 +34,9 @@ export class PacketComponent {
                 },
             },
         );
+    }
+
+    getOffers(packetId: number) {
+        return this.offerService.get(offer => offer.id.packetId == packetId);
     }
 }

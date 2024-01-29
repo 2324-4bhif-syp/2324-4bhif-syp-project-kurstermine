@@ -11,7 +11,10 @@ export interface OfferDto {
 
 export const fromOffer = (offer: Offer): OfferDto => {
     return {
-        id: offer.id,
+        id: {
+            appointment_id: offer.id.appointmentId,
+            packet_id: offer.id.packetId,
+        },
         appointment: fromAppointment(offer.appointment)
     }
 }

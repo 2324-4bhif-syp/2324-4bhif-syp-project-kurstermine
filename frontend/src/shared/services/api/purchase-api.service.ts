@@ -4,6 +4,7 @@ import { map, Observable } from 'rxjs';
 import { ApiService } from './api.service';
 import {fromPurchaseDto, Purchase} from "../../models/purchase";
 import {fromPurchase, PurchaseDto} from "../../models/dtos/purchase-dto";
+import {Participation} from "../../models/participation";
 
 @Injectable({
     providedIn: 'root',
@@ -30,9 +31,8 @@ export class PurchaseApiService extends ApiService<
             );
     }
 
-    public add(purchase: Purchase): Observable<Purchase> {
-        return this.http
-            .post<PurchaseDto>(
+    public add(purchase: Purchase): Observable<Participation[]> {
+        return this.http.post<Participation[]>(
                 this.url,
                 fromPurchase(purchase),
                 {
@@ -41,11 +41,6 @@ export class PurchaseApiService extends ApiService<
                         'application/json',
                     ),
                 },
-            )
-            .pipe(
-                map((purchaseDto) => {
-                    return fromPurchaseDto(purchaseDto);
-                }),
             );
     }
 

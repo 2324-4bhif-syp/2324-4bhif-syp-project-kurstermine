@@ -44,7 +44,12 @@ const routes: Routes = [
         canActivate: [AuthGuard, RoleGuard],
         data: { roles: [Roles.Admin] },
     },
-    { path: 'packets', component: PacketsComponent, canActivate: [AuthGuard] },
+    {
+        path: 'packets',
+        component: PacketsComponent,
+        canActivate: [AuthGuard, RoleGuard],
+        data: {roles: [Roles.Customer]}
+    },
 ];
 
 @NgModule({

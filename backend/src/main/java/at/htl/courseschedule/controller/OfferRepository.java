@@ -32,6 +32,13 @@ public class OfferRepository {
         return query.getResultList();
     }
 
+    public List<Offer> getAllByPacketId(Long packetId) {
+        TypedQuery<Offer> query = em.createQuery("select o from Offer o " +
+                "where o.packet.id = :packetId", Offer.class);
+        query.setParameter("packetId", packetId);
+        return query.getResultList();
+    }
+
     public void create(@NotNull Offer offer){
         if(offer.getId() == null){
             return;

@@ -6,6 +6,8 @@ import { Roles } from '../models/roles';
 import {PacketService} from "./packet.service";
 import {Purchase} from "../models/purchase";
 import {PurchaseApiService} from "./api/purchase-api.service";
+import {ParticipationService} from "./participation.service";
+import {Participation} from "../models/participation";
 
 @Injectable({
     providedIn: 'root',
@@ -15,7 +17,8 @@ export class PurchaseService extends Service<Purchase> {
         protected api: PurchaseApiService,
         protected customerService: CustomerService,
         protected packetService: PacketService,
-        protected keycloak: KeycloakService
+        protected keycloak: KeycloakService,
+        protected participationService: ParticipationService
     ) {
         super();
 
@@ -81,12 +84,15 @@ export class PurchaseService extends Service<Purchase> {
 
     override add(item: Purchase): void {
         this.api.add(item).subscribe({
-            next: (purchase) => {
+            next: (participations) => {
                 super.add({
-                    id: purchase.id,
-                    packet: this.packetService.get(p => p.id === purchase.id?.packetId)[0],
-                    customer: this.customerService.get(c => c.id === purchase.id?.customerId)[0]
+                    id: item.id,
+                    packet: this.packetService.get(p => p.id === item.id?.packetId)[0],
+                    customer: this.customerService.get(c => c.id === item.id?.customerId)[0]
                 });
+
+                participations.forEach((participation: Participation) =>
+                    this.participationService.items.push(this.participationService.mapParticipation(participation)));
             },
         });
     }

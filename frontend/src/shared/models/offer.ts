@@ -3,15 +3,18 @@ import { OfferDto } from "./dtos/offer-dto";
 
 export interface Offer {
     id: {
-        appointment_id: number,
-        packet_id: number,
+        appointmentId: number,
+        packetId: number,
     }
     appointment: Appointment;
 }
 
 export const fromOfferDto = (offer: OfferDto): Offer => {
     return {
-        id: offer.id,
+        id: {
+            appointmentId: offer.id.appointment_id,
+            packetId: offer.id.packet_id,
+        },
         appointment: fromAppointmentDto(offer.appointment)
     }
 }

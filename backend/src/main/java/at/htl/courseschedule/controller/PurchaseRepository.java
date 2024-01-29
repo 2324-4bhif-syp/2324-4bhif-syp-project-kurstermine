@@ -2,7 +2,9 @@ package at.htl.courseschedule.controller;
 
 import at.htl.courseschedule.boundary.Role;
 import at.htl.courseschedule.entity.Packet;
+import at.htl.courseschedule.entity.Participation;
 import at.htl.courseschedule.entity.Purchase;
+import at.htl.courseschedule.entity.ids.ParticipationId;
 import at.htl.courseschedule.entity.ids.PurchaseId;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
@@ -11,12 +13,19 @@ import jakarta.persistence.TypedQuery;
 import jakarta.validation.constraints.NotNull;
 import org.keycloak.representations.idm.UserRepresentation;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @ApplicationScoped
 public class PurchaseRepository {
     @Inject
     EntityManager em;
+
+    @Inject
+    ParticipationRepository participationRepository;
+
+    @Inject
+    OfferRepository offerRepository;
 
     @Inject
     PacketRepository packetRepository;
@@ -47,21 +56,36 @@ public class PurchaseRepository {
         return query.getResultList();
     }
 
-    public void create(@NotNull Purchase purchase) {
+    public List<Participation> create(@NotNull Purchase purchase) {
         if (purchase.getId() == null) {
-            return;
+            return null;
         }
 
         Packet packet = packetRepository.getById(purchase.getId().getPacketId());
         UserRepresentation user = userRepository.getById(purchase.getId().getCustomerId(), Role.Customer);
 
         if (packet == null || user == null) {
-            return;
+            return null;
         }
 
         purchase.setPacket(packet);
 
+        List<Participation> newParticipations = new ArrayList<>();
+
+        offerRepository.getAllByPacketId(packet.getId()).stream()
+                .filter(offer -> participationRepository.getById(
+                        new ParticipationId(offer.getAppointment().getId(), purchase.getId().getCustomerId())) == null)
+                .forEach(offer -> {
+                    Participation newParticipation = new Participation(
+                            offer.getAppointment(),
+                            purchase.getId().getCustomerId());
+                    participationRepository.create(newParticipation);
+                    newParticipations.add(newParticipation);
+                }
+        );
+
         em.merge(purchase);
+        return newParticipations;
     }
 
     public void delete(PurchaseId id) {
