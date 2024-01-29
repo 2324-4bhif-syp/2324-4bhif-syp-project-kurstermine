@@ -1,3 +1,9 @@
 @for (offer of packet.offers; track $index) {
     <app-offer [offer]="offer"></app-offer>
 }
+
+@if (showSignIn) {
+    <button mat-button (click)="onBtnSignIn()">Buy</button>
+} @else {
+    <p>&nbsp; ✅</p>
+}
