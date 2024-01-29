@@ -23,7 +23,7 @@ public class OfferRepository {
     @Inject
     AppointmentRepository appointmentRepository;
 
-    public Offer getById(Long id) {
+    public Offer getById(OfferId id) {
         return em.find(Offer.class, id);
     }
 
