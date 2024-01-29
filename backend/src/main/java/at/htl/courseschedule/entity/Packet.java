@@ -1,5 +1,7 @@
 package at.htl.courseschedule.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -16,11 +18,24 @@ public class Packet {
     /*@ManyToOne
     private List<Purchase> purchases = new ArrayList<>();*/
 
-    @OneToMany(mappedBy = "packet")
+    @OneToMany(
+            mappedBy = "packet",
+            fetch = FetchType.LAZY,
+            cascade = {
+                    CascadeType.DETACH,
+                    CascadeType.MERGE,
+                    CascadeType.PERSIST,
+                    CascadeType.REFRESH
+            }
+    )
     private List<Offer> offers = new ArrayList<>();
 
+    @JsonProperty("price")
+    @Column(name = "price")
     private double price;
 
+    @JsonProperty("amount_of_max_appointments")
+    @Column(name = "amount_of_max_appointments")
     private int amountOfMaxAppointments;
 
     public Packet() {
@@ -62,5 +77,15 @@ public class Packet {
 
     public void setAmountOfMaxAppointments(int amountOfMaxAppointments) {
         this.amountOfMaxAppointments = amountOfMaxAppointments;
+    }
+
+    @Override
+    public String toString() {
+        return "Packet{" +
+                "id=" + id +
+                ", offers=" + offers +
+                ", price=" + price +
+                ", amountOfMaxAppointments=" + amountOfMaxAppointments +
+                '}';
     }
 }

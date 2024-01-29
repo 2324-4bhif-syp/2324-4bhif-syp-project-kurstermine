@@ -1,6 +1,7 @@
 package at.htl.courseschedule.entity;
 
 import at.htl.courseschedule.entity.ids.OfferId;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import org.hibernate.annotations.OnDelete;
@@ -50,10 +51,6 @@ public class Offer {
         this.appointment = appointment;
     }
 
-    public Packet getPacket() {
-        return this.packet;
-    }
-
     public void setPacket(Packet packet) {
         this.packet = packet;
     }
@@ -68,11 +65,17 @@ public class Offer {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Offer offer)) return false;
+    public boolean equals(Object object) {
+        if (this == object) return true;
+        if (object == null || getClass() != object.getClass()) return false;
 
+        Offer that = (Offer) object;
 
-        return getId().equals(offer.getId());
+        return id.equals(that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return id.hashCode();
     }
 }

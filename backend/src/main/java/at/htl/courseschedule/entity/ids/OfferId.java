@@ -5,6 +5,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 @Embeddable
 public class OfferId implements Serializable {
@@ -29,5 +30,23 @@ public class OfferId implements Serializable {
 
     public Long getPacketId() {
         return this.packetId;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        OfferId offerId = (OfferId) o;
+
+        if (!appointmentId.equals(offerId.appointmentId)) return false;
+        return packetId.equals(offerId.packetId);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = appointmentId.hashCode();
+        result = 31 * result + packetId.hashCode();
+        return result;
     }
 }

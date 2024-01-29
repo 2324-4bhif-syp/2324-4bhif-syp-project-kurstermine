@@ -45,6 +45,7 @@ public class OfferRepository {
         }
 
         offer.setPacket(packet);
+        offer.setAppointment(appointment);
 
         em.merge(offer);
     }

@@ -3,6 +3,7 @@ package at.htl.courseschedule.boundary;
 import at.htl.courseschedule.controller.OfferRepository;
 import at.htl.courseschedule.entity.Offer;
 import at.htl.courseschedule.entity.ids.OfferId;
+import jakarta.annotation.security.PermitAll;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
@@ -16,6 +17,7 @@ public class OfferResource {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
+    @PermitAll
     public Response getAllOffers() {
         return Response.ok(offerRepository.getAll()).build();
     }
@@ -23,6 +25,7 @@ public class OfferResource {
     @GET
     @Path("{appointmentId}/{packetId}")
     @Produces(MediaType.APPLICATION_JSON)
+    @PermitAll
     public Response getOffer(@PathParam("appointmentId") Long appointmentId,
                              @PathParam("packetId") Long packetId){
         Offer offer = offerRepository.getById(new OfferId(packetId, appointmentId));
