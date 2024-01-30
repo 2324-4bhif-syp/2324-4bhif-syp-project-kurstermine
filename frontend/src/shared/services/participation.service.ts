@@ -40,12 +40,12 @@ export class ParticipationService extends Service<Participation> {
             return;
         }
 
-        if (customerService.finished) {
+        if (customerService.finished && !appointmentService.finished) {
             appointmentService.finishedListeners.push(() => this.getItems());
             return;
         }
 
-        if (appointmentService.finished) {
+        if (appointmentService.finished && !customerService.finished) {
             customerService.finishedListeners.push(() => this.getItems());
             return;
         }
@@ -58,15 +58,7 @@ export class ParticipationService extends Service<Participation> {
             this.api.getAll().subscribe({
                 next: (participations) => {
                     participations.forEach((participation) => {
-                        super.add({
-                            id: participation.id,
-                            appointment: this.appointmentService.get(
-                                (a) => a.id === participation.id?.appointmentId,
-                            )[0],
-                            customer: this.customerService.get(
-                                (c) => c.id === participation.id?.customerId,
-                            )[0],
-                        });
+                        super.add(this.mapParticipation(participation));
                     });
                 },
             });
@@ -82,11 +74,7 @@ export class ParticipationService extends Service<Participation> {
     override add(item: Participation): void {
         this.api.add(item).subscribe({
             next: (participation) => {
-                super.add({
-                    id: participation.id,
-                    appointment: this.appointmentService.get(a => a.id === participation.id?.appointmentId)[0],
-                    customer: this.customerService.get(c => c.id === participation.id?.customerId)[0]
-                });
+                super.add(this.mapParticipation(participation));
             },
         });
     }
@@ -115,5 +103,13 @@ export class ParticipationService extends Service<Participation> {
                 });
             },
         });
+    }
+
+    mapParticipation(old: Participation) {
+        return {
+            id: old.id,
+            appointment: this.appointmentService.get(a => a.id === old.id?.appointmentId)[0],
+            customer: this.customerService.get(c => c.id === old.id?.customerId)[0]
+        }
     }
 }

@@ -1,0 +1,13 @@
+<h2>Do you want to buy this packet for {{packet.price}}€?</h2>
+
+<div
+    class="example-button-row"
+    style="display: flex; justify-content: space-evenly"
+>
+    <button mat-raised-button color="primary" (click)="onBtnConfirm()">
+        Confirm
+    </button>
+    <button mat-raised-button color="warn" (click)="onBtnCancel()">
+        Cancel
+    </button>
+</div>

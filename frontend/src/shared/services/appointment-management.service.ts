@@ -37,12 +37,12 @@ export class AppointmentManagementService extends Service<AppointmentManagement>
             return;
         }
 
-        if (instructorService.finished) {
+        if (instructorService.finished && !appointmentService.finished) {
             appointmentService.finishedListeners.push(() => this.getItems());
             return;
         }
 
-        if (appointmentService.finished) {
+        if (appointmentService.finished && !instructorService.finished) {
             instructorService.finishedListeners.push(() => this.getItems());
             return;
         }
