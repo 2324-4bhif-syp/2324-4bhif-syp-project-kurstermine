@@ -8,7 +8,6 @@ import { PacketDto } from 'src/shared/models/dtos/packet-dto';
 	providedIn: 'root'
 })
 export class PacketApiService extends ApiService<Packet, PacketDto> {
-
 	constructor(http: HttpClient) {
 		super(http, "packets", fromPacketDto);
 	}

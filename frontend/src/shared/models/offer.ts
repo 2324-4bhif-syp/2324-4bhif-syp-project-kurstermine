@@ -1,5 +1,6 @@
-import { Appointment, fromAppointmentDto } from "./appointment"
+import { Appointment } from "./appointment"
 import { OfferDto } from "./dtos/offer-dto";
+import {Packet} from "./packet";
 
 export interface Offer {
     id: {
@@ -7,6 +8,7 @@ export interface Offer {
         packetId: number,
     }
     appointment: Appointment;
+    packet: Packet;
 }
 
 export const fromOfferDto = (offer: OfferDto): Offer => {
@@ -15,6 +17,7 @@ export const fromOfferDto = (offer: OfferDto): Offer => {
             appointmentId: offer.id.appointment_id,
             packetId: offer.id.packet_id,
         },
-        appointment: fromAppointmentDto(offer.appointment)
+        appointment: null!,
+        packet: null!,
     }
 }

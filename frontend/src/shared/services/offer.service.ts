@@ -17,7 +17,6 @@ export class OfferService extends Service<Offer> {
         protected keycloak: KeycloakService
     ) {
         super();
-
         if (!packetService.finished && !appointmentService.finished) {
             let isServiceFinished = false;
 
@@ -39,12 +38,12 @@ export class OfferService extends Service<Offer> {
             return;
         }
 
-        if (packetService.finished) {
+        if (packetService.finished && !appointmentService.finished) {
             appointmentService.finishedListeners.push(() => this.getItems());
             return;
         }
 
-        if (appointmentService.finished) {
+        if (appointmentService.finished && !packetService.finished) {
             packetService.finishedListeners.push(() => this.getItems());
             return;
         }
@@ -82,7 +81,7 @@ export class OfferService extends Service<Offer> {
         return {
             id: old.id,
             appointment: this.appointmentService.get(a => a.id === old.id?.appointmentId)[0],
-            customer: this.packetService.get(c => c.id === old.id?.packetId)[0]
+            packet: this.packetService.get(p => p.id === old.id?.packetId)[0]
         }
     }
 }

@@ -43,12 +43,12 @@ export class PurchaseService extends Service<Purchase> {
             return;
         }
 
-        if (customerService.finished) {
+        if (customerService.finished && !packetService.finished) {
             packetService.finishedListeners.push(() => this.getItems());
             return;
         }
 
-        if (packetService.finished) {
+        if (packetService.finished && !customerService.finished) {
             customerService.finishedListeners.push(() => this.getItems());
             return;
         }

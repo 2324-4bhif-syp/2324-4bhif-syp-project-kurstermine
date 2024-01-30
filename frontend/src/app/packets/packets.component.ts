@@ -17,7 +17,6 @@ export class PacketsComponent {
         protected customerService: CustomerService,
         protected purchaseService: PurchaseService
 	) {
-		console.log(packetService.get());
 	}
 
     isIncluded(packet: Packet): boolean {

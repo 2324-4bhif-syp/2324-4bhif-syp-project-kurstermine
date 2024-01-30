@@ -40,12 +40,12 @@ export class ParticipationService extends Service<Participation> {
             return;
         }
 
-        if (customerService.finished) {
+        if (customerService.finished && !appointmentService.finished) {
             appointmentService.finishedListeners.push(() => this.getItems());
             return;
         }
 
-        if (appointmentService.finished) {
+        if (appointmentService.finished && !customerService.finished) {
             customerService.finishedListeners.push(() => this.getItems());
             return;
         }
