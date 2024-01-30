@@ -3,7 +3,7 @@
 }
 
 @if (showSignIn) {
-    <button mat-button (click)="onBtnSignIn()">Buy</button>
+    <button mat-button (click)="onBtnSignIn()">Buy for {{packet.price}}€</button>
 } @else {
     <p>&nbsp; ✅</p>
 }
