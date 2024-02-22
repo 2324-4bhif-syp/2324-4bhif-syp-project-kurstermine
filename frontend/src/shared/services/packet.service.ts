@@ -1,31 +1,17 @@
 import { Injectable } from '@angular/core';
 import { PacketApiService } from './api/packet-api.service';
-import { Service } from './service';
 import { Packet } from '../models/packet';
+import {ReplayBaseService} from "./replay-base-service";
 
 @Injectable({
     providedIn: 'root'
 })
-export class PacketService extends Service<Packet> {
+export class PacketService extends ReplayBaseService<Packet> {
     finished = false;
 
     constructor(
         protected api: PacketApiService
     ) {
-        super()
-
-        this.api.getAll().subscribe({
-            next: (packet) => {
-                super.add(...packet);
-                this.finished = true;
-                this.notifyListeners();
-            },
-        });
+        super(api, api.getAll, (packet) => super.add(...packet));
     }
-
-    notifyListeners() {
-        this.finishedListeners.forEach((listener) => listener());
-    }
-
-    finishedListeners: (() => void)[] = [];
 }

@@ -19,7 +19,7 @@ export class ParticipationApiService extends ApiService<
     ParticipationDto
 > {
     constructor(http: HttpClient) {
-        super(http, 'admin-participations', fromParticipationDto);
+        super(http, 'participations', fromParticipationDto);
     }
 
     public getAllFromCustomer(id: string): Observable<Participation[]> {

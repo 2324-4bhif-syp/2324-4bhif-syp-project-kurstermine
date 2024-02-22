@@ -1,42 +1,22 @@
 import { Injectable } from '@angular/core';
 import { Customer } from '../models/customer';
-import { Service } from './service';
 import { CustomerApiService } from './api/customer-api.service';
-import { Observable } from 'rxjs';
 import { KeycloakService } from 'keycloak-angular';
 import { Roles } from '../models/roles';
+import {ReplayBaseService} from "./replay-base-service";
 
 @Injectable({
     providedIn: 'root',
 })
-export class CustomerService extends Service<Customer> {
+export class CustomerService extends ReplayBaseService<Customer> {
     finished = false;
 
     constructor(protected api: CustomerApiService,
                 protected keycloak: KeycloakService) {
-        super();
-
-        if(keycloak.getUserRoles().includes(Roles.Admin)) {
-            this.api.getAll().subscribe({
-                next: (customers) => {
-                    super.add(...customers);
-                    this.finished = true;
-                    this.notifyListeners();
-                },
-            });
-
-            return;
-        }
-
-        if(keycloak.getUserRoles().includes(Roles.Customer)) {
-            this.getLoggedInCustomer().subscribe({
-                next: (customer: Customer) => {
-                    super.add(customer);
-                    this.finished = true;
-                    this.notifyListeners();
-                },
-            });
-        }
+        super(api, keycloak.getUserRoles().includes(Roles.Admin) ?
+                api.getAll : api.getLoggedInCustomer,
+            keycloak.getUserRoles().includes(Roles.Admin) ?
+                (customers) => super.add(...customers) : (customer: Customer) => super.add(customer));
     }
 
     override add(item: Customer): void {
@@ -46,14 +26,4 @@ export class CustomerService extends Service<Customer> {
             },
         });
     }
-
-    getLoggedInCustomer(): Observable<Customer> {
-        return this.api.getLoggedInCustomer();
-    }
-
-    notifyListeners() {
-        this.finishedListeners.forEach((listener) => listener());
-    }
-
-    finishedListeners: (() => void)[] = [];
 }

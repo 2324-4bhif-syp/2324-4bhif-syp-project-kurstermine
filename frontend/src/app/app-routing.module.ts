@@ -14,25 +14,25 @@ import { UserPacketsComponent } from './user/user-packets/user-packets.component
 const routes: Routes = [
     { path: '', redirectTo: 'admin-appointments-userinfo', pathMatch: 'full' },
     {
-        path: 'admin-customers',
+        path: 'customers',
         component: AdminCustomersComponent,
         canActivate: [AuthGuard, RoleGuard],
         data: { roles: [Roles.Admin] },
     },
     {
-        path: 'admin-instructors',
+        path: 'instructors',
         component: AdminInstructorsComponent,
         canActivate: [AuthGuard, RoleGuard],
         data: { roles: [Roles.Admin] },
     },
     {
-        path: 'admin-appointments-userinfo',
+        path: 'appointments-user',
         component: UserAppointmentsComponent,
         canActivate: [AuthGuard, RoleGuard],
         data: { roles: [Roles.Customer] },
     },
     {
-        path: 'admin-appointments',
+        path: 'appointments',
         component: AdminAppointmentsComponent,
         canActivate: [AuthGuard, RoleGuard],
         data: { roles: [Roles.Admin] },
@@ -45,7 +45,7 @@ const routes: Routes = [
         data: { roles: [Roles.Admin] },
     },
     {
-        path: 'user-packets',
+        path: 'packets',
         component: UserPacketsComponent,
         canActivate: [AuthGuard, RoleGuard],
         data: {roles: [Roles.Customer]}
