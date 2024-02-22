@@ -19,7 +19,7 @@ export class AppointmentManagementApiService extends ApiService<
     AppointmentManagementDto
 > {
     constructor(http: HttpClient) {
-        super(http, 'appointment-managements', fromAppointmentManagementDto);
+        super(http, 'admin-appointment-managements', fromAppointmentManagementDto);
     }
 
     public add(

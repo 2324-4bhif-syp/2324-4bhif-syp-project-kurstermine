@@ -1,0 +1,21 @@
+<h2>Packets</h2>
+
+<cdk-accordion class="accordion">
+    @for (packet of packetService.get(); track packet; let index = $index) {
+    <cdk-accordion-item #accordionItem="cdkAccordionItem" role="button" [attr.id]="'accordion-header-' + index"
+        [attr.aria-expanded]="accordionItem.expanded" [attr.aria-controls]="'accordion-body-' + index">
+        <div (click)="accordionItem.toggle()" class="accordion-item-header">
+            <span class="example-accordion-item-description">
+                {{ accordionItem.expanded ? 'Close' : 'Open' }} {{packet.name}}
+              </span>
+        </div>
+        <div class="example-accordion-item-body" role="region" [style.display]="accordionItem.expanded ? '' : 'none'"
+            [attr.id]="'accordion-body-' + index" [attr.aria-labelledby]="'accordion-header-' + index">
+            <app-user-packet [loggedInCustomer]="customerService.get()[0]"
+                        [showSignIn]="!isIncluded(packet)"
+                        [packet]="packet">
+            </app-user-packet>
+        </div>
+    </cdk-accordion-item>
+    }
+</cdk-accordion>

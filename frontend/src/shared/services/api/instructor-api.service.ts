@@ -16,7 +16,7 @@ export class InstructorApiService extends ApiService<
     InstructorDto
 > {
     constructor(http: HttpClient) {
-        super(http, 'instructors', fromInstructorDto);
+        super(http, 'admin-instructors', fromInstructorDto);
     }
 
     public add(instructor: Instructor): Observable<Instructor> {

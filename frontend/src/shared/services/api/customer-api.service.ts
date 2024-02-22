@@ -10,7 +10,7 @@ import { ApiService } from './api.service';
 })
 export class CustomerApiService extends ApiService<Customer, CustomerDto> {
     constructor(http: HttpClient) {
-        super(http, 'customers', fromCustomerDto);
+        super(http, 'admin-customers', fromCustomerDto);
     }
 
     public getLoggedInCustomer() {

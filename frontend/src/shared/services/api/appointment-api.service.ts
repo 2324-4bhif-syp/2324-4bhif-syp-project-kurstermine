@@ -16,7 +16,7 @@ export class AppointmentApiService extends ApiService<
     AppointmentDto
 > {
     constructor(http: HttpClient) {
-        super(http, 'appointments', fromAppointmentDto);
+        super(http, 'admin-appointments', fromAppointmentDto);
     }
 
     public add(appointment: Appointment): Observable<Appointment> {

@@ -1,39 +1,39 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AuthGuard } from './guard/auth.guard';
-import { RoleGuard } from './guard/role.guard';
-import { InstructorsComponent } from './instructors/instructors.component';
-import { UserAppointmentsComponent } from './user-appointments/user-appointments.component';
-import { AppointmentsComponent } from './appointments/appointments.component';
-import { UserComponent } from './user/user.component';
-import { AdminViewComponent } from './admin-view/admin-view.component';
-import { CustomersComponent } from './customers/customers.component';
+import { AuthGuard } from './other/guard/auth.guard';
+import { RoleGuard } from './other/guard/role.guard';
+import { AdminInstructorsComponent } from './admin/admin-instructors/admin-instructors.component';
+import { UserAppointmentsComponent } from './user/user-appointments/user-appointments.component';
+import { AdminAppointmentsComponent } from './admin/admin-appointments/admin-appointments.component';
+import { UserComponent } from './other/userinfo/user.component';
+import { AdminViewComponent } from './admin/admin-view/admin-view.component';
+import { AdminCustomersComponent } from './admin/admin-customers/admin-customers.component';
 import { Roles } from '../shared/models/roles';
-import { PacketsComponent } from './packets/packets.component';
+import { UserPacketsComponent } from './user/user-packets/user-packets.component';
 
 const routes: Routes = [
-    { path: '', redirectTo: 'appointments-user', pathMatch: 'full' },
+    { path: '', redirectTo: 'admin-appointments-userinfo', pathMatch: 'full' },
     {
-        path: 'customers',
-        component: CustomersComponent,
+        path: 'admin-customers',
+        component: AdminCustomersComponent,
         canActivate: [AuthGuard, RoleGuard],
         data: { roles: [Roles.Admin] },
     },
     {
-        path: 'instructors',
-        component: InstructorsComponent,
+        path: 'admin-instructors',
+        component: AdminInstructorsComponent,
         canActivate: [AuthGuard, RoleGuard],
         data: { roles: [Roles.Admin] },
     },
     {
-        path: 'appointments-user',
+        path: 'admin-appointments-userinfo',
         component: UserAppointmentsComponent,
         canActivate: [AuthGuard, RoleGuard],
         data: { roles: [Roles.Customer] },
     },
     {
-        path: 'appointments',
-        component: AppointmentsComponent,
+        path: 'admin-appointments',
+        component: AdminAppointmentsComponent,
         canActivate: [AuthGuard, RoleGuard],
         data: { roles: [Roles.Admin] },
     },
@@ -45,8 +45,8 @@ const routes: Routes = [
         data: { roles: [Roles.Admin] },
     },
     {
-        path: 'packets',
-        component: PacketsComponent,
+        path: 'user-packets',
+        component: UserPacketsComponent,
         canActivate: [AuthGuard, RoleGuard],
         data: {roles: [Roles.Customer]}
     },
