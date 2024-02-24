@@ -28,33 +28,11 @@ $frontend-theme: mat.define-light-theme(
         ),
     )
 );
-
 // Include theme styles for core and each component used in your app.
 // Alternatively, you can import and @include the theme mixins for each component
 // that you are using.
 @include mat.all-component-themes($frontend-theme);
 
-#card {
-    box-shadow: 0 0 5px;
-    margin: 3% 0 0 0;
-    width: 900px;
-}
 
-app-user-appointment {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
 
-h1 {
-    text-align: center;
-    font-size: 50px !important;
-    margin-top: 2% !important;
-}
 
-h2 {
-    text-align: center;
-    font-size: 30px !important;
-    margin-top: 2% !important;
-}

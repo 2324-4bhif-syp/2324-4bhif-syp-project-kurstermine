@@ -1,17 +1,34 @@
-<mat-card id="card">
+<mat-card>
     <mat-card-header>
         <mat-card-title>{{ appointment.name }}</mat-card-title>
     </mat-card-header>
     <mat-card-content>
-        <p>Address: {{ appointment.address }}</p>
-        <p>Duration: {{ appointment.duration }} min</p>
-        <p>Start: {{ appointment.date.toISOString() }}</p>
+        <hr>
+        <mat-icon>location_on</mat-icon>
+        <p class="card-p">{{ appointment.address }}</p>
+        <hr style="height: 1px; width: 200px">
+        <mat-icon>calendar_today</mat-icon>
+        <p class="card-p">{{ appointment.date.getDay() }}.{{ appointment.date.getMonth() }}.{{ appointment.date.getFullYear() }}</p>
+        <div class="flex-base-row time-container">
+            <div class="flex-base-col">
+                <mat-icon>schedule</mat-icon>
+                <p class="card-p">{{ appointment.date.getHours() }}:{{ String(appointment.date.getMinutes()).padStart(2, "0") }}</p>
+            </div>
+            <div class="flex-base-col">
+                <mat-icon>timelapse</mat-icon>
+                <p class="card-p">{{ appointment.duration }} min</p>
+            </div>
+        </div>
     </mat-card-content>
     <mat-card-actions>
         @if (showSignIn) {
-            <button mat-button (click)="onBtnSignIn()">Sign In</button>
+            <button mat-mini-fab color="primary" (click)="onBtnSignIn()">
+                <mat-icon class="card-btn">add</mat-icon>
+            </button>
         } @else {
-            <p>&nbsp; ✅</p>
+            <button mat-mini-fab color="primary">
+                <mat-icon class="card-btn">done</mat-icon> <!--check_circle-->
+            </button>
         }
         <!--<button mat-button>Cancel</button>-->
     </mat-card-actions>

@@ -1,15 +1,105 @@
-/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css?family=Itim:700|Itim:400'); /* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css?family=Itim:700|Itim:400'); /* You can add global styles to this file, and also import other style files */
+
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-html,
+* {
+    font-family: 'Itim';
+}
+
 body {
     height: 100%;
 }
 
-body {
+.flex-base-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.flex-base-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+div.time-container {
+    justify-content: space-between;
+    width: 120px;
+}
+
+mat-card {
+    box-shadow: 0 0 5px #3f51b5 !important;
+    margin: 3% 0 0 0 !important;
+    width: 350px !important;
+    display: flex !important;
+    align-items: center !important;
+    background-color: #efeff5 !important;
+}
+
+mat-card-actions {
+    padding-top: 0 !important;
+}
+
+mat-card-content {
+    display: flex !important;
+    flex-direction: column;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+mat-card-title {
+    font-size: 30px !important;
+    font-weight: bold !important;
+    /*background-color: #3f51b5;
+    color: white;
+    border-radius: 5px;
+    padding: 2px;*/
+}
+
+div.user-appointments {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+}
+
+app-user-appointment {
+    width: 350px;
     margin: 0;
-    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+hr {
+    color: #3f51b5;
+    border: 0;
+    height: 4px;
+    width: 250px;
+    background-image: linear-gradient(to right, rgba(0, 0, 0, 0), #3f51b5, rgba(0, 0, 0, 0));
+}
+
+h1 {
+    text-align: center;
+    font-size: 50px;
+    margin-top: 2%;
+}
+
+h2 {
+    text-align: center;
+    font-size: 40px;
+    margin-top: 2%;
+}
+
+p.card-p {
+    margin: 0 0 5px 0;
+}
+
+mat-icon {
+    color: #3f51b5 !important;
+}
+
+mat-icon.card-btn {
+    color: white !important;
 }

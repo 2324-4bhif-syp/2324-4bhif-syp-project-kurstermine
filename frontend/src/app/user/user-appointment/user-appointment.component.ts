@@ -7,11 +7,12 @@ import { ParticipationService } from '../../../shared/services/participation.ser
 import { Customer } from '../../../shared/models/customer';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { UserConfirmDialogComponent } from '../user-confirm-dialog/user-confirm-dialog.component';
+import {MatIconModule} from "@angular/material/icon";
 
 @Component({
     selector: 'app-user-appointment',
     standalone: true,
-    imports: [MatCardModule, MatButtonModule, MatTreeModule],
+    imports: [MatCardModule, MatButtonModule, MatTreeModule, MatIconModule],
     templateUrl: './user-appointment.component.html',
     styleUrl: './user-appointment.component.css',
 })
@@ -50,4 +51,6 @@ export class UserAppointmentComponent {
     this.participationService.add(participation);
      */
     }
+
+    protected readonly String = String;
 }
