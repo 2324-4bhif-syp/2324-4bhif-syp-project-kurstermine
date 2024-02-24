@@ -30,8 +30,8 @@ export class UserAppointmentComponent {
         let dialogRef: MatDialogRef<UserConfirmDialogComponent> = this.dialog.open(
             UserConfirmDialogComponent,
             {
-                height: '200px',
-                width: '600px',
+                height: '160px',
+                width: '500px',
                 data: {
                     appointment: this.appointment!,
                     loggedInCustomer: this.loggedInCustomer!,
