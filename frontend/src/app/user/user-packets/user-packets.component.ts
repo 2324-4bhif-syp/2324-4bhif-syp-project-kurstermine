@@ -17,6 +17,7 @@ export class UserPacketsComponent {
         protected customerService: CustomerService,
         protected purchaseService: PurchaseService
 	) {
+        
 	}
 
     isIncluded(packet: Packet): boolean {

@@ -20,6 +20,7 @@ import {
     MatDialogActions,
     MatDialogClose,
 } from '@angular/material/dialog';
+import { MatDividerModule } from '@angular/material/divider';
 import {CdkAccordionModule} from '@angular/cdk/accordion';
 import { AppRoutingModule } from './app-routing.module';
 import { UserPacketComponent } from './user/user-packet/user-packet.component';
@@ -27,6 +28,7 @@ import { UserPacketsComponent } from './user/user-packets/user-packets.component
 import { UserOfferComponent } from './user/user-offer/user-offer.component';
 import { MatCardModule } from '@angular/material/card';
 import { MatTreeModule } from '@angular/material/tree';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
     declarations: [
@@ -57,6 +59,8 @@ import { MatTreeModule } from '@angular/material/tree';
         MatButtonModule,
         MatTreeModule,
         CdkAccordionModule,
+        MatDividerModule,
+        MatIconModule
     ],
     providers: [
         {

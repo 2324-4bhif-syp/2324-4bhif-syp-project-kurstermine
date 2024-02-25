@@ -10,6 +10,7 @@ import { AdminViewComponent } from './admin/admin-view/admin-view.component';
 import { AdminCustomersComponent } from './admin/admin-customers/admin-customers.component';
 import { Roles } from '../shared/models/roles';
 import { UserPacketsComponent } from './user/user-packets/user-packets.component';
+import { UserPacketInfoComponent } from './user/user-packet-info/user-packet-info.component';
 
 const routes: Routes = [
     { path: '', redirectTo: 'admin-appointments-userinfo', pathMatch: 'full' },
@@ -50,6 +51,12 @@ const routes: Routes = [
         canActivate: [AuthGuard, RoleGuard],
         data: {roles: [Roles.Customer]}
     },
+    {
+        path: 'packets/:id',
+        component: UserPacketInfoComponent,
+        canActivate: [AuthGuard, RoleGuard],
+        data: {roles: [Roles.Customer]}
+    }
 ];
 
 @NgModule({
