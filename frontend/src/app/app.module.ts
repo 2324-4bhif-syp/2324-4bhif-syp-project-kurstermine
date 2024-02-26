@@ -28,8 +28,9 @@ import { UserPacketsComponent } from './user/user-packets/user-packets.component
 import { UserOfferComponent } from './user/user-offer/user-offer.component';
 import { MatCardModule } from '@angular/material/card';
 import { MatTreeModule } from '@angular/material/tree';
-import {MatIcon, MatIconModule} from '@angular/material/icon';
-import {MatToolbar, MatToolbarModule} from "@angular/material/toolbar";
+import {MatIconModule} from '@angular/material/icon';
+import {MatToolbarModule} from "@angular/material/toolbar";
+import {MatMenuModule} from "@angular/material/menu";
 
 @NgModule({
     declarations: [
@@ -63,6 +64,7 @@ import {MatToolbar, MatToolbarModule} from "@angular/material/toolbar";
         MatDividerModule,
         MatIconModule,
         MatToolbarModule,
+        MatMenuModule,
     ],
     providers: [
         {
