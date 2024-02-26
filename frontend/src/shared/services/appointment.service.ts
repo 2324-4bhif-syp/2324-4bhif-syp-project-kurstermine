@@ -1,27 +1,19 @@
 import { Injectable } from '@angular/core';
 import { AppointmentApiService } from './api/appointment-api.service';
-import { Service } from './service';
 import { Appointment } from '../models/appointment';
+import {ReplayBaseService} from "./replay-base-service";
 
 @Injectable({
     providedIn: 'root',
 })
-export class AppointmentService extends Service<Appointment> {
+export class AppointmentService extends ReplayBaseService<Appointment> {
     protected api: AppointmentApiService;
     finished = false;
 
     constructor(appointmentApiService: AppointmentApiService) {
-        super();
+        super(appointmentApiService, appointmentApiService.getAll, (appointments) => super.add(...appointments));
 
         this.api = appointmentApiService;
-
-        this.api.getAll().subscribe({
-            next: (appointments) => {
-                super.add(...appointments);
-                this.finished = true;
-                this.notifyListeners();
-            },
-        });
     }
 
     override add(item: Appointment): void {
@@ -31,10 +23,4 @@ export class AppointmentService extends Service<Appointment> {
             },
         });
     }
-
-    notifyListeners() {
-        this.finishedListeners.forEach((listener) => listener());
-    }
-
-    finishedListeners: (() => void)[] = [];
 }

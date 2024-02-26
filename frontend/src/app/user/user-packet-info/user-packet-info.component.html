@@ -1,0 +1,48 @@
+<mat-card style="width: 100% !important; box-shadow: none !important; background-color: #fff !important;">
+    <mat-card-header>
+        <mat-card-title><h2 style="margin-bottom: 0;">{{ packet?.name }}</h2></mat-card-title>
+    </mat-card-header>
+    <mat-card-subtitle style="margin-bottom: 0.5rem;">{{ packet?.price }} €</mat-card-subtitle>
+    <mat-card-actions>
+        @if(wasPurchased) {
+            <button mat-fab extended color="primary" disabled="">
+                <mat-icon style="color:  darkgray !important;">done</mat-icon>
+                <span>Purchased</span>
+            </button>
+        } @else {
+            <button mat-fab extended color="primary" (click)="onBtnSignIn()"> 
+                <mat-icon style="color:  white !important;">payment</mat-icon>
+                <span>Buy</span>
+            </button>
+        }
+    </mat-card-actions>
+    <mat-card-content>
+        <div class="user-packets" style="width: 100% !important;">
+            @for (offer of offers; track $index) {
+                <mat-card>
+                    <mat-card-header>
+                        <mat-card-title>{{ offer.appointment.name }}</mat-card-title>
+                    </mat-card-header>
+                    <mat-card-content>
+                        <hr>
+                        <mat-icon>location_on</mat-icon>
+                        <p class="card-p">{{ offer.appointment.address }}</p>
+                        <hr style="height: 1px; width: 200px">
+                        <mat-icon>today</mat-icon>
+                        <p class="card-p">{{ offer.appointment.date.getDay() }}.{{ offer.appointment.date.getMonth() }}.{{ offer.appointment.date.getFullYear() }}</p>
+                        <div class="flex-base-row time-container">
+                            <div class="flex-base-col">
+                                <mat-icon>schedule</mat-icon>
+                                <p class="card-p">{{ offer.appointment.date.getHours() }}:{{ String(offer.appointment.date.getMinutes()).padStart(2, "0") }}</p>
+                            </div>
+                            <div class="flex-base-col">
+                                <mat-icon>timelapse</mat-icon>
+                                <p class="card-p">{{ offer.appointment.duration }} min</p>
+                            </div>
+                        </div>
+                    </mat-card-content>
+                </mat-card>
+            }    
+            </div>
+    </mat-card-content>
+</mat-card>

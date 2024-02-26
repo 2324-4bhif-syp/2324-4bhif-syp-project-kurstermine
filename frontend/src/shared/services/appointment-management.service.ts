@@ -16,38 +16,11 @@ export class AppointmentManagementService extends Service<AppointmentManagement>
     ) {
         super();
 
-        if (!instructorService.finished && !appointmentService.finished) {
-            let isServiceFinished = false;
-
-            instructorService.finishedListeners.push(() => {
-                isServiceFinished = !isServiceFinished;
-
-                if (!isServiceFinished) {
-                    this.getItems();
-                }
-            });
-
-            appointmentService.finishedListeners.push(() => {
-                isServiceFinished = !isServiceFinished;
-
-                if (!isServiceFinished) {
-                    this.getItems();
-                }
-            });
-            return;
-        }
-
-        if (instructorService.finished && !appointmentService.finished) {
-            appointmentService.finishedListeners.push(() => this.getItems());
-            return;
-        }
-
-        if (appointmentService.finished && !instructorService.finished) {
-            instructorService.finishedListeners.push(() => this.getItems());
-            return;
-        }
-
-        this.getItems();
+        instructorService.replaySubject.subscribe({
+            next: () => appointmentService.replaySubject.subscribe({
+                next: () => this.getItems()
+            })
+        })
     }
 
     getItems() {

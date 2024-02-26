@@ -17,38 +17,11 @@ export class OfferService extends Service<Offer> {
         protected keycloak: KeycloakService
     ) {
         super();
-        if (!packetService.finished && !appointmentService.finished) {
-            let isServiceFinished = false;
-
-            packetService.finishedListeners.push(() => {
-                isServiceFinished = !isServiceFinished;
-
-                if (!isServiceFinished) {
-                    this.getItems();
-                }
-            });
-
-            appointmentService.finishedListeners.push(() => {
-                isServiceFinished = !isServiceFinished;
-
-                if (!isServiceFinished) {
-                    this.getItems();
-                }
-            });
-            return;
-        }
-
-        if (packetService.finished && !appointmentService.finished) {
-            appointmentService.finishedListeners.push(() => this.getItems());
-            return;
-        }
-
-        if (appointmentService.finished && !packetService.finished) {
-            packetService.finishedListeners.push(() => this.getItems());
-            return;
-        }
-
-        this.getItems();
+        packetService.replaySubject.subscribe({
+            next: () => appointmentService.replaySubject.subscribe({
+                next: () => this.getItems()
+            })
+        })
     }
 
     getItems() {

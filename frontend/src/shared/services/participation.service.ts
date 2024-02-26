@@ -18,39 +18,11 @@ export class ParticipationService extends Service<Participation> {
         protected keycloak: KeycloakService
     ) {
         super();
-
-        if (!customerService.finished && !appointmentService.finished) {
-            let isServiceFinished = false;
-
-            customerService.finishedListeners.push(() => {
-                isServiceFinished = !isServiceFinished;
-
-                if (!isServiceFinished) {
-                    this.getItems();
-                }
-            });
-
-            appointmentService.finishedListeners.push(() => {
-                isServiceFinished = !isServiceFinished;
-
-                if (!isServiceFinished) {
-                    this.getItems();
-                }
-            });
-            return;
-        }
-
-        if (customerService.finished && !appointmentService.finished) {
-            appointmentService.finishedListeners.push(() => this.getItems());
-            return;
-        }
-
-        if (appointmentService.finished && !customerService.finished) {
-            customerService.finishedListeners.push(() => this.getItems());
-            return;
-        }
-
-        this.getItems();
+        appointmentService.replaySubject.subscribe({
+            next: () => customerService.replaySubject.subscribe({
+                next: () => this.getItems()
+            })
+        })
     }
 
     getItems() {

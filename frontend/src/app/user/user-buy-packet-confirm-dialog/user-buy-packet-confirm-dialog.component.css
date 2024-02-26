@@ -1,0 +1,13 @@
+div {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+h1 {
+    font-size: 25px;
+
+}
+
+button {
+    font-weight: bold;
+}

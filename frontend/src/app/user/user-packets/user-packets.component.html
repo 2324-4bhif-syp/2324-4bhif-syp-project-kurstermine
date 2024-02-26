@@ -1,0 +1,12 @@
+<h2>Packets</h2>
+
+<div class="user-packets">
+@for (packet of packetService.get(); track packet; let index = $index) {
+
+    <app-user-packet 
+                [loggedInCustomer]="customerService.get()[0]"
+                [showSignIn]="!isIncluded(packet)"
+                [packet]="packet">
+    </app-user-packet>
+}          
+</div>

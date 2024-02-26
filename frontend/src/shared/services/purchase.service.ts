@@ -22,38 +22,11 @@ export class PurchaseService extends Service<Purchase> {
     ) {
         super();
 
-        if (!customerService.finished && !packetService.finished) {
-            let isServiceFinished = false;
-
-            customerService.finishedListeners.push(() => {
-                isServiceFinished = !isServiceFinished;
-
-                if (!isServiceFinished) {
-                    this.getItems();
-                }
-            });
-
-            packetService.finishedListeners.push(() => {
-                isServiceFinished = !isServiceFinished;
-
-                if (!isServiceFinished) {
-                    this.getItems();
-                }
-            });
-            return;
-        }
-
-        if (customerService.finished && !packetService.finished) {
-            packetService.finishedListeners.push(() => this.getItems());
-            return;
-        }
-
-        if (packetService.finished && !customerService.finished) {
-            customerService.finishedListeners.push(() => this.getItems());
-            return;
-        }
-
-        this.getItems();
+        customerService.replaySubject.subscribe({
+            next: () => packetService.replaySubject.subscribe({
+                next: () => this.getItems()
+            })
+        })
     }
 
     getItems() {

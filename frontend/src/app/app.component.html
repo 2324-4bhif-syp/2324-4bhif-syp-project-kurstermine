@@ -1,37 +1,65 @@
-<table style="width: 85%">
-    <tr>
-        <td>
-            <button mat-button (click)="keycloak.logout()">Log out</button>
-        </td>
-        <td>
-            <h1>Course Schedule</h1>
-        </td>
-    </tr>
-</table>
+<mat-toolbar class="topbar telative mat-toolbar mat-primary mat-toolbar-single-row" color="primary">
+    <mat-toolbar-row>
+        <div>
+            <button class="nav nav-btn" mat-button>
+                <!--<mat-icon class="nav-icon"></mat-icon>-->
+                CouSch
+            </button>
 
-<ul class="nav nav-tabs">
-    @if (isAdmin) {
-        <li routerLinkActive="active">
-            <a routerLink="customers">Customers</a>
-        </li>
-        <li routerLinkActive="active">
-            <a routerLink="instructors">Instructors</a>
-        </li>
-        <li routerLinkActive="active">
-            <a routerLink="appointments">Appointments</a>
-        </li>
-    } @else {
-        <li routerLinkActive="active">
-            <a routerLink="appointments-user">Appointments</a>
-        </li>
-        <li routerLinkActive="active">
-            <a routerLink="packets">Packets</a>
-        </li>
-    }
+            @if (isAdmin){
+                <button class="nav nav-btn" mat-button routerLinkActive="active" routerLink="customers">
+                    <mat-icon class="nav-icon">group</mat-icon>
+                    Customers
+                </button>
+                <button class="nav nav-btn" mat-button routerLinkActive="active" routerLink="instructors">
+                    <mat-icon class="nav-icon">build</mat-icon>
+                    Instructors
+                </button>
+                <button class="nav nav-btn" mat-button routerLinkActive="active" routerLink="appointments">
+                    <mat-icon class="nav-icon">calendar_today</mat-icon>
+                    Appointments
+                </button>
+            } @else {
+                <button class="nav nav-btn" mat-button routerLinkActive="active" routerLink="appointments-user">
+                    <mat-icon class="nav-icon">calendar_today</mat-icon>
+                    Appointments
+                </button>
+                <button class="nav nav-btn" mat-button routerLinkActive="active" routerLink="packets">
+                    <mat-icon class="nav-icon">category</mat-icon>
+                    Packets
+                </button>
+            }
 
-    <li routerLinkActive="active">
-        <a routerLink="user">User</a>
-    </li>
-</ul>
+            <button class="nav nav-btn" mat-button routerLinkActive="active" routerLink="user">
+                <mat-icon class="nav-icon">account_circle</mat-icon>
+                User
+            </button>
+
+            <button class="burger" mat-mini-fab color="link" [matMenuTriggerFor]="menu">
+                <mat-icon class="menu-icon">menu</mat-icon>
+            </button>
+            <mat-menu class="burger" #menu="matMenu">
+                <button mat-menu-item routerLinkActive="active" routerLink="appointments-user">
+                    <mat-icon>calendar_today</mat-icon>
+                    <span>Appointments</span>
+                </button>
+                <button mat-menu-item routerLinkActive="active" routerLink="packets">
+                    <mat-icon>category</mat-icon>
+                    <span>Packets</span>
+                </button>
+                <button mat-menu-item routerLinkActive="active" routerLink="user">
+                    <mat-icon>account_circle</mat-icon>
+                    <span>User</span>
+                </button>
+            </mat-menu>
+        </div>
+
+        <button class="logout-btn" mat-mini-fab color="link" (click)="keycloak.logout()">
+            <mat-icon class="logout-icon">logout</mat-icon>
+        </button>
+    </mat-toolbar-row>
+</mat-toolbar>
+
+<!--<h1>Course Schedule</h1>-->
 
 <router-outlet></router-outlet>

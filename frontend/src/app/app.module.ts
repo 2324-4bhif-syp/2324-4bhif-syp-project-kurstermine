@@ -3,46 +3,47 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
-import { CustomersComponent } from './customers/customers.component';
+import { AdminCustomersComponent } from './admin/admin-customers/admin-customers.component';
 import { FormsModule } from '@angular/forms';
-import { AppointmentsComponent } from './appointments/appointments.component';
-import { AppointmentComponent } from './appointment/appointment.component';
-import { ParticipationComponent } from './participations/participation.component';
-import { InstructorsComponent } from './instructors/instructors.component';
-import { AppointmentManagementComponent } from './appointment-management/appointment-management.component';
-import { initializeKeycloak } from './init/keycloak-init.factory';
+import { AdminAppointmentsComponent } from './admin/admin-appointments/admin-appointments.component';
+import { AdminAppointmentComponent } from './admin/admin-appointment/admin-appointment.component';
+import { AdminParticipationComponent } from './admin/admin-participations/admin-participation.component';
+import { AdminInstructorsComponent } from './admin/admin-instructors/admin-instructors.component';
+import { AdminAppointmentManagementComponent } from './admin/admin-appointment-management/admin-appointment-management.component';
+import { initializeKeycloak } from './other/init/keycloak-init.factory';
 import { KeycloakAngularModule, KeycloakService } from 'keycloak-angular';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule } from '@angular/material/button';
 import {
-    MatDialog,
-    MAT_DIALOG_DATA,
-    MatDialogRef,
     MatDialogTitle,
     MatDialogContent,
     MatDialogActions,
     MatDialogClose,
 } from '@angular/material/dialog';
+import { MatDividerModule } from '@angular/material/divider';
 import {CdkAccordionModule} from '@angular/cdk/accordion';
 import { AppRoutingModule } from './app-routing.module';
-import { PacketComponent } from './packet/packet.component';
-import { PacketsComponent } from './packets/packets.component';
-import { OfferComponent } from './offer/offer.component';
-import { MatCard, MatCardModule } from '@angular/material/card';
+import { UserPacketComponent } from './user/user-packet/user-packet.component';
+import { UserPacketsComponent } from './user/user-packets/user-packets.component';
+import { UserOfferComponent } from './user/user-offer/user-offer.component';
+import { MatCardModule } from '@angular/material/card';
 import { MatTreeModule } from '@angular/material/tree';
+import {MatIconModule} from '@angular/material/icon';
+import {MatToolbarModule} from "@angular/material/toolbar";
+import {MatMenuModule} from "@angular/material/menu";
 
 @NgModule({
     declarations: [
         AppComponent,
-        CustomersComponent,
-        AppointmentsComponent,
-        AppointmentComponent,
-        ParticipationComponent,
-        InstructorsComponent,
-        AppointmentManagementComponent,
-        PacketComponent,
-        PacketsComponent,
-        OfferComponent
+        AdminCustomersComponent,
+        AdminAppointmentsComponent,
+        AdminAppointmentComponent,
+        AdminParticipationComponent,
+        AdminInstructorsComponent,
+        AdminAppointmentManagementComponent,
+        UserPacketComponent,
+        UserPacketsComponent,
+        UserOfferComponent
     ],
     imports: [
         BrowserModule,
@@ -60,6 +61,10 @@ import { MatTreeModule } from '@angular/material/tree';
         MatButtonModule,
         MatTreeModule,
         CdkAccordionModule,
+        MatDividerModule,
+        MatIconModule,
+        MatToolbarModule,
+        MatMenuModule,
     ],
     providers: [
         {
