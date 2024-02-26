@@ -10,14 +10,14 @@
                 <span>Purchased</span>
             </button>
         } @else {
-            <button mat-fab extended color="primary">
+            <button mat-fab extended color="primary" (click)="onBtnSignIn()"> 
                 <mat-icon style="color:  white !important;">payment</mat-icon>
                 <span>Buy</span>
             </button>
         }
     </mat-card-actions>
     <mat-card-content>
-        <div class="user-packets">
+        <div class="user-packets" style="width: 100% !important;">
             @for (offer of offers; track $index) {
                 <mat-card>
                     <mat-card-header>

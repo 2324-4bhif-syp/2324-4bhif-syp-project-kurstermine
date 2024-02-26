@@ -62,9 +62,7 @@ import {MatToolbar, MatToolbarModule} from "@angular/material/toolbar";
         CdkAccordionModule,
         MatDividerModule,
         MatIconModule,
-        MatToolbar,
         MatToolbarModule,
-        MatIcon
     ],
     providers: [
         {

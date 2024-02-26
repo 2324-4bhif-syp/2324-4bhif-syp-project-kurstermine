@@ -9,44 +9,27 @@
     </tr>
 </table>
 
-<p>
-    <mat-toolbar>
-        <span>Course Schedule</span>
-    </mat-toolbar>
-</p>
+<mat-toolbar color="primary">
+    <mat-toolbar-row>
+    @if (isAdmin){
 
-<p>
-    <mat-toolbar color="primary">
-        @if (isAdmin){
-            <mat-toolbar-row>
-                <span class="example-spacer"></span>
-                <button class="button" routerLinkActive="active" routerLink="customers">Customers</button>
-            </mat-toolbar-row>
-            <mat-toolbar-row>
-                <span class="example-spacer"></span>
-                <button class="button" routerLinkActive="active" routerLink="instructors">Instructors</button>
-            </mat-toolbar-row>
-            <mat-toolbar-row>
-                <span class="example-spacer"></span>
-                <button class="button" routerLinkActive="active" routerLink="appointments">Appointments</button>
-            </mat-toolbar-row>
-        } @else {
-            <mat-toolbar-row>
-                <span class="example-spacer"></span>
-                <button class="button" routerLinkActive="active" routerLink="appointments-user">Appointments</button>
-            </mat-toolbar-row>
-            <mat-toolbar-row>
-                <span class="example-spacer"></span>
-                <button class="button" routerLinkActive="active" routerLink="packets">Packets</button>
-            </mat-toolbar-row>
-        }
-
-        <mat-toolbar-row>
             <span class="example-spacer"></span>
-            <button class="button" routerLinkActive="active" routerLink="user">User</button>
-        </mat-toolbar-row>
-    </mat-toolbar>
-</p>
+            <button class="button" routerLinkActive="active" routerLink="customers">Customers</button>
+            <span class="example-spacer"></span>
+            <button class="button" routerLinkActive="active" routerLink="instructors">Instructors</button>
+            <span class="example-spacer"></span>
+            <button class="button" routerLinkActive="active" routerLink="appointments">Appointments</button>
+    } @else {
+            <span class="example-spacer"></span>
+            <button class="button" routerLinkActive="active" routerLink="appointments-user">Appointments</button>
+            <span class="example-spacer"></span>
+            <button class="button" routerLinkActive="active" routerLink="packets">Packets</button>
+    }
+        <span class="example-spacer"></span>
+        <button class="button" routerLinkActive="active" routerLink="user">User</button>
+    </mat-toolbar-row>
+</mat-toolbar>
+
 
 <!--
 <ul class="nav nav-tabs">
