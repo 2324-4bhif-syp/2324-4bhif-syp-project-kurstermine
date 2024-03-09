@@ -1,9 +1,9 @@
 package at.htl.courseschedule.entity;
 
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
+@Entity
+@Table(name = "hire")
 public class Hire {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
