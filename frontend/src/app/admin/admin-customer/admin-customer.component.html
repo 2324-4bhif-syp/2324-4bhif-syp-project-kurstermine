@@ -1,0 +1,48 @@
+<h2 style="margin-bottom: 0px;">{{ customer?.firstName }} {{ customer?.lastName }}</h2>
+
+<div style="display: flex; justify-content: center;">
+    <h3>{{ customer?.email }}</h3>
+</div>
+
+<h3>Purchased Packages</h3>
+
+<mat-accordion class="example-headers-align">
+    @for (purchase of purchases; track purchase) {
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                <span class="material-symbols-outlined" matListItemIcon>
+                    package_2
+                </span>
+                {{purchase.packet.name}}
+              </mat-panel-title>
+              <mat-panel-description>
+                {{purchase.packet.price}} €
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+
+            <mat-list>
+                @for (appointment of getAppointmentsForPacket(purchase.packet.id); track appointment) {
+                    <mat-list-item>
+                        <div style="display: flex; align-items: center;">
+                    
+                        <p style="width: 30%;">
+                            {{appointment.name}}
+                        </p>
+
+                        @if (isUserParticipatingInAppointment(appointment)) {
+                            <mat-chip-option color="primary" selected disabled>
+                                Signed In
+                            </mat-chip-option>
+                         } @else {
+                            <mat-chip-option color="secondary" disabled>
+                                Signed In
+                            </mat-chip-option>
+                         }
+                        </div>
+                    </mat-list-item>
+                }
+            </mat-list>
+        </mat-expansion-panel>
+    }
+</mat-accordion>
