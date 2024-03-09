@@ -84,6 +84,17 @@ public class PurchaseRepository {
                 }
         );
 
+        /*
+        mailService.sendConfirmationMail(
+                "ilmingwinnie19@gmail.com",
+                "Packet",
+                "Winnie"
+        ).subscribe().with(
+                ignored -> {},
+                error -> Log.error("Error while sending Email", error)
+        );
+         */
+
         em.merge(purchase);
         return newParticipations;
     }
