@@ -3,7 +3,7 @@
     <mat-card-subtitle>{{packet.price}} €</mat-card-subtitle>
     <hr>
     <mat-card-content>
-        @for (offer of getOffers(packet.id); track $index) {
+        @for (offer of getOffers(packet.id!); track $index) {
             <p>{{offer.appointment.name}}</p>
         }
     </mat-card-content>

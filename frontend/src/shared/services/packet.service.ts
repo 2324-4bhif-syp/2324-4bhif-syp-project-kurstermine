@@ -7,11 +7,18 @@ import {ReplayBaseService} from "./replay-base-service";
     providedIn: 'root'
 })
 export class PacketService extends ReplayBaseService<Packet> {
-    finished = false;
 
     constructor(
         protected api: PacketApiService
     ) {
         super(api, api.getAll, (packet) => super.add(...packet));
+    }
+
+    override add(item: Packet): void {
+        this.api.add(item).subscribe({
+            next: (packet: Packet) => {
+                super.add(packet);
+            },
+        });
     }
 }

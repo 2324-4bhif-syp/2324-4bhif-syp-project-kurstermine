@@ -22,10 +22,10 @@
             </mat-expansion-panel-header>
 
             <mat-list>
-                @for (appointment of getAppointmentsForPacket(purchase.packet.id); track appointment) {
+                @for (appointment of getAppointmentsForPacket(purchase.packet.id!); track appointment) {
                     <mat-list-item>
                         <div style="display: flex; align-items: center;">
-                    
+
                         <p style="width: 30%;">
                             {{appointment.name}}
                         </p>

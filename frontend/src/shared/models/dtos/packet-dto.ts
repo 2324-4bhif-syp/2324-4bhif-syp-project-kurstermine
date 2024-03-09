@@ -1,7 +1,7 @@
 import { Packet } from "../packet";
 
 export interface PacketDto {
-    id: number,
+    id?: number,
     name: string,
     price: number,
 }

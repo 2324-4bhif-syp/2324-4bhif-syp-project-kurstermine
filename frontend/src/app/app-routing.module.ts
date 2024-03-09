@@ -11,6 +11,7 @@ import { Roles } from '../shared/models/roles';
 import { UserPacketsComponent } from './user/user-packets/user-packets.component';
 import { UserPacketInfoComponent } from './user/user-packet-info/user-packet-info.component';
 import { AdminCustomerComponent } from './admin/admin-customer/admin-customer.component';
+import {AdminPacketsComponent} from "./admin/admin-packets/admin-packets.component";
 
 const routes: Routes = [
     { path: '', redirectTo: 'packets', pathMatch: 'full' },
@@ -56,6 +57,16 @@ const routes: Routes = [
         component: UserPacketInfoComponent,
         canActivate: [AuthGuard, RoleGuard],
         data: {roles: [Roles.Customer]}
+    },
+    {
+        path: 'admin',
+        children: [
+        {
+            path: 'packets',
+            component: AdminPacketsComponent,
+            canActivate: [AuthGuard, RoleGuard],
+            data: {roles: [Roles.Admin]}
+        }]
     }
 ];
 

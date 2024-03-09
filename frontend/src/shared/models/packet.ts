@@ -1,7 +1,7 @@
 import { PacketDto } from "./dtos/packet-dto";
 
 export interface Packet {
-    id: number,
+    id?: number,
     name: string,
     price: number,
 }

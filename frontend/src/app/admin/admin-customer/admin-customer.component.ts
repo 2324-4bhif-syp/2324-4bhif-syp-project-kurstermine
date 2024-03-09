@@ -16,7 +16,7 @@ import { MatCardModule } from '@angular/material/card';
 @Component({
   selector: 'app-admin-customer',
   standalone: true,
-  imports: [MatListModule, MatActionList, MatExpansionModule, MatIconModule, MatChipsModule, MatCardModule],
+  imports: [MatListModule, MatExpansionModule, MatIconModule, MatChipsModule, MatCardModule],
   templateUrl: './admin-customer.component.html',
   styleUrl: './admin-customer.component.css'
 })

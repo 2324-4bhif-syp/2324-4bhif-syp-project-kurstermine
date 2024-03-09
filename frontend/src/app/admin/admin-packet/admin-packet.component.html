@@ -1,0 +1,17 @@
+<mat-expansion-panel >
+    <mat-expansion-panel-header>
+        <mat-panel-title>
+            <span class="material-symbols-outlined" matListItemIcon>
+                    package_2
+            </span>
+            {{ packet.name }} ({{ packet.id }})
+        </mat-panel-title>
+        <mat-panel-description>
+            {{ packet.price }} €
+        </mat-panel-description>
+    </mat-expansion-panel-header>
+
+    @for(a of getAllAppointmentsFromPacket(); track a) {
+        <p>{{a.name}}</p>
+    }
+</mat-expansion-panel>
