@@ -2,6 +2,7 @@ package at.htl.courseschedule.boundary;
 
 import at.htl.courseschedule.controller.HireRepository;
 import at.htl.courseschedule.entity.Hire;
+import at.htl.courseschedule.entity.ids.HireId;
 import jakarta.annotation.security.PermitAll;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
@@ -18,15 +19,16 @@ public class HireResource {
     @Produces(MediaType.APPLICATION_JSON)
     @PermitAll
     public Response getAllHires() {
-        return Response.ok(hireRepository.getAll()).build();
+        return Response.ok(hireRepository.listAll()).build();
     }
 
     @GET
-    @Path("{id}")
+    @Path("{organisationId}/{instructorId}")
+    @RolesAllowed({Role.Admin, Role.Organisator})
     @Produces(MediaType.APPLICATION_JSON)
-    @PermitAll
-    public Response getHire(@PathParam("id") Long id) {
-        Hire hire = hireRepository.getById(id);
+    public Response getHire(@PathParam("organisationId") Long organisationId,
+                            @PathParam("instructorId") String instructorId) {
+        Hire hire = hireRepository.findById(new HireId(organisationId, instructorId));
 
         if (hire == null) {
             return Response.status(404).build();
@@ -39,13 +41,13 @@ public class HireResource {
     @Transactional
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    @RolesAllowed({Role.Admin, Role.Organisator, Role.Instructor})
+    @RolesAllowed({Role.Admin, Role.Organisator})
     public Response createHire(Hire hire, @Context UriInfo uriInfo){
         if (hire == null) {
             return Response.status(400).build();
         }
 
-        hireRepository.create(hire);
+        hireRepository.persist(hire);
         UriBuilder uriBuilder = uriInfo
                 .getAbsolutePathBuilder()
                 .path(hire.getId().toString());
@@ -55,12 +57,12 @@ public class HireResource {
 
     @DELETE
     @Transactional
-    @Path("{id}")
+    @Path("{organisationId}/{instructorId}")
     @Produces(MediaType.APPLICATION_JSON)
-    @RolesAllowed({Role.Admin, Role.Organisator, Role.Instructor})
-    public Response deleteHireById(@PathParam("id") Long id) {
-        hireRepository.delete(id);
-
+    @RolesAllowed({Role.Admin, Role.Organisator})
+    public Response deleteHireById(@PathParam("organisationId") Long organisationId,
+                                   @PathParam("instructorId") String instructorId) {
+        hireRepository.deleteById(new HireId(organisationId, instructorId));
         return Response.noContent().build();
     }
 }

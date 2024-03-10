@@ -1,68 +1,52 @@
 package at.htl.courseschedule.entity;
 
+import at.htl.courseschedule.entity.ids.HireId;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 @Entity
-@Table(name = "hire")
 public class Hire {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @EmbeddedId
+    private HireId id;
 
-    private String organisator_id;
-    private String instructor_id;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @MapsId("organisationId")
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private Organisation organisation;
 
-    public Hire() {
+    public Hire() {}
+
+    public Hire(@NotNull Organisation organisation, @NotNull String instructorId) {
+        this.organisation = organisation;
+        this.id = new HireId(organisation.getId(), instructorId);
     }
 
-    public Hire(String organisator_id, String instructor_id) {
-        this.organisator_id = organisator_id;
-        this.instructor_id = instructor_id;
-    }
-
-    public Long getId() {
+    public HireId getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(HireId id) {
         this.id = id;
     }
 
-    public String getOrganisator_id() {
-        return organisator_id;
+    public Organisation getOrganisation() {
+        return organisation;
     }
 
-    public void setOrganisator_id(String organisator_id) {
-        this.organisator_id = organisator_id;
-    }
-
-    public String getInstructor_id() {
-        return instructor_id;
-    }
-
-    public void setInstructor_id(String instructor_id) {
-        this.instructor_id = instructor_id;
+    public void setOrganisation(Organisation organisation) {
+        this.organisation = organisation;
     }
 
     @Override
-    public String toString() {
-        return "Hire{" +
-                "id=" + id +
-                ", organisator_id='" + organisator_id + '\'' +
-                ", instructor_id='" + instructor_id + '\'' +
-                '}';
-    }
+    public boolean equals(Object object) {
+        if (this == object) return true;
+        if (object == null || getClass() != object.getClass()) return false;
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        Hire that = (Hire) object;
 
-        Hire hire = (Hire) o;
-
-        if (!id.equals(hire.id)) return false;
-        if (!organisator_id.equals(hire.organisator_id)) return false;
-        return instructor_id.equals(hire.instructor_id);
+        return id.equals(that.id);
     }
 
     @Override
