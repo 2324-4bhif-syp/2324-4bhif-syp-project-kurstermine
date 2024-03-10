@@ -1,8 +1,9 @@
-<mat-expansion-panel >
+<mat-expansion-panel (opened)="panelOpenState = true"
+                     (closed)="panelOpenState = false">
     <mat-expansion-panel-header>
         <mat-panel-title>
             <span class="material-symbols-outlined" matListItemIcon>
-                    package_2
+                {{panelOpenState ? 'orders' : 'package_2'}}
             </span>
             {{ packet.name }} ({{ packet.id }})
         </mat-panel-title>
@@ -10,6 +11,8 @@
             {{ packet.price }} €
         </mat-panel-description>
     </mat-expansion-panel-header>
+
+    <hr class="hr-exp-panel">
 
     @for(a of getAllAppointmentsFromPacket(); track a) {
         <p>{{a.name}}</p>

@@ -12,34 +12,10 @@ import { UserPacketsComponent } from './user/user-packets/user-packets.component
 import { UserPacketInfoComponent } from './user/user-packet-info/user-packet-info.component';
 import { AdminCustomerComponent } from './admin/admin-customer/admin-customer.component';
 import {AdminPacketsComponent} from "./admin/admin-packets/admin-packets.component";
-import { AdminInstructorComponent } from './admin/admin-instructor/admin-instructor.component';
+import {AdminInstructorComponent} from "./admin/admin-instructor/admin-instructor.component";
 
 const routes: Routes = [
     { path: '', redirectTo: 'packets', pathMatch: 'full' },
-    {
-        path: 'customers',
-        component: AdminCustomersComponent,
-        canActivate: [AuthGuard, RoleGuard],
-        data: { roles: [Roles.Admin] },
-    },
-    {
-        path: 'customers/:id',
-        component: AdminCustomerComponent,
-        canActivate: [AuthGuard, RoleGuard],
-        data: { roles: [Roles.Admin] },
-    },
-    {
-        path: 'instructors',
-        component: AdminInstructorsComponent,
-        canActivate: [AuthGuard, RoleGuard],
-        data: { roles: [Roles.Admin] },
-    },
-    {
-        path: 'instructors/:id',
-        component: AdminInstructorComponent,
-        canActivate: [AuthGuard, RoleGuard],
-        data: { roles: [Roles.Admin] },
-    },
     {
         path: 'appointments-user',
         component: UserAppointmentsComponent,
@@ -47,12 +23,10 @@ const routes: Routes = [
         data: { roles: [Roles.Customer] },
     },
     {
-        path: 'appointments',
-        component: AdminAppointmentsComponent,
-        canActivate: [AuthGuard, RoleGuard],
-        data: { roles: [Roles.Admin] },
+        path: 'user',
+        component: UserComponent,
+        canActivate: [AuthGuard]
     },
-    { path: 'user', component: UserComponent, canActivate: [AuthGuard] },
     {
         path: 'packets',
         component: UserPacketsComponent,
@@ -68,12 +42,43 @@ const routes: Routes = [
     {
         path: 'admin',
         children: [
-        {
-            path: 'packets',
-            component: AdminPacketsComponent,
-            canActivate: [AuthGuard, RoleGuard],
-            data: {roles: [Roles.Admin]}
-        }]
+            {
+                path: 'packets',
+                component: AdminPacketsComponent,
+                canActivate: [AuthGuard, RoleGuard],
+                data: {roles: [Roles.Admin]}
+            },
+            {
+                path: 'customers',
+                component: AdminCustomersComponent,
+                canActivate: [AuthGuard, RoleGuard],
+                data: { roles: [Roles.Admin] },
+            },
+            {
+                path: 'customers/:id',
+                component: AdminCustomerComponent,
+                canActivate: [AuthGuard, RoleGuard],
+                data: { roles: [Roles.Admin] },
+            },
+            {
+                path: 'instructors',
+                component: AdminInstructorsComponent,
+                canActivate: [AuthGuard, RoleGuard],
+                data: { roles: [Roles.Admin] },
+            },
+            {
+                path: 'instructors/:id',
+                component: AdminInstructorComponent,
+                canActivate: [AuthGuard, RoleGuard],
+                data: { roles: [Roles.Admin] },
+            },
+            {
+                path: 'appointments',
+                component: AdminAppointmentsComponent,
+                canActivate: [AuthGuard, RoleGuard],
+                data: { roles: [Roles.Admin] },
+            }
+        ]
     }
 ];
 

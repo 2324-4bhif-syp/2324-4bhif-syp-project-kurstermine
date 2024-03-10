@@ -29,6 +29,7 @@ export class AdminPacketComponent {
 
     @Input({required: true})
     public packet!: Packet;
+    public panelOpenState: boolean = false;
 
     getAllAppointmentsFromPacket(): Appointment[] {
         return this.offerService
