@@ -12,6 +12,7 @@ import { UserPacketsComponent } from './user/user-packets/user-packets.component
 import { UserPacketInfoComponent } from './user/user-packet-info/user-packet-info.component';
 import { AdminCustomerComponent } from './admin/admin-customer/admin-customer.component';
 import {AdminPacketsComponent} from "./admin/admin-packets/admin-packets.component";
+import { AdminInstructorComponent } from './admin/admin-instructor/admin-instructor.component';
 
 const routes: Routes = [
     { path: '', redirectTo: 'packets', pathMatch: 'full' },
@@ -30,6 +31,12 @@ const routes: Routes = [
     {
         path: 'instructors',
         component: AdminInstructorsComponent,
+        canActivate: [AuthGuard, RoleGuard],
+        data: { roles: [Roles.Admin] },
+    },
+    {
+        path: 'instructors/:id',
+        component: AdminInstructorComponent,
         canActivate: [AuthGuard, RoleGuard],
         data: { roles: [Roles.Admin] },
     },
