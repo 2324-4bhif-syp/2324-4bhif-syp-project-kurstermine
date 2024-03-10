@@ -67,4 +67,6 @@ export class AdminCustomerComponent {
     return this.participationService.get(p => p.customer.id === this.id
       && p.appointment.id === appointment.id).length > 0;
   }
+
+  public panelOpenState: boolean = false;
 }

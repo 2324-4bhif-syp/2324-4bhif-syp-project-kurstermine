@@ -36,11 +36,7 @@ import {MatListModule} from "@angular/material/list";
 @NgModule({
     declarations: [
         AppComponent,
-        AdminAppointmentsComponent,
-        AdminAppointmentComponent,
-        AdminParticipationComponent,
         AdminInstructorsComponent,
-        AdminAppointmentManagementComponent,
         UserPacketComponent,
         UserPacketsComponent,
         UserOfferComponent

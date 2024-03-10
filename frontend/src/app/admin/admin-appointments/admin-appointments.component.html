@@ -1,61 +1,19 @@
-<table>
-    <tr>
-        <th>Name</th>
-        <th>Address</th>
-        <th>Duration [min]</th>
-        <th>Start</th>
-    </tr>
-    <tr *ngFor="let appointment of appointmentService.get()">
-        <td>
-            {{ appointment?.name }}
-        </td>
-        <td>
-            {{ appointment?.address }}
-        </td>
-        <td>
-            {{ appointment?.duration }}
-        </td>
-        <td>
-            {{ appointment?.date?.toLocaleDateString() }}
-            {{ appointment.date.toLocaleTimeString() }}
-        </td>
-    </tr>
-    <tr>
-        <td>
-            <input
-                type="text"
-                placeholder="name"
-                [(ngModel)]="newAppointment.name"
-            />
-        </td>
-        <td>
-            <input
-                type="text"
-                placeholder="address"
-                [(ngModel)]="newAppointment.address"
-            />
-        </td>
-        <td>
-            <input
-                type="number"
-                placeholder="duration"
-                [(ngModel)]="newAppointment.duration"
-            />
-        </td>
-        <td>
-            <input
-                type="datetime-local"
-                placeholder="date"
-                [valueAsDate]="newAppointment.date"
-                (input)="newAppointment.date = parseDate($event)"
-            />
-        </td>
-        <td>
-            <button (click)="add()">Add</button>
-        </td>
-    </tr>
-</table>
 
-<br/><br/>
+<h2>Appointments</h2>
 
-<app-admin-appointment></app-admin-appointment>
+<div style="display: flex; justify-content: center; flex-direction: column;">
+    <mat-action-list>
+        @for (appointment of appointmentService.get(); track appointment) {
+        <a href="/admin/appointments/{{appointment.id}}" mat-list-item>
+            <span matListItemIcon class="material-symbols-outlined">
+                event
+            </span>
+            <p matListItemTitle>{{appointment.name}}</p>
+            <p matListItemLine>{{appointment.address}} on {{appointment.date.toDateString()}}</p>
+        </a>
+        
+        <mat-divider></mat-divider>
+        }
+
+    </mat-action-list>
+</div>

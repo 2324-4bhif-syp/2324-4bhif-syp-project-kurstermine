@@ -1,26 +1,40 @@
-<ul>
-    @for (participation of getParticipation(); track participation.id) {
-        <li>
-            <div style="display: flex; align-items: center;">
-                <p>
-                    {{ participation.customer.lastName }}
-                    {{ participation.customer.firstName }}
-                </p>
-                <button style="height: min-content" (click)="remove(participation)">
-                    -
+<mat-accordion>
+    <mat-expansion-panel>
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                <h4>Participatiors</h4>
+            </mat-panel-title>
+        </mat-expansion-panel-header>
+        <mat-list>
+            @for (participation of getParticipation(); track participation.id) {
+                <div style="display: flex; align-items: center; justify-content: space-between;">
+                    <p>
+                        {{ participation.customer.lastName }}
+                        {{ participation.customer.firstName }}
+                    </p>
+                    <button mat-button (click)="remove(participation)">
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                </div>
+            }
+        </mat-list>
+        @if (getCustomers().length > 0) {
+            <div style="display: flex; align-items: center; justify-content: space-around;">
+                <mat-form-field> 
+                    <mat-select [(ngModel)]="selectedCustomer">
+                        @for (customer of getCustomers(); track customer) {
+                            <mat-option [value]="customer">
+                                {{ customer.lastName }}
+                                {{ customer.firstName }}
+                            </mat-option>
+                        }
+                    </mat-select>
+                </mat-form-field>
+                
+                <button mat-raised-button (click)="add()">
+                    Add
                 </button>
             </div>
-        </li>
-    }
-
-    @if (getCustomers().length !== 0) {
-        <select [(ngModel)]="selectedCustomer">
-            <option *ngFor="let customer of getCustomers()" [ngValue]="customer">
-                {{ customer.lastName }}
-                {{ customer.firstName }}
-            </option>
-        </select>
-
-        <button (click)="add()">Add</button>
-    }
-</ul>
+        }
+    </mat-expansion-panel>
+</mat-accordion>

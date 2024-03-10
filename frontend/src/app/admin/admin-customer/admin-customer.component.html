@@ -22,9 +22,9 @@
             <mat-list>
                 @for (appointment of getAppointmentsForPacket(purchase.packet.id!); track appointment) {
                     <mat-list-item>
-                        <div style="display: flex; align-items: center;">
+                        <div style="display: flex; align-items: center; justify-content: space-between;">
 
-                        <p style="width: 30%;">
+                        <p>
                             {{appointment.name}}
                         </p>
 

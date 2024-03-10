@@ -4,8 +4,16 @@ import { ParticipationService } from '../../../shared/services/participation.ser
 import { Appointment } from '../../../shared/models/appointment';
 import { Customer } from '../../../shared/models/customer';
 import { Participation } from '../../../shared/models/participation';
+import { FormsModule } from '@angular/forms';
+import { MatListModule } from '@angular/material/list';
+import { MatIconModule } from '@angular/material/icon';
+import { MatSelectModule } from '@angular/material/select';
+import { MatButtonModule } from '@angular/material/button';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 @Component({
+    standalone: true,
+    imports: [FormsModule, MatListModule, MatIconModule, MatSelectModule, MatButtonModule, MatExpansionModule],
     selector: 'app-admin-participations',
     templateUrl: './admin-participation.component.html',
     styleUrls: ['./admin-participation.component.css'],
