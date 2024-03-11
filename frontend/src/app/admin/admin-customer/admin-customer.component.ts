@@ -11,6 +11,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatCardModule } from '@angular/material/card';
 import {AdminPacketComponent} from "../admin-packet/admin-packet.component";
+import {Customer} from "../../../shared/models/customer";
 
 @Component({
   selector: 'app-admin-customer',
@@ -34,7 +35,7 @@ export class AdminCustomerComponent {
   public id = this.route.snapshot.params['id'];
 
   protected get customer() {
-    let customer = this.customerService.get(c => c.id === this.id)[0];
+    let customer: Customer = this.customerService.get(c => c.id === this.id)[0];
     if (!customer) {
       return undefined;
     }
@@ -42,18 +43,6 @@ export class AdminCustomerComponent {
   }
 
   protected get purchases() {
-    return this.purchaseService.get()
-  }
-
-  protected get packets() {
-    return this.packetService.get();
-  }
-
-  protected get appointments() {
-    return this.appointmentService.get();
-  }
-
-  protected get offers() {
-    return this.offerService.get();
+    return this.purchaseService.get(p => p.customer === this.id);
   }
 }
