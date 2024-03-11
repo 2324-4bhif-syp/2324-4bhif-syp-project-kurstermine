@@ -32,78 +32,19 @@ endif::[]
 [background-video="baby-video.mp4",background-video-loop=true,background-video-muted=true,background-opacity="0.5"]
 == Sprintvereinbarungen
 
-* Package Klasse implementieren
+* Bestätigungsmail bei Kauf eines Paketes
+* Datenmodell vervollständigen
+** Backend Implementierung
+* Admin UI
 
 [background-image="cld.png",background-opacity="0.3"]
 == CLD
-=== Vorher:
 
+=== Neu
 [plantuml, svg]
 ----
 @startuml
 left to right direction
-
-class Package {
-}
-
-class Appointment {
-}
-
-class Customer {
-}
-
-class Organisator {
-}
-
-class Instructor {
-}
-
-class Person {
-}
-
-package Keycloak {
-    class K_User {
-    }
-
-    class K_Customer {
-    }
-
-    class K_Organisator {
-    }
-
-    class K_Instructor {
-    }
-}
-
-K_Instructor -- K_User
-K_Customer -- K_User
-K_Organisator -- K_User
-
-Package -left- Appointment
-Package "*"--"1" Organisator: < owns
-Instructor --|> Person
-Customer --|> Person
-Offer .. (Package, Appointment)
-(Appointment, Instructor) .. AppointmentManagement
-(Appointment, Customer) .. Participation
-(Package, Customer) .. Purchase
-(Person, Person) .. Relative
-
-@enduml
-----
-
-=== Nachher:
-
-[plantuml, svg2]
-----
-@startuml
-left to right direction
-
-class Packet {
-}
-
-class Appointment {
-}
 
 package Keycloak {
     class User {
@@ -120,7 +61,9 @@ package Keycloak {
 }
 
 Packet -left- Appointment
-Packet "*"--"1" Organisator: < owns
+Packet "*"--"1" Organisation: < owns
+Organisation "1"--"*" Organisator: < leads
+Hire .. (Organisation, Instructor)
 Instructor -- User
 Customer -- User
 Organisator -- User
@@ -143,24 +86,14 @@ Offer .. (Packet, Appointment)
 == [.margin-b-10]#Terminologie#
 image::architecture.png[height=80%, width=80%]
 
-
 [background-video="baby-video3.mp4",background-video-loop=true,background-video-muted=true,background-opacity="0.5"]
 == Konfiguration
 * Projekt wird auf Winnie's PC gehostet
 
-[background-image="baby-course2.jpg",background-opacity="0.5"]
-== Letzter Sprint
-* Codestruktur verbessert
-* UI verschönert
-
-== UI Vorher
-image::previous-ui.png[]
+[background-video="baby-video4.mp4",background-video-loop=true,background-video-muted=true,background-opacity="0.5"]
+== Live Demo
 
 [background-image="well.png",background-opacity="0.5"]
 == Quellen
 * Videos: link:https://www.pexels.com/search/videos/baby%20swimming/[Pexels]
 * Architecture-Image: link:https://htl-leonding-college.github.io/quarkus-security-lecture-notes/keycloak-angular.html[Stütz ● Punkt]
-
-[background-video="baby-video4.mp4",background-video-loop=true,background-video-muted=true,background-opacity="0.5"]
-
-== Live Demo
