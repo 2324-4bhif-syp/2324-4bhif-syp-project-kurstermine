@@ -43,6 +43,6 @@ export class AdminCustomerComponent {
   }
 
   protected get purchases() {
-    return this.purchaseService.get(p => p.customer === this.id);
+    return this.purchaseService.get(p => p.customer.id === this.id);
   }
 }
