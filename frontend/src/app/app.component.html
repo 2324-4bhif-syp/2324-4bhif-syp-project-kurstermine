@@ -43,18 +43,43 @@
                 <mat-icon class="menu-icon">menu</mat-icon>
             </button>
             <mat-menu class="burger" #menu="matMenu">
-                <button mat-menu-item routerLinkActive="active" routerLink="appointments-user">
-                    <mat-icon>calendar_today</mat-icon>
-                    <span>Appointments</span>
-                </button>
-                <button mat-menu-item routerLinkActive="active" routerLink="packets">
-                    <mat-icon>category</mat-icon>
-                    <span>Packets</span>
-                </button>
-                <button mat-menu-item routerLinkActive="active" routerLink="user">
-                    <mat-icon>account_circle</mat-icon>
-                    <span>User</span>
-                </button>
+
+                @if (isAdmin){
+                    <button mat-menu-item routerLinkActive="active" routerLink="admin/customers">
+                        <mat-icon>group</mat-icon>
+                        <span>Customers</span>
+                    </button>
+                    <button mat-menu-item routerLinkActive="active" routerLink="admin/instructors">
+                        <mat-icon>build</mat-icon>
+                        <span>Instructors</span>
+                    </button>
+                    <button mat-menu-item routerLinkActive="active" routerLink="admin/appointments">
+                        <mat-icon>calendar_today</mat-icon>
+                        <span>Appointments</span>
+                    </button>
+                    <button mat-menu-item routerLinkActive="active" routerLink="admin/packets">
+                        <mat-icon>category</mat-icon>
+                        <span>Packets</span>
+                    </button>
+                    <button mat-menu-item routerLinkActive="active" routerLink="user">
+                        <mat-icon>account_circle</mat-icon>
+                        <span>User</span>
+                    </button>
+                } @else {
+                    <button mat-menu-item routerLinkActive="active" routerLink="appointments-user">
+                        <mat-icon>calendar_today</mat-icon>
+                        <span>Appointments</span>
+                    </button>
+                    <button mat-menu-item routerLinkActive="active" routerLink="packets">
+                        <mat-icon>category</mat-icon>
+                        <span>Packets</span>
+                    </button>
+                    <button mat-menu-item routerLinkActive="active" routerLink="user">
+                        <mat-icon>account_circle</mat-icon>
+                        <span>User</span>
+                    </button>
+                }
+
             </mat-menu>
         </div>
 
