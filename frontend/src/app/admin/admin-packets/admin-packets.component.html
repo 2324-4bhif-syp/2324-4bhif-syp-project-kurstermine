@@ -2,7 +2,7 @@
 
 <mat-accordion multi="false">
     @for (p of getAllPackets(); track p) {
-        <app-admin-packet [packet]="p"></app-admin-packet>
+        <app-admin-packet [packet]="p" [displaySignedInBtn]="false"></app-admin-packet>
     }
 </mat-accordion>
 
