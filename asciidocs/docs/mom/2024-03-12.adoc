@@ -1,4 +1,4 @@
-= Sechste Sprintplanung
+= Achte Sprintplanung
 ifndef::imagesdir[:imagesdir: images]
 :icons: font
 //:sectnums:    // Nummerierung der Überschriften / section numbering
@@ -17,6 +17,8 @@ endif::backend-html5[]
 |===
 |anwesend
 
+|Herr Prof. Stütz
+
 |Herr Prof. Aberger
 
 |Winnie Ilming
@@ -24,8 +26,6 @@ endif::backend-html5[]
 |Moritz Gruber
 
 |Lukas Sonnleitner
-
-|Bajtik Berg
 |===
 
 .Ort und Zeit
@@ -35,16 +35,17 @@ endif::backend-html5[]
 |HTL Leonding, 4BHIF
 
 |von-bis
-|Di. 2024-01-30, 6. EH
+|Di. 2024-03-12, 6. EH
 |Dauer
-|15 min
+|20 min
 |===
 
 == Besprochene Themen
-
-* UI schöner machen
-* Refactoring von Angular-Projekt -> saubere Struktur
-* Email-Service (optional)
+* Datenbank für Keycloak
+* User in der Postgres
+* Themes für Login
+* Sauberes Logout
+* Generelle UI Verbesserungen
 
 == Vereinbarungen und Entscheidungen
 
@@ -55,18 +56,18 @@ endif::backend-html5[]
 
 | Hr. Ilming
 a| link:https://vm81.htl-leonding.ac.at/agiles/99-373/current[Youtrack]
-| 13.02.2024
+| 02.04.2024
 
 | Hr. Gruber
 a| link:https://vm81.htl-leonding.ac.at/agiles/99-373/current[Youtrack]
-| 13.02.2024
+| 02.04.2024
 
 | Hr. Sonnleitner
 a| link:https://vm81.htl-leonding.ac.at/agiles/99-373/current[Youtrack]
-| 13.02.2024
+| 02.04.2024
 
 | Hr. Berg
 a| link:https://vm81.htl-leonding.ac.at/agiles/99-373/current[Youtrack]
-| 13.02.2024
+| 02.04.2024
 
 |===
