@@ -7,7 +7,7 @@
 <div style="display: flex; justify-content: center; flex-direction: column;">
     <mat-action-list>
         @for (appointment of appointments; track appointments) {
-        <a href="/admin/appointments/{{appointment.id}}" mat-list-item>
+        <a [routerLink]="['/admin/appointments/', appointment.id]" mat-list-item>
             <span matListItemIcon class="material-symbols-outlined">
                 event
             </span>

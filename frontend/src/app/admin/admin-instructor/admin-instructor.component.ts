@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { MatActionList, MatListModule } from '@angular/material/list';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import { AppointmentManagementService } from 'src/shared/services/appointment-management.service';
 import { AppointmentService } from 'src/shared/services/appointment.service';
 import { InstructorService } from 'src/shared/services/instructor.service';
@@ -8,7 +8,7 @@ import { InstructorService } from 'src/shared/services/instructor.service';
 @Component({
   selector: 'app-admin-instructor',
   standalone: true,
-  imports: [MatListModule],
+  imports: [MatListModule, RouterModule],
   templateUrl: './admin-instructor.component.html',
   styleUrl: './admin-instructor.component.css'
 })

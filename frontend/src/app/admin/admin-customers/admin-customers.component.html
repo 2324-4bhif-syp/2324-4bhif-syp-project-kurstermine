@@ -3,7 +3,7 @@
 <div style="display: flex; justify-content: center; flex-direction: column;">
     <mat-action-list>
         @for (customer of customerService.get(); track customer) {
-        <a href="/admin/customers/{{customer.id}}" mat-list-item>
+        <a [routerLink]="['/admin/customers/', customer.id]" mat-list-item>
             <mat-icon matListItemIcon>
                 account_circle
             </mat-icon>
