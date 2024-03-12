@@ -1,12 +1,6 @@
 @startuml
 left to right direction
 
-class Packet {
-}
-
-class Appointment {
-}
-
 package Keycloak {
     class User {
     }
@@ -22,7 +16,9 @@ package Keycloak {
 }
 
 Packet -left- Appointment
-Packet "*"--"1" Organisator: < owns
+Packet "*"--"1" Organisation: < owns
+Organisation "1"--"*" Organisator: < leads
+Hire .. (Organisation, Instructor)
 Instructor -- User
 Customer -- User
 Organisator -- User
