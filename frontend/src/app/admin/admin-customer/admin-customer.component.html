@@ -1,0 +1,11 @@
+<h2 style="margin-bottom: 0;">{{ customer?.firstName }} {{ customer?.lastName }}</h2>
+
+<div style="display: flex; justify-content: center;">
+    <h3>{{ customer?.email }}</h3>
+</div>
+
+<mat-accordion class="example-headers-align">
+    @for (purchase of purchases; track purchase) {
+        <app-admin-packet [packet]="purchase.packet" [displaySignedInBtn]="true"></app-admin-packet>
+    }
+</mat-accordion>

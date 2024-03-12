@@ -12,9 +12,12 @@ values ('Yoga', '2022-11-09 12:00:00', 1800000000000, 'Sophiengutstraße'),
        ('Tenniskurs', '2024-02-05 12:00:00', 1800000000000, 'Feldkirchen'),
        ('WATSU', '2022-08-15 16:00:00', 1800000000000, 'Goethestraße');
 
-insert into packet (name, price)
-values ('Angebot', 49.99),
-       ('Sport', 99.99);
+insert into organisation (name, uniquename)
+values ('Google', 'google');
+
+insert into packet (name, price, organisation_id)
+values ('Angebot', 49.99, 1),
+       ('Sport', 99.99, 1);
 
 insert into offer (appointment_id, packet_id)
 values (1, 1),
@@ -22,8 +25,6 @@ values (1, 1),
        (5, 1),
        (3, 2),
        (4, 2);
-
-
 
 
 -- insert into Participation (appointment_id, customer_id) values (1, 1);

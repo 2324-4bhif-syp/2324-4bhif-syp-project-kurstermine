@@ -1,24 +1,32 @@
-<label>
-    Select an appointment
+<h2 style="margin-bottom: 0px;">
+    {{appointment?.name }}
+</h2>
 
-    <select [(ngModel)]="appointment">
-        <option *ngFor="let a of appointmentService.get()" [ngValue]="a">
-            {{ a.name }} {{ a.date.toLocaleDateString() }}
-        </option>
-    </select>
-</label>
+<hr>
+<div class="flex-base-row" style="justify-content: space-around; margin-bottom: 3vh; margin-top: 3vh;">
+    <div class="flex-base-row">
+        <mat-icon>location_on</mat-icon>
+        <p class="card-p">{{ appointment?.address }}</p>
+    </div>
 
-<div *ngIf="appointment">
-    <p>
-        {{ appointment.name }} on {{ appointment.date.toDateString() }} at
-        {{ appointment.address }} ({{ appointment.duration }} min)
-    </p>
-
-    <h3>Instructors</h3>
-
-    <app-admin-appointment-management [appointment]="appointment" />
-
-    <h3>Participants</h3>
-
-    <app-admin-participations [appointment]="appointment" />
+    <div class="flex-base-row">
+        <mat-icon>today</mat-icon>
+        <p class="card-p">{{ appointment?.date?.getDay() }}.{{ appointment?.date?.getMonth() }}.{{ appointment?.date?.getFullYear() }}</p>
+    </div>
+    
+    <div class="flex-base-row">
+        <mat-icon>schedule</mat-icon>
+        <p class="card-p">{{ appointment?.date?.getHours() }}:{{ String(appointment?.date?.getMinutes()).padStart(2, "0") }}</p>
+    </div>
+    
+    <div class="flex-base-row">
+        <mat-icon>timelapse</mat-icon>
+    <p class="card-p">{{ appointment?.duration }} min</p>
+    </div>
 </div>
+
+<hr class="hr-exp-panel" style="margin-bottom: 3vh;">
+
+<app-admin-appointment-management [appointment]="appointment" />
+
+<app-admin-participations [appointment]="appointment" />

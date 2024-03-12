@@ -6,26 +6,17 @@ import { AdminInstructorsComponent } from './admin/admin-instructors/admin-instr
 import { UserAppointmentsComponent } from './user/user-appointments/user-appointments.component';
 import { AdminAppointmentsComponent } from './admin/admin-appointments/admin-appointments.component';
 import { UserComponent } from './other/userinfo/user.component';
-import { AdminViewComponent } from './admin/admin-view/admin-view.component';
 import { AdminCustomersComponent } from './admin/admin-customers/admin-customers.component';
 import { Roles } from '../shared/models/roles';
 import { UserPacketsComponent } from './user/user-packets/user-packets.component';
 import { UserPacketInfoComponent } from './user/user-packet-info/user-packet-info.component';
+import { AdminCustomerComponent } from './admin/admin-customer/admin-customer.component';
+import {AdminPacketsComponent} from "./admin/admin-packets/admin-packets.component";
+import {AdminInstructorComponent} from "./admin/admin-instructor/admin-instructor.component";
+import { AdminAppointmentComponent } from './admin/admin-appointment/admin-appointment.component';
 
 const routes: Routes = [
-    { path: '', redirectTo: 'admin-appointments-userinfo', pathMatch: 'full' },
-    {
-        path: 'customers',
-        component: AdminCustomersComponent,
-        canActivate: [AuthGuard, RoleGuard],
-        data: { roles: [Roles.Admin] },
-    },
-    {
-        path: 'instructors',
-        component: AdminInstructorsComponent,
-        canActivate: [AuthGuard, RoleGuard],
-        data: { roles: [Roles.Admin] },
-    },
+    { path: '', redirectTo: 'user', pathMatch: 'full' },
     {
         path: 'appointments-user',
         component: UserAppointmentsComponent,
@@ -33,17 +24,9 @@ const routes: Routes = [
         data: { roles: [Roles.Customer] },
     },
     {
-        path: 'appointments',
-        component: AdminAppointmentsComponent,
-        canActivate: [AuthGuard, RoleGuard],
-        data: { roles: [Roles.Admin] },
-    },
-    { path: 'user', component: UserComponent, canActivate: [AuthGuard] },
-    {
-        path: 'admin',
-        component: AdminViewComponent,
-        canActivate: [AuthGuard, RoleGuard],
-        data: { roles: [Roles.Admin] },
+        path: 'user',
+        component: UserComponent,
+        canActivate: [AuthGuard]
     },
     {
         path: 'packets',
@@ -56,6 +39,53 @@ const routes: Routes = [
         component: UserPacketInfoComponent,
         canActivate: [AuthGuard, RoleGuard],
         data: {roles: [Roles.Customer]}
+    },
+    {
+        path: 'admin',
+        children: [
+            {
+                path: 'packets',
+                component: AdminPacketsComponent,
+                canActivate: [AuthGuard, RoleGuard],
+                data: {roles: [Roles.Admin]}
+            },
+            {
+                path: 'customers',
+                component: AdminCustomersComponent,
+                canActivate: [AuthGuard, RoleGuard],
+                data: { roles: [Roles.Admin] },
+            },
+            {
+                path: 'customers/:id',
+                component: AdminCustomerComponent,
+                canActivate: [AuthGuard, RoleGuard],
+                data: { roles: [Roles.Admin] },
+            },
+            {
+                path: 'instructors',
+                component: AdminInstructorsComponent,
+                canActivate: [AuthGuard, RoleGuard],
+                data: { roles: [Roles.Admin] },
+            },
+            {
+                path: 'instructors/:id',
+                component: AdminInstructorComponent,
+                canActivate: [AuthGuard, RoleGuard],
+                data: { roles: [Roles.Admin] },
+            },
+            {
+                path: 'appointments',
+                component: AdminAppointmentsComponent,
+                canActivate: [AuthGuard, RoleGuard],
+                data: { roles: [Roles.Admin] },
+            },
+            {
+                path: 'appointments/:id',
+                component: AdminAppointmentComponent,
+                canActivate: [AuthGuard, RoleGuard],
+                data: { roles: [Roles.Admin] },
+            }
+        ]
     }
 ];
 

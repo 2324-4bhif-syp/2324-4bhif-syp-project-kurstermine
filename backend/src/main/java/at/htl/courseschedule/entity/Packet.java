@@ -8,8 +8,9 @@ public class Packet {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    /*@ManyToOne
-    private Organisator organisator;*/
+    @ManyToOne
+    @JsonProperty("organisation")
+    private Organisation organisation;
 
     @JsonProperty("name")
     @Column(name = "name")
@@ -55,6 +56,8 @@ public class Packet {
     public String toString() {
         return "Packet{" +
                 "id=" + id +
+                ", organisation=" + organisation +
+                ", name='" + name + '\'' +
                 ", price=" + price +
                 '}';
     }

@@ -1,18 +1,19 @@
-<table>
-    <tr>
-        <th>First Name</th>
-        <th>Last Name</th>
-        <th>Email</th>
-    </tr>
-    <tr *ngFor="let instructor of instructorService.get()">
-        <td>
-            {{ instructor?.firstName }}
-        </td>
-        <td>
-            {{ instructor?.lastName }}
-        </td>
-        <td>
-            {{ instructor?.email }}
-        </td>
-    </tr>
-</table>
+<h2>Instructors</h2>
+
+<div style="display: flex; justify-content: center; flex-direction: column;">
+    <mat-action-list>
+        @for (instructor of instructorService.get(); track instructor) {
+        <a href="/admin/instructors/{{instructor.id}}" mat-list-item>
+            <mat-icon matListItemIcon>
+                account_circle
+            </mat-icon>
+            <div matLine>
+                <p>{{instructor.lastName}} {{instructor.firstName}}</p>
+            </div>
+        </a>
+
+        <mat-divider></mat-divider>
+        }
+
+    </mat-action-list>
+</div>

@@ -1,29 +1,40 @@
-<ul>
-    @for (appointmentManagement of getAppointmentManagement(); track appointmentManagement.id) {
-        <li>
-            <div style="display: flex; align-items: center;">
-                <p>
-                    {{ appointmentManagement.instructor.lastName }}
-                    {{ appointmentManagement.instructor.firstName }}
-                </p>
-                <button
-                    style="height: min-content"
-                    (click)="remove(appointmentManagement)"
-                >
-                    -
+<mat-accordion>
+    <mat-expansion-panel>
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                <h4>Instructors</h4>
+            </mat-panel-title>
+        </mat-expansion-panel-header>
+        <mat-list>
+            @for (appointmentManagement of getAppointmentManagement(); track appointmentManagement.id) {
+                <div style="display: flex; align-items: center; justify-content: space-between;">
+                    <p>
+                        {{ appointmentManagement.instructor.lastName }}
+                        {{ appointmentManagement.instructor.firstName }}
+                    </p>
+                    <button mat-button (click)="remove(appointmentManagement)">
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                </div>
+            }
+        </mat-list>
+        @if (getInstructors().length > 0) {
+            <div style="display: flex; align-items: center; justify-content: space-around;">
+                <mat-form-field> 
+                    <mat-select [(ngModel)]="selectedInstructor">
+                        @for (instructor of getInstructors(); track instructor) {
+                            <mat-option [value]="instructor">
+                                {{ instructor.lastName }}
+                                {{ instructor.firstName }}
+                            </mat-option>
+                        }
+                    </mat-select>
+                </mat-form-field>
+                
+                <button mat-raised-button (click)="add()">
+                    Add
                 </button>
             </div>
-        </li>
-    }
-
-    @if (getInstructors().length !== 0) {
-        <select [(ngModel)]="selectedInstructor">
-            <option *ngFor="let instructor of getInstructors()" [ngValue]="instructor">
-                {{ instructor.lastName }}
-                {{ instructor.firstName }}
-            </option>
-        </select>
-
-        <button (click)="add()">Add</button>
-    }
-</ul>
+        }
+    </mat-expansion-panel>
+</mat-accordion>

@@ -1,0 +1,43 @@
+<mat-expansion-panel (opened)="panelOpenState = true"
+                     (closed)="panelOpenState = false">
+    <mat-expansion-panel-header>
+        <mat-panel-title>
+            <span class="material-symbols-outlined" matListItemIcon>
+                {{panelOpenState ? 'orders' : 'package_2'}}
+            </span>
+            {{ packet.name }}
+        </mat-panel-title>
+        <mat-panel-description>
+            {{ packet.price }} €
+        </mat-panel-description>
+    </mat-expansion-panel-header>
+
+    <hr class="hr-exp-panel">
+
+    <mat-list>
+        @for (appointment of getAllAppointmentsFromPacket(); track appointment) {
+            <mat-list-item>
+                <div class="flex-base-row" style="align-items: center; justify-content: space-between;">
+
+                    <p>{{ appointment.name }}</p>
+
+                    @if (displaySignedInBtn) {
+                        @if (isUserParticipatingInAppointment(appointment)) {
+                            <!--
+                            <mat-chip-option color="primary" selected disabled>
+                                Signed In
+                            </mat-chip-option>-->
+                            <mat-icon class="signed-in-check">check</mat-icon>
+                        } @else {
+                            <!--
+                            <mat-chip-option color="secondary" disabled>
+                                Signed In
+                            </mat-chip-option>-->
+                            <mat-icon class="signed-out-check">close</mat-icon>
+                        }
+                    }
+                </div>
+            </mat-list-item>
+        }
+    </mat-list>
+</mat-expansion-panel>

@@ -56,6 +56,22 @@ mat-card-title {
     padding: 2px;*/
 }
 
+mat-accordion {
+    display: block;
+    width: 50%;
+    margin: auto;
+}
+
+mat-expansion-panel {
+    box-shadow: 0 0 5px #3f51b5 !important;
+    margin: 1vh 0 0 0 !important;
+    background-color: #efeff5 !important;
+}
+
+mat-panel-description {
+    flex-grow: 0.5 !important;
+}
+
 div.user-appointments {
     display: flex;
     flex-direction: row;
@@ -81,6 +97,10 @@ hr {
     height: 4px;
     width: 250px;
     background-image: linear-gradient(to right, rgba(0, 0, 0, 0), #3f51b5, rgba(0, 0, 0, 0));
+}
+
+hr.hr-exp-panel {
+    width: 100%;
 }
 
 h1, h2 {
@@ -109,4 +129,24 @@ mat-icon {
 
 mat-icon.card-btn {
     color: white !important;
+}
+
+/* For Mouse Selection */
+
+::-moz-selection { /* Code for Firefox */
+    color: #efeff5;
+    background: #3f51b5;
+}
+
+::selection {
+    color: #efeff5;
+    background: #3f51b5;
+}
+
+/* For Mobile */
+
+@media screen and (max-width:599px) {
+    mat-accordion {
+        width: 98%;
+    }
 }

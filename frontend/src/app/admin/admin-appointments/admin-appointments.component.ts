@@ -1,8 +1,13 @@
 import { Component } from '@angular/core';
 import { AppointmentService } from '../../../shared/services/appointment.service';
 import { Appointment } from '../../../shared/models/appointment';
+import { MatListModule } from '@angular/material/list';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { RouterModule } from '@angular/router';
 
 @Component({
+    standalone: true,
+    imports: [MatListModule, MatExpansionModule, RouterModule],
     selector: 'app-admin-appointments',
     templateUrl: './admin-appointments.component.html',
     styleUrls: ['./admin-appointments.component.css'],

@@ -6,12 +6,15 @@ import at.htl.courseschedule.entity.Participation;
 import at.htl.courseschedule.entity.Purchase;
 import at.htl.courseschedule.entity.ids.ParticipationId;
 import at.htl.courseschedule.entity.ids.PurchaseId;
+import io.quarkus.logging.Log;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 import jakarta.validation.constraints.NotNull;
 import org.keycloak.representations.idm.UserRepresentation;
+import org.eclipse.microprofile.jwt.JsonWebToken;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +35,12 @@ public class PurchaseRepository {
 
     @Inject
     UserRepository userRepository;
+
+    @Inject
+    JsonWebToken jsonWebToken;
+
+    @Inject
+    MailService mailService;
 
     public List<Purchase> getAll() {
         return em.createQuery("SELECT p from Purchase p", Purchase.class).getResultList();
@@ -84,7 +93,30 @@ public class PurchaseRepository {
                 }
         );
 
+        /*
+        mailService.sendConfirmationMail(
+                "ilmingwinnie19@gmail.com",
+                "Packet",
+                "Winnie"
+        ).subscribe().with(
+                ignored -> {},
+                error -> Log.error("Error while sending Email", error)
+        );
+         */
+
         em.merge(purchase);
+
+        UserRepresentation loggedInCustomer = userRepository.getById(jsonWebToken.getClaim("sub"), Role.Customer);
+
+        mailService.sendConfirmationMail(
+                loggedInCustomer.getEmail(),
+                packet.getName(),
+                String.format("%s %s", loggedInCustomer.getFirstName(), loggedInCustomer.getLastName())
+        ).subscribe().with(
+                ignored -> {},
+                error -> Log.error("Error while sending Email: ", error)
+        );
+
         return newParticipations;
     }
 

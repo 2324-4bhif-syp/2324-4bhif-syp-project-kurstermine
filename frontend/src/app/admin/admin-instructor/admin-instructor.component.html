@@ -1,9 +1,12 @@
+<h2 style="margin-bottom: 0px;">{{ instructor?.firstName }} {{ instructor?.lastName }}</h2>
 
-<h2>Appointments</h2>
+<div style="display: flex; justify-content: center;">
+    <h3>{{ instructor?.email }}</h3>
+</div>
 
 <div style="display: flex; justify-content: center; flex-direction: column;">
     <mat-action-list>
-        @for (appointment of appointmentService.get(); track appointment) {
+        @for (appointment of appointments; track appointments) {
         <a [routerLink]="['/admin/appointments/', appointment.id]" mat-list-item>
             <span matListItemIcon class="material-symbols-outlined">
                 event

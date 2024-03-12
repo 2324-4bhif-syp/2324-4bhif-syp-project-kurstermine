@@ -31,16 +31,12 @@ import { MatTreeModule } from '@angular/material/tree';
 import {MatIconModule} from '@angular/material/icon';
 import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatMenuModule} from "@angular/material/menu";
+import {MatListModule} from "@angular/material/list";
 
 @NgModule({
     declarations: [
         AppComponent,
-        AdminCustomersComponent,
-        AdminAppointmentsComponent,
-        AdminAppointmentComponent,
-        AdminParticipationComponent,
         AdminInstructorsComponent,
-        AdminAppointmentManagementComponent,
         UserPacketComponent,
         UserPacketsComponent,
         UserOfferComponent
@@ -65,6 +61,7 @@ import {MatMenuModule} from "@angular/material/menu";
         MatIconModule,
         MatToolbarModule,
         MatMenuModule,
+        MatListModule
     ],
     providers: [
         {

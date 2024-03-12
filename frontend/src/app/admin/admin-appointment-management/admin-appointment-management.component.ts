@@ -4,8 +4,16 @@ import { InstructorService } from '../../../shared/services/instructor.service';
 import { Instructor } from '../../../shared/models/instructor';
 import { AppointmentManagement } from '../../../shared/models/appointmentManagement';
 import { AppointmentManagementService } from '../../../shared/services/appointment-management.service';
+import { FormsModule } from '@angular/forms';
+import { MatListModule } from '@angular/material/list';
+import { MatIconModule } from '@angular/material/icon';
+import { MatSelectModule } from '@angular/material/select';
+import { MatButtonModule } from '@angular/material/button';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 @Component({
+    standalone: true,
+    imports: [FormsModule, MatListModule, MatIconModule, MatSelectModule, MatButtonModule, MatExpansionModule],
     selector: 'app-admin-appointment-management',
     templateUrl: './admin-appointment-management.component.html',
     styleUrls: ['./admin-appointment-management.component.css'],

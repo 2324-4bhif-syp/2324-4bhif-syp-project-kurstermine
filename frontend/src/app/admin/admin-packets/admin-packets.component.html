@@ -1,0 +1,36 @@
+<h2>Packets</h2>
+
+<mat-accordion multi="false">
+    @for (p of getAllPackets(); track p) {
+        <app-admin-packet [packet]="p" [displaySignedInBtn]="false"></app-admin-packet>
+    }
+</mat-accordion>
+
+<!-- For adding a Packet
+<br><br><br>
+<table>
+    <tr>
+        <th>Name</th>
+        <th>Price</th>
+    </tr>
+    <tr>
+        <td>
+            <input
+                type="text"
+                placeholder="Name"
+                [(ngModel)]="newPacket.name"
+            />
+        </td>
+        <td>
+            <input
+                type="number"
+                placeholder="Price"
+                [(ngModel)]="newPacket.price"
+            />
+        </td>
+        <td>
+            <button (click)="addPacket()">Add</button>
+        </td>
+    </tr>
+</table>
+-->
