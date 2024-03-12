@@ -16,7 +16,7 @@ import {AdminInstructorComponent} from "./admin/admin-instructor/admin-instructo
 import { AdminAppointmentComponent } from './admin/admin-appointment/admin-appointment.component';
 
 const routes: Routes = [
-    { path: '', redirectTo: 'packets', pathMatch: 'full' },
+    { path: '', redirectTo: 'user', pathMatch: 'full' },
     {
         path: 'appointments-user',
         component: UserAppointmentsComponent,
