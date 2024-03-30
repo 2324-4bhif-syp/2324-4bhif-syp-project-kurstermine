@@ -14,14 +14,20 @@ import { AdminCustomerComponent } from './admin/admin-customer/admin-customer.co
 import {AdminPacketsComponent} from "./admin/admin-packets/admin-packets.component";
 import {AdminInstructorComponent} from "./admin/admin-instructor/admin-instructor.component";
 import { AdminAppointmentComponent } from './admin/admin-appointment/admin-appointment.component';
+import {HomeComponent} from "./other/home/home.component";
 
 const routes: Routes = [
-    { path: '', redirectTo: 'user', pathMatch: 'full' },
+    { path: '', redirectTo: 'home', pathMatch: 'full' },
     {
         path: 'appointments-user',
         component: UserAppointmentsComponent,
         canActivate: [AuthGuard, RoleGuard],
         data: { roles: [Roles.Customer] },
+    },
+    {
+        path: 'home',
+        component: HomeComponent,
+        canActivate: [AuthGuard]
     },
     {
         path: 'user',

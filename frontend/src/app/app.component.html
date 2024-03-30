@@ -1,7 +1,10 @@
+<!-- Add icon library -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 <mat-toolbar class="topbar telative mat-toolbar mat-primary mat-toolbar-single-row" color="primary">
     <mat-toolbar-row>
         <div>
-            <button class="nav nav-btn" mat-button>
+            <button class="nav nav-btn" routerLinkActive="active" routerLink="home" mat-button>
                 <!--<mat-icon class="nav-icon"></mat-icon>-->
                 CouSch
             </button>
@@ -92,3 +95,12 @@
 <!--<h1>Course Schedule</h1>-->
 
 <router-outlet></router-outlet>
+
+<div class="footer flex-base-col">
+    <p class="follow-p">Follow us on:</p>
+    <div class="flex-base-row icons">
+        <a href="https://www.facebook.com/cousch" class="fa fa-facebook"></a>
+        <a href="#" class="fa fa-youtube"></a>
+        <a href="https://www.instagram.com/cousch23/" class="fa fa-instagram"></a>
+    </div>
+</div>
