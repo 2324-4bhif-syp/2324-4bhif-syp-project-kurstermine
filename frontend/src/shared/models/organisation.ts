@@ -3,7 +3,7 @@ import {OrganisationDto} from "./dtos/organisation-dto";
 export interface Organisation {
     id?: number,
     name: string,
-    uniqueName: number
+    uniqueName: string
 }
 
 export const fromOrganisationDto = (organisationDto: OrganisationDto): Organisation => {

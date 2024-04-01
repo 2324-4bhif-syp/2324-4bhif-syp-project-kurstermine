@@ -3,13 +3,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
-import { AdminCustomersComponent } from './admin/admin-customers/admin-customers.component';
 import { FormsModule } from '@angular/forms';
-import { AdminAppointmentsComponent } from './admin/admin-appointments/admin-appointments.component';
-import { AdminAppointmentComponent } from './admin/admin-appointment/admin-appointment.component';
-import { AdminParticipationComponent } from './admin/admin-participations/admin-participation.component';
 import { AdminInstructorsComponent } from './admin/admin-instructors/admin-instructors.component';
-import { AdminAppointmentManagementComponent } from './admin/admin-appointment-management/admin-appointment-management.component';
 import { initializeKeycloak } from './other/init/keycloak-init.factory';
 import { KeycloakAngularModule, KeycloakService } from 'keycloak-angular';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -24,7 +19,6 @@ import { MatDividerModule } from '@angular/material/divider';
 import {CdkAccordionModule} from '@angular/cdk/accordion';
 import { AppRoutingModule } from './app-routing.module';
 import { UserPacketComponent } from './user/user-packet/user-packet.component';
-import { UserPacketsComponent } from './user/user-packets/user-packets.component';
 import { UserOfferComponent } from './user/user-offer/user-offer.component';
 import { MatCardModule } from '@angular/material/card';
 import { MatTreeModule } from '@angular/material/tree';
@@ -37,8 +31,6 @@ import {MatListModule} from "@angular/material/list";
     declarations: [
         AppComponent,
         AdminInstructorsComponent,
-        UserPacketComponent,
-        UserPacketsComponent,
         UserOfferComponent
     ],
     imports: [
@@ -61,7 +53,8 @@ import {MatListModule} from "@angular/material/list";
         MatIconModule,
         MatToolbarModule,
         MatMenuModule,
-        MatListModule
+        MatListModule,
+        UserPacketComponent
     ],
     providers: [
         {
@@ -71,6 +64,8 @@ import {MatListModule} from "@angular/material/list";
             deps: [KeycloakService],
         },
     ],
-    bootstrap: [AppComponent],
+    exports: [
+    ],
+    bootstrap: [AppComponent]
 })
 export class AppModule {}

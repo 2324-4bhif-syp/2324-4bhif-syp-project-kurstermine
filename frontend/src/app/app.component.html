@@ -27,7 +27,11 @@
                     Packets
                 </button>
             } @else {
-                <button class="nav nav-btn" mat-button routerLinkActive="active" routerLink="appointments-user">
+                <button class="nav nav-btn" mat-button routerLinkActive="active" routerLink="organisations">
+                    <mat-icon class="nav-icon">business</mat-icon>
+                    Organisations
+                </button>
+                <button class="nav nav-btn" mat-button routerLinkActive="active" routerLink="appointments">
                     <mat-icon class="nav-icon">calendar_today</mat-icon>
                     Appointments
                 </button>
@@ -69,7 +73,7 @@
                         <span>User</span>
                     </button>
                 } @else {
-                    <button mat-menu-item routerLinkActive="active" routerLink="appointments-user">
+                    <button mat-menu-item routerLinkActive="active" routerLink="appointments">
                         <mat-icon>calendar_today</mat-icon>
                         <span>Appointments</span>
                     </button>
@@ -100,7 +104,7 @@
     <p class="follow-p">Follow us on:</p>
     <div class="flex-base-row icons">
         <a href="https://www.facebook.com/cousch" class="fa fa-facebook"></a>
-        <a href="#" class="fa fa-youtube"></a>
+        <a href="https://www.youtube.com/channel/UCn9q4YO8gC3PxywlNyt-vGA" class="fa fa-youtube"></a>
         <a href="https://www.instagram.com/cousch23/" class="fa fa-instagram"></a>
     </div>
 </div>

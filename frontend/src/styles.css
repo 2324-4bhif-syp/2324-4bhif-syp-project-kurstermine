@@ -68,7 +68,7 @@ mat-panel-description {
     flex-grow: 0.5 !important;
 }
 
-div.user-appointments {
+div.user-appointments, div.user-organisations {
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;

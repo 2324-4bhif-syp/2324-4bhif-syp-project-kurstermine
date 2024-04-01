@@ -1,0 +1,37 @@
+.toggle-card {
+    width: 250px !important;
+    background-color: #ffffff !important; /* White background */
+    border: 2px solid black !important; /* Dark blue border */
+    border-radius: 25% !important; /* Rounded corners */
+    padding-top: 10px !important; /* Padding inside the container */
+    margin: 20px !important; /* Margin around the container */
+    box-shadow: none !important; /* Shadow effect */
+}
+
+.toggle-card-title {
+    font-size: 20px !important;
+}
+
+.toggle-card-hr {
+    color: black;
+    background-image: linear-gradient(to right, rgba(0, 0, 0, 0), black, rgba(0, 0, 0, 0));
+    width: 180px;
+}
+
+.org-card {
+    opacity: 1;
+    transition: opacity 0.2s ease, border 0.2s ease;
+}
+
+.org-card:hover {
+    /*opacity: 0.7;*/
+    border: #0e1f6c solid 5px;
+
+    .org-title {
+        font-size: 35px !important;
+    }
+}
+
+.org-title {
+    transition: font-size 0.2s ease;
+}

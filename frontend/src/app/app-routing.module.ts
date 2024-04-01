@@ -15,14 +15,28 @@ import {AdminPacketsComponent} from "./admin/admin-packets/admin-packets.compone
 import {AdminInstructorComponent} from "./admin/admin-instructor/admin-instructor.component";
 import { AdminAppointmentComponent } from './admin/admin-appointment/admin-appointment.component';
 import {HomeComponent} from "./other/home/home.component";
+import {UserOrganisationsComponent} from "./user/user-organisations/user-organisations.component";
+import {UserPacketsOfOrgComponent} from "./user/user-packets-of-org/user-packets-of-org.component";
 
 const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
     {
-        path: 'appointments-user',
+        path: 'appointments',
         component: UserAppointmentsComponent,
         canActivate: [AuthGuard, RoleGuard],
         data: { roles: [Roles.Customer] },
+    },
+    {
+        path: 'organisations',
+        component: UserOrganisationsComponent,
+        canActivate: [AuthGuard, RoleGuard],
+        data: { roles: [Roles.Customer] },
+    },
+    {
+        path: 'organisations/:id/packets',
+        component: UserPacketsOfOrgComponent,
+        canActivate: [AuthGuard, RoleGuard],
+        data: {roles: [Roles.Customer]}
     },
     {
         path: 'home',

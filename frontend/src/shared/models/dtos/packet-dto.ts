@@ -1,9 +1,11 @@
 import { Packet } from "../packet";
+import {Organisation} from "../organisation";
 
 export interface PacketDto {
     id?: number,
     name: string,
     price: number,
+    organisation?: Organisation
 }
 
 export const fromPacket = (packet: Packet): PacketDto => {
@@ -11,5 +13,6 @@ export const fromPacket = (packet: Packet): PacketDto => {
         id: packet.id,
         name: packet.name,
         price: packet.price,
+        organisation: packet.organisation
     }
 }
