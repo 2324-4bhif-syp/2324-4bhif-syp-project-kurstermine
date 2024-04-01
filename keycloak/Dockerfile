@@ -1,13 +1,14 @@
+FROM quay.io/keycloak/keycloak:23.0.0 as builder
+
+ENV KC_HEALTH_ENABLED=true
+ENV KC_METRICS_ENABLED=true
+
+ENV KC_DB=postgres
+
+RUN /opt/keycloak/bin/kc.sh build
+
 FROM quay.io/keycloak/keycloak:23.0.0
 
-WORKDIR /opt/keycloak/themes/custom/login/resources/img
-COPY keycloak-bg.png .
+COPY --from=builder /opt/keycloak/ /opt/keycloak/
 
-WORKDIR /opt/keycloak/themes/custom/login/resources/css
-COPY styles.css .
-
-WORKDIR /opt/keycloak/themes/custom/login
-COPY theme.properties .
-
-WORKDIR /opt/keycloak/data/import
-COPY htl-realm.json .
+# default entrypoint

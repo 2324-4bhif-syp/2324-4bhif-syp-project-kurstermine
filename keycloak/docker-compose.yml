@@ -1,0 +1,43 @@
+services:
+  keycloak:
+    container_name: keycloak
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - KC_DB=postgres
+    environment:
+      - KEYCLOAK_ADMIN=admin
+      - KEYCLOAK_ADMIN_PASSWORD=admin
+
+      - KC_HOSTNAME_STRICT=false
+      - KC_HOSTNAME_STRICT_HTTPS=false
+      - KC_HTTP_ENABLED=true
+      - KC_HOSTNAME=localhost
+      - PROXY_ADDRESS_FORWARDING=true
+
+      - KC_DB_URL=jdbc:postgresql://keycloak-db/db
+      - KC_DB_USERNAME=app
+      - KC_DB_PASSWORD=app
+
+      - KC_HEALTH_ENABELD=true
+      - KC_METRICS_ENABLED=true
+    command: ["-v", "start", "--import-realm", "--spi-theme-static-max-age=-1", "--spi-theme-cache-themes=false", "--spi-theme-cache-templates=false", "--optimized"]
+    ports:
+      - 8180:8080
+    volumes:
+      - ./keycloak/import:/opt/keycloak/data/import
+      - ./keycloak/themes:/opt/keycloak/themes/
+    depends_on:
+      - keycloak-db
+  
+  keycloak-db:
+    container_name: keycloak-db
+    image: postgres:16.2-alpine
+    restart: unless-stopped
+    environment:
+      - POSTGRES_USER=app
+      - POSTGRES_PASSWORD=app
+      - POSTGRES_DB=db
+    volumes:
+      - ./keycloak-db/data:/var/lib/postgresql/data
