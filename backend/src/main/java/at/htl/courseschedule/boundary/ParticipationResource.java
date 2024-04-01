@@ -10,6 +10,7 @@ import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @Path("/participations")
 public class ParticipationResource {
@@ -70,7 +71,7 @@ public class ParticipationResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response deleteParticipationById(@PathParam("appointmentId") Long appointmentId,
                                             @PathParam("customerId") String customerId) {
-        participationRepository.delete(new ParticipationId(appointmentId, customerId));
+        participationRepository.delete(new ParticipationId(appointmentId, UUID.fromString(customerId)));
         return Response.status(200).build();
     }
 }

@@ -1,6 +1,6 @@
 package at.htl.courseschedule.boundary;
 
-import at.htl.courseschedule.controller.UserRepository;
+import at.htl.courseschedule.controller.KeycloakUserRepository;
 import at.htl.courseschedule.dto.UserDTO;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
@@ -11,13 +11,15 @@ import jakarta.ws.rs.core.Response;
 import org.eclipse.microprofile.jwt.JsonWebToken;
 import org.keycloak.representations.idm.UserRepresentation;
 
+import java.util.UUID;
+
 @Path("/customers")
 public class CustomerResource {
     @Inject
     JsonWebToken jsonWebToken;
 
     @Inject
-    UserRepository userRepository;
+    KeycloakUserRepository userRepository;
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
@@ -31,7 +33,7 @@ public class CustomerResource {
     @Produces(MediaType.APPLICATION_JSON)
     @RolesAllowed(Role.Admin)
     public Response getCustomer(@PathParam("id") String id) {
-        UserRepresentation customer = userRepository.getById(id, Role.Customer);
+        UserRepresentation customer = userRepository.getById(UUID.fromString(id), Role.Customer);
 
         if (customer == null) {
             return Response.status(404).build();

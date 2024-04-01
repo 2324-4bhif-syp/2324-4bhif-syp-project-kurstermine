@@ -1,23 +1,20 @@
 package at.htl.courseschedule.entity;
 
+import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 import java.util.UUID;
 
 @Entity
-public class User {
+public class BabyUser extends PanacheEntityBase {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
     private UUID uuid;
 
-    public User() {
+    public BabyUser() {
     }
 
-    public User(UUID uuid) {
+    public BabyUser(UUID uuid) {
         this.uuid = uuid;
     }
 
@@ -32,8 +29,7 @@ public class User {
     @Override
     public String toString() {
         return "User{" +
-                "id=" + id +
-                ", uuid=" + uuid +
+                "uuid=" + uuid +
                 '}';
     }
 
@@ -42,13 +38,13 @@ public class User {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        User user = (User) o;
+        BabyUser user = (BabyUser) o;
 
-        return id.equals(user.id);
+        return uuid.equals(user.uuid);
     }
 
     @Override
     public int hashCode() {
-        return id.hashCode();
+        return uuid.hashCode();
     }
 }

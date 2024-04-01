@@ -22,6 +22,9 @@ public class ParticipationRepository {
     AppointmentRepository appointmentRepository;
 
     @Inject
+    KeycloakUserRepository keycloakUserRepository;
+
+    @Inject
     UserRepository userRepository;
 
     public List<Participation> getAll() {
@@ -53,14 +56,14 @@ public class ParticipationRepository {
         }
 
         Appointment appointment = appointmentRepository.getById(participation.getId().getAppointmentId());
-        UserRepresentation user = userRepository.getById(participation.getId().getCustomerId(), Role.Customer);
+        UserRepresentation user = keycloakUserRepository.getById(participation.getId().getCustomerId(), Role.Customer);
 
         if (appointment == null || user == null) {
             return;
         }
 
         participation.setAppointment(appointment);
-
+        participation.setCustomer(userRepository.getOrCreateUser(participation.getId().getCustomerId()));
         em.merge(participation);
     }
 

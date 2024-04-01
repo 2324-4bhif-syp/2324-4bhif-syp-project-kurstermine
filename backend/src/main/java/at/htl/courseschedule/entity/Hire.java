@@ -1,6 +1,7 @@
 package at.htl.courseschedule.entity;
 
 import at.htl.courseschedule.entity.ids.HireId;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import org.hibernate.annotations.OnDelete;
@@ -16,11 +17,17 @@ public class Hire {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Organisation organisation;
 
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY)
+    @MapsId("instructorId")
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private BabyUser instructor;
+
     public Hire() {}
 
-    public Hire(@NotNull Organisation organisation, @NotNull String instructorId) {
+    public Hire(@NotNull Organisation organisation, @NotNull BabyUser instructor) {
         this.organisation = organisation;
-        this.id = new HireId(organisation.getId(), instructorId);
+        this.id = new HireId(organisation.getId(), instructor.getUuid());
     }
 
     public HireId getId() {
