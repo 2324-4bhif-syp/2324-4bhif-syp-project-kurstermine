@@ -43,6 +43,7 @@ export class UserOrganisationComponent implements OnInit{
 
     @Input({ required: true })
     organisation!: Organisation;
+    protected progressBarValue: number = 0;
 
     constructor(protected packetService: PacketService,
                 protected offerService: OfferService) {
@@ -55,16 +56,23 @@ export class UserOrganisationComponent implements OnInit{
 
     ngOnDestroy(): void {
         clearInterval(this.intervalId);
+        clearInterval(this.intervalProgressBar);
     }
 
     startTimer(): void {
+        this.intervalProgressBar = setInterval(() => {
+            this.progressBarValue = this.progressBarValue + 0.515;
+        }, 50)
+
         this.intervalId = setInterval(() => {
             this.currentIndex = (this.currentIndex + 1) % this.getPacketsOfOrg().length;
+            this.progressBarValue = 0;
         }, 10000);
     }
 
     currentIndex: number = 0;
     intervalId: any;
+    intervalProgressBar: any;
 
     // TODO: Make Endpoint in Backend for getting all Packets from 1 Organisation
     getPacketsOfOrg(): Packet[] {
