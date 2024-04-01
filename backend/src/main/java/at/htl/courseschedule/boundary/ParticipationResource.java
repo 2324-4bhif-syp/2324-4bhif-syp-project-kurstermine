@@ -29,7 +29,7 @@ public class ParticipationResource {
     @Produces(MediaType.APPLICATION_JSON)
     @RolesAllowed(Role.Customer)
     public Response getParticipationsByCustomerId(@PathParam("id") String id) {
-        return Response.ok(participationRepository.getAllByUserId(id)).build();
+        return Response.ok(participationRepository.getAllByUserId(UUID.fromString(id))).build();
     }
 
     @GET

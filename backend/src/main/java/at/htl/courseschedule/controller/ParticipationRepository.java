@@ -12,6 +12,7 @@ import jakarta.validation.constraints.NotNull;
 import org.keycloak.representations.idm.UserRepresentation;
 
 import java.util.List;
+import java.util.UUID;
 
 @ApplicationScoped
 public class ParticipationRepository {
@@ -31,7 +32,7 @@ public class ParticipationRepository {
         return em.createQuery("SELECT p from Participation p", Participation.class).getResultList();
     }
 
-    public List<Participation> getAllByUserId(String customerId) {
+    public List<Participation> getAllByUserId(UUID customerId) {
         TypedQuery<Participation> query =
                 em.createQuery("SELECT p from Participation p WHERE p.id.customerId = :userId",
                         Participation.class);
