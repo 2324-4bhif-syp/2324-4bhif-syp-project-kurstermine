@@ -18,6 +18,7 @@ import org.eclipse.microprofile.jwt.JsonWebToken;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @ApplicationScoped
 public class PurchaseRepository {
@@ -49,7 +50,7 @@ public class PurchaseRepository {
         return em.createQuery("SELECT p from Purchase p", Purchase.class).getResultList();
     }
 
-    public List<Purchase> getAllByUserId(String customerId) {
+    public List<Purchase> getAllByUserId(UUID customerId) {
         TypedQuery<Purchase> query =
                 em.createQuery("SELECT p from Purchase p WHERE p.id.customerId = :userId",
                         Purchase.class);

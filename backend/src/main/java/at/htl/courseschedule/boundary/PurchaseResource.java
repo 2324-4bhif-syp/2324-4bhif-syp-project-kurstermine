@@ -30,7 +30,7 @@ public class PurchaseResource {
     @Produces(MediaType.APPLICATION_JSON)
     @RolesAllowed(Role.Customer)
     public Response getPurchasesByCustomerId(@PathParam("id") String id) {
-        return Response.ok(purchaseRepository.getAllByUserId(id)).build();
+        return Response.ok(purchaseRepository.getAllByUserId(UUID.fromString(id))).build();
     }
 
     @GET
