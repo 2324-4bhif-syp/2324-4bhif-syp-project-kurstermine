@@ -47,7 +47,7 @@ public class CustomerResource {
     @Produces(MediaType.APPLICATION_JSON)
     @RolesAllowed(Role.Customer)
     public Response getCustomerByIdGiven() {
-        UserRepresentation customer = userRepository.getById(jsonWebToken.getClaim("sub"), Role.Customer);
+        UserRepresentation customer = userRepository.getById(UUID.fromString(jsonWebToken.getClaim("sub")), Role.Customer);
 
         if (customer == null) {
             return Response.status(404).build();
