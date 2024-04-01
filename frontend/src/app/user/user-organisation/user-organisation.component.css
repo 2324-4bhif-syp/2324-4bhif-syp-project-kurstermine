@@ -19,12 +19,10 @@
 }
 
 .org-card {
-    opacity: 1;
     transition: opacity 0.2s ease, border 0.2s ease;
 }
 
 .org-card:hover {
-    /*opacity: 0.7;*/
     border: #0e1f6c solid 5px;
 
     .org-title {
@@ -34,4 +32,8 @@
 
 .org-title {
     transition: font-size 0.2s ease;
+}
+
+.progress-bar {
+    border-radius: 10px;
 }

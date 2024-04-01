@@ -90,7 +90,7 @@
             </mat-menu>
         </div>
 
-        <button class="logout-btn" mat-mini-fab color="link" (click)="keycloak.logout()">
+        <button class="logout-btn" mat-mini-fab color="link" (click)="onBtnLogout()">
             <mat-icon class="logout-icon">logout</mat-icon>
         </button>
     </mat-toolbar-row>
@@ -99,12 +99,3 @@
 <!--<h1>Course Schedule</h1>-->
 
 <router-outlet></router-outlet>
-
-<div class="footer flex-base-col">
-    <p class="follow-p">Follow us on:</p>
-    <div class="flex-base-row icons">
-        <a href="https://www.facebook.com/cousch" class="fa fa-facebook"></a>
-        <a href="https://www.youtube.com/channel/UCn9q4YO8gC3PxywlNyt-vGA" class="fa fa-youtube"></a>
-        <a href="https://www.instagram.com/cousch23/" class="fa fa-instagram"></a>
-    </div>
-</div>

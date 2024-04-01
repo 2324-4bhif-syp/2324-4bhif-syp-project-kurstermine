@@ -22,7 +22,7 @@ services:
 
       - KC_HEALTH_ENABELD=true
       - KC_METRICS_ENABLED=true
-    command: ["-v", "start", "--import-realm", "--spi-theme-static-max-age=-1", "--spi-theme-cache-themes=false", "--spi-theme-cache-templates=false", "--optimized"]
+    command: ["-v", "start", "--import-realm", "--optimized"]
     ports:
       - 8180:8080
     volumes:
