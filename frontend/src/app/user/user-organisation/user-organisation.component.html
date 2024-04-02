@@ -1,0 +1,25 @@
+<mat-card class="org-card" routerLinkActive="active" routerLink="{{organisation.id}}/packets">
+    <mat-card-header>
+        <mat-card-title class="org-title">{{ organisation.name }}</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+
+        @if (getPacketsOfOrg().length >= 1) {
+            <div class="packet-container" [@fadeInOut]="currentIndex">
+                <mat-card class="toggle-card">
+                    <mat-card-title class="toggle-card-title">{{getPacketsOfOrg()[currentIndex].name}}</mat-card-title>
+                    <mat-card-subtitle>{{getPacketsOfOrg()[currentIndex].price}} €</mat-card-subtitle>
+                    <hr class="toggle-card-hr">
+                    <mat-card-content>
+                        @for (offer of getOffers(getPacketsOfOrg()[currentIndex].id!); track $index) {
+                            <p>{{offer.appointment.name}}</p>
+                        }
+                    </mat-card-content>
+                </mat-card>
+            </div>
+
+            <mat-progress-bar class="progress-bar" mode="determinate" color="primary" [value]="progressBarValue"></mat-progress-bar>
+        }
+
+    </mat-card-content>
+</mat-card>

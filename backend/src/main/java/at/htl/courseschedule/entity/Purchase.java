@@ -1,6 +1,7 @@
 package at.htl.courseschedule.entity;
 
 import at.htl.courseschedule.entity.ids.PurchaseId;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import org.hibernate.annotations.OnDelete;
@@ -15,12 +16,17 @@ public class Purchase {
     @MapsId("packetId")
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Packet packet;
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY)
+    @MapsId("customerId")
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private BabyUser customer;
 
     public Purchase() {}
 
-    public Purchase(@NotNull Packet packet, @NotNull String customerId) {
+    public Purchase(@NotNull Packet packet, @NotNull BabyUser customer) {
         this.packet = packet;
-        this.id = new PurchaseId(packet.getId(), customerId);
+        this.id = new PurchaseId(packet.getId(), customer.getUuid());
     }
 
     public PurchaseId getId() {
@@ -37,6 +43,14 @@ public class Purchase {
 
     public void setPacket(Packet packet) {
         this.packet = packet;
+    }
+
+    public BabyUser getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(BabyUser customer) {
+        this.customer = customer;
     }
 
     @Override

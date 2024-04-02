@@ -20,6 +20,12 @@ public class PacketRepository {
         return em.find(Packet.class, id);
     }
 
+    public List<Packet> getAllByOrganisatorId(Long id) {
+        return em.createQuery("SELECT p from Packet p WHERE p.organisator.id = :id", Packet.class)
+                .setParameter("id", id)
+                .getResultList();
+    }
+
     public void create(Packet packet) {
         packet.setId(null);
         em.persist(packet);

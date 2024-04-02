@@ -4,11 +4,22 @@ import {MatDialog, MatDialogRef} from "@angular/material/dialog";
 import {UserBuyPacketConfirmDialogComponent} from "../user-buy-packet-confirm-dialog/user-buy-packet-confirm-dialog.component";
 import {Customer} from "../../../shared/models/customer";
 import {OfferService} from "../../../shared/services/offer.service";
+import {MatButtonModule} from "@angular/material/button";
+import {MatCardModule} from "@angular/material/card";
+import {MatIconModule} from "@angular/material/icon";
+import {RouterLink} from "@angular/router";
 
 @Component({
-  selector: 'app-user-packet',
-  templateUrl: './user-packet.component.html',
-  styleUrl: './user-packet.component.css'
+    selector: 'app-user-packet',
+    standalone: true,
+    imports: [
+        MatButtonModule,
+        MatCardModule,
+        MatIconModule,
+        RouterLink
+    ],
+    templateUrl: './user-packet.component.html',
+    styleUrl: './user-packet.component.css'
 })
 export class UserPacketComponent {
 

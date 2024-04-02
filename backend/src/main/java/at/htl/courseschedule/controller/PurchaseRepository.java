@@ -18,6 +18,7 @@ import org.eclipse.microprofile.jwt.JsonWebToken;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @ApplicationScoped
 public class PurchaseRepository {
@@ -34,7 +35,7 @@ public class PurchaseRepository {
     PacketRepository packetRepository;
 
     @Inject
-    UserRepository userRepository;
+    KeycloakUserRepository keycloakUserRepository;
 
     @Inject
     JsonWebToken jsonWebToken;
@@ -42,11 +43,14 @@ public class PurchaseRepository {
     @Inject
     MailService mailService;
 
+    @Inject
+    UserRepository userRepository;
+
     public List<Purchase> getAll() {
         return em.createQuery("SELECT p from Purchase p", Purchase.class).getResultList();
     }
 
-    public List<Purchase> getAllByUserId(String customerId) {
+    public List<Purchase> getAllByUserId(UUID customerId) {
         TypedQuery<Purchase> query =
                 em.createQuery("SELECT p from Purchase p WHERE p.id.customerId = :userId",
                         Purchase.class);
@@ -71,13 +75,14 @@ public class PurchaseRepository {
         }
 
         Packet packet = packetRepository.getById(purchase.getId().getPacketId());
-        UserRepresentation user = userRepository.getById(purchase.getId().getCustomerId(), Role.Customer);
+        UserRepresentation user = keycloakUserRepository.getById(purchase.getId().getCustomerId(), Role.Customer);
 
         if (packet == null || user == null) {
             return null;
         }
 
         purchase.setPacket(packet);
+        purchase.setCustomer(userRepository.getOrCreateUser(purchase.getId().getCustomerId()));
 
         List<Participation> newParticipations = new ArrayList<>();
 
@@ -87,26 +92,15 @@ public class PurchaseRepository {
                 .forEach(offer -> {
                     Participation newParticipation = new Participation(
                             offer.getAppointment(),
-                            purchase.getId().getCustomerId());
+                            purchase.getCustomer());
                     participationRepository.create(newParticipation);
                     newParticipations.add(newParticipation);
                 }
         );
 
-        /*
-        mailService.sendConfirmationMail(
-                "ilmingwinnie19@gmail.com",
-                "Packet",
-                "Winnie"
-        ).subscribe().with(
-                ignored -> {},
-                error -> Log.error("Error while sending Email", error)
-        );
-         */
-
         em.merge(purchase);
 
-        UserRepresentation loggedInCustomer = userRepository.getById(jsonWebToken.getClaim("sub"), Role.Customer);
+        UserRepresentation loggedInCustomer = keycloakUserRepository.getById(UUID.fromString(jsonWebToken.getClaim("sub")), Role.Customer);
 
         mailService.sendConfirmationMail(
                 loggedInCustomer.getEmail(),

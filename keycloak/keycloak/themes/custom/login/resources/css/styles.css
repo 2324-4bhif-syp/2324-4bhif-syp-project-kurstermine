@@ -1,0 +1,109 @@
+@import url('https://fonts.googleapis.com/css?family=Itim:700|Itim:400'); /* You can add global styles to this file, and also import other style files */
+/*
+.login-pf body {
+    background: linear-gradient(135deg, #051129, #08204a, #0c296b, #0f348c, #123fad, #1b50b9, #2555c4, #2e5ac0, #375fbb, #4064b7, #4969b2, #526eae, #5b73a9, #6478a5, #6d7da0, #76829c, #7f8797, #888c93, #91918e, #9a968a, #a39b85, #aca081, #b5a57c, #beaa78, #c7af73, #d0b46f, #d9b96a, #e2be66, #ebc361, #f4c85d, #fddd59, #ffe154);
+    background-size: cover;
+    height: 100%;
+}*/
+
+* {
+    font-family: 'Itim', Arial, sans-serif;
+    font-size: 15px;
+}
+
+#kc-header-wrapper, h1, h2 {
+    text-align: center;
+    margin-top: 2%;
+    font-weight: bold;
+    color: #0e1f6c;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+#kc-header-wrapper {
+    color: #efeff5;
+}
+
+#kc-header-wrapper, h1 {
+    font-size: 50px;
+}
+
+h2 {
+    font-size: 40px;
+}
+
+.card-pf {
+    border-radius: 20px;
+    background-color: #efeff5;
+    border-color: #0e1f6c;
+}
+
+div.pf-c-input-group {
+    background-color: #efeff5;
+}
+
+div#kc-info-wrapper {
+    border: 15px;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    background-color: #efeff5;
+}
+
+/* Sign In Button */
+input#kc-login, input.pf-c-button {
+    background: linear-gradient(135deg, #051129, #0e1f6c, #1a3397, #2650c1, #314c9c);    border-radius: 20px;
+    transition: transform 0.1s ease-in-out;
+    color: #efeff5;
+    font-weight: bolder;
+}
+
+input#kc-login:hover, input.pf-c-button:hover {
+    transform: scale(1.05);
+}
+
+input.pf-c-form-control {
+    border-radius: 20px;
+}
+
+label.pf-c-form, a {
+    color: #0e1f6c;
+}
+
+a:hover {
+    color: #3f51b5 !important;
+}
+
+/* Eye-Button */
+button.pf-m-control {
+    border-radius: 100%;
+    border: none;
+}
+
+/* For Mobile Devices */
+@media screen and (max-width:767px) {
+    body {
+        background: url("../img/keycloak-bg.png") no-repeat center center fixed !important;
+        background-size: cover !important;
+        height: 100%;
+    }
+
+    div#kc-header-wrapper {
+        padding: 0;
+    }
+
+    div.login-pf-page, div#kc-info-wrapper {
+        margin-left: 10%;
+        margin-right: 10%;
+    }
+}
+
+/* For Mouse Selection */
+
+::-moz-selection { /* Code for Firefox */
+    color: #efeff5;
+    background: #3f51b5;
+}
+
+::selection {
+    color: #efeff5;
+    background: #3f51b5;
+}

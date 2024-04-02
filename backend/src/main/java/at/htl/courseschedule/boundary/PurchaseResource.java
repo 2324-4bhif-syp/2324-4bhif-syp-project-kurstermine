@@ -11,6 +11,7 @@ import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @Path("/purchases")
 public class PurchaseResource {
@@ -29,7 +30,7 @@ public class PurchaseResource {
     @Produces(MediaType.APPLICATION_JSON)
     @RolesAllowed(Role.Customer)
     public Response getPurchasesByCustomerId(@PathParam("id") String id) {
-        return Response.ok(purchaseRepository.getAllByUserId(id)).build();
+        return Response.ok(purchaseRepository.getAllByUserId(UUID.fromString(id))).build();
     }
 
     @GET
@@ -71,7 +72,7 @@ public class PurchaseResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response deletePurchaseById(@PathParam("packetId") Long packetId,
                                             @PathParam("customerId") String customerId) {
-        purchaseRepository.delete(new PurchaseId(packetId, customerId));
+        purchaseRepository.delete(new PurchaseId(packetId, UUID.fromString(customerId)));
         return Response.status(200).build();
     }
 }

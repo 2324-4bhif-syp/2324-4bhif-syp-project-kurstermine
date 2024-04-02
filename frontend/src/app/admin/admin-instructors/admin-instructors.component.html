@@ -3,12 +3,12 @@
 <div style="display: flex; justify-content: center; flex-direction: column;">
     <mat-action-list>
         @for (instructor of instructorService.get(); track instructor) {
-        <a href="/admin/instructors/{{instructor.id}}" mat-list-item>
+        <a [routerLink]="['/admin/instructors', instructor.id]" mat-list-item>
             <mat-icon matListItemIcon>
                 account_circle
             </mat-icon>
             <div matLine>
-                <p>{{instructor.lastName}} {{instructor.firstName}}</p>
+                <p>{{instructor.firstName}} {{instructor.lastName}}</p>
             </div>
         </a>
 

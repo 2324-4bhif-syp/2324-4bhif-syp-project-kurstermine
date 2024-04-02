@@ -9,6 +9,8 @@ import jakarta.transaction.Transactional;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.*;
 
+import java.util.UUID;
+
 @Path("/appointment-managements")
 public class AppointmentManagementResource {
     @Inject
@@ -26,7 +28,7 @@ public class AppointmentManagementResource {
     public Response getAppointmentManagement(@PathParam("appointmentId") Long appointmentId,
                                      @PathParam("instructorId") String instructorId) {
         AppointmentManagement appointmentManagement = appointmentManagementRepository.getById(
-                new AppointmentManagementId(appointmentId, instructorId));
+                new AppointmentManagementId(appointmentId,UUID.fromString(instructorId)));
 
         if (appointmentManagement == null) {
             return Response.status(404).build();
@@ -60,7 +62,8 @@ public class AppointmentManagementResource {
     @RolesAllowed({Role.Organisator, Role.Admin})
     public Response deleteAppointmentManagementById(@PathParam("appointmentId") Long appointmentId,
                                             @PathParam("instructorId") String instructorId) {
-        appointmentManagementRepository.delete(new AppointmentManagementId(appointmentId, instructorId));
+        appointmentManagementRepository.delete(
+                new AppointmentManagementId(appointmentId, UUID.fromString(instructorId)));
         return Response.status(200).build();
     }
 }

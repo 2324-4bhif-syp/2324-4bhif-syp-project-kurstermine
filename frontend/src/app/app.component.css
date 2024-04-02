@@ -14,7 +14,7 @@ button:hover {
 }
 
 .nav-btn:hover {
-    background-color: #0e1f6c;
+    background-color: #3f51b5;
 }
 
 .logout-btn:hover {
@@ -40,6 +40,7 @@ button.burger:hover {
 
 mat-toolbar {
     width: 100%;
+    background-color: #0e1f6c;
 }
 
 mat-toolbar-row {

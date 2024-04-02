@@ -1,7 +1,10 @@
+<!-- Add icon library -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 <mat-toolbar class="topbar telative mat-toolbar mat-primary mat-toolbar-single-row" color="primary">
     <mat-toolbar-row>
         <div>
-            <button class="nav nav-btn" mat-button>
+            <button class="nav nav-btn" routerLinkActive="active" routerLink="home" mat-button>
                 <!--<mat-icon class="nav-icon"></mat-icon>-->
                 CouSch
             </button>
@@ -24,7 +27,11 @@
                     Packets
                 </button>
             } @else {
-                <button class="nav nav-btn" mat-button routerLinkActive="active" routerLink="appointments-user">
+                <button class="nav nav-btn" mat-button routerLinkActive="active" routerLink="organisations">
+                    <mat-icon class="nav-icon">business</mat-icon>
+                    Organisations
+                </button>
+                <button class="nav nav-btn" mat-button routerLinkActive="active" routerLink="appointments">
                     <mat-icon class="nav-icon">calendar_today</mat-icon>
                     Appointments
                 </button>
@@ -66,7 +73,7 @@
                         <span>User</span>
                     </button>
                 } @else {
-                    <button mat-menu-item routerLinkActive="active" routerLink="appointments-user">
+                    <button mat-menu-item routerLinkActive="active" routerLink="appointments">
                         <mat-icon>calendar_today</mat-icon>
                         <span>Appointments</span>
                     </button>
@@ -83,7 +90,7 @@
             </mat-menu>
         </div>
 
-        <button class="logout-btn" mat-mini-fab color="link" (click)="keycloak.logout()">
+        <button class="logout-btn" mat-mini-fab color="link" (click)="onBtnLogout()">
             <mat-icon class="logout-icon">logout</mat-icon>
         </button>
     </mat-toolbar-row>

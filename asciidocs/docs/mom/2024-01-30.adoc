@@ -1,4 +1,4 @@
-= Fünfte Sprintplanung
+= Sechste Sprintplanung
 ifndef::imagesdir[:imagesdir: images]
 :icons: font
 //:sectnums:    // Nummerierung der Überschriften / section numbering

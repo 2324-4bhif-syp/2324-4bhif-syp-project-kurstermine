@@ -1,6 +1,6 @@
 package at.htl.courseschedule.boundary;
 
-import at.htl.courseschedule.controller.UserRepository;
+import at.htl.courseschedule.controller.KeycloakUserRepository;
 import at.htl.courseschedule.dto.UserDTO;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.enterprise.context.ApplicationScoped;
@@ -13,11 +13,13 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import org.keycloak.representations.idm.UserRepresentation;
 
+import java.util.UUID;
+
 @ApplicationScoped
 @Path("/instructors")
 public class InstructorResource {
     @Inject
-    UserRepository userRepository;
+    KeycloakUserRepository userRepository;
 
     // TODO: get instructors only by organisations
     @GET
@@ -33,7 +35,7 @@ public class InstructorResource {
     @Produces(MediaType.APPLICATION_JSON)
     @RolesAllowed({Role.Customer, Role.Instructor, Role.Organisator, Role.Admin})
     public Response getInstructor(@PathParam("id") String id) {
-        UserRepresentation instructor = userRepository.getById(id, Role.Instructor);
+        UserRepresentation instructor = userRepository.getById(UUID.fromString(id), Role.Instructor);
 
         if (instructor == null) {
             return Response.status(404).build();

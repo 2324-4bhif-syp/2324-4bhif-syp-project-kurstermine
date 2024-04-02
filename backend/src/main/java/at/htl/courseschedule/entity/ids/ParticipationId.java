@@ -5,6 +5,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 
 import java.io.Serializable;
+import java.util.UUID;
 
 @Embeddable
 public class ParticipationId implements Serializable {
@@ -14,11 +15,11 @@ public class ParticipationId implements Serializable {
 
     @JsonProperty("customer_id")
     @Column(name = "customer_id")
-    private String customerId;
+    private UUID customerId;
 
     public ParticipationId() {}
 
-    public ParticipationId(Long appointmentId, String customerId) {
+    public ParticipationId(Long appointmentId, UUID customerId) {
         this.appointmentId = appointmentId;
         this.customerId = customerId;
     }
@@ -27,7 +28,7 @@ public class ParticipationId implements Serializable {
         return appointmentId;
     }
 
-    public String getCustomerId() {
+    public UUID getCustomerId() {
         return customerId;
     }
 

@@ -11,12 +11,12 @@ public class Organisation extends PanacheEntityBase {
     private Long id;
     private String name;
     private String uniqueName;
-    @ElementCollection
-    private Set<String> organisators;
+    @OneToMany
+    private Set<BabyUser> organisators;
 
     public Organisation() {}
 
-    public Organisation(String name, String uniqueName, Set<String> organisators) {
+    public Organisation(String name, String uniqueName, Set<BabyUser> organisators) {
         this.name = name;
         this.uniqueName = uniqueName;
         this.organisators = organisators;
@@ -46,7 +46,7 @@ public class Organisation extends PanacheEntityBase {
         this.uniqueName = uniqueName;
     }
 
-    public Set<String> getOrganisators() {
+    public Set<BabyUser> getOrganisators() {
         return organisators;
     }
 

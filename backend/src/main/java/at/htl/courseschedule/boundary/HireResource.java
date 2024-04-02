@@ -10,6 +10,8 @@ import jakarta.transaction.Transactional;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.*;
 
+import java.util.UUID;
+
 @Path("/hires")
 public class HireResource {
     @Inject
@@ -28,7 +30,7 @@ public class HireResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getHire(@PathParam("organisationId") Long organisationId,
                             @PathParam("instructorId") String instructorId) {
-        Hire hire = hireRepository.findById(new HireId(organisationId, instructorId));
+        Hire hire = hireRepository.findById(new HireId(organisationId, UUID.fromString(instructorId)));
 
         if (hire == null) {
             return Response.status(404).build();
@@ -62,7 +64,7 @@ public class HireResource {
     @RolesAllowed({Role.Admin, Role.Organisator})
     public Response deleteHireById(@PathParam("organisationId") Long organisationId,
                                    @PathParam("instructorId") String instructorId) {
-        hireRepository.deleteById(new HireId(organisationId, instructorId));
+        hireRepository.deleteById(new HireId(organisationId, UUID.fromString(instructorId)));
         return Response.noContent().build();
     }
 }
