@@ -100,7 +100,7 @@ public class PurchaseRepository {
 
         em.merge(purchase);
 
-        UserRepresentation loggedInCustomer = keycloakUserRepository.getById(jsonWebToken.getClaim("sub"), Role.Customer);
+        UserRepresentation loggedInCustomer = keycloakUserRepository.getById(UUID.fromString(jsonWebToken.getClaim("sub")), Role.Customer);
 
         mailService.sendConfirmationMail(
                 loggedInCustomer.getEmail(),
