@@ -32,15 +32,14 @@ endif::[]
 [background-video="baby-video.mp4",background-video-loop=true,background-video-muted=true,background-opacity="0.5"]
 == Sprintvereinbarungen
 
-* Bestätigungsmail bei Kauf eines Paketes
-* Datenmodell vervollständigen
-** Backend Implementierung
-* Admin UI
+* PostgresDB für Keycloak
+* User Entity in Backend
+* Organisation View
 
 [background-image="cld.png",background-opacity="0.3"]
 == CLD
 
-=== Neu
+=== Finished
 [plantuml, svg]
 ----
 @startuml
@@ -80,7 +79,7 @@ Offer .. (Packet, Appointment)
 * *Server*: Quarkus Backend zum Verwalten der Entitäten
 * *Keycloak-Server*: Für die User- und Rollenverwaltung
 ** *Login*: Für unterschiedliche Benutzerrollen
-* *Frontend*: Angular Frontend zum Anzeigen von Kursen, Paketen und Kunden
+* *Frontend*: Angular Frontend zum Anzeigen von Organisationen, Kursen, Paketen und Kunden
 
 [%auto-animate]
 == [.margin-b-10]#Terminologie#
@@ -88,7 +87,9 @@ image::architecture.png[height=80%, width=80%]
 
 [background-video="baby-video3.mp4",background-video-loop=true,background-video-muted=true,background-opacity="0.5"]
 == Konfiguration
-* Projekt wird auf Winnie's PC gehostet
+//* Projekt wird auf Winnie's PC gehostet
+* Probleme mit Keycloak beim Deployment
+* Präsentation auf Localhost
 
 [background-video="baby-video4.mp4",background-video-loop=true,background-video-muted=true,background-opacity="0.5"]
 == Live Demo
