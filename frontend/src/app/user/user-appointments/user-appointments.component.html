@@ -3,6 +3,7 @@
 <div class="user-appointments">
     @for (a of appointmentService.get(); track a.id) {
         <app-user-appointment
+            style=""
             [loggedInCustomer]="customerService.get()[0]"
             [showSignIn]="!isIncluded(a)"
             [appointment]="a"

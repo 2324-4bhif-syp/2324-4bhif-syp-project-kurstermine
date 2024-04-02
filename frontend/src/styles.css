@@ -1,16 +1,26 @@
 @import url('https://fonts.googleapis.com/css?family=Itim:700|Itim:400'); /* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 * {
-    font-family: 'Itim', Arial, sans-serif;
+    font-family: 'Nunito', 'Roboto Mono', 'Itim', Arial, sans-serif;
 }
 
 body {
     height: 100%;
     margin: 0;
+}
+
+.no-padding {
+    padding: 0 !important;
+}
+
+.no-margin {
+    margin: 0 !important;
 }
 
 .flex-base-row {
@@ -68,18 +78,38 @@ mat-panel-description {
     flex-grow: 0.5 !important;
 }
 
-div.user-appointments, div.user-organisations {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
-    flex-wrap: wrap;
+.user-appointments,
+.user-packets,
+.user-organisations {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(5em, 1fr));
+    grid-column-gap: 60px;
+    grid-row-gap: 100px;
+    justify-items: center;
+    margin: 0 50px;
 }
 
-div.user-packets {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
-    flex-wrap: wrap;
+/* Change amount of grid items */
+@media screen and (max-width: 1699px) {
+    .user-appointments,
+    .user-packets,
+    .user-organisations {
+        grid-template-columns: repeat(3, minmax(5em, 1fr));
+    }
+}
+@media screen and (max-width: 1199px) {
+    .user-appointments,
+    .user-packets,
+    .user-organisations {
+        grid-template-columns: repeat(2, minmax(5em, 1fr));
+    }
+}
+@media screen and (max-width: 749px) {
+    .user-appointments,
+    .user-packets,
+    .user-organisations {
+        grid-template-columns: repeat(1, minmax(5em, 1fr));
+    }
 }
 
 app-user-appointment {

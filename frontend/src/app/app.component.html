@@ -3,11 +3,13 @@
 
 <mat-toolbar class="topbar telative mat-toolbar mat-primary mat-toolbar-single-row" color="primary">
     <mat-toolbar-row>
-        <div>
-            <button class="nav nav-btn" routerLinkActive="active" routerLink="home" mat-button>
+        <div class="flex-base-row">
+            <button class="nav nav-btn no-margin" routerLinkActive="active" routerLink="home" mat-button>
                 <!--<mat-icon class="nav-icon"></mat-icon>-->
                 CouSch
             </button>
+
+            <div class="vertical-line"></div>
 
             @if (isAdmin){
                 <button class="nav nav-btn" mat-button routerLinkActive="active" routerLink="admin/customers">
@@ -73,6 +75,10 @@
                         <span>User</span>
                     </button>
                 } @else {
+                    <button mat-menu-item routerLinkActive="active" routerLink="organisations">
+                        <mat-icon>business</mat-icon>
+                        Organisations
+                    </button>
                     <button mat-menu-item routerLinkActive="active" routerLink="appointments">
                         <mat-icon>calendar_today</mat-icon>
                         <span>Appointments</span>
