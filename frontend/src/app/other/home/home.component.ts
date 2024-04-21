@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
+import { RouterLink, RouterModule } from '@angular/router';
 import {KeycloakService} from "keycloak-angular";
 import {KeycloakProfile} from "keycloak-js";
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [],
+  imports: [RouterLink, RouterModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
@@ -36,7 +37,19 @@ export class HomeComponent {
         "Begin your journey to greatness today."
     ];
 
+    protected readonly images: string[] = [
+        "fire.jpg",
+        "forest.jpg",
+        "mountains.jpg",
+        "hot-springs.jpg",
+        "forest.jpg",
+        "trees.jpg",
+        "monkey.jpg",
+    ]
+
     protected randomSentenceIndex: number = Math.floor(Math.random() * this.sentences.length);
+
+    protected randomImageIndex: number = Math.floor(Math.random() * this.images.length);
 
     constructor(keycloak: KeycloakService) {
         this.keycloak = keycloak;
