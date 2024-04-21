@@ -32,6 +32,19 @@ public class AppointmentResource {
         return Response.ok(appointment).build();
     }
 
+    @GET
+    @Path("user/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getAppointmentsByUserId(@PathParam("id") Long id) {
+        var appointments = appointmentRepository.getByUserId(id);
+
+        if(appointments == null) {
+            return Response.status(404).build();
+        }
+
+        return Response.ok(appointments).build();
+    }
+
     @POST
     @Transactional
     @Consumes(MediaType.APPLICATION_JSON)

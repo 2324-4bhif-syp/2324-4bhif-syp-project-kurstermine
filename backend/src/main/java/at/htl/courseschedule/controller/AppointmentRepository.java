@@ -43,4 +43,11 @@ public class AppointmentRepository {
 
         return newAppointment;
     }
+
+    public List<Appointment> getByUserId(Long id) {
+        TypedQuery<Appointment> query = em.createQuery(
+                "SELECT a from Appointment a join AppointmentManagement am where a.id = am.appointment.id and am.instructor.id = :userId", Appointment.class);
+        query.setParameter("userId", id);
+        return query.getResultList();
+    }
 }
