@@ -12,14 +12,15 @@
 </div>
 
 <div class="user-appointments">
-    @for (a of appointmentService.get(); track a.id) {
+    @for (appointment of getAppointments(); track appointment.id) {
         <app-user-appointment
             style=""
             [loggedInCustomer]="customerService.get()[0]"
-            [showSignIn]="!isIncluded(a)"
-            [appointment]="a"
+            [showSignIn]="false // because user is always signed in"
+            [appointment]="appointment"
         ></app-user-appointment>
     } @empty {
-        No appointments available!
+        No appointments purchased!
     }
+
 </div>

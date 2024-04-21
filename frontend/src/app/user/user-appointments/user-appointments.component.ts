@@ -38,4 +38,8 @@ export class UserAppointmentsComponent {
     search() {
         //TODO
     }
+
+    getAppointments(): Appointment[] {
+        return this.appointmentService.get(appointment => this.isIncluded(appointment));
+    }
 }
