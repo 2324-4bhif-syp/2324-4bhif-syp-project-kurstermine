@@ -26,6 +26,7 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatMenuModule} from "@angular/material/menu";
 import {MatListModule} from "@angular/material/list";
+import { BreadcrumbComponent } from './other/breadcrumb/breadcrumb.component';
 
 @NgModule({
     declarations: [
@@ -54,7 +55,8 @@ import {MatListModule} from "@angular/material/list";
         MatListModule,
         UserPacketComponent,
         AdminInstructorsComponent,
-        UserOfferComponent
+        UserOfferComponent,
+        BreadcrumbComponent
     ],
     providers: [
         {

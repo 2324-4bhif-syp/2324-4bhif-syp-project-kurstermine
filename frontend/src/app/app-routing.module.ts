@@ -24,47 +24,52 @@ const routes: Routes = [
         path: 'appointments',
         component: UserAppointmentsComponent,
         canActivate: [AuthGuard, RoleGuard],
-        data: { roles: [Roles.Customer] },
+        data: { 
+            roles: [Roles.Customer],
+            breadcrumb: 'Appointments'
+        },
     },
     {
         path: 'organisations',
         component: UserOrganisationsComponent,
         canActivate: [AuthGuard, RoleGuard],
-        data: { roles: [Roles.Customer] },
+        data: { roles: [Roles.Customer], breadcrumb: 'Organisations'},
     },
     {
         path: 'organisations/:id/packets',
         component: UserPacketsOfOrgComponent,
         canActivate: [AuthGuard, RoleGuard],
-        data: {roles: [Roles.Customer]}
+        data: {roles: [Roles.Customer], breadcrumb: 'Packets'}
     },
     {
         path: 'organisations/:organisationId/packets/:packetId',
         component: UserPacketInfoComponent,
         canActivate: [AuthGuard, RoleGuard],
-        data: {roles: [Roles.Customer]}
+        data: {roles: [Roles.Customer], breadcrumb: 'Packet Info'}
     },
     {
         path: 'home',
         component: HomeComponent,
-        canActivate: [AuthGuard]
+        canActivate: [AuthGuard],
+        data: { breadcrumb: 'Home' }
     },
     {
         path: 'user',
         component: UserComponent,
-        canActivate: [AuthGuard]
+        canActivate: [AuthGuard],
+        data: { breadcrumb: 'User' }
     },
     {
         path: 'packets',
         component: UserPacketsComponent,
         canActivate: [AuthGuard, RoleGuard],
-        data: {roles: [Roles.Customer]}
+        data: {roles: [Roles.Customer], breadcrumb: 'Packets'}
     },
     {
         path: 'packets/:id',
         component: UserPacketInfoComponent,
         canActivate: [AuthGuard, RoleGuard],
-        data: {roles: [Roles.Customer]}
+        data: {roles: [Roles.Customer], breadcrumb: 'Packet Info'}
     },
     {
         path: 'admin',
@@ -73,43 +78,43 @@ const routes: Routes = [
                 path: 'packets',
                 component: AdminPacketsComponent,
                 canActivate: [AuthGuard, RoleGuard],
-                data: {roles: [Roles.Admin]}
+                data: {roles: [Roles.Admin], breadcrumb: 'Packets'}
             },
             {
                 path: 'customers',
                 component: AdminCustomersComponent,
                 canActivate: [AuthGuard, RoleGuard],
-                data: { roles: [Roles.Admin] },
+                data: { roles: [Roles.Admin], breadcrumb: 'Customers'},
             },
             {
                 path: 'customers/:id',
                 component: AdminCustomerComponent,
                 canActivate: [AuthGuard, RoleGuard],
-                data: { roles: [Roles.Admin] },
+                data: { roles: [Roles.Admin], breadcrumb: 'Customer'},
             },
             {
                 path: 'instructors',
                 component: AdminInstructorsComponent,
                 canActivate: [AuthGuard, RoleGuard],
-                data: { roles: [Roles.Admin] },
+                data: { roles: [Roles.Admin], breadcrumb: 'Instructors'},
             },
             {
                 path: 'instructors/:id',
                 component: AdminInstructorComponent,
                 canActivate: [AuthGuard, RoleGuard],
-                data: { roles: [Roles.Admin] },
+                data: { roles: [Roles.Admin], breadcrumb: 'Instructor'},
             },
             {
                 path: 'appointments',
                 component: AdminAppointmentsComponent,
                 canActivate: [AuthGuard, RoleGuard],
-                data: { roles: [Roles.Admin] },
+                data: { roles: [Roles.Admin], breadcrumb: 'Appointments'},
             },
             {
                 path: 'appointments/:id',
                 component: AdminAppointmentComponent,
                 canActivate: [AuthGuard, RoleGuard],
-                data: { roles: [Roles.Admin] },
+                data: { roles: [Roles.Admin], breadcrumb: 'Appointment'},
             }
         ]
     }

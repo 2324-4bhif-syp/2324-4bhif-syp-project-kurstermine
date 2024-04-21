@@ -1,0 +1,9 @@
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        @for (breadcrumb of breadcrumbs; track $index) {
+            <li class="breadcrumb-item">
+                <a [routerLink]="[breadcrumb.path]">{{ breadcrumb.name }}</a>
+            </li>
+        }
+    </ol>
+</nav>
