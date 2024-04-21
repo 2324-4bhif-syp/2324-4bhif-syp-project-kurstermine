@@ -33,3 +33,57 @@
         <!--<button mat-button>Cancel</button>-->
     </mat-card-actions>
 </mat-card>
+
+<div class="card w-96 shadow text-neutral-content text-black">
+    <div class="card-body items-center text-center">
+        <p class="card-title text-3xl">{{appointment.name}}</p>
+
+        <div class="divider divider-primary m-0"></div>
+
+        <div class="flex flex-col">
+            <span class="material-symbols-outlined">
+                location_on
+            </span>
+            {{ appointment.address }}
+        </div>
+
+        <div class="flex flex-col">
+            <span class="material-symbols-outlined">
+                today
+            </span>
+            {{ appointment.date.getDay() }}.{{ appointment.date.getMonth() }}.{{ appointment.date.getFullYear() }}
+        </div>
+
+        <div class="flex justify-evenly w-full">
+            <div class="flex flex-col">
+                <span class="material-symbols-outlined">
+                    schedule
+                </span>
+                {{ appointment.date.getHours() }}:{{ String(appointment.date.getMinutes()).padStart(2, "0") }}
+            </div>
+
+            <div class="flex flex-col">
+                <span class="material-symbols-outlined">
+                    timelapse
+                </span>
+                {{ appointment.duration }} min
+            </div>
+        </div>
+
+        <div class="card-actions justify-end">
+            @if (showSignIn) {
+                <button class="btn btn-circle btn-outline border-2" (click)="onBtnSignIn()">
+                    <span class="material-symbols-outlined">
+                        add
+                    </span>
+                </button>
+            } @else {
+                <button class="btn btn-circle border-2">
+                    <span class="material-symbols-outlined">
+                        done
+                    </span>
+                </button>
+            }
+        </div>
+    </div>
+</div>
