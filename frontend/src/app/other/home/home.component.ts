@@ -43,7 +43,7 @@ export class HomeComponent {
         "mountains.jpg",
         "hot-springs.jpg",
         "forest.jpg",
-        "trees.jpg",
+        "tree.jpg",
         "monkey.jpg",
     ]
 
