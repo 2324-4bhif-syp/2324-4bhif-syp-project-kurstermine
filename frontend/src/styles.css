@@ -5,3 +5,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+* {
+    font-family: 'Nunito', 'Roboto Mono', 'Itim', Arial, sans-serif;
+}

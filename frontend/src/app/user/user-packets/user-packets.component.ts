@@ -4,12 +4,15 @@ import {CustomerService} from "../../../shared/services/customer.service";
 import {Packet} from "../../../shared/models/packet";
 import {PurchaseService} from "../../../shared/services/purchase.service";
 import {UserPacketComponent} from "../user-packet/user-packet.component";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 
 @Component({
 	selector: 'app-user-packets',
     standalone: true,
     imports: [
-        UserPacketComponent
+        UserPacketComponent,
+        ReactiveFormsModule,
+        FormsModule
     ],
 	templateUrl: './user-packets.component.html',
 	styleUrl: './user-packets.component.css'
@@ -22,11 +25,11 @@ export class UserPacketsComponent {
         protected customerService: CustomerService,
         protected purchaseService: PurchaseService
 	) {
-
 	}
 
     @Input({required: true})
     packets: Packet[] = this.packetService.get();
+    searchValue: String = "";
 
     isIncluded(packet: Packet): boolean {
         return (
@@ -35,5 +38,9 @@ export class UserPacketsComponent {
                     purchase.id?.packetId === packet.id,
             ).length === 1
         );
+    }
+
+    search() {
+        //TODO
     }
 }

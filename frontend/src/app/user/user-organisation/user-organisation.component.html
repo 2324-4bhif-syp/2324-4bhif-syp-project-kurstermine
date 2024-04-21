@@ -18,8 +18,9 @@
                 </mat-card>
             </div>
 
-            <mat-progress-bar class="progress-bar" mode="determinate" color="primary" [value]="progressBarValue"></mat-progress-bar>
+            <div class="flex justify-center">
+                <progress class="progress progress-accent w-56" [value]="progressBarValue" max="100"></progress>
+            </div>
         }
-
     </mat-card-content>
 </mat-card>

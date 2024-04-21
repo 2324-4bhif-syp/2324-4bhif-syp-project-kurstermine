@@ -1,5 +1,16 @@
 <p class="text-5xl text-center my-10">Organisations</p>
 
+<div class="flex items-center justify-center">
+    <div class="items-center justify-center mt-5 mb-20 join">
+        <input class="border-2 rounded-md input input-bordered input-primary join-item" placeholder="Search" [(ngModel)]="searchValue"/>
+        <button class="rounded-r-full btn join-item" (click)="search()">
+            <span class="material-symbols-outlined">
+                search
+            </span>
+        </button>
+    </div>
+</div>
+
 <div class="user-organisations">
     @for (o of organisationService.get(); track o.id) {
         <app-user-organisation
