@@ -21,7 +21,7 @@ public class PacketRepository {
     }
 
     public List<Packet> getAllByOrganisatorId(Long id) {
-        return em.createQuery("SELECT p from Packet p WHERE p.organisator.id = :id", Packet.class)
+        return em.createQuery("SELECT p from Packet p WHERE p.organisation.id = :id", Packet.class)
                 .setParameter("id", id)
                 .getResultList();
     }

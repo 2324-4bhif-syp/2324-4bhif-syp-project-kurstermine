@@ -34,6 +34,19 @@ public class PacketResource {
         return Response.ok(packet).build();
     }
 
+    @GET
+    @Path("organisation/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getPacketsByOrganisatorId(@PathParam("id") Long id) {
+        var packets = packetRepository.getAllByOrganisatorId(id);
+
+        if(packets == null) {
+            return Response.status(404).build();
+        }
+
+        return Response.ok(packets).build();
+    }
+
     @POST
     @Transactional
     @Consumes(MediaType.APPLICATION_JSON)
