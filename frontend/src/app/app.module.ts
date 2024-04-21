@@ -30,8 +30,6 @@ import {MatListModule} from "@angular/material/list";
 @NgModule({
     declarations: [
         AppComponent,
-        AdminInstructorsComponent,
-        UserOfferComponent
     ],
     imports: [
         BrowserModule,
@@ -54,7 +52,9 @@ import {MatListModule} from "@angular/material/list";
         MatToolbarModule,
         MatMenuModule,
         MatListModule,
-        UserPacketComponent
+        UserPacketComponent,
+        AdminInstructorsComponent,
+        UserOfferComponent
     ],
     providers: [
         {
