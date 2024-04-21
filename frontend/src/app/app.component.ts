@@ -6,11 +6,11 @@ import { MatToolbar, MatToolbarRow } from "@angular/material/toolbar"
 import {LogoutDialogComponent} from "./other/logout-dialog/logout-dialog.component";
 import { MatIcon } from '@angular/material/icon';
 import { MatMenu, MatMenuTrigger } from '@angular/material/menu';
-import { RouterOutlet } from '@angular/router';
+import { RouterModule, RouterOutlet } from '@angular/router';
 
 @Component({
     standalone: true,
-    imports: [MatToolbar, MatToolbarRow, MatIcon, MatMenu, MatMenuTrigger, RouterOutlet],
+    imports: [MatToolbar, MatToolbarRow, MatIcon, MatMenu, MatMenuTrigger, RouterOutlet, RouterModule],
     selector: 'app-root',
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.css'],

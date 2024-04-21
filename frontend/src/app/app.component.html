@@ -1,156 +1,151 @@
 <!-- Add icon library -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-<mat-toolbar class="topbar telative mat-toolbar mat-primary mat-toolbar-single-row" color="primary">
-    <mat-toolbar-row>
-        <div class="flex-base-row">
-            <button class="nav nav-btn no-margin" routerLinkActive="active" routerLink="home" mat-button>
-                <!--<mat-icon class="nav-icon"></mat-icon>-->
-                CouSch
-            </button>
 
-            <div class="vertical-line-white"></div>
-
-            @if (isAdmin){
-                <button class="nav nav-btn" mat-button routerLinkActive="active" routerLink="admin/customers">
-                    <mat-icon class="nav-icon">group</mat-icon>
-                    Customers
-                </button>
-                <button class="nav nav-btn" mat-button routerLinkActive="active" routerLink="admin/instructors">
-                    <mat-icon class="nav-icon">build</mat-icon>
-                    Instructors
-                </button>
-                <button class="nav nav-btn" mat-button routerLinkActive="active" routerLink="admin/appointments">
-                    <mat-icon class="nav-icon">calendar_today</mat-icon>
-                    Appointments
-                </button>
-                <button class="nav nav-btn" mat-button routerLinkActive="active" routerLink="admin/packets">
-                    <mat-icon class="nav-icon">category</mat-icon>
-                    Packets
-                </button>
-            } @else {
-                <button class="nav nav-btn" mat-button routerLinkActive="active" routerLink="organisations">
-                    <mat-icon class="nav-icon">business</mat-icon>
-                    Organisations
-                </button>
-                <button class="nav nav-btn" mat-button routerLinkActive="active" routerLink="appointments">
-                    <mat-icon class="nav-icon">calendar_today</mat-icon>
-                    Appointments
-                </button>
-                <button class="nav nav-btn" mat-button routerLinkActive="active" routerLink="packets">
-                    <mat-icon class="nav-icon">category</mat-icon>
-                    Packets
-                </button>
-            }
-
-            <button class="nav nav-btn" mat-button routerLinkActive="active" routerLink="user">
-                <mat-icon class="nav-icon">account_circle</mat-icon>
-                User
-            </button>
-
-            <button class="burger" mat-mini-fab color="link" [matMenuTriggerFor]="menu">
-                <mat-icon class="menu-icon">menu</mat-icon>
-            </button>
-            <mat-menu class="burger" #menu="matMenu">
-
-                @if (isAdmin){
-                    <button mat-menu-item routerLinkActive="active" routerLink="admin/customers">
-                        <mat-icon>group</mat-icon>
-                        <span>Customers</span>
-                    </button>
-                    <button mat-menu-item routerLinkActive="active" routerLink="admin/instructors">
-                        <mat-icon>build</mat-icon>
-                        <span>Instructors</span>
-                    </button>
-                    <button mat-menu-item routerLinkActive="active" routerLink="admin/appointments">
-                        <mat-icon>calendar_today</mat-icon>
-                        <span>Appointments</span>
-                    </button>
-                    <button mat-menu-item routerLinkActive="active" routerLink="admin/packets">
-                        <mat-icon>category</mat-icon>
-                        <span>Packets</span>
-                    </button>
-                    <button mat-menu-item routerLinkActive="active" routerLink="user">
-                        <mat-icon>account_circle</mat-icon>
-                        <span>User</span>
-                    </button>
-                } @else {
-                    <button mat-menu-item routerLinkActive="active" routerLink="organisations">
-                        <mat-icon>business</mat-icon>
-                        Organisations
-                    </button>
-                    <button mat-menu-item routerLinkActive="active" routerLink="appointments">
-                        <mat-icon>calendar_today</mat-icon>
-                        <span>Appointments</span>
-                    </button>
-                    <button mat-menu-item routerLinkActive="active" routerLink="packets">
-                        <mat-icon>category</mat-icon>
-                        <span>Packets</span>
-                    </button>
-                    <button mat-menu-item routerLinkActive="active" routerLink="user">
-                        <mat-icon>account_circle</mat-icon>
-                        <span>User</span>
-                    </button>
-                }
-
-            </mat-menu>
+<div class="shadow navbar">
+    <div class="navbar-start">
+        <div class="lg:hidden">
+            <div class="dropdown">
+                <div tabindex="0" role="button" class="btn btn-ghost btn-circle">
+                    <span class="material-symbols-outlined">
+                        menu
+                    </span>
+                </div>
+                <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-60">
+                    @if (!isAdmin) {
+                        <a routerLink="organisations" class="text-xl btn btn-ghost justify-normal">
+                            <span class="material-symbols-outlined">
+                                business
+                            </span>
+                            Organisations
+                        </a>
+                        <a routerLink="appointments" class="text-xl btn btn-ghost justify-normal">
+                            <span class="material-symbols-outlined">
+                                today
+                            </span>
+                            Appointments
+                        </a>
+                        <a routerLink="packets" class="text-xl btn btn-ghost justify-normal">
+                            <span class="material-symbols-outlined">
+                                category
+                            </span>
+                            Packets
+                        </a>
+                        <a routerLink="user" class="text-xl btn btn-ghost justify-normal">
+                            <span class="material-symbols-outlined">
+                                account_circle
+                            </span>
+                            User
+                        </a>
+                        } @else {
+                        <a routerLink="admin/customers" class="text-xl btn btn-ghost justify-normal">
+                            <span class="material-symbols-outlined">
+                                group
+                            </span>
+                            Customers
+                        </a>
+                        <a routerLink="admin/instructors" class="text-xl btn btn-ghost justify-normal">
+                            <span class="material-symbols-outlined">
+                                build
+                            </span>
+                            Instructors
+                        </a>
+                        <a routerLink="admin/appointments" class="text-xl btn btn-ghost justify-normal">
+                            <span class="material-symbols-outlined">
+                                calendar_today
+                            </span>
+                            Appointments
+                        </a>
+                        <a routerLink="admin/packets" class="text-xl btn btn-ghost justify-normal">
+                            <span class="material-symbols-outlined">
+                                category
+                            </span>
+                            Packets
+                        </a>
+                        <a routerLink="user" class="text-xl btn btn-ghost justify-normal">
+                            <span class="material-symbols-outlined">
+                                account_circle
+                            </span>
+                            User
+                        </a>
+                        }
+                </ul>
+            </div>
         </div>
-
-        <button class="logout-btn" mat-mini-fab color="link" (click)="onBtnLogout()">
-            <mat-icon class="logout-icon">logout</mat-icon>
-        </button>
-    </mat-toolbar-row>
-</mat-toolbar>
-
-<!-- Navbar with DaisyUi
-<div class="navbar bg-neutral-content shadow bg-base-100">
-    <div class="flex-none">
-        <button class="btn btn-square btn-ghost">
-            <span class="material-symbols-outlined">
-                menu
-            </span>
-        </button>
-    </div>
-    <div class="flex-1">
-        <a routerLink="home" class="btn btn-ghost text-xl">
+        <a routerLink="home" class="text-xl btn btn-ghost">
             CouSch
         </a>
-        <div class="vertical-line-darkblue"></div>
-        <a routerLink="organisations" class="btn btn-ghost text-xl">
+    </div>
+
+    <div class="hidden navbar-center lg:flex">
+        @if (!isAdmin) {
+        <a routerLink="organisations" class="text-xl btn btn-ghost">
             <span class="material-symbols-outlined">
                 business
             </span>
             Organisations
         </a>
-        <a routerLink="appointments" class="btn btn-ghost text-xl">
-            <span class="material-symbols-outlined">
-                category
-            </span>
-            Appointments
-        </a>
-        <a routerLink="packets" class="btn btn-ghost text-xl">
+        <a routerLink="appointments" class="text-xl btn btn-ghost">
             <span class="material-symbols-outlined">
                 today
             </span>
+            Appointments
+        </a>
+        <a routerLink="packets" class="text-xl btn btn-ghost">
+            <span class="material-symbols-outlined">
+                category
+            </span>
             Packets
         </a>
-        <a routerLink="user" class="btn btn-ghost text-xl">
+        <a routerLink="user" class="text-xl btn btn-ghost">
             <span class="material-symbols-outlined">
                 account_circle
             </span>
             User
         </a>
+        } @else {
+        <a routerLink="admin/customers" class="text-xl btn btn-ghost">
+            <span class="material-symbols-outlined">
+                group
+            </span>
+            Customers
+        </a>
+        <a routerLink="admin/instructors" class="text-xl btn btn-ghost">
+            <span class="material-symbols-outlined">
+                build
+            </span>
+            Instructors
+        </a>
+        <a routerLink="admin/appointments" class="text-xl btn btn-ghost">
+            <span class="material-symbols-outlined">
+                calendar_today
+            </span>
+            Appointments
+        </a>
+        <a routerLink="admin/packets" class="text-xl btn btn-ghost">
+            <span class="material-symbols-outlined">
+                category
+            </span>
+            Packets
+        </a>
+        <a routerLink="user" class="text-xl btn btn-ghost">
+            <span class="material-symbols-outlined">
+                account_circle
+            </span>
+            User
+        </a>
+        }
     </div>
-    <div class="flex-none">
-        <button class="btn btn-square btn-ghost btn-circle">
+
+    <div class="navbar-end">
+        <button class="btn btn-circle btn-ghost" (click)="onBtnLogout()">
             <span class="material-symbols-outlined">
                 Logout
             </span>
         </button>
     </div>
 </div>
--->
-
-<!--<h1>Course Schedule</h1>-->
 
 <router-outlet></router-outlet>
+
+<!--<h1>Course Schedule</h1>-->
