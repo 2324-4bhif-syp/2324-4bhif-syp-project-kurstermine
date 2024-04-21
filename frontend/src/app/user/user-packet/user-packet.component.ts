@@ -8,7 +8,6 @@ import {MatButtonModule} from "@angular/material/button";
 import {MatCardModule} from "@angular/material/card";
 import {MatIconModule} from "@angular/material/icon";
 import {RouterLink} from "@angular/router";
-import { UserAppointmentComponent } from '../user-appointment/user-appointment.component';
 
 @Component({
     selector: 'app-user-packet',
@@ -38,8 +37,8 @@ export class UserPacketComponent {
         let dialogRef: MatDialogRef<UserBuyPacketConfirmDialogComponent> = this.dialog.open(
             UserBuyPacketConfirmDialogComponent,
             {
-                height: '120px',
-                width: '550px',
+                height: '150px',
+                width: '500px',
                 data: {
                     packet: this.packet!,
                     loggedInCustomer: this.loggedInCustomer!,

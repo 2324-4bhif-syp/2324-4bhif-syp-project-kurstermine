@@ -57,8 +57,8 @@ export class UserPacketInfoComponent {
         let dialogRef: MatDialogRef<UserBuyPacketConfirmDialogComponent> = this.dialog.open(
             UserBuyPacketConfirmDialogComponent,
             {
-                height: '120px',
-                width: '550px',
+                height: '150px',
+                width: '500px',
                 data: {
                     packet: this.packet!,
                     loggedInCustomer: this.loggedInCustomer!,
