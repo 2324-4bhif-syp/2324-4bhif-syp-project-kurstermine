@@ -17,5 +17,7 @@ export function initializeKeycloak(keycloak: KeycloakService) {
                 checkLoginIframe: false,
             },
             loadUserProfileAtStartUp: true,
+            enableBearerInterceptor: true,
+            bearerPrefix: 'Bearer',
         });
 }

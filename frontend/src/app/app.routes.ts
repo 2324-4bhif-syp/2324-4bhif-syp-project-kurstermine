@@ -1,5 +1,3 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './other/guard/auth.guard';
 import { RoleGuard } from './other/guard/role.guard';
 import { AdminInstructorsComponent } from './admin/admin-instructors/admin-instructors.component';
@@ -11,14 +9,15 @@ import { Roles } from '../shared/models/roles';
 import { UserPacketsComponent } from './user/user-packets/user-packets.component';
 import { UserPacketInfoComponent } from './user/user-packet-info/user-packet-info.component';
 import { AdminCustomerComponent } from './admin/admin-customer/admin-customer.component';
-import {AdminPacketsComponent} from "./admin/admin-packets/admin-packets.component";
-import {AdminInstructorComponent} from "./admin/admin-instructor/admin-instructor.component";
+import { AdminPacketsComponent } from "./admin/admin-packets/admin-packets.component";
+import { AdminInstructorComponent } from "./admin/admin-instructor/admin-instructor.component";
 import { AdminAppointmentComponent } from './admin/admin-appointment/admin-appointment.component';
-import {HomeComponent} from "./other/home/home.component";
-import {UserOrganisationsComponent} from "./user/user-organisations/user-organisations.component";
-import {UserPacketsOfOrgComponent} from "./user/user-packets-of-org/user-packets-of-org.component";
+import { HomeComponent } from "./other/home/home.component";
+import { UserOrganisationsComponent } from "./user/user-organisations/user-organisations.component";
+import { UserPacketsOfOrgComponent } from "./user/user-packets-of-org/user-packets-of-org.component";
+import { Routes } from '@angular/router';
 
-const routes: Routes = [
+export const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
     {
         path: 'appointments',
@@ -36,13 +35,13 @@ const routes: Routes = [
         path: 'organisations/:id/packets',
         component: UserPacketsOfOrgComponent,
         canActivate: [AuthGuard, RoleGuard],
-        data: {roles: [Roles.Customer]}
+        data: { roles: [Roles.Customer] }
     },
     {
         path: 'organisations/:organisationId/packets/:packetId',
         component: UserPacketInfoComponent,
         canActivate: [AuthGuard, RoleGuard],
-        data: {roles: [Roles.Customer]}
+        data: { roles: [Roles.Customer] }
     },
     {
         path: 'home',
@@ -58,13 +57,13 @@ const routes: Routes = [
         path: 'packets',
         component: UserPacketsComponent,
         canActivate: [AuthGuard, RoleGuard],
-        data: {roles: [Roles.Customer]}
+        data: { roles: [Roles.Customer] }
     },
     {
         path: 'packets/:id',
         component: UserPacketInfoComponent,
         canActivate: [AuthGuard, RoleGuard],
-        data: {roles: [Roles.Customer]}
+        data: { roles: [Roles.Customer] }
     },
     {
         path: 'admin',
@@ -73,7 +72,7 @@ const routes: Routes = [
                 path: 'packets',
                 component: AdminPacketsComponent,
                 canActivate: [AuthGuard, RoleGuard],
-                data: {roles: [Roles.Admin]}
+                data: { roles: [Roles.Admin] }
             },
             {
                 path: 'customers',
@@ -114,9 +113,3 @@ const routes: Routes = [
         ]
     }
 ];
-
-@NgModule({
-    imports: [RouterModule.forRoot(routes)],
-    exports: [RouterModule],
-})
-export class AppRoutingModule { }
