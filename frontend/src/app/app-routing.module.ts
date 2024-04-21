@@ -39,6 +39,12 @@ const routes: Routes = [
         data: {roles: [Roles.Customer]}
     },
     {
+        path: 'organisations/:organisationId/packets/:packetId',
+        component: UserPacketInfoComponent,
+        canActivate: [AuthGuard, RoleGuard],
+        data: {roles: [Roles.Customer]}
+    },
+    {
         path: 'home',
         component: HomeComponent,
         canActivate: [AuthGuard]
