@@ -9,7 +9,7 @@
                 CouSch
             </button>
 
-            <div class="vertical-line"></div>
+            <div class="vertical-line-white"></div>
 
             @if (isAdmin){
                 <button class="nav nav-btn" mat-button routerLinkActive="active" routerLink="admin/customers">
@@ -101,6 +101,55 @@
         </button>
     </mat-toolbar-row>
 </mat-toolbar>
+
+<!-- Navbar with DaisyUi
+<div class="navbar bg-neutral-content shadow bg-base-100">
+    <div class="flex-none">
+        <button class="btn btn-square btn-ghost">
+            <span class="material-symbols-outlined">
+                menu
+            </span>
+        </button>
+    </div>
+    <div class="flex-1">
+        <a routerLink="home" class="btn btn-ghost text-xl">
+            CouSch
+        </a>
+        <div class="vertical-line-darkblue"></div>
+        <a routerLink="organisations" class="btn btn-ghost text-xl">
+            <span class="material-symbols-outlined">
+                business
+            </span>
+            Organisations
+        </a>
+        <a routerLink="appointments" class="btn btn-ghost text-xl">
+            <span class="material-symbols-outlined">
+                category
+            </span>
+            Appointments
+        </a>
+        <a routerLink="packets" class="btn btn-ghost text-xl">
+            <span class="material-symbols-outlined">
+                today
+            </span>
+            Packets
+        </a>
+        <a routerLink="user" class="btn btn-ghost text-xl">
+            <span class="material-symbols-outlined">
+                account_circle
+            </span>
+            User
+        </a>
+    </div>
+    <div class="flex-none">
+        <button class="btn btn-square btn-ghost btn-circle">
+            <span class="material-symbols-outlined">
+                Logout
+            </span>
+        </button>
+    </div>
+</div>
+-->
 
 <!--<h1>Course Schedule</h1>-->
 

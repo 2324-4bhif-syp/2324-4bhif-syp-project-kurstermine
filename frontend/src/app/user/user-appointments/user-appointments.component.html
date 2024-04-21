@@ -1,5 +1,16 @@
 <h2>Appointments</h2>
 
+<div class="flex justify-center items-center">
+    <div class="join justify-center items-center mt-20 mb-20">
+        <input class="input input-bordered input-primary border-2 rounded-md join-item" placeholder="Search" [(ngModel)]="searchValue"/>
+        <button class="btn join-item rounded-r-full" (click)="search()">
+            <span class="material-symbols-outlined">
+                search
+            </span>
+        </button>
+    </div>
+</div>
+
 <div class="user-appointments">
     @for (a of appointmentService.get(); track a.id) {
         <app-user-appointment

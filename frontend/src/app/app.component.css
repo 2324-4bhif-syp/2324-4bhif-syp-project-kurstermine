@@ -78,8 +78,15 @@ mat-toolbar-row {
 }
 
 /* Vertical line */
-.vertical-line {
+.vertical-line-white {
     border-left: 2px solid #efeff5;
+    height: 50px;
+    margin: 0 10px;
+    border-radius: 5px;
+}
+
+.vertical-line-darkblue {
+    border-left: 2px solid #0e1f6c;
     height: 50px;
     margin: 0 10px;
     border-radius: 5px;
