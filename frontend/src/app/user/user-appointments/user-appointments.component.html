@@ -1,9 +1,9 @@
 <h2>Appointments</h2>
 
-<div class="flex justify-center items-center">
-    <div class="join justify-center items-center mt-20 mb-20">
-        <input class="input input-bordered input-primary border-2 rounded-md join-item" placeholder="Search" [(ngModel)]="searchValue"/>
-        <button class="btn join-item rounded-r-full" (click)="search()">
+<div class="flex items-center justify-center">
+    <div class="items-center justify-center mt-20 mb-20 join">
+        <input class="border-2 rounded-md input input-bordered input-primary join-item" placeholder="Search" [(ngModel)]="searchValue"/>
+        <button class="rounded-r-full btn join-item" (click)="search()">
             <span class="material-symbols-outlined">
                 search
             </span>
@@ -11,12 +11,9 @@
     </div>
 </div>
 
-<div class="user-appointments">
+<div class="flex flex-wrap gap-5 justify-evenly">
     @for (appointment of getAppointments(); track appointment.id) {
         <app-user-appointment
-            style=""
-            [loggedInCustomer]="customerService.get()[0]"
-            [showSignIn]="false // because user is always signed in"
             [appointment]="appointment"
         ></app-user-appointment>
     } @empty {

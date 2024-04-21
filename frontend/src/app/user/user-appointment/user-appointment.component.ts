@@ -19,38 +19,9 @@ import {MatIconModule} from "@angular/material/icon";
 export class UserAppointmentComponent {
     constructor(
         protected participationService: ParticipationService,
-        private dialog: MatDialog,
     ) {}
 
     @Input({ required: true }) appointment!: Appointment;
-    @Input({ required: true }) loggedInCustomer!: Customer;
-    @Input({ required: true }) showSignIn!: boolean;
-
-    onBtnSignIn() {
-        let dialogRef: MatDialogRef<UserConfirmDialogComponent> = this.dialog.open(
-            UserConfirmDialogComponent,
-            {
-                height: '160px',
-                width: '500px',
-                data: {
-                    appointment: this.appointment!,
-                    loggedInCustomer: this.loggedInCustomer!,
-                },
-            },
-        );
-        /*
-    let participation: Participation = {
-      id: {
-        appointmentId: this.admin-appointment.id!,
-        customerId: this.loggedInCustomer.id!
-      },
-      admin-appointment: this.admin-appointment,
-      customer: this.loggedInCustomer
-    }
-
-    this.participationService.add(participation);
-     */
-    }
 
     protected readonly String = String;
 }

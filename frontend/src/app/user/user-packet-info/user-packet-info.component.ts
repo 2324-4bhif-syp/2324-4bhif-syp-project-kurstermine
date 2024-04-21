@@ -11,13 +11,14 @@ import { OfferService } from 'src/shared/services/offer.service';
 import { PacketService } from 'src/shared/services/packet.service';
 import { PurchaseService } from 'src/shared/services/purchase.service';
 import { UserBuyPacketConfirmDialogComponent } from '../user-buy-packet-confirm-dialog/user-buy-packet-confirm-dialog.component';
+import { UserAppointmentComponent } from "../user-appointment/user-appointment.component";
 
 @Component({
     selector: 'app-user-packet-info',
     standalone: true,
-    imports: [MatCardModule, MatIconModule, MatButtonModule],
     templateUrl: './user-packet-info.component.html',
-    styleUrl: './user-packet-info.component.css'
+    styleUrl: './user-packet-info.component.css',
+    imports: [MatCardModule, MatIconModule, MatButtonModule, UserAppointmentComponent]
 })
 export class UserPacketInfoComponent {
     constructor(

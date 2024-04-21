@@ -13,56 +13,56 @@
                 </div>
                 <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-60">
                     @if (!isAdmin) {
-                        <a routerLink="organisations" class="text-xl btn btn-ghost justify-normal">
+                        <a routerLink="organisations" class="text-xl btn btn-ghost justify-normal" routerLinkActive="bg-accent">
                             <span class="material-symbols-outlined">
                                 business
                             </span>
                             Organisations
                         </a>
-                        <a routerLink="appointments" class="text-xl btn btn-ghost justify-normal">
+                        <a routerLink="appointments" class="text-xl btn btn-ghost justify-normal" routerLinkActive="bg-accent">
                             <span class="material-symbols-outlined">
                                 today
                             </span>
                             Appointments
                         </a>
-                        <a routerLink="packets" class="text-xl btn btn-ghost justify-normal">
+                        <a routerLink="packets" class="text-xl btn btn-ghost justify-normal" routerLinkActive="bg-accent">
                             <span class="material-symbols-outlined">
                                 category
                             </span>
                             Packets
                         </a>
-                        <a routerLink="user" class="text-xl btn btn-ghost justify-normal">
+                        <a routerLink="user" class="text-xl btn btn-ghost justify-normal" routerLinkActive="bg-accent">
                             <span class="material-symbols-outlined">
                                 account_circle
                             </span>
                             User
                         </a>
                         } @else {
-                        <a routerLink="admin/customers" class="text-xl btn btn-ghost justify-normal">
+                        <a routerLink="admin/customers" class="text-xl btn btn-ghost justify-normal" routerLinkActive="bg-accent">
                             <span class="material-symbols-outlined">
                                 group
                             </span>
                             Customers
                         </a>
-                        <a routerLink="admin/instructors" class="text-xl btn btn-ghost justify-normal">
+                        <a routerLink="admin/instructors" class="text-xl btn btn-ghost justify-normal" routerLinkActive="bg-accent">
                             <span class="material-symbols-outlined">
                                 build
                             </span>
                             Instructors
                         </a>
-                        <a routerLink="admin/appointments" class="text-xl btn btn-ghost justify-normal">
+                        <a routerLink="admin/appointments" class="text-xl btn btn-ghost justify-normal" routerLinkActive="bg-accent">
                             <span class="material-symbols-outlined">
                                 calendar_today
                             </span>
                             Appointments
                         </a>
-                        <a routerLink="admin/packets" class="text-xl btn btn-ghost justify-normal">
+                        <a routerLink="admin/packets" class="text-xl btn btn-ghost justify-normal" routerLinkActive="bg-accent">
                             <span class="material-symbols-outlined">
                                 category
                             </span>
                             Packets
                         </a>
-                        <a routerLink="user" class="text-xl btn btn-ghost justify-normal">
+                        <a routerLink="user" class="text-xl btn btn-ghost justify-normal" routerLinkActive="bg-accent">
                             <span class="material-symbols-outlined">
                                 account_circle
                             </span>
@@ -79,25 +79,25 @@
 
     <div class="hidden navbar-center lg:flex">
         @if (!isAdmin) {
-        <a routerLink="organisations" class="text-xl btn btn-ghost">
+        <a routerLink="organisations" routerLinkActive="bg-accent" class="text-xl btn btn-ghost">
             <span class="material-symbols-outlined">
                 business
             </span>
             Organisations
         </a>
-        <a routerLink="appointments" class="text-xl btn btn-ghost">
+        <a routerLink="appointments" class="text-xl btn btn-ghost" routerLinkActive="bg-accent">
             <span class="material-symbols-outlined">
                 today
             </span>
             Appointments
         </a>
-        <a routerLink="packets" class="text-xl btn btn-ghost">
+        <a routerLink="packets" class="text-xl btn btn-ghost" routerLinkActive="bg-accent">
             <span class="material-symbols-outlined">
                 category
             </span>
             Packets
         </a>
-        <a routerLink="user" class="text-xl btn btn-ghost">
+        <a routerLink="user" class="text-xl btn btn-ghost" routerLinkActive="bg-accent"> 
             <span class="material-symbols-outlined">
                 account_circle
             </span>
@@ -105,31 +105,31 @@
         </a>
         } @else {
         <a routerLink="admin/customers" class="text-xl btn btn-ghost">
-            <span class="material-symbols-outlined">
+            <span class="material-symbols-outlined" routerLinkActive="bg-accent">
                 group
             </span>
             Customers
         </a>
         <a routerLink="admin/instructors" class="text-xl btn btn-ghost">
-            <span class="material-symbols-outlined">
+            <span class="material-symbols-outlined" routerLinkActive="bg-accent">
                 build
             </span>
             Instructors
         </a>
         <a routerLink="admin/appointments" class="text-xl btn btn-ghost">
-            <span class="material-symbols-outlined">
+            <span class="material-symbols-outlined" routerLinkActive="bg-accent">
                 calendar_today
             </span>
             Appointments
         </a>
         <a routerLink="admin/packets" class="text-xl btn btn-ghost">
-            <span class="material-symbols-outlined">
+            <span class="material-symbols-outlined" routerLinkActive="bg-accent">
                 category
             </span>
             Packets
         </a>
         <a routerLink="user" class="text-xl btn btn-ghost">
-            <span class="material-symbols-outlined">
+            <span class="material-symbols-outlined" routerLinkActive="bg-accent">
                 account_circle
             </span>
             User
