@@ -32,7 +32,7 @@ endif::[]
 [background-video="baby-video.mp4",background-video-loop=true,background-video-muted=true,background-opacity="0.5"]
 == Sprint-Vereinbarungen
 
-* Breadcrumbs für Navigation
+* Frontend Verbesserungen
 * Suchfunktion
 * Appointments eines bestimmten Users
 
