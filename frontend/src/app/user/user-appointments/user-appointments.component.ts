@@ -36,7 +36,7 @@ export class UserAppointmentsComponent {
     }
 
     search() {
-        //TODO
+        this.appointmentService.search(this.searchValue);
     }
 
     getAppointments(): Appointment[] {

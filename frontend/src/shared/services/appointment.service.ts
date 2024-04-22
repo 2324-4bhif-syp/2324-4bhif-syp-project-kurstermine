@@ -23,4 +23,12 @@ export class AppointmentService extends ReplayBaseService<Appointment> {
             },
         });
     }
+
+    public search(pattern: string): void {
+        this.api.search(pattern).subscribe({
+            next: appointments =>  {
+                this.items = appointments;
+            }
+        })
+    }
 }

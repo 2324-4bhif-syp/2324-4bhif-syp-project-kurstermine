@@ -30,4 +30,14 @@ export class AppointmentApiService extends ApiService<
                 }),
             );
     }
+
+    public search(pattern: String): Observable<Appointment[]> {
+        return this.http
+            .get<AppointmentDto[]>(`${this.url}/search?pattern=${pattern}`)
+            .pipe(
+                map((appointmentDtos: AppointmentDto[]) => {
+                    return appointmentDtos.map(appointmentDto => fromAppointmentDto(appointmentDto));
+                })
+            )
+    }
 }
