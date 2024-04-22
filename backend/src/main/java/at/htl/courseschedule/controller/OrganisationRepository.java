@@ -33,6 +33,10 @@ public class OrganisationRepository implements PanacheRepository<Organisation> {
     }
 
     public List<Organisation> search(String pattern) {
+        if (pattern.isEmpty()) {
+            return listAll();
+        }
+
         TypedQuery<Organisation> query = em.createQuery(Util.getSimilarityString(Organisation.class, "name"), Organisation.class);
         query.setParameter("pattern", pattern);
         query.setParameter("minEntropy", MIN_ENTROPY);
