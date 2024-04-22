@@ -28,7 +28,7 @@ export class UserPacketsComponent {
 	}
 
     @Input()
-    packets: Packet[] | undefined = undefined;
+    packets: Packet[] | undefined;
     searchValue: string = "";
 
     isIncluded(packet: Packet): boolean {
