@@ -45,6 +45,13 @@ public class PacketResource {
         return Response.ok(packets).build();
     }
 
+    @GET
+    @Path("search")
+    @RolesAllowed({Role.Admin, Role.Organisator, Role.Customer, Role.Instructor})
+    public Response searchAppointments(@QueryParam("pattern") String pattern) {
+        return Response.ok(packetRepository.search(pattern)).build();
+    }
+
     @POST
     @Transactional
     @Consumes(MediaType.APPLICATION_JSON)

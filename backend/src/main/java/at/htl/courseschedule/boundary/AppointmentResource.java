@@ -47,7 +47,7 @@ public class AppointmentResource {
 
     @GET
     @Path("search")
-    //@RolesAllowed({Role.Admin, Role.Organisator, Role.Customer, Role.Instructor})
+    @RolesAllowed({Role.Admin, Role.Organisator, Role.Customer, Role.Instructor})
     public Response searchAppointments(@QueryParam("pattern") String pattern) {
         return Response.ok(appointmentRepository.search(pattern)).build();
     }
