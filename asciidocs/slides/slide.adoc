@@ -30,11 +30,11 @@ endif::[]
 * Bajtik Berg
 
 [background-video="baby-video.mp4",background-video-loop=true,background-video-muted=true,background-opacity="0.5"]
-== Sprintvereinbarungen
+== Sprint-Vereinbarungen
 
-* PostgresDB für Keycloak
-* User Entity in Backend
-* Organisation View
+* Breadcrumbs für Navigation
+* Suchfunktion
+* Appointments eines bestimmten Users
 
 [background-image="cld.png",background-opacity="0.3"]
 == CLD
@@ -84,6 +84,30 @@ Offer .. (Packet, Appointment)
 [%auto-animate]
 == [.margin-b-10]#Terminologie#
 image::architecture.png[height=80%, width=80%]
+
+[%auto-animate]
+== [.margin-b-10]#Homescreen vorher#
+image::previous-homescreen.png[height=80%, width=80%]
+
+[%auto-animate]
+== [.margin-b-10]#Homescreen nachher#
+image::new-homescreen.png[height=80%, width=80%]
+
+[%auto-animate]
+== [.margin-b-10]#Organisations vorher#
+image::organisations-previous.png[height=80%, width=80%]
+
+[%auto-animate]
+== [.margin-b-10]#Organisations nachher#
+image::organisations-new.png[height=80%, width=80%]
+
+[%auto-animate]
+== [.margin-b-10]#Appointments vorher#
+image::appointments-previous.png[height=80%, width=80%]
+
+[%auto-animate]
+== [.margin-b-10]#Appointments nachher#
+image::appointments-new.png[height=80%, width=80%]
 
 [background-video="baby-video3.mp4",background-video-loop=true,background-video-muted=true,background-opacity="0.5"]
 == Konfiguration
