@@ -46,7 +46,7 @@ public class OrganisationResource {
     @GET
     @Path("{id}/image")
     @Transactional
-    @RolesAllowed({Role.Admin, Role.Customer, Role.Organisator})
+    @PermitAll
     @Produces("image/png")
     public Response getOrganisationImage(@PathParam("id") Long id) {
         OrganisationImage organisationImage = organisationImageRepository

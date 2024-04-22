@@ -1,4 +1,4 @@
-<p class="text-5xl text-center my-10">Organisations</p>
+<p class="my-10 text-5xl text-center">Organisations</p>
 
 <div class="flex items-center justify-center">
     <div class="items-center justify-center mt-5 mb-20 join">
@@ -11,7 +11,7 @@
     </div>
 </div>
 
-<div class="user-organisations">
+<div class="flex flex-wrap w-full gap-5 justify-evenly">
     @for (o of organisationService.get(); track o.id) {
         <app-user-organisation
             [organisation]="o"
