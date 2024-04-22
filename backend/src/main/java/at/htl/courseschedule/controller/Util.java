@@ -10,15 +10,27 @@ public final class Util {
         StringBuilder builder = new StringBuilder();
         builder.append(String.format("from %s ", classType.getName()));
 
-        Arrays.asList(members).forEach(member ->
+        if (members.length == 0) {
+            return builder.toString();
+        }
+
+        builder.append(String.format(
+                "where word_similarity(%s, cast(:pattern as character(255))) > :minEntropy", members[0])
+        );
+
+        Arrays.stream(members).skip(1).forEach(member ->
                 builder.append(String.format(
-                        "where word_similarity(%s, cast(:pattern as character(255))) > :minEntropy ", member)
+                        " or word_similarity(%s, cast(:pattern as character(255))) > :minEntropy", member)
                 )
         );
 
-        Arrays.asList(members).forEach(member ->
+        builder.append(String.format(
+                " order by word_similarity(%s, cast(:pattern as character(255))) desc", members[0])
+        );
+
+        Arrays.stream(members).skip(1).forEach(member ->
                 builder.append(String.format(
-                        "order by word_similarity(%s, cast(:pattern as character(255))) desc", member)
+                        ", word_similarity(%s, cast(:pattern as character(255))) desc", member)
                 )
         );
 

@@ -45,6 +45,13 @@ public class AppointmentResource {
         return Response.ok(appointments).build();
     }
 
+    @GET
+    @Path("search")
+    //@RolesAllowed({Role.Admin, Role.Organisator, Role.Customer, Role.Instructor})
+    public Response searchAppointments(@QueryParam("pattern") String pattern) {
+        return Response.ok(appointmentRepository.search(pattern)).build();
+    }
+
     @POST
     @Transactional
     @Consumes(MediaType.APPLICATION_JSON)

@@ -10,6 +10,7 @@ import java.util.List;
 
 @ApplicationScoped
 public class AppointmentRepository {
+    private static final double MIN_ENTROPY = .1;
     @Inject
     EntityManager em;
 
@@ -17,6 +18,17 @@ public class AppointmentRepository {
 
     public List<Appointment> getAll() {
         TypedQuery<Appointment> query = em.createQuery("select a from Appointment a", Appointment.class);
+        return query.getResultList();
+    }
+
+    public List<Appointment> search(String pattern) {
+        if (pattern.isEmpty()) {
+            return getAll();
+        }
+
+        TypedQuery<Appointment> query = em.createQuery(Util.getSimilarityString(Appointment.class, "name", "address"), Appointment.class);
+        query.setParameter("pattern", pattern);
+        query.setParameter("minEntropy", MIN_ENTROPY);
         return query.getResultList();
     }
 
