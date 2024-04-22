@@ -75,6 +75,13 @@ public class OrganisationResource {
         return Response.ok(packets).build();
     }
 
+    @GET
+    @Path("search")
+    @RolesAllowed({Role.Admin, Role.Organisator, Role.Customer, Role.Instructor})
+    public Response searchOrganisations(@QueryParam("pattern") String pattern) {
+        return Response.ok(organisationRepository.search(pattern)).build();
+    }
+
     @POST
     @Transactional
     @Consumes(MediaType.APPLICATION_JSON)
