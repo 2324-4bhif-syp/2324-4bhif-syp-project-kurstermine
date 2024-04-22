@@ -28,7 +28,6 @@ export class UserPacketsComponent {
 	}
 
     @Input({required: true})
-    packets: Packet[] = this.packetService.get();
     searchValue: string = "";
 
     isIncluded(packet: Packet): boolean {
