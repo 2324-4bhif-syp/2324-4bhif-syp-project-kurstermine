@@ -1,7 +1,9 @@
 package at.htl.courseschedule.boundary;
 
+import at.htl.courseschedule.controller.OrganisationImageRepository;
 import at.htl.courseschedule.controller.OrganisationRepository;
 import at.htl.courseschedule.entity.Organisation;
+import at.htl.courseschedule.entity.OrganisationImage;
 import at.htl.courseschedule.entity.Packet;
 import jakarta.annotation.security.PermitAll;
 import jakarta.annotation.security.RolesAllowed;
@@ -16,6 +18,9 @@ import java.util.List;
 public class OrganisationResource {
     @Inject
     OrganisationRepository organisationRepository;
+
+    @Inject
+    OrganisationImageRepository organisationImageRepository;
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
@@ -39,7 +44,24 @@ public class OrganisationResource {
     }
 
     @GET
-    @Path(("packets/{id}"))
+    @Path("{id}/image")
+    @Transactional
+    @RolesAllowed({Role.Admin, Role.Customer, Role.Organisator})
+    @Produces("image/png")
+    public Response getOrganisationImage(@PathParam("id") Long id) {
+        OrganisationImage organisationImage = organisationImageRepository
+                .find("organisation.id", id)
+                .firstResult();
+
+        if (organisationImage == null) {
+            return Response.status(404).build();
+        }
+
+        return Response.ok(organisationImage.getImage()).build();
+    }
+
+    @GET
+    @Path("packets/{id}")
     @RolesAllowed({Role.Admin, Role.Organisator})
     @Produces(MediaType.APPLICATION_JSON)
     public Response getPacketsByOrganisationId(@PathParam("id") Long id) {

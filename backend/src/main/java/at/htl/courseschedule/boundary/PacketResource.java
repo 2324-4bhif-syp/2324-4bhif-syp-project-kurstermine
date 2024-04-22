@@ -2,7 +2,6 @@ package at.htl.courseschedule.boundary;
 
 import at.htl.courseschedule.controller.PacketRepository;
 import at.htl.courseschedule.entity.Packet;
-import io.quarkus.logging.Log;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
@@ -17,7 +16,6 @@ public class PacketResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAllPackets() {
-        Log.info(packetRepository.getAll());
         return Response.ok(packetRepository.getAll()).build();
     }
 
