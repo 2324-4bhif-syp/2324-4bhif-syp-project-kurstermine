@@ -21,4 +21,12 @@ export class OrganisationService extends ReplayBaseService<Organisation> {
             },
         });
     }
+
+    public search(pattern: string): void {
+        this.api.search(pattern).subscribe({
+            next: organisations =>  {
+                this.items = organisations;
+            }
+        })
+    }
 }

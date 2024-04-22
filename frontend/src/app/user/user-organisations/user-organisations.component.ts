@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import {CustomerService} from "../../../shared/services/customer.service";
 import {OrganisationService} from "../../../shared/services/organisation.service";
 import {UserAppointmentComponent} from "../user-appointment/user-appointment.component";
 import {UserOrganisationComponent} from "../user-organisation/user-organisation.component";
@@ -20,12 +19,11 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 export class UserOrganisationsComponent {
     constructor(
         protected organisationService: OrganisationService,
-        protected customerService: CustomerService,
     ) {}
 
-    searchValue: String = "";
+    searchValue: string = "";
 
     search() {
-        //TODO
+        this.organisationService.search(this.searchValue);
     }
 }
