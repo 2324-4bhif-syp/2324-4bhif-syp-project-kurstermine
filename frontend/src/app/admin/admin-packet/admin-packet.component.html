@@ -1,8 +1,8 @@
 <div class="shadow collapse collapse-arrow">
-    <input type="radio" name="radio" />
+    <input type="radio" name="radio" [checked]="panelOpenState" (click)="panelOpenState = !panelOpenState" />
     <div class="flex items-center gap-2 text-xl font-medium collapse-title">
         <span class="material-symbols-outlined">
-            {{panelOpenState ? 'orders' : 'package_2'}}
+            package_2
         </span>
 
         {{ packet.name }}
