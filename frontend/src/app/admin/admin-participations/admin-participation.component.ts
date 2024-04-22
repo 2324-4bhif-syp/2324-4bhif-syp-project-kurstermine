@@ -23,6 +23,7 @@ export class AdminParticipationComponent {
     protected participationService: ParticipationService;
     protected customerService: CustomerService;
     protected selectedCustomer: Customer | undefined;
+    protected panelOpenState: boolean = false;
 
     constructor(
         participationService: ParticipationService,

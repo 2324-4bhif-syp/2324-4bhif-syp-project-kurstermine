@@ -14,11 +14,7 @@
 
             @for (appointment of appointmentService.get(); track $index) {
                 <tr class="hover cursor-pointer" [routerLink]="['/admin/appointments/', appointment.id]">
-                    <th>
-                        <span class="material-symbols-outlined">
-                            event
-                        </span>
-                    </th>
+                    <th>{{ $index+1 }}</th>
                     <td>{{ appointment.name }}</td>
                     <td>{{ appointment.address }}</td>
                     <td>{{ appointment.date.toDateString() }}</td>

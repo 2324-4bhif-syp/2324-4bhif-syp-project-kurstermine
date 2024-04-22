@@ -21,6 +21,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 export class AdminAppointmentManagementComponent {
     @Input() appointment: Appointment | undefined;
     protected selectedInstructor: Instructor | undefined;
+    protected panelOpenState: boolean = false;
 
     constructor(
         protected appointmentManagementService: AppointmentManagementService,
