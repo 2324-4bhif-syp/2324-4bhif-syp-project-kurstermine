@@ -2,11 +2,8 @@ import { Component } from '@angular/core';
 import { MatListModule } from '@angular/material/list';
 import { ActivatedRoute } from '@angular/router';
 import { CustomerService } from 'src/shared/services/customer.service';
-import { PacketService } from 'src/shared/services/packet.service';
 import { PurchaseService } from 'src/shared/services/purchase.service';
 import { MatExpansionModule } from '@angular/material/expansion';
-import { AppointmentService } from 'src/shared/services/appointment.service';
-import { OfferService } from 'src/shared/services/offer.service';
 import { MatIconModule } from '@angular/material/icon';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatCardModule } from '@angular/material/card';
@@ -23,10 +20,7 @@ import {Customer} from "../../../shared/models/customer";
 export class AdminCustomerComponent {
   constructor(
     protected customerService: CustomerService,
-    protected packetService: PacketService,
     protected purchaseService: PurchaseService,
-    protected appointmentService: AppointmentService,
-    protected offerService: OfferService,
     private route: ActivatedRoute,
   ) {
 

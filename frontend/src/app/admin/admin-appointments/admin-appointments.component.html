@@ -1,19 +1,31 @@
+<p class="text-5xl text-center my-10">Appointments</p>
 
-<h2>Appointments</h2>
+<div class="overflow-x-auto">
+    <table class="table">
+        <thead>
+        <tr>
+            <th></th>
+            <th>Appointment</th>
+            <th>Where</th>
+            <th>When</th>
+        </tr>
+        </thead>
+        <tbody>
 
-<div style="display: flex; justify-content: center; flex-direction: column;">
-    <mat-action-list>
-        @for (appointment of appointmentService.get(); track appointment) {
-        <a [routerLink]="['/admin/appointments/', appointment.id]" mat-list-item>
-            <span matListItemIcon class="material-symbols-outlined">
-                event
-            </span>
-            <p matListItemTitle>{{appointment.name}}</p>
-            <p matListItemLine>{{appointment.address}} on {{appointment.date.toDateString()}}</p>
-        </a>
-        
-        <mat-divider></mat-divider>
-        }
+            @for (appointment of appointmentService.get(); track $index) {
+                <tr class="hover cursor-pointer" [routerLink]="['/admin/appointments/', appointment.id]">
+                    <th>
+                        <span class="material-symbols-outlined">
+                            event
+                        </span>
+                    </th>
+                    <td>{{ appointment.name }}</td>
+                    <td>{{ appointment.address }}</td>
+                    <td>{{ appointment.date.toDateString() }}</td>
+                </tr>
+            }
 
-    </mat-action-list>
+        </tbody>
+    </table>
 </div>
+

@@ -1,11 +1,6 @@
-<h2 style="margin-bottom: 0;">{{ customer?.firstName }} {{ customer?.lastName }}</h2>
+<p class="text-5xl text-center mt-10 mb-1">{{ customer?.firstName }} {{ customer?.lastName }}</p>
+<p class="text-lg text-center mb-10">{{ customer?.email }}</p>
 
-<div style="display: flex; justify-content: center;">
-    <h3>{{ customer?.email }}</h3>
-</div>
-
-<mat-accordion class="example-headers-align">
-    @for (purchase of purchases; track purchase) {
-        <app-admin-packet [packet]="purchase.packet" [displaySignedInBtn]="true"></app-admin-packet>
-    }
-</mat-accordion>
+@for (purchase of purchases; track purchase) {
+    <app-admin-packet [packet]="purchase.packet" [displaySignedInBtn]="true"></app-admin-packet>
+}

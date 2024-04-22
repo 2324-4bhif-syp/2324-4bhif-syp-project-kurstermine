@@ -1,0 +1,8 @@
+button.change-image {
+    color: transparent;
+    background-color: transparent;
+    border: none;
+    width: 10px;
+    height: 10px;
+    position: absolute;
+}

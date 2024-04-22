@@ -23,7 +23,10 @@ public class AppointmentManagementRepository {
     AppointmentRepository appointmentRepository;
 
     @Inject
-    KeycloakUserRepository userRepository;
+    KeycloakUserRepository keycloakUserRepository;
+
+    @Inject
+    UserRepository userRepository;
 
     public AppointmentManagement getById(AppointmentManagementId id) {
         return em.find(AppointmentManagement.class, id);
@@ -42,13 +45,18 @@ public class AppointmentManagementRepository {
         }
 
         Appointment appointment = appointmentRepository.getById(appointmentManagement.getId().getAppointmentId());
-        UserRepresentation user = userRepository.getById(appointmentManagement.getInstructor().getUuid(), Role.Instructor);
+        UserRepresentation user = keycloakUserRepository
+                .getById(appointmentManagement
+                        .getId()
+                        .getInstructorId(), Role.Instructor);
 
         if (appointment == null || user == null) {
             return;
         }
 
         appointmentManagement.setAppointment(appointment);
+        appointmentManagement.setInstructor(userRepository
+                .getOrCreateUser(appointmentManagement.getId().getInstructorId()));
 
         em.merge(appointmentManagement);
     }

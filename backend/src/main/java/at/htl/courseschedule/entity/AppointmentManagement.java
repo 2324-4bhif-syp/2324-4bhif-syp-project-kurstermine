@@ -56,6 +56,11 @@ public class AppointmentManagement {
     public BabyUser getInstructor() {
         return instructor;
     }
+
+    public void setInstructor(BabyUser instructor) {
+        this.instructor = instructor;
+    }
+
     //endregion
 
     @Override
