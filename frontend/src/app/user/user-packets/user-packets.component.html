@@ -1,13 +1,15 @@
 <p class="my-10 text-5xl text-center">Packets</p>
 
 <div class="flex items-center justify-center">
-    <div class="items-center justify-center mt-5 mb-20 join">
-        <input class="border-2 rounded-md input input-bordered input-primary join-item" placeholder="Search" [(ngModel)]="searchValue"/>
-        <button class="rounded-r-full btn join-item" (click)="search()">
-            <span class="material-symbols-outlined">
-                search
-            </span>
-        </button>
+    <div class="items-center justify-center mt-5 mb-20">
+        <form (submit)="search()" class="join">
+            <input class="border-2 rounded-md input input-bordered input-primary join-item" placeholder="Search" [(ngModel)]="searchValue" [ngModelOptions]="{standalone: true}"/>
+            <button class="rounded-r-full btn join-item">
+                <span class="material-symbols-outlined">
+                    search
+                </span>
+            </button>
+        </form>
     </div>
 </div>
 
