@@ -29,7 +29,7 @@ export class UserPacketsComponent {
 
     @Input({required: true})
     packets: Packet[] = this.packetService.get();
-    searchValue: String = "";
+    searchValue: string = "";
 
     isIncluded(packet: Packet): boolean {
         return (
@@ -41,6 +41,6 @@ export class UserPacketsComponent {
     }
 
     search() {
-        //TODO
+        this.packetService.search(this.searchValue);
     }
 }

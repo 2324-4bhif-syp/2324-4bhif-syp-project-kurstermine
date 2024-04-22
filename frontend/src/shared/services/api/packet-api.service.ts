@@ -24,4 +24,14 @@ export class PacketApiService extends ApiService<Packet, PacketDto> {
                 }),
             );
     }
+
+    public search(pattern: String): Observable<Packet[]> {
+        return this.http
+            .get<PacketDto[]>(`${this.url}/search?pattern=${pattern}`)
+            .pipe(
+                map((packetDtos: PacketDto[]) => {
+                    return packetDtos.map(packetDto => fromPacketDto(packetDto));
+                })
+            )
+    }
 }

@@ -21,4 +21,12 @@ export class PacketService extends ReplayBaseService<Packet> {
             },
         });
     }
+
+    public search(pattern: string): void {
+        this.api.search(pattern).subscribe({
+            next: packets =>  {
+                this.items = packets;
+            }
+        })
+    }
 }
