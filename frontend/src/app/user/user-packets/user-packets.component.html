@@ -1,16 +1,16 @@
 <p class="my-10 text-5xl text-center">Packets</p>
 
-<div class="flex items-center justify-center">
-    <div class="items-center justify-center mt-5 mb-20">
-        <form (submit)="search()" class="join">
-            <input class="border-2 rounded-md input input-bordered input-primary join-item" placeholder="Search" [(ngModel)]="searchValue" [ngModelOptions]="{standalone: true}"/>
-            <button class="rounded-r-full btn join-item">
+<div class="flex items-center justify-center mt-5 mb-20">
+    <form (submit)="search()" class="w-1/2">
+        <label class="border-2 rounded-3xl input input-bordered input-primary flex items-center gap-2 pr-0">
+            <input type="text" class="grow" placeholder="Search" [(ngModel)]="searchValue" [ngModelOptions]="{standalone: true}"/>
+            <button class="btn btn-ghost hover:bg-transparent hover:outline-none">
                 <span class="material-symbols-outlined">
                     search
                 </span>
             </button>
-        </form>
-    </div>
+        </label>
+    </form>
 </div>
 
 <div class="flex flex-wrap w-full gap-5 justify-evenly">
