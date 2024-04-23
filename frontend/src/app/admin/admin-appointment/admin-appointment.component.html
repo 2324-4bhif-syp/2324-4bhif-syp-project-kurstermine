@@ -1,32 +1,31 @@
-<h2 style="margin-bottom: 0px;">
-    {{appointment?.name }}
-</h2>
+<p class="text-5xl text-center mt-10 mb-5">{{ appointment?.name }}</p>
 
-<hr>
-<div class="flex-base-row" style="justify-content: space-around; margin-bottom: 3vh; margin-top: 3vh;">
-    <div class="flex-base-row">
+<div class="flex flex-col items-center gap-5 mb-10" >
+    <div class="flex flex-col items-center">
         <mat-icon>location_on</mat-icon>
         <p class="card-p">{{ appointment?.address }}</p>
     </div>
 
-    <div class="flex-base-row">
+    <div class="flex flex-col items-center">
         <mat-icon>today</mat-icon>
         <p class="card-p">{{ appointment?.date?.getDay() }}.{{ appointment?.date?.getMonth() }}.{{ appointment?.date?.getFullYear() }}</p>
     </div>
-    
-    <div class="flex-base-row">
-        <mat-icon>schedule</mat-icon>
-        <p class="card-p">{{ appointment?.date?.getHours() }}:{{ String(appointment?.date?.getMinutes()).padStart(2, "0") }}</p>
-    </div>
-    
-    <div class="flex-base-row">
-        <mat-icon>timelapse</mat-icon>
-    <p class="card-p">{{ appointment?.duration }} min</p>
+
+    <div class="flex w-1/3 justify-evenly">
+        <div class="flex flex-col items-center">
+            <mat-icon>schedule</mat-icon>
+            <p class="card-p">{{ appointment?.date?.getHours() }}:{{ String(appointment?.date?.getMinutes()).padStart(2, "0") }}</p>
+        </div>
+
+        <div class="flex flex-col items-center">
+            <mat-icon>timelapse</mat-icon>
+            <p class="card-p">{{ appointment?.duration }} min</p>
+        </div>
     </div>
 </div>
 
-<hr class="hr-exp-panel" style="margin-bottom: 3vh;">
-
-<app-admin-appointment-management [appointment]="appointment" />
+<div class="mb-10">
+    <app-admin-appointment-management [appointment]="appointment"/>
+</div>
 
 <app-admin-participations [appointment]="appointment" />

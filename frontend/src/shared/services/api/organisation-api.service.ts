@@ -24,4 +24,14 @@ export class OrganisationApiService extends ApiService<Organisation, Organisatio
                 }),
             );
     }
+
+    public search(pattern: String): Observable<Organisation[]> {
+        return this.http
+            .get<OrganisationDto[]>(`${this.url}/search?pattern=${pattern}`)
+            .pipe(
+                map((organisationDtos: OrganisationDto[]) => {
+                    return organisationDtos.map(organisationDto => fromOrganisationDto(organisationDto));
+                })
+            )
+    }
 }

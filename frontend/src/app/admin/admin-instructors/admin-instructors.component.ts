@@ -1,8 +1,14 @@
 import { Component } from '@angular/core';
 import { InstructorService } from '../../../shared/services/instructor.service';
 import { Instructor } from '../../../shared/models/instructor';
+import { MatActionList } from '@angular/material/list';
+import { RouterModule } from '@angular/router';
+import { MatIcon } from '@angular/material/icon';
+import { MatDivider } from '@angular/material/divider';
 
 @Component({
+    standalone: true,
+    imports: [MatActionList, RouterModule, MatIcon, MatDivider],
     selector: 'app-admin-instructors',
     templateUrl: './admin-instructors.component.html',
     styleUrls: ['./admin-instructors.component.css'],

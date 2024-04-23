@@ -1,16 +1,17 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {Organisation} from "../../../shared/models/organisation";
-import {MatButtonModule} from "@angular/material/button";
-import {MatCardModule} from "@angular/material/card";
-import {MatIconModule} from "@angular/material/icon";
-import {PacketService} from "../../../shared/services/packet.service";
-import {Packet} from "../../../shared/models/packet";
-import {animate, keyframes, style, transition, trigger} from "@angular/animations";
-import {UserPacketComponent} from "../user-packet/user-packet.component";
-import {RouterLink, RouterLinkActive} from "@angular/router";
-import {OfferService} from "../../../shared/services/offer.service";
-import {MatMenuModule} from "@angular/material/menu";
-import {MatProgressBarModule} from "@angular/material/progress-bar";
+import { Component, Input, OnInit } from '@angular/core';
+import { Organisation } from "../../../shared/models/organisation";
+import { MatButtonModule } from "@angular/material/button";
+import { MatCardModule } from "@angular/material/card";
+import { MatIconModule } from "@angular/material/icon";
+import { PacketService } from "../../../shared/services/packet.service";
+import { Packet } from "../../../shared/models/packet";
+import { animate, keyframes, style, transition, trigger } from "@angular/animations";
+import { UserPacketComponent } from "../user-packet/user-packet.component";
+import { RouterLink, RouterLinkActive } from "@angular/router";
+import { OfferService } from "../../../shared/services/offer.service";
+import { MatMenuModule } from "@angular/material/menu";
+import { MatProgressBarModule } from "@angular/material/progress-bar";
+import { environment } from 'src/environments/environment';
 
 @Component({
     selector: 'app-user-organisation',
@@ -39,40 +40,15 @@ import {MatProgressBarModule} from "@angular/material/progress-bar";
         ])
     ]
 })
-export class UserOrganisationComponent implements OnInit{
+export class UserOrganisationComponent {
 
     @Input({ required: true })
     organisation!: Organisation;
-    protected progressBarValue: number = 0;
 
     constructor(protected packetService: PacketService,
-                protected offerService: OfferService) {
+        protected offerService: OfferService) {
         //console.log(this.packetsOfOrg)
     }
-
-    ngOnInit(): void {
-        this.startTimer();
-    }
-
-    ngOnDestroy(): void {
-        clearInterval(this.intervalId);
-        clearInterval(this.intervalProgressBar);
-    }
-
-    startTimer(): void {
-        this.intervalProgressBar = setInterval(() => {
-            this.progressBarValue = this.progressBarValue + 0.515;
-        }, 50)
-
-        this.intervalId = setInterval(() => {
-            this.currentIndex = (this.currentIndex + 1) % this.getPacketsOfOrg().length;
-            this.progressBarValue = 0;
-        }, 10000);
-    }
-
-    currentIndex: number = 0;
-    intervalId: any;
-    intervalProgressBar: any;
 
     // TODO: Make Endpoint in Backend for getting all Packets from 1 Organisation
     getPacketsOfOrg(): Packet[] {
@@ -81,5 +57,9 @@ export class UserOrganisationComponent implements OnInit{
 
     getOffers(packetId: number) {
         return this.offerService.get(offer => offer.id.packetId == packetId);
+    }
+
+    getImageUrl() {
+        return environment.apiUrl + '/organisations/' + this.organisation.id + '/image';
     }
 }

@@ -32,6 +32,26 @@ public class AppointmentResource {
         return Response.ok(appointment).build();
     }
 
+    @GET
+    @Path("user/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getAppointmentsByUserId(@PathParam("id") Long id) {
+        var appointments = appointmentRepository.getByUserId(id);
+
+        if(appointments == null) {
+            return Response.status(404).build();
+        }
+
+        return Response.ok(appointments).build();
+    }
+
+    @GET
+    @Path("search")
+    @RolesAllowed({Role.Admin, Role.Organisator, Role.Customer, Role.Instructor})
+    public Response searchAppointments(@QueryParam("pattern") String pattern) {
+        return Response.ok(appointmentRepository.search(pattern)).build();
+    }
+
     @POST
     @Transactional
     @Consumes(MediaType.APPLICATION_JSON)

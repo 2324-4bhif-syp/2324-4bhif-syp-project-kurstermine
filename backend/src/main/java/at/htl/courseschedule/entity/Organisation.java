@@ -9,8 +9,11 @@ import java.util.Set;
 public class Organisation extends PanacheEntityBase {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String name;
+
     private String uniqueName;
+
     @OneToMany
     private Set<BabyUser> organisators;
 

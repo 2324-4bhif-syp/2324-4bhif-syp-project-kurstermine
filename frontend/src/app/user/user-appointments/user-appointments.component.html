@@ -1,13 +1,25 @@
-<h2>Appointments</h2>
+<p class="text-5xl text-center my-10">Appointments</p>
 
-<div class="user-appointments">
-    @for (a of appointmentService.get(); track a.id) {
+<div class="flex items-center justify-center mt-5 mb-20">
+    <form (submit)="search()" class="w-1/2">
+        <label class="border-2 rounded-3xl input input-bordered input-primary flex items-center gap-2 pr-0">
+            <input type="text" class="grow" placeholder="Search" [(ngModel)]="searchValue" [ngModelOptions]="{standalone: true}"/>
+            <button class="btn btn-ghost hover:bg-transparent hover:outline-none">
+                <span class="material-symbols-outlined">
+                    search
+                </span>
+            </button>
+        </label>
+    </form>
+</div>
+
+<div class="flex flex-wrap gap-5 justify-evenly">
+    @for (appointment of getAppointments(); track appointment.id) {
         <app-user-appointment
-            [loggedInCustomer]="customerService.get()[0]"
-            [showSignIn]="!isIncluded(a)"
-            [appointment]="a"
+            [appointment]="appointment"
         ></app-user-appointment>
     } @empty {
-        No appointments available!
+        No appointments purchased!
     }
+
 </div>

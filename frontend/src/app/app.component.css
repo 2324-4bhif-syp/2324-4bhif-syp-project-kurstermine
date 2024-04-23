@@ -1,16 +1,18 @@
+/* Styles for buttons */
 button {
     margin-right: 5px;
     transition: transform 0.1s ease-in-out;
 }
 
 button:hover {
-    transform: scale(1.05);
+    transform: scale(1.02);
 }
 
 .nav-btn {
     color: #3f51b5;
     height: 40px;
     font-size: 20px;
+    font-weight: bold;
 }
 
 .nav-btn:hover {
@@ -27,7 +29,7 @@ button:hover {
 }
 
 button.burger:hover {
-    background-color: #0e1f6c;
+    background-color: #3f51b5;
 
     .menu-icon {
         color: white !important;
@@ -38,6 +40,8 @@ button.burger:hover {
     color: white !important;
 }
 
+/* Styles for toolbar an burger menu */
+
 mat-toolbar {
     width: 100%;
     background-color: #0e1f6c;
@@ -45,12 +49,11 @@ mat-toolbar {
 
 mat-toolbar-row {
     justify-content: space-between;
-    border-radius: 20px;
     padding-right: 0 !important;
     padding-left: 0 !important;
 }
 
-@media screen and (max-width:599px) {
+@media screen and (max-width:749px) {
     .burger {
         display: compact;
     }
@@ -59,8 +62,7 @@ mat-toolbar-row {
         display: none;
     }
 }
-
-@media screen and (min-width:600px) {
+@media screen and (min-width:750px) {
     .burger {
         display: none;
     }
@@ -69,3 +71,24 @@ mat-toolbar-row {
         display: compact;
     }
 }
+
+/* Style for active router link */
+.active{
+    background-color: #3f51b5;
+}
+
+/* Vertical line */
+.vertical-line-white {
+    border-left: 2px solid #efeff5;
+    height: 50px;
+    margin: 0 10px;
+    border-radius: 5px;
+}
+
+.vertical-line-darkblue {
+    border-left: 2px solid #0e1f6c;
+    height: 50px;
+    margin: 0 10px;
+    border-radius: 5px;
+}
+

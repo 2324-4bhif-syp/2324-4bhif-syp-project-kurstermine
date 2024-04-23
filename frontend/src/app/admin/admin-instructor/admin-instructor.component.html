@@ -1,22 +1,29 @@
-<h2 style="margin-bottom: 0px;">{{ instructor?.firstName }} {{ instructor?.lastName }}</h2>
+<p class="text-5xl text-center mt-10 mb-1">{{ instructor?.firstName }} {{ instructor?.lastName }}</p>
+<p class="text-lg text-center mb-10">{{ instructor?.email }}</p>
 
-<div style="display: flex; justify-content: center;">
-    <h3>{{ instructor?.email }}</h3>
+<div class="overflow-x-auto">
+    <table class="table">
+        <thead>
+        <tr>
+            <th></th>
+            <th>Appointment</th>
+            <th>Where</th>
+            <th>When</th>
+        </tr>
+        </thead>
+        <tbody>
+
+            @for (appointment of appointments; track $index) {
+                <tr class="hover cursor-pointer" [routerLink]="['/admin/appointments/', appointment.id]">
+                    <th>{{ $index+1 }}</th>
+                    <td>{{ appointment.name }}</td>
+                    <td>{{ appointment.address }}</td>
+                    <td>{{ appointment.date.toDateString() }}</td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
 </div>
 
-<div style="display: flex; justify-content: center; flex-direction: column;">
-    <mat-action-list>
-        @for (appointment of appointments; track appointments) {
-        <a [routerLink]="['/admin/appointments/', appointment.id]" mat-list-item>
-            <span matListItemIcon class="material-symbols-outlined">
-                event
-            </span>
-            <p matListItemTitle>{{appointment.name}}</p>
-            <p matListItemLine>{{appointment.address}} on {{appointment.date.toDateString()}}</p>
-        </a>
-        
-        <mat-divider></mat-divider>
-        }
 
-    </mat-action-list>
-</div>

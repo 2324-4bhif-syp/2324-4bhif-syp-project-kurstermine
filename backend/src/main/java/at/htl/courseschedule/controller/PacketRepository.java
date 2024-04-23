@@ -4,11 +4,13 @@ import at.htl.courseschedule.entity.Packet;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.TypedQuery;
 
 import java.util.List;
 
 @ApplicationScoped
 public class PacketRepository {
+    private static final double MIN_ENTROPY = .1;
     @Inject
     EntityManager em;
 
@@ -20,8 +22,19 @@ public class PacketRepository {
         return em.find(Packet.class, id);
     }
 
+    public List<Packet> search(String pattern) {
+        if (pattern.isEmpty()) {
+            return getAll();
+        }
+
+        TypedQuery<Packet> query = em.createQuery(Util.getSimilarityString(Packet.class, "name"), Packet.class);
+        query.setParameter("pattern", pattern);
+        query.setParameter("minEntropy", MIN_ENTROPY);
+        return query.getResultList();
+    }
+
     public List<Packet> getAllByOrganisatorId(Long id) {
-        return em.createQuery("SELECT p from Packet p WHERE p.organisator.id = :id", Packet.class)
+        return em.createQuery("SELECT p from Packet p WHERE p.organisation.id = :id", Packet.class)
                 .setParameter("id", id)
                 .getResultList();
     }
@@ -36,14 +49,6 @@ public class PacketRepository {
     }
 
     public Packet update(Long id, Packet newPacket) {
-
-        if (getById(id) == null) {
-            return null;
-        }
-
-        newPacket.setId(id);
-        em.merge(newPacket);
-
-        return newPacket;
+        return null;
     }
 }

@@ -1,4 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Itim:700|Itim:400'); /* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
+
 /*
 .login-pf body {
     background: linear-gradient(135deg, #051129, #08204a, #0c296b, #0f348c, #123fad, #1b50b9, #2555c4, #2e5ac0, #375fbb, #4064b7, #4969b2, #526eae, #5b73a9, #6478a5, #6d7da0, #76829c, #7f8797, #888c93, #91918e, #9a968a, #a39b85, #aca081, #b5a57c, #beaa78, #c7af73, #d0b46f, #d9b96a, #e2be66, #ebc361, #f4c85d, #fddd59, #ffe154);
@@ -7,7 +10,7 @@
 }*/
 
 * {
-    font-family: 'Itim', Arial, sans-serif;
+    font-family: 'Nunito', 'Roboto Mono', 'Itim', Arial, sans-serif;
     font-size: 15px;
 }
 

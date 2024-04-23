@@ -31,7 +31,6 @@ Content-Type: application/json
 ###
 DELETE http://localhost:8080/customers/1
 
-###
 
 ### alice: Authorization by token, part 1. Retrieve and save token.
 
@@ -94,4 +93,19 @@ Authorization: Bearer {{access_token}}
 GET localhost:8080/customers
 Authorization: Bearer {{access_token}}
 
-###
+### moritz: Authorization by token, part 1. Retrieve and save token.
+
+POST https://babyapp.ddns.net/keycloak/realms/htl/protocol/openid-connect/token
+Content-Type: application/x-www-form-urlencoded
+
+username=moritz&password=moritz&grant_type=password&client_id=quarkus-service&client_secret=1f9M7z1QjSfkC5fIjfYNCikO4RU2MCtk
+
+> {%
+    client.global.set("access_token", response.body.access_token);
+    client.log(client.global.get("access_token"));
+%}
+
+### moritz: Authorization by token, part 2a. Use token to authorize.
+
+GET https://babyapp.ddns.net/api/appointments
+Authorization: Bearer {{access_token}}

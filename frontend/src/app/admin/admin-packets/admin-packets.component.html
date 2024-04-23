@@ -1,10 +1,8 @@
-<h2>Packets</h2>
+<p class="my-10 text-5xl text-center">Packets</p>
 
-<mat-accordion multi="false">
-    @for (p of getAllPackets(); track p) {
-        <app-admin-packet [packet]="p" [displaySignedInBtn]="false"></app-admin-packet>
-    }
-</mat-accordion>
+@for (p of getAllPackets(); track p) {
+    <app-admin-packet [packet]="p" [displaySignedInBtn]="false"></app-admin-packet>
+}
 
 <!-- For adding a Packet
 <br><br><br>

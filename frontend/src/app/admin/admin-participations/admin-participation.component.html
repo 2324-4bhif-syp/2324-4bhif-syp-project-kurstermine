@@ -1,40 +1,47 @@
-<mat-accordion>
-    <mat-expansion-panel>
-        <mat-expansion-panel-header>
-            <mat-panel-title>
-                <h4>Participators</h4>
-            </mat-panel-title>
-        </mat-expansion-panel-header>
-        <mat-list>
-            @for (participation of getParticipation(); track participation.id) {
-                <div style="display: flex; align-items: center; justify-content: space-between;">
+<div class="flex justify-center">
+    <div class="shadow-2xl collapse collapse-arrow w-4/5">
+        <input type="radio" name="radio" [checked]="panelOpenState" (click)="panelOpenState = !panelOpenState"/>
+        <div class="flex items-center gap-2 text-xl font-medium collapse-title shadow-lg">
+            <span class="material-symbols-outlined">
+                group
+            </span>
+
+            Customers
+        </div>
+        <div class="collapse-content">
+
+            @for (participation of getParticipation(); track participation) {
+                <div class="grid items-center grid-cols-3 mt-5">
                     <p>
-                        {{ participation.customer.lastName }}
                         {{ participation.customer.firstName }}
+                        {{ participation.customer.lastName }}
                     </p>
-                    <button mat-button (click)="remove(participation)">
-                        <mat-icon>delete</mat-icon>
+                    <button class="btn btn-error btn-circle btn-md" (click)="remove(participation)">
+                        <span class="material-symbols-outlined">
+                            delete
+                        </span>
                     </button>
                 </div>
             }
-        </mat-list>
-        @if (getCustomers().length > 0) {
-            <div style="display: flex; align-items: center; justify-content: space-around;">
-                <mat-form-field> 
-                    <mat-select [(ngModel)]="selectedCustomer">
+
+            @if (getCustomers().length > 0) {
+                <div class="grid items-center grid-cols-3 gap-5 mt-5">
+                    <select [(ngModel)]="selectedCustomer" class="select select-accent border-2 rounded-md w-full max-w-xs">
                         @for (customer of getCustomers(); track customer) {
-                            <mat-option [value]="customer">
-                                {{ customer.lastName }}
+                            <option [ngValue]="customer">
                                 {{ customer.firstName }}
-                            </mat-option>
+                                {{ customer.lastName }}
+                            </option>
                         }
-                    </mat-select>
-                </mat-form-field>
-                
-                <button mat-raised-button (click)="add()">
-                    Add
-                </button>
-            </div>
-        }
-    </mat-expansion-panel>
-</mat-accordion>
+                    </select>
+                    <button class="btn btn-accent btn-circle btn-md" (click)="add()">
+                            <span class="material-symbols-outlined">
+                                add
+                            </span>
+                    </button>
+                </div>
+            }
+
+        </div>
+    </div>
+</div>

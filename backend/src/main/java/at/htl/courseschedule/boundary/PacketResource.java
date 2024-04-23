@@ -2,7 +2,6 @@ package at.htl.courseschedule.boundary;
 
 import at.htl.courseschedule.controller.PacketRepository;
 import at.htl.courseschedule.entity.Packet;
-import io.quarkus.logging.Log;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
@@ -17,7 +16,6 @@ public class PacketResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAllPackets() {
-        Log.info(packetRepository.getAll());
         return Response.ok(packetRepository.getAll()).build();
     }
 
@@ -32,6 +30,26 @@ public class PacketResource {
         }
 
         return Response.ok(packet).build();
+    }
+
+    @GET
+    @Path("organisation/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getPacketsByOrganisatorId(@PathParam("id") Long id) {
+        var packets = packetRepository.getAllByOrganisatorId(id);
+
+        if(packets == null) {
+            return Response.status(404).build();
+        }
+
+        return Response.ok(packets).build();
+    }
+
+    @GET
+    @Path("search")
+    @RolesAllowed({Role.Admin, Role.Organisator, Role.Customer, Role.Instructor})
+    public Response searchAppointments(@QueryParam("pattern") String pattern) {
+        return Response.ok(packetRepository.search(pattern)).build();
     }
 
     @POST

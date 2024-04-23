@@ -1,19 +1,24 @@
-<h2>Customers</h2>
+<p class="text-5xl text-center my-10">Customers</p>
 
-<div style="display: flex; justify-content: center; flex-direction: column;">
-    <mat-action-list>
-        @for (customer of customerService.get(); track customer) {
-        <a [routerLink]="['/admin/customers/', customer.id]" mat-list-item>
-            <mat-icon matListItemIcon>
-                account_circle
-            </mat-icon>
-            <div matLine>
-                <p>{{customer.firstName}} {{customer.lastName}}</p>
-            </div>
-        </a>
+<div class="overflow-x-auto">
+    <table class="table">
+        <thead>
+        <tr>
+            <th></th>
+            <th>Name</th>
+            <th>E-Mail</th>
+        </tr>
+        </thead>
+        <tbody>
 
-        <mat-divider></mat-divider>
+        @for (customer of customerService.get(); track $index) {
+            <tr class="hover cursor-pointer" [routerLink]="['/admin/customers/', customer.id]">
+                <th>{{ $index+1 }}</th>
+                <td>{{ customer.firstName }} {{ customer.lastName }}</td>
+                <td>{{ customer.email }}</td>
+            </tr>
         }
 
-    </mat-action-list>
+        </tbody>
+    </table>
 </div>

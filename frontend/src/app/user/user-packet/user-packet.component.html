@@ -1,26 +1,35 @@
-<mat-card>
-    <mat-card-title>{{packet.name}}</mat-card-title>
-    <mat-card-subtitle>{{packet.price}} €</mat-card-subtitle>
-    <hr>
-    <mat-card-content>
+<div class="border-2 rounded-md shadow-lg card w-96">
+    <div class="items-center text-center card-body">
+        <p class="text-3xl card-title">{{packet.name}}</p>
+        <p class="text-lg card-title">{{packet.price}} €</p>
+
+        <div class="m-0 divider"></div>
+
         @for (offer of getOffers(packet.id!); track $index) {
             <p>{{offer.appointment.name}}</p>
         }
-    </mat-card-content>
-    <mat-card-actions>
-        <a routerLink="/packets/{{packet.id}}" style="margin-right: 0.5rem;">
-            <button mat-mini-fab color="secondary">
-                <p style="font-weight: bold; font-size: large;">i</p>
-            </button>
-        </a>
-        @if (showSignIn) {
-            <button mat-mini-fab color="primary" (click)="onBtnSignIn()">
-                <mat-icon style="color: white !important;">payment</mat-icon>
-            </button>
-        } @else {
-            <button mat-mini-fab color="primary">
-                <mat-icon class="card-btn">done</mat-icon> <!--check_circle-->
-            </button>
-        }
-    </mat-card-actions>
-</mat-card>
+
+        <div class="card-actions justify-end">
+            <a routerLink="{{packet.id}}" class="btn btn-circle">
+                <span class="material-symbols-outlined">
+                    info
+                </span>
+            </a>
+
+            @if(showSignIn) {
+                <button class="btn btn-accent btn-circle" (click)="onBtnSignIn()">
+                    <span class="material-symbols-outlined">
+                        payment
+                    </span>
+                </button>
+            } @else {
+                <button class="btn btn-accent btn-disabled btn-circle" disabled="">
+                    <span class="material-symbols-outlined">
+                        done
+                    </span>
+                </button>
+            }
+        </div>
+    </div>
+</div>
+

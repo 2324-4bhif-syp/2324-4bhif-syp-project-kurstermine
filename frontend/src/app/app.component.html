@@ -1,101 +1,170 @@
-<!-- Add icon library -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
-<mat-toolbar class="topbar telative mat-toolbar mat-primary mat-toolbar-single-row" color="primary">
-    <mat-toolbar-row>
-        <div>
-            <button class="nav nav-btn" routerLinkActive="active" routerLink="home" mat-button>
-                <!--<mat-icon class="nav-icon"></mat-icon>-->
-                CouSch
-            </button>
-
-            @if (isAdmin){
-                <button class="nav nav-btn" mat-button routerLinkActive="active" routerLink="admin/customers">
-                    <mat-icon class="nav-icon">group</mat-icon>
-                    Customers
-                </button>
-                <button class="nav nav-btn" mat-button routerLinkActive="active" routerLink="admin/instructors">
-                    <mat-icon class="nav-icon">build</mat-icon>
-                    Instructors
-                </button>
-                <button class="nav nav-btn" mat-button routerLinkActive="active" routerLink="admin/appointments">
-                    <mat-icon class="nav-icon">calendar_today</mat-icon>
-                    Appointments
-                </button>
-                <button class="nav nav-btn" mat-button routerLinkActive="active" routerLink="admin/packets">
-                    <mat-icon class="nav-icon">category</mat-icon>
-                    Packets
-                </button>
-            } @else {
-                <button class="nav nav-btn" mat-button routerLinkActive="active" routerLink="organisations">
-                    <mat-icon class="nav-icon">business</mat-icon>
-                    Organisations
-                </button>
-                <button class="nav nav-btn" mat-button routerLinkActive="active" routerLink="appointments">
-                    <mat-icon class="nav-icon">calendar_today</mat-icon>
-                    Appointments
-                </button>
-                <button class="nav nav-btn" mat-button routerLinkActive="active" routerLink="packets">
-                    <mat-icon class="nav-icon">category</mat-icon>
-                    Packets
-                </button>
-            }
-
-            <button class="nav nav-btn" mat-button routerLinkActive="active" routerLink="user">
-                <mat-icon class="nav-icon">account_circle</mat-icon>
-                User
-            </button>
-
-            <button class="burger" mat-mini-fab color="link" [matMenuTriggerFor]="menu">
-                <mat-icon class="menu-icon">menu</mat-icon>
-            </button>
-            <mat-menu class="burger" #menu="matMenu">
-
-                @if (isAdmin){
-                    <button mat-menu-item routerLinkActive="active" routerLink="admin/customers">
-                        <mat-icon>group</mat-icon>
-                        <span>Customers</span>
-                    </button>
-                    <button mat-menu-item routerLinkActive="active" routerLink="admin/instructors">
-                        <mat-icon>build</mat-icon>
-                        <span>Instructors</span>
-                    </button>
-                    <button mat-menu-item routerLinkActive="active" routerLink="admin/appointments">
-                        <mat-icon>calendar_today</mat-icon>
-                        <span>Appointments</span>
-                    </button>
-                    <button mat-menu-item routerLinkActive="active" routerLink="admin/packets">
-                        <mat-icon>category</mat-icon>
-                        <span>Packets</span>
-                    </button>
-                    <button mat-menu-item routerLinkActive="active" routerLink="user">
-                        <mat-icon>account_circle</mat-icon>
-                        <span>User</span>
-                    </button>
-                } @else {
-                    <button mat-menu-item routerLinkActive="active" routerLink="appointments">
-                        <mat-icon>calendar_today</mat-icon>
-                        <span>Appointments</span>
-                    </button>
-                    <button mat-menu-item routerLinkActive="active" routerLink="packets">
-                        <mat-icon>category</mat-icon>
-                        <span>Packets</span>
-                    </button>
-                    <button mat-menu-item routerLinkActive="active" routerLink="user">
-                        <mat-icon>account_circle</mat-icon>
-                        <span>User</span>
-                    </button>
-                }
-
-            </mat-menu>
+<div class="shadow navbar">
+    <div class="navbar-start">
+        <div class="lg:hidden">
+            <div class="dropdown">
+                <div tabindex="0" role="button" class="btn btn-ghost btn-circle">
+                    <span class="material-symbols-outlined">
+                        menu
+                    </span>
+                </div>
+                <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-60">
+                    @if (!isAdmin) {
+                        <a routerLink="organisations" class="text-xl btn btn-ghost justify-normal" routerLinkActive="bg-accent">
+                            <span class="material-symbols-outlined">
+                                business
+                            </span>
+                            Organisations
+                        </a>
+                        <a routerLink="appointments" class="text-xl btn btn-ghost justify-normal" routerLinkActive="bg-accent">
+                            <span class="material-symbols-outlined">
+                                today
+                            </span>
+                            Appointments
+                        </a>
+                        <a routerLink="packets" class="text-xl btn btn-ghost justify-normal" routerLinkActive="bg-accent">
+                            <span class="material-symbols-outlined">
+                                category
+                            </span>
+                            Packets
+                        </a>
+                        <a routerLink="user" class="text-xl btn btn-ghost justify-normal" routerLinkActive="bg-accent">
+                            <span class="material-symbols-outlined">
+                                account_circle
+                            </span>
+                            User
+                        </a>
+                        } @else {
+                        <a routerLink="admin/customers" class="text-xl btn btn-ghost justify-normal" routerLinkActive="bg-accent">
+                            <span class="material-symbols-outlined">
+                                group
+                            </span>
+                            Customers
+                        </a>
+                        <a routerLink="admin/instructors" class="text-xl btn btn-ghost justify-normal" routerLinkActive="bg-accent">
+                            <span class="material-symbols-outlined">
+                                build
+                            </span>
+                            Instructors
+                        </a>
+                        <a routerLink="admin/appointments" class="text-xl btn btn-ghost justify-normal" routerLinkActive="bg-accent">
+                            <span class="material-symbols-outlined">
+                                calendar_today
+                            </span>
+                            Appointments
+                        </a>
+                        <a routerLink="admin/packets" class="text-xl btn btn-ghost justify-normal" routerLinkActive="bg-accent">
+                            <span class="material-symbols-outlined">
+                                category
+                            </span>
+                            Packets
+                        </a>
+                        <a routerLink="user" class="text-xl btn btn-ghost justify-normal" routerLinkActive="bg-accent">
+                            <span class="material-symbols-outlined">
+                                account_circle
+                            </span>
+                            User
+                        </a>
+                        }
+                </ul>
+            </div>
         </div>
+        <a routerLink="home" class="text-xl btn btn-ghost">
+            CouSch
+        </a>
+    </div>
 
-        <button class="logout-btn" mat-mini-fab color="link" (click)="onBtnLogout()">
-            <mat-icon class="logout-icon">logout</mat-icon>
+    <div class="hidden gap-4 navbar-center lg:flex">
+        @if (!isAdmin) {
+        <a routerLink="organisations" routerLinkActive="bg-accent" class="text-xl btn btn-ghost">
+            <span class="material-symbols-outlined">
+                business
+            </span>
+            Organisations
+        </a>
+        <a routerLink="appointments" class="text-xl btn btn-ghost" routerLinkActive="bg-accent">
+            <span class="material-symbols-outlined">
+                today
+            </span>
+            Appointments
+        </a>
+        <a routerLink="packets" class="text-xl btn btn-ghost" routerLinkActive="bg-accent">
+            <span class="material-symbols-outlined">
+                category
+            </span>
+            Packets
+        </a>
+        <a routerLink="user" class="text-xl btn btn-ghost" routerLinkActive="bg-accent">
+            <span class="material-symbols-outlined">
+                account_circle
+            </span>
+            User
+        </a>
+        } @else {
+        <a routerLink="admin/customers" class="text-xl btn btn-ghost" routerLinkActive="bg-accent">
+            <span class="material-symbols-outlined">
+                group
+            </span>
+            Customers
+        </a>
+        <a routerLink="admin/instructors" class="text-xl btn btn-ghost" routerLinkActive="bg-accent">
+            <span class="material-symbols-outlined">
+                build
+            </span>
+            Instructors
+        </a>
+        <a routerLink="admin/appointments" class="text-xl btn btn-ghost" routerLinkActive="bg-accent">
+            <span class="material-symbols-outlined">
+                calendar_today
+            </span>
+            Appointments
+        </a>
+        <a routerLink="admin/packets" class="text-xl btn btn-ghost" routerLinkActive="bg-accent">
+            <span class="material-symbols-outlined">
+                category
+            </span>
+            Packets
+        </a>
+        <a routerLink="user" class="text-xl btn btn-ghost" routerLinkActive="bg-accent">
+            <span class="material-symbols-outlined">
+                account_circle
+            </span>
+            User
+        </a>
+        }
+    </div>
+
+    <div class="navbar-end">
+        <button class="btn btn-circle btn-ghost" (click)="onBtnLogout()">
+            <span class="material-symbols-outlined">
+                Logout
+            </span>
         </button>
-    </mat-toolbar-row>
-</mat-toolbar>
+    </div>
+</div>
 
-<!--<h1>Course Schedule</h1>-->
 
 <router-outlet></router-outlet>
+
+
+<footer class="p-10 footer bg-neutral text-neutral-content mt-60">
+    <aside>
+        <span class="material-symbols-outlined">
+            weekend
+        </span>
+        <p>CouSch<br>Providing reliable software since 2023</p>
+    </aside>
+    <nav>
+        <h6 class="footer-title">Social</h6>
+        <div class="grid grid-flow-col gap-4">
+            <a href="https://www.instagram.com/cousch23">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" shape-rendering="geometricPrecision" text-rendering="geometricPrecision" image-rendering="optimizeQuality" fill-rule="evenodd" clip-rule="evenodd" viewBox="0 0 512 512"><path fill="#fff" fill-rule="nonzero" d="M170.663 256.157c-.083-47.121 38.055-85.4 85.167-85.483 47.121-.092 85.407 38.03 85.499 85.16.091 47.129-38.047 85.4-85.176 85.492-47.112.09-85.399-38.039-85.49-85.169zm-46.108.091c.141 72.602 59.106 131.327 131.69 131.186 72.592-.141 131.35-59.09 131.209-131.692-.141-72.577-59.114-131.335-131.715-131.194-72.585.141-131.325 59.115-131.184 131.7zm237.104-137.091c.033 16.953 13.817 30.681 30.772 30.648 16.961-.033 30.689-13.811 30.664-30.764-.033-16.954-13.818-30.69-30.78-30.657-16.962.033-30.689 13.818-30.656 30.773zm-208.696 345.4c-24.958-1.087-38.511-5.234-47.543-8.709-11.961-4.629-20.496-10.178-29.479-19.094-8.966-8.95-14.532-17.46-19.202-29.397-3.508-9.032-7.73-22.569-8.9-47.527-1.269-26.982-1.559-35.077-1.683-103.432-.133-68.339.116-76.434 1.294-103.441 1.069-24.942 5.242-38.512 8.709-47.536 4.628-11.977 10.161-20.496 19.094-29.479 8.949-8.982 17.459-14.532 29.403-19.202 9.025-3.525 22.561-7.714 47.511-8.9 26.998-1.277 35.085-1.551 103.423-1.684 68.353-.132 76.448.108 103.456 1.295 24.94 1.086 38.51 5.217 47.527 8.709 11.968 4.628 20.503 10.144 29.478 19.094 8.974 8.95 14.54 17.443 19.21 29.412 3.524 9 7.714 22.553 8.892 47.494 1.285 26.999 1.576 35.095 1.7 103.433.132 68.355-.117 76.451-1.302 103.441-1.087 24.958-5.226 38.52-8.709 47.561-4.629 11.952-10.161 20.487-19.103 29.471-8.941 8.949-17.451 14.531-29.403 19.201-9.009 3.517-22.561 7.714-47.494 8.9-26.998 1.269-35.086 1.559-103.448 1.684-68.338.132-76.424-.125-103.431-1.294zM149.977 1.773c-27.239 1.285-45.843 5.648-62.101 12.018-16.829 6.561-31.095 15.354-45.286 29.604C28.381 57.653 19.655 71.944 13.144 88.79c-6.303 16.299-10.575 34.912-11.778 62.168C.172 178.264-.102 186.973.031 256.489c.133 69.508.439 78.234 1.741 105.547 1.302 27.231 5.649 45.828 12.019 62.093 6.569 16.83 15.353 31.088 29.611 45.288 14.25 14.201 28.55 22.918 45.404 29.438 16.282 6.295 34.902 10.583 62.15 11.778 27.305 1.203 36.022 1.468 105.521 1.335 69.532-.132 78.25-.439 105.555-1.733 27.239-1.303 45.826-5.665 62.1-12.019 16.829-6.586 31.095-15.353 45.288-29.611 14.191-14.251 22.917-28.55 29.428-45.405 6.304-16.282 10.592-34.903 11.777-62.134 1.195-27.322 1.478-36.048 1.344-105.556-.133-69.516-.447-78.225-1.741-105.523-1.294-27.255-5.657-45.844-12.019-62.118-6.577-16.829-15.352-31.079-29.602-45.287-14.25-14.192-28.55-22.935-45.404-29.429-16.29-6.305-34.903-10.601-62.15-11.779C333.747.164 325.03-.102 255.506.031c-69.507.133-78.224.431-105.529 1.742z"/></svg>
+            </a>
+            <a href="https://www.youtube.com/channel/UCn9q4YO8gC3PxywlNyt-vGA">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" class="fill-current"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"></path></svg>
+            </a>
+            <a href="https://www.facebook.com/cousch">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" class="fill-current"><path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z"></path></svg>
+            </a>
+        </div>
+    </nav>
+</footer>
