@@ -1,4 +1,4 @@
-import { Customer } from '../customer';
+import { Customer } from '@models';
 
 export interface CustomerDto {
     id?: string;

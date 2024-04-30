@@ -1,5 +1,4 @@
-import { Packet } from "../packet";
-import {Organisation} from "../organisation";
+import { Packet, Organisation } from "@models";
 
 export interface PacketDto {
     id?: number,

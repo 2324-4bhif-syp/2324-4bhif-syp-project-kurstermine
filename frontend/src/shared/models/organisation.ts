@@ -1,4 +1,4 @@
-import {OrganisationDto} from "./dtos/organisation-dto";
+import {OrganisationDto} from "@models/dtos";
 
 export interface Organisation {
     id?: number,

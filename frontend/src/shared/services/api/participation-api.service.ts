@@ -1,16 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs';
-import { set } from 'src/shared/models/model';
-import {
-    fromParticipation,
-    ParticipationDto,
-} from '../../models/dtos/participation-dto';
-import {
-    fromParticipationDto,
-    Participation,
-} from '../../models/participation';
-import { ApiService } from './api.service';
+import { fromParticipationDto, Participation, set } from '@models';
+import { ApiService } from '@services/api/api.service';
+import { ParticipationDto, fromParticipation } from '@models/dtos';
 
 @Injectable({
     providedIn: 'root',

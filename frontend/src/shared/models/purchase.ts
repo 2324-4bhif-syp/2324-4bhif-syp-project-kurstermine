@@ -1,6 +1,5 @@
-import {Customer} from "./customer";
-import {Packet} from "./packet";
-import {PurchaseDto} from "./dtos/purchase-dto";
+import { Customer, Packet } from "@models";
+import { PurchaseDto } from "@models/dtos";
 
 export interface Purchase {
     id?: {

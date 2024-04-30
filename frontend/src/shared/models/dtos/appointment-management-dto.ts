@@ -1,6 +1,4 @@
-import { AppointmentDto, fromAppointment } from './appointment-dto';
-import { AppointmentManagement } from '../appointmentManagement';
-import { fromInstructor, InstructorDto } from './instructor-dto';
+import { AppointmentManagement } from '@models';
 
 export interface AppointmentManagementDto {
     id?: {

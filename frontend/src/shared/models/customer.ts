@@ -1,4 +1,4 @@
-import { CustomerDto } from './dtos/customer-dto';
+import { CustomerDto } from '@models/dtos';
 
 export interface Customer {
     id?: string;

@@ -1,0 +1,10 @@
+export { ApiService } from "@services/api/api.service";
+export { CustomerApiService } from "@services/api/customer-api.service";
+export { InstructorApiService } from "@services/api/instructor-api.service";
+export { AppointmentApiService } from "@services/api/appointment-api.service";
+export { AppointmentManagementApiService } from "@services/api/appointment-management-api.service";
+export { OfferApiService } from "@services/api/offer-api.service";
+export { OrganisationApiService } from "@services/api/organisation-api.service";
+export { PacketApiService } from "@services/api/packet-api.service";
+export { ParticipationApiService } from "@services/api/participation-api.service";
+export { PurchaseApiService } from "@services/api/purchase-api.service";

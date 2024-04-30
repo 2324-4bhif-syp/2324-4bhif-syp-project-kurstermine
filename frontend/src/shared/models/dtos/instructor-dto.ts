@@ -1,4 +1,4 @@
-import { Instructor } from '../instructor';
+import { Instructor } from '@models';
 
 export interface InstructorDto {
     id?: string;
