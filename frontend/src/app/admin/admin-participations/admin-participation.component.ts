@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import { CustomerService } from '../../../shared/services/customer.service';
 import { ParticipationService } from '../../../shared/services/participation.service';
 import { Appointment } from '../../../shared/models/appointment';
@@ -10,6 +10,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 import { MatExpansionModule } from '@angular/material/expansion';
+import {ParticipationApiService} from "../../../shared/services/api/participation-api.service";
+import {CustomerApiService} from "../../../shared/services/api/customer-api.service";
 
 @Component({
     standalone: true,
@@ -18,19 +20,18 @@ import { MatExpansionModule } from '@angular/material/expansion';
     templateUrl: './admin-participation.component.html',
     styleUrls: ['./admin-participation.component.css'],
 })
-export class AdminParticipationComponent {
+export class AdminParticipationComponent implements OnInit {
     @Input() appointment: Appointment | undefined;
-    protected participationService: ParticipationService;
-    protected customerService: CustomerService;
     protected selectedCustomer: Customer | undefined;
     protected panelOpenState: boolean = false;
 
     constructor(
-        participationService: ParticipationService,
-        customerService: CustomerService,
+        protected participationService: ParticipationService,
+        protected customerService: CustomerService,
+        protected participationApiService: ParticipationApiService,
+        protected customerApiService: CustomerApiService
     ) {
-        this.participationService = participationService;
-        this.customerService = customerService;
+
     }
 
     protected getParticipation() {
@@ -68,5 +69,10 @@ export class AdminParticipationComponent {
 
     public remove(participation: Participation) {
         this.participationService.remove(participation);
+    }
+
+    ngOnInit(): void {
+        this.participationApiService.getAll();
+        this.customerApiService.getAll();
     }
 }

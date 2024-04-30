@@ -1,10 +1,12 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import { PacketService } from 'src/shared/services/packet.service';
 import {CustomerService} from "../../../shared/services/customer.service";
 import {Packet} from "../../../shared/models/packet";
 import {PurchaseService} from "../../../shared/services/purchase.service";
 import {UserPacketComponent} from "../user-packet/user-packet.component";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {PacketApiService} from "../../../shared/services/api/packet-api.service";
+import {PurchaseApiService} from "../../../shared/services/api/purchase-api.service";
 
 @Component({
 	selector: 'app-user-packets',
@@ -17,13 +19,15 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 	templateUrl: './user-packets.component.html',
 	styleUrl: './user-packets.component.css'
 })
-export class UserPacketsComponent {
+export class UserPacketsComponent implements OnInit {
 	expandedIndex = 0;
 
 	constructor(
 		protected packetService: PacketService,
+		protected packetApiService: PacketApiService,
         protected customerService: CustomerService,
-        protected purchaseService: PurchaseService
+        protected purchaseService: PurchaseService,
+        protected purchaseApiService: PurchaseApiService
 	) {
 	}
 
@@ -50,5 +54,10 @@ export class UserPacketsComponent {
         }
 
         return this.packetService.get()
+    }
+
+    ngOnInit(): void {
+        this.packetApiService.getAll();
+        this.purchaseApiService.getAll();
     }
 }
