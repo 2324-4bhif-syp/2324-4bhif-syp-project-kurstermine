@@ -8,6 +8,7 @@ import { Organisation } from "src/shared/models/organisation";
 import { Packet } from "src/shared/models/packet";
 import { Participation } from "src/shared/models/participation";
 import { Purchase } from "src/shared/models/purchase";
+import { Instructor } from "./instructor";
 
 export interface Model {
     readonly appointments: Appointment[];
@@ -16,6 +17,7 @@ export interface Model {
     readonly offers: Offer[];
     readonly purchases: Purchase[];
     readonly appointmentManagements: AppointmentManagement[];
+    readonly instructors: Instructor[];
     readonly customer: Customer | undefined;
     readonly participations: Participation[];   
 }
@@ -26,6 +28,7 @@ export const store = new BehaviorSubject<Model>({
     organisations: [],
     offers: [],
     purchases: [],
+    instructors: [],
     appointmentManagements: [],
     customer: undefined,
     participations: []

@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, map } from 'rxjs';
+import { map } from 'rxjs';
+import { set } from 'src/shared/models/model';
 import {
     AppointmentManagement,
     fromAppointmentManagementDto,
@@ -14,18 +15,29 @@ import { ApiService } from './api.service';
 @Injectable({
     providedIn: 'root',
 })
-export class AppointmentManagementApiService extends ApiService<
-    AppointmentManagement,
-    AppointmentManagementDto
-> {
+export class AppointmentManagementApiService extends ApiService {
     constructor(http: HttpClient) {
-        super(http, 'appointment-managements', fromAppointmentManagementDto);
+        super(http, 'appointment-managements');
+    }
+
+    public getAll() {
+        this.http.get<AppointmentManagementDto[]>(this.url, {
+            headers: this.headers,
+        }).pipe(
+            map((dtos) => {
+                return dtos.map<AppointmentManagement>(fromAppointmentManagementDto);
+            })
+        ).subscribe(appointmentManagements => {
+            set(model => {
+                model.appointmentManagements = appointmentManagements;
+            })
+        })
     }
 
     public add(
         appointmentManagement: AppointmentManagement,
-    ): Observable<AppointmentManagement> {
-        return this.http
+    ) {
+        this.http
             .post<AppointmentManagementDto>(
                 this.url,
                 fromAppointmentManagement(appointmentManagement),
@@ -40,14 +52,25 @@ export class AppointmentManagementApiService extends ApiService<
                 map((appointmentManagement) =>
                     fromAppointmentManagementDto(appointmentManagement),
                 ),
-            );
+            )
+            .subscribe(appointmentManagement => {
+                set(model => {
+                    model.appointmentManagements.push(appointmentManagement);
+                })
+            });
     }
 
     public remove(
         appointmentManagement: AppointmentManagement,
-    ): Observable<object> {
-        return this.http.delete(
+    ) {
+        this.http.delete(
             `${this.url}/${appointmentManagement.appointment.id}/${appointmentManagement.instructor.id}`,
-        );
+        ).subscribe(() => {
+            set(model => {
+                model.appointmentManagements = model.appointmentManagements.filter(
+                    (am) => am !== appointmentManagement,
+                );
+            })
+        });
     }
 }
