@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { InstructorService } from '../../../shared/services/instructor.service';
 import { Instructor } from '../../../shared/models/instructor';
 import { MatActionList } from '@angular/material/list';
 import { RouterModule } from '@angular/router';
 import { MatIcon } from '@angular/material/icon';
 import { MatDivider } from '@angular/material/divider';
+import {InstructorApiService} from "../../../shared/services/api/instructor-api.service";
 
 @Component({
     standalone: true,
@@ -13,12 +14,13 @@ import { MatDivider } from '@angular/material/divider';
     templateUrl: './admin-instructors.component.html',
     styleUrls: ['./admin-instructors.component.css'],
 })
-export class AdminInstructorsComponent {
-    protected instructorService: InstructorService;
+export class AdminInstructorsComponent implements OnInit {
     protected newInstructor: Instructor;
 
-    constructor(instructorService: InstructorService) {
-        this.instructorService = instructorService;
+    constructor(
+        protected instructorService: InstructorService,
+        protected instructorApiService: InstructorApiService,
+    ) {
         this.newInstructor = {
             firstName: '',
             lastName: '',
@@ -45,5 +47,9 @@ export class AdminInstructorsComponent {
             lastName: '',
             email: '',
         };
+    }
+
+    ngOnInit(): void {
+        this.instructorApiService.getAll();
     }
 }

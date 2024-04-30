@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {PacketService} from "../../../shared/services/packet.service";
 import {Packet} from "../../../shared/models/packet";
 import {NgForOf} from "@angular/common";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {AdminPacketComponent} from "../admin-packet/admin-packet.component";
 import {MatExpansionModule} from "@angular/material/expansion";
+import {PacketApiService} from "../../../shared/services/api/packet-api.service";
 
 @Component({
   selector: 'app-admin-packets',
@@ -19,8 +20,11 @@ import {MatExpansionModule} from "@angular/material/expansion";
   templateUrl: './admin-packets.component.html',
   styleUrl: './admin-packets.component.css'
 })
-export class AdminPacketsComponent {
-    constructor(protected packetService: PacketService) {
+export class AdminPacketsComponent implements OnInit {
+    constructor(
+        protected packetService: PacketService,
+        protected packetApiService: PacketApiService
+    ) {
         this.newPacket = {
             name: '',
             price: 0
@@ -40,5 +44,9 @@ export class AdminPacketsComponent {
             name: '',
             price: 0
         };
+    }
+
+    ngOnInit(): void {
+        this.packetApiService.getAll();
     }
 }

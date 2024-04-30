@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { CustomerService } from '../../../shared/services/customer.service';
 import { Customer } from '../../../shared/models/customer';
 import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterModule } from '@angular/router';
+import {CustomerApiService} from "../../../shared/services/api/customer-api.service";
 
 @Component({
     standalone: true,
@@ -12,12 +13,13 @@ import { RouterModule } from '@angular/router';
     templateUrl: './admin-customers.component.html',
     styleUrls: ['./admin-customers.component.css'],
 })
-export class AdminCustomersComponent {
-    protected customerService: CustomerService;
+export class AdminCustomersComponent implements OnInit {
     protected newCustomer: Customer;
 
-    constructor(customerService: CustomerService) {
-        this.customerService = customerService;
+    constructor(
+        protected customerService: CustomerService,
+        protected customerApiService: CustomerApiService
+    ) {
         this.newCustomer = {
             firstName: '',
             lastName: '',
@@ -33,5 +35,9 @@ export class AdminCustomersComponent {
             lastName: '',
             email: '',
         };
+    }
+
+    ngOnInit(): void {
+        this.customerApiService.getAll();
     }
 }

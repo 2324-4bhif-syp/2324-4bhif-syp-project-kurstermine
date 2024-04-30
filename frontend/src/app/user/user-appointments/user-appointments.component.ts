@@ -1,14 +1,14 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { AppointmentService } from '../../../shared/services/appointment.service';
 import { UserAppointmentComponent } from '../user-appointment/user-appointment.component';
 import { Appointment } from '../../../shared/models/appointment';
-import { CustomerService } from '../../../shared/services/customer.service';
 import { ParticipationService } from '../../../shared/services/participation.service';
 import {MatFormField, MatLabel} from "@angular/material/form-field";
 import {FormsModule} from "@angular/forms";
 import {MatIcon} from "@angular/material/icon";
 import {MatInput} from "@angular/material/input";
 import {MatIconButton} from "@angular/material/button";
+import {AppointmentApiService} from "../../../shared/services/api/appointment-api.service";
 
 @Component({
     selector: 'app-user-appointments',
@@ -17,11 +17,11 @@ import {MatIconButton} from "@angular/material/button";
     templateUrl: './user-appointments.component.html',
     styleUrl: './user-appointments.component.css',
 })
-export class UserAppointmentsComponent {
+export class UserAppointmentsComponent implements OnInit {
     constructor(
         protected appointmentService: AppointmentService,
-        protected participationService: ParticipationService,
-        protected customerService: CustomerService,
+        protected appointmentApiService: AppointmentApiService,
+        protected participationService: ParticipationService
     ) {}
 
     searchValue: string = "";
@@ -41,5 +41,9 @@ export class UserAppointmentsComponent {
 
     getAppointments(): Appointment[] {
         return this.appointmentService.get(appointment => this.isIncluded(appointment));
+    }
+
+    ngOnInit(): void {
+        this.appointmentApiService.getAll();
     }
 }

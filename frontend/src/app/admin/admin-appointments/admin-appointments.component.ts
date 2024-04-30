@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { AppointmentService } from '../../../shared/services/appointment.service';
 import { Appointment } from '../../../shared/models/appointment';
 import { MatListModule } from '@angular/material/list';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { RouterModule } from '@angular/router';
+import {AppointmentApiService} from "../../../shared/services/api/appointment-api.service";
 
 @Component({
     standalone: true,
@@ -12,12 +13,13 @@ import { RouterModule } from '@angular/router';
     templateUrl: './admin-appointments.component.html',
     styleUrls: ['./admin-appointments.component.css'],
 })
-export class AdminAppointmentsComponent {
-    protected appointmentService: AppointmentService;
+export class AdminAppointmentsComponent implements OnInit {
     protected newAppointment: Appointment;
 
-    constructor(appointmentService: AppointmentService) {
-        this.appointmentService = appointmentService;
+    constructor(
+        protected appointmentService: AppointmentService,
+        protected appointmentApiService: AppointmentApiService
+    ) {
         this.newAppointment = {
             name: '',
             address: '',
@@ -46,5 +48,9 @@ export class AdminAppointmentsComponent {
             date: new Date(),
             duration: 0,
         };
+    }
+
+    ngOnInit(): void {
+        this.appointmentApiService.getAll();
     }
 }
