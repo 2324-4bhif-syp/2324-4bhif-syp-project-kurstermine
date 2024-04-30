@@ -1,29 +1,46 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map, Observable } from 'rxjs';
-import {
-    fromParticipationDto,
-    Participation,
-} from '../../models/participation';
+import { map } from 'rxjs';
+import { set } from 'src/shared/models/model';
 import {
     fromParticipation,
     ParticipationDto,
 } from '../../models/dtos/participation-dto';
+import {
+    fromParticipationDto,
+    Participation,
+} from '../../models/participation';
 import { ApiService } from './api.service';
 
 @Injectable({
     providedIn: 'root',
 })
-export class ParticipationApiService extends ApiService<
-    Participation,
-    ParticipationDto
-> {
+export class ParticipationApiService extends ApiService {
     constructor(http: HttpClient) {
-        super(http, 'participations', fromParticipationDto);
+        super(http, 'participations');
     }
 
-    public getAllFromCustomer(id: string): Observable<Participation[]> {
-        return this.http
+    public getAll() {
+        this.http
+            .get<ParticipationDto[]>(this.url, {
+                headers: this.headers,
+            })
+            .pipe(
+                map((appointments) => {
+                    return appointments.map<Participation>(
+                        fromParticipationDto,
+                    );
+                }),
+            )
+            .subscribe((participations) => {
+                set((model) => {
+                    model.participations = participations;
+                });
+            });
+    }
+
+    public getAllFromCustomer(id: string) {
+        this.http
             .get<ParticipationDto[]>(`${this.url}/customer/${id}`, {
                 headers: this.headers,
             })
@@ -33,11 +50,16 @@ export class ParticipationApiService extends ApiService<
                         fromParticipationDto,
                     );
                 }),
-            );
+            )
+            .subscribe((participations) => {
+                set((model) => {
+                    model.participations = participations;
+                });
+            });
     }
 
-    public add(participation: Participation): Observable<Participation> {
-        return this.http
+    public add(participation: Participation) {
+        this.http
             .post<ParticipationDto>(
                 this.url,
                 fromParticipation(participation),
@@ -52,12 +74,25 @@ export class ParticipationApiService extends ApiService<
                 map((participation) => {
                     return fromParticipationDto(participation);
                 }),
-            );
+            )
+            .subscribe((participation) => {
+                set((model) => {
+                    model.participations.push(participation);
+                });
+            });
     }
 
-    public remove(participation: Participation): Observable<object> {
-        return this.http.delete(
-            `${this.url}/${participation.id?.appointmentId}/${participation.id?.customerId}`,
-        );
+    public remove(participation: Participation) {
+        this.http
+            .delete(
+                `${this.url}/${participation.id?.appointmentId}/${participation.id?.customerId}`,
+            )
+            .subscribe(() => {
+                set((model) => {
+                    model.participations = model.participations.filter(
+                        (p) => p !== participation,
+                    );
+                });
+            });
     }
 }
