@@ -16,6 +16,25 @@ export class PurchaseApiService extends ApiService {
         super(http, 'purchases');
     }
 
+    public getAll() {
+        this.http
+            .get<PurchaseDto[]>(this.url, {
+                headers: this.headers,
+            })
+            .pipe(
+                map((purchasesDto) => {
+                    return purchasesDto.map<Purchase>(
+                        fromPurchaseDto,
+                    );
+                }),
+            )
+            .subscribe((purchases) => {
+                set((model) => {
+                    model.purchases = purchases;
+                });
+            });
+    }
+
     public getAllFromCustomer(id: string) {
         this.http
             .get<PurchaseDto[]>(`${this.url}/customer/${id}`, {

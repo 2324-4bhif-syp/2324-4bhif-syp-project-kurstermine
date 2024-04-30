@@ -19,6 +19,7 @@ export interface Model {
     readonly appointmentManagements: AppointmentManagement[];
     readonly instructors: Instructor[];
     readonly customer: Customer | undefined;
+    readonly customers: Customer[];
     readonly participations: Participation[];   
 }
 
@@ -31,6 +32,7 @@ export const store = new BehaviorSubject<Model>({
     instructors: [],
     appointmentManagements: [],
     customer: undefined,
+    customers: [],
     participations: []
 });
 

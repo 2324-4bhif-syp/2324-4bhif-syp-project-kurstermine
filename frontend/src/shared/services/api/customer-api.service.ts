@@ -14,6 +14,23 @@ export class CustomerApiService extends ApiService {
         super(http, 'customers');
     }
 
+    public getAll() {
+        this.http
+            .get<CustomerDto[]>(this.url, {
+                headers: this.headers,
+            })
+            .pipe(
+                map((dtos) => {
+                    return dtos.map<Customer>(fromCustomerDto);
+                }),
+            )
+            .subscribe(customers => {
+                set(model => {
+                    model.customers = customers;
+                })
+            })
+    }
+
     public getLoggedInCustomer() {
         this.http
             .get<CustomerDto>(`${this.url}/id`, {
