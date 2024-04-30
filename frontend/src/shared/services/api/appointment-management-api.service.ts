@@ -1,16 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs';
-import { set } from 'src/shared/models/model';
-import {
-    AppointmentManagement,
-    fromAppointmentManagementDto,
-} from '../../models/appointmentManagement';
-import {
-    AppointmentManagementDto,
-    fromAppointmentManagement,
-} from '../../models/dtos/appointment-management-dto';
-import { ApiService } from './api.service';
+import { AppointmentManagement, fromAppointmentManagementDto, set } from '@models';
+import { AppointmentManagementDto, fromAppointmentManagement } from '@models/dtos';
+import { ApiService } from '@services/api/api.service';
 
 @Injectable({
     providedIn: 'root',

@@ -1,6 +1,5 @@
-import { Appointment } from "./appointment"
-import { OfferDto } from "./dtos/offer-dto";
-import {Packet} from "./packet";
+import { Appointment, Packet } from "@models"
+import { OfferDto } from "@models/dtos";
 
 export interface Offer {
     id: {

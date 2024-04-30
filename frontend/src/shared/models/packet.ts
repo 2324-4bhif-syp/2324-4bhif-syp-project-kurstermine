@@ -1,5 +1,5 @@
-import { PacketDto } from "./dtos/packet-dto";
-import {Organisation} from "./organisation";
+import { PacketDto } from "@models/dtos";
+import { Organisation } from "@models";
 
 export interface Packet {
     id?: number,

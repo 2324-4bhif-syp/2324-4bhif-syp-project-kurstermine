@@ -1,10 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map } from "rxjs";
-import { fromPacket, PacketDto } from 'src/shared/models/dtos/packet-dto';
-import { set } from 'src/shared/models/model';
-import { fromPacketDto, Packet } from 'src/shared/models/packet';
-import { ApiService } from './api.service';
+import { fromPacketDto, Packet, set } from '@models';
+import { ApiService } from '@services/api/api.service';
+import { PacketDto, fromPacket } from '@models/dtos';
 
 @Injectable({
 	providedIn: 'root'

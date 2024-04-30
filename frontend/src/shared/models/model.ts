@@ -1,14 +1,6 @@
+import { Appointment, AppointmentManagement, Customer, Instructor, Offer, Organisation, Packet, Participation, Purchase } from "@models";
 import { Draft, produce } from "immer";
 import { BehaviorSubject } from "rxjs";
-import { Appointment } from "src/shared/models/appointment";
-import { AppointmentManagement } from "src/shared/models/appointmentManagement";
-import { Customer } from "src/shared/models/customer";
-import { Offer } from "src/shared/models/offer";
-import { Organisation } from "src/shared/models/organisation";
-import { Packet } from "src/shared/models/packet";
-import { Participation } from "src/shared/models/participation";
-import { Purchase } from "src/shared/models/purchase";
-import { Instructor } from "./instructor";
 
 export interface Model {
     readonly appointments: Appointment[];
@@ -20,7 +12,7 @@ export interface Model {
     readonly instructors: Instructor[];
     readonly customer: Customer | undefined;
     readonly customers: Customer[];
-    readonly participations: Participation[];   
+    readonly participations: Participation[];
 }
 
 export const store = new BehaviorSubject<Model>({

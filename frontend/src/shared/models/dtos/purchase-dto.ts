@@ -1,4 +1,4 @@
-import {Purchase} from "../purchase";
+import {Purchase} from "@models";
 
 export interface PurchaseDto {
     id?: {

@@ -1,13 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs';
-import { set } from 'src/shared/models/model';
-import { Appointment, fromAppointmentDto } from '../../models/appointment';
-import {
-    AppointmentDto,
-    fromAppointment,
-} from '../../models/dtos/appointment-dto';
-import { ApiService } from './api.service';
+import { set, Appointment, fromAppointmentDto } from '@models';
+import { AppointmentDto, fromAppointment } from '@models/dtos';
+import { ApiService } from '@services/api/api.service';
 
 @Injectable({
     providedIn: 'root',
@@ -18,7 +14,7 @@ export class AppointmentApiService extends ApiService {
     }
 
     public getAll() {
-        return this.http
+        this.http
             .get<AppointmentDto[]>(this.url, {
                 headers: this.headers,
             })

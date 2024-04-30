@@ -1,4 +1,4 @@
-import { Offer } from "../offer";
+import { Offer } from "@models";
 
 export interface OfferDto {
     id: {
