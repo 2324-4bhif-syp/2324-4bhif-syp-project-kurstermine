@@ -1,9 +1,10 @@
-import {Component, OnInit} from '@angular/core';
-import {Packet} from "../../../shared/models/packet";
-import {PacketService} from "../../../shared/services/packet.service";
+import {Component, inject, OnInit} from '@angular/core';
+import {Packet} from "@models";
 import {ActivatedRoute} from "@angular/router";
 import {UserPacketsComponent} from "../user-packets/user-packets.component";
-import {PacketApiService} from "../../../shared/services/api/packet-api.service";
+import {PacketApiService} from "@services/api";
+import {StoreService} from "@services";
+import {distinctUntilChanged, map} from "rxjs";
 
 @Component({
   selector: 'app-user-packets-of-org',
@@ -16,18 +17,29 @@ import {PacketApiService} from "../../../shared/services/api/packet-api.service"
 })
 export class UserPacketsOfOrgComponent implements OnInit {
 
-    constructor(protected packetService: PacketService,
-                protected packetApiService: PacketApiService,
-                private route: ActivatedRoute,) {
+    viewModelPackets = inject(StoreService)
+        .store
+        .pipe(
+            map(model => model.packets),
+            distinctUntilChanged()
+        )
+
+    constructor(
+        protected packetApiService: PacketApiService,
+        private route: ActivatedRoute
+    ) {
     }
 
     public id = Number(this.route.snapshot.params['id']);
 
-    /*@Input({required: true})
-    protected organisation!: Organisation;*/
-
     getPacketsOfOrg(): Packet[] {
-        return this.packetService.get(p => p.organisation?.id === this.id);
+        let data: Packet[] = [];
+        this.viewModelPackets
+            .subscribe(packets => {
+                data = packets;
+            });
+
+        return data.filter(p => p.organisation?.id === this.id);
     }
 
     ngOnInit(): void {

@@ -1,12 +1,11 @@
-import {Component, Input, OnInit} from '@angular/core';
-import { PacketService } from 'src/shared/services/packet.service';
-import {CustomerService} from "../../../shared/services/customer.service";
-import {Packet} from "../../../shared/models/packet";
-import {PurchaseService} from "../../../shared/services/purchase.service";
+import {Component, inject, OnInit} from '@angular/core';
 import {UserPacketComponent} from "../user-packet/user-packet.component";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {PacketApiService} from "../../../shared/services/api/packet-api.service";
-import {PurchaseApiService} from "../../../shared/services/api/purchase-api.service";
+import {PacketApiService} from "@services/api";
+import {PurchaseApiService} from "@services/api";
+import {StoreService} from "@services";
+import {distinctUntilChanged, map} from "rxjs";
+import {AsyncPipe} from "@angular/common";
 
 @Component({
 	selector: 'app-user-packets',
@@ -14,7 +13,8 @@ import {PurchaseApiService} from "../../../shared/services/api/purchase-api.serv
     imports: [
         UserPacketComponent,
         ReactiveFormsModule,
-        FormsModule
+        FormsModule,
+        AsyncPipe
     ],
 	templateUrl: './user-packets.component.html',
 	styleUrl: './user-packets.component.css'
@@ -22,38 +22,37 @@ import {PurchaseApiService} from "../../../shared/services/api/purchase-api.serv
 export class UserPacketsComponent implements OnInit {
 	expandedIndex = 0;
 
+    viewModelPackets = inject(StoreService)
+        .store
+        .pipe(
+            map(model => model.packets),
+            distinctUntilChanged()
+        )
+
+    viewModelPurchases = inject(StoreService)
+        .store
+        .pipe(
+            map(model => model.purchases),
+            distinctUntilChanged()
+        )
+
+    viewModelCustomer = inject(StoreService)
+        .store
+        .pipe(
+            map(model => model.customer),
+            distinctUntilChanged()
+        )
+
 	constructor(
-		protected packetService: PacketService,
 		protected packetApiService: PacketApiService,
-        protected customerService: CustomerService,
-        protected purchaseService: PurchaseService,
         protected purchaseApiService: PurchaseApiService
 	) {
 	}
 
-    @Input()
-    packets: Packet[] | undefined;
     searchValue: string = "";
 
-    isIncluded(packet: Packet): boolean {
-        return (
-            this.purchaseService.get(
-                (purchase) =>
-                    purchase.id?.packetId === packet.id,
-            ).length === 1
-        );
-    }
-
     search() {
-        this.packetService.search(this.searchValue);
-    }
-
-    getPackets() {
-        if (this.packets) {
-            return this.packets;
-        }
-
-        return this.packetService.get()
+        this.packetApiService.search(this.searchValue);
     }
 
     ngOnInit(): void {

@@ -1,9 +1,11 @@
-import {Component, OnInit} from '@angular/core';
-import {OrganisationService} from "../../../shared/services/organisation.service";
+import {Component, inject, OnInit} from '@angular/core';
 import {UserAppointmentComponent} from "../user-appointment/user-appointment.component";
 import {UserOrganisationComponent} from "../user-organisation/user-organisation.component";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {OrganisationApiService} from "../../../shared/services/api/organisation-api.service";
+import {OrganisationApiService} from "@services/api";
+import {StoreService} from "@services";
+import {distinctUntilChanged, map} from "rxjs";
+import {AsyncPipe} from "@angular/common";
 
 @Component({
   selector: 'app-user-organisations',
@@ -12,21 +14,29 @@ import {OrganisationApiService} from "../../../shared/services/api/organisation-
         UserAppointmentComponent,
         UserOrganisationComponent,
         ReactiveFormsModule,
-        FormsModule
+        FormsModule,
+        AsyncPipe
     ],
   templateUrl: './user-organisations.component.html',
   styleUrl: './user-organisations.component.css'
 })
 export class UserOrganisationsComponent implements OnInit {
+
+    viewModelOrganisations = inject(StoreService)
+        .store
+        .pipe(
+            map(model => model.organisations),
+            distinctUntilChanged()
+        )
+
     constructor(
-        protected organisationService: OrganisationService,
         protected organisationApiService: OrganisationApiService
     ) {}
 
     searchValue: string = "";
 
     search() {
-        this.organisationService.search(this.searchValue);
+        this.organisationApiService.search(this.searchValue);
     }
 
     ngOnInit(): void {

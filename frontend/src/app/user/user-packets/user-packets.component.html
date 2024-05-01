@@ -14,11 +14,10 @@
 </div>
 
 <div class="flex flex-wrap w-full gap-5 justify-evenly">
-    @for (packet of getPackets(); track packet; let index = $index) {
+    @for (packet of viewModelPackets | async; track packet; let index = $index) {
 
         <app-user-packet
-                    [loggedInCustomer]="customerService.get()[0]"
-                    [showSignIn]="!isIncluded(packet)"
+                    [loggedInCustomer]="(viewModelCustomer | async)!"
                     [packet]="packet">
         </app-user-packet>
     } @empty {

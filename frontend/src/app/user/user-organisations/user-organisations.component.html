@@ -14,7 +14,7 @@
 </div>
 
 <div class="flex flex-wrap w-full gap-5 justify-evenly">
-    @for (o of organisationService.get(); track o.id) {
+    @for (o of viewModelOrganisations | async; track o.id) {
         <app-user-organisation
             [organisation]="o"
         ></app-user-organisation>

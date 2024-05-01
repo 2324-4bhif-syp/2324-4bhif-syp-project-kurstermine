@@ -16,12 +16,29 @@
                 </span>
             </a>
 
-            @if(showSignIn) {
-                <button class="btn btn-accent btn-circle" (click)="onBtnSignIn()">
+            @if(!hasUserBought(packet)) {
+                <!-- Open the modal using ID.showModal() method -->
+                <button class="btn btn-accent btn-circle" onclick="my_modal_1.showModal()">
                     <span class="material-symbols-outlined">
                         payment
                     </span>
                 </button>
+                <dialog id="my_modal_1" class="modal">
+                    <div class="modal-box">
+                        <h3 class="font-bold text-lg">Buy this packet for {{packet.price}} €?</h3>
+                        <p class="py-4">Press ESC key or click the button below to close</p>
+                        <div class="modal-action">
+                            <form method="dialog">
+                                <button class="btn btn-accent rounded-md" (click)="onBtnConfirm()">
+                                    Confirm
+                                </button>
+                                <button class="btn btn-error rounded-md">
+                                    Cancel
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </dialog>
             } @else {
                 <button class="btn btn-accent btn-disabled btn-circle" disabled="">
                     <span class="material-symbols-outlined">
