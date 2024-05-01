@@ -1,15 +1,17 @@
-import {Component, OnInit} from '@angular/core';
-import { InstructorService } from '../../../shared/services/instructor.service';
-import { Instructor } from '../../../shared/models/instructor';
+import { Component, inject, OnInit } from '@angular/core';
+import { Instructor } from '@models';
 import { MatActionList } from '@angular/material/list';
 import { RouterModule } from '@angular/router';
 import { MatIcon } from '@angular/material/icon';
 import { MatDivider } from '@angular/material/divider';
-import {InstructorApiService} from "../../../shared/services/api/instructor-api.service";
+import { InstructorApiService } from "@services/api";
+import { StoreService } from '@services';
+import { distinctUntilChanged, map } from 'rxjs';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
     standalone: true,
-    imports: [MatActionList, RouterModule, MatIcon, MatDivider],
+    imports: [MatActionList, RouterModule, MatIcon, MatDivider, AsyncPipe],
     selector: 'app-admin-instructors',
     templateUrl: './admin-instructors.component.html',
     styleUrls: ['./admin-instructors.component.css'],
@@ -17,10 +19,16 @@ import {InstructorApiService} from "../../../shared/services/api/instructor-api.
 export class AdminInstructorsComponent implements OnInit {
     protected newInstructor: Instructor;
 
-    constructor(
-        protected instructorService: InstructorService,
-        protected instructorApiService: InstructorApiService,
-    ) {
+    private instructorApiService = inject(InstructorApiService);
+
+    protected viewModel = inject(StoreService)
+        .store
+        .pipe(
+            map(model => model.instructors),
+            distinctUntilChanged(),
+        );
+
+    constructor() {
         this.newInstructor = {
             firstName: '',
             lastName: '',
@@ -40,7 +48,7 @@ export class AdminInstructorsComponent implements OnInit {
     }
 
     add() {
-        this.instructorService.add(this.newInstructor);
+        this.instructorApiService.add(this.newInstructor);
 
         this.newInstructor = {
             firstName: '',

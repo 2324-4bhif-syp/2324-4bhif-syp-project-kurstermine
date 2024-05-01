@@ -1,4 +1,4 @@
-<p class="text-5xl text-center my-10">Customers</p>
+<p class="my-10 text-5xl text-center">Customers</p>
 
 <div class="overflow-x-auto">
     <table class="table">
@@ -11,8 +11,8 @@
         </thead>
         <tbody>
 
-        @for (customer of customerService.get(); track $index) {
-            <tr class="hover cursor-pointer" [routerLink]="['/admin/customers/', customer.id]">
+        @for (customer of viewModel | async; track $index) {
+            <tr class="cursor-pointer hover" [routerLink]="['/admin/customers/', customer.id]">
                 <th>{{ $index+1 }}</th>
                 <td>{{ customer.firstName }} {{ customer.lastName }}</td>
                 <td>{{ customer.email }}</td>
