@@ -1,17 +1,15 @@
-import { Component } from '@angular/core';
+import {Component, inject} from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { ActivatedRoute } from '@angular/router';
 import { Offer } from 'src/shared/models/offer';
 import { Packet } from 'src/shared/models/packet';
-import { CustomerService } from 'src/shared/services/customer.service';
-import { OfferService } from 'src/shared/services/offer.service';
-import { PacketService } from 'src/shared/services/packet.service';
-import { PurchaseService } from 'src/shared/services/purchase.service';
-import { UserBuyPacketConfirmDialogComponent } from '../user-buy-packet-confirm-dialog/user-buy-packet-confirm-dialog.component';
 import { UserAppointmentComponent } from "../user-appointment/user-appointment.component";
+import {CustomerApiService, OfferApiService, PacketApiService, PurchaseApiService} from "@services/api";
+import {Customer, Purchase} from "@models";
+import {StoreService} from "@services";
+import {distinctUntilChanged, map} from "rxjs";
 
 @Component({
     selector: 'app-user-packet-info',
@@ -21,13 +19,41 @@ import { UserAppointmentComponent } from "../user-appointment/user-appointment.c
     imports: [MatCardModule, MatIconModule, MatButtonModule, UserAppointmentComponent]
 })
 export class UserPacketInfoComponent {
+
+    viewModelPurchases = inject(StoreService)
+        .store
+        .pipe(
+            map(model => model.purchases),
+            distinctUntilChanged()
+        )
+
+    viewModelPackets = inject(StoreService)
+        .store
+        .pipe(
+            map(model => model.packets),
+            distinctUntilChanged()
+        )
+
+    viewModelOffers = inject(StoreService)
+        .store
+        .pipe(
+            map(model => model.offers),
+            distinctUntilChanged()
+        )
+
+    viewModelCustomer = inject(StoreService)
+        .store
+        .pipe(
+            map(model => model.customer),
+            distinctUntilChanged()
+        )
+
     constructor(
-        protected offerService: OfferService,
-        protected packetService: PacketService,
-        protected customerService: CustomerService,
-        protected purchaseService: PurchaseService,
-        private route: ActivatedRoute,
-        private dialog: MatDialog
+        protected offerApiService: OfferApiService,
+        protected packetApiService: PacketApiService,
+        protected customerApiService: CustomerApiService,
+        protected purchaseApiService: PurchaseApiService,
+        private route: ActivatedRoute
         ) {
         if (isNaN(this.id)) {
             this.id = this.packetPathId;
@@ -38,35 +64,53 @@ export class UserPacketInfoComponent {
     public packetPathId = Number(this.route.snapshot.params['packetId']);
 
     public get wasPurchased(): boolean {
-        return this.purchaseService.get((purchase) => purchase.id?.packetId === this.id).length === 1;
+        let data: Purchase[] = [];
+        this.viewModelPurchases
+            .subscribe(purchases => {
+                data = purchases;
+            });
+
+        return data.filter(p => p.id?.packetId === this.id).length === 1;
     }
 
     public get packet(): Packet | undefined {
-        return this.packetService.get((packet) => packet.id === this.id)[0];
+        let data: Packet[] = [];
+        this.viewModelPackets
+            .subscribe(packets => {
+                data = packets;
+            });
+
+        return data.filter(p => p.id === this.id)[0];
     }
 
     public get offers(): Offer[] {
-        return this.offerService.get((offer) => offer.id.packetId === this.id);
+        let data: Offer[] = [];
+        this.viewModelOffers
+            .subscribe(offers => {
+                data = offers;
+            });
+
+        return data.filter(o => o.id.packetId === this.id);
     }
 
-    public get loggedInCustomer() {
-        return this.customerService.get()[0];
-    }
+    onBtnConfirm() {
+        let loggedInCustomer: Customer | undefined;
+        this.viewModelCustomer
+            .subscribe(customer => {
+                loggedInCustomer = customer;
+            });
 
-    onBtnSignIn() {
-        let dialogRef: MatDialogRef<UserBuyPacketConfirmDialogComponent> = this.dialog.open(
-            UserBuyPacketConfirmDialogComponent,
-            {
-                height: '150px',
-                width: '500px',
-                data: {
-                    packet: this.packet!,
-                    loggedInCustomer: this.loggedInCustomer!,
-                },
+        let purchase: Purchase = {
+            id: {
+                packetId: this.packet?.id!,
+                customerId: loggedInCustomer?.id!,
             },
-        );
-    }
+            packet: this.packet!,
+            customer: loggedInCustomer!,
+        };
 
+        this.purchaseApiService.add(purchase);
+    }
 
     protected readonly String = String;
 }

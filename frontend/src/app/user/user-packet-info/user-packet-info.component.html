@@ -3,7 +3,7 @@
         <p class="text-5xl text-center">{{packet?.name}}</p>
         <p class="text-2xl text-center">{{packet?.price}} €</p>
     </div>
-    
+
     <div class="flex justify-center">
         <div>
             @if(wasPurchased) {
@@ -14,20 +14,36 @@
                     Purchased
                 </button>
             } @else {
-                <button class="rounded-md btn btn-accent" (click)="onBtnSignIn()"> 
+                <button class="rounded-md btn btn-accent" onclick="my_modal_1.showModal()">
                     <span class="material-symbols-outlined">
                         payment
                     </span>
                     Buy
                 </button>
-            }  
+                <dialog id="my_modal_1" class="modal">
+                    <div class="modal-box">
+                        <h3 class="font-bold text-lg">Buy this packet for {{packet?.price}} €?</h3>
+                        <p class="py-4">Press ESC key or click the button below to close</p>
+                        <div class="modal-action">
+                            <form method="dialog">
+                                <button class="btn btn-accent rounded-md" (click)="onBtnConfirm()">
+                                    Confirm
+                                </button>
+                                <button class="btn btn-error rounded-md">
+                                    Cancel
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </dialog>
+            }
         </div>
     </div>
-    
+
     <div class="flex flex-wrap w-full gap-5 justify-evenly">
         @for (offer of offers; track $index) {
             <app-user-appointment
                 [appointment]="offer.appointment"></app-user-appointment>
-        }    
+        }
     </div>
 </div>

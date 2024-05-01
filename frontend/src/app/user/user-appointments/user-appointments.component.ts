@@ -1,14 +1,15 @@
-import {Component, OnInit} from '@angular/core';
-import { AppointmentService } from '../../../shared/services/appointment.service';
+import {Component, inject, OnInit} from '@angular/core';
 import { UserAppointmentComponent } from '../user-appointment/user-appointment.component';
-import { Appointment } from '../../../shared/models/appointment';
-import { ParticipationService } from '../../../shared/services/participation.service';
+import {Appointment, Participation} from '@models';
 import {MatFormField, MatLabel} from "@angular/material/form-field";
 import {FormsModule} from "@angular/forms";
 import {MatIcon} from "@angular/material/icon";
 import {MatInput} from "@angular/material/input";
 import {MatIconButton} from "@angular/material/button";
-import {AppointmentApiService} from "../../../shared/services/api/appointment-api.service";
+import {AppointmentApiService} from "@services/api";
+import {ParticipationApiService} from "@services/api";
+import {StoreService} from "@services";
+import {distinctUntilChanged, map} from "rxjs";
 
 @Component({
     selector: 'app-user-appointments',
@@ -18,32 +19,54 @@ import {AppointmentApiService} from "../../../shared/services/api/appointment-ap
     styleUrl: './user-appointments.component.css',
 })
 export class UserAppointmentsComponent implements OnInit {
+
+    viewModelAppointments = inject(StoreService)
+        .store
+        .pipe(
+            map(model => model.appointments),
+            distinctUntilChanged()
+        )
+
+    viewModelParticipations = inject(StoreService)
+        .store
+        .pipe(
+            map(model => model.participations),
+            distinctUntilChanged()
+        )
+
     constructor(
-        protected appointmentService: AppointmentService,
         protected appointmentApiService: AppointmentApiService,
-        protected participationService: ParticipationService
+        protected participationApiService: ParticipationApiService
     ) {}
 
     searchValue: string = "";
 
-    isIncluded(appointment: Appointment): boolean {
-        return (
-            this.participationService.get(
-                (participation) =>
-                    participation.id?.appointmentId === appointment.id,
-            ).length === 1
-        );
+    doesUserParticipateIn(appointment: Appointment): boolean {
+        let data: Participation[] = [];
+        this.viewModelParticipations
+            .subscribe(participations => {
+                data = participations;
+            });
+
+        return data.filter(p => p.id?.appointmentId === appointment.id).length === 1;
     }
 
     search() {
-        this.appointmentService.search(this.searchValue);
+        this.appointmentApiService.search(this.searchValue);
     }
 
     getAppointments(): Appointment[] {
-        return this.appointmentService.get(appointment => this.isIncluded(appointment));
+        let data: Appointment[] = [];
+        this.viewModelAppointments
+            .subscribe(appointments => {
+                data = appointments;
+            });
+
+        return data.filter(a => this.doesUserParticipateIn(a));
     }
 
     ngOnInit(): void {
         this.appointmentApiService.getAll();
+        this.participationApiService.getAll();
     }
 }
