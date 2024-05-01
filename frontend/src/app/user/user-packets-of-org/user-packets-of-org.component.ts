@@ -1,10 +1,10 @@
 import {Component, inject, OnInit} from '@angular/core';
-import {Packet} from "@models";
+import {Packet} from "../../../shared/models/packet";
 import {ActivatedRoute} from "@angular/router";
 import {UserPacketsComponent} from "../user-packets/user-packets.component";
 import {PacketApiService} from "@services/api";
-import {StoreService} from "@services";
-import {distinctUntilChanged, map} from "rxjs";
+import { distinctUntilChanged, map } from 'rxjs';
+import { StoreService } from '@services/store.service';
 
 @Component({
   selector: 'app-user-packets-of-org',

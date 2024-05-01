@@ -1,7 +1,7 @@
 <div class="flex justify-center">
-    <div class="shadow-2xl collapse collapse-arrow w-4/5">
+    <div class="w-4/5 shadow-2xl collapse collapse-arrow">
         <input type="radio" name="radio" [checked]="panelOpenState" (click)="panelOpenState = !panelOpenState"/>
-        <div class="flex items-center gap-2 text-xl font-medium collapse-title shadow-lg">
+        <div class="flex items-center gap-2 text-xl font-medium shadow-lg collapse-title">
             <span class="material-symbols-outlined">
                 build
             </span>
@@ -10,7 +10,7 @@
         </div>
         <div class="collapse-content">
 
-            @for (appointmentManagement of getAppointmentManagement(); track appointmentManagement) {
+            @for (appointmentManagement of (viewModel | async)?.appointmentManagements; track appointmentManagement) {
                 <div class="grid items-center grid-cols-3 mt-5">
                     <p>
                         {{ appointmentManagement.instructor.firstName }}
@@ -24,10 +24,11 @@
                 </div>
             }
 
-            @if (getInstructors().length > 0) {
+            @if ((viewModel | async)?.instructors !== null &&
+                 (viewModel | async)?.instructors?.length! > 0) {
                 <div class="grid items-center grid-cols-3 gap-5 mt-5">
-                    <select [(ngModel)]="selectedInstructor" class="select select-accent border-2 rounded-md w-full max-w-xs">
-                        @for (instructor of getInstructors(); track instructor) {
+                    <select [(ngModel)]="selectedInstructor" class="w-full max-w-xs border-2 rounded-md select select-accent">
+                        @for (instructor of (viewModel | async)?.instructors; track instructor) {
                             <option [ngValue]="instructor">
                                 {{ instructor.firstName }}
                                 {{ instructor.lastName }}

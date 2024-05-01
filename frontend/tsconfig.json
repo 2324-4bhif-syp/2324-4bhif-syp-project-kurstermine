@@ -39,6 +39,9 @@
             "@services": [
                 "src/shared/services/"
             ],
+            "@services/api": [
+                "src/shared/services/api"
+            ],
             "@components/*": [
                 "src/app/*",
             ],

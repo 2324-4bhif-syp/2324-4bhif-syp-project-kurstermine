@@ -1,4 +1,4 @@
-<p class="text-5xl text-center my-10">Appointments</p>
+<p class="my-10 text-5xl text-center">Appointments</p>
 
 <div class="overflow-x-auto">
     <table class="table">
@@ -12,8 +12,8 @@
         </thead>
         <tbody>
 
-            @for (appointment of appointmentService.get(); track $index) {
-                <tr class="hover cursor-pointer" [routerLink]="['/admin/appointments/', appointment.id]">
+            @for (appointment of viewModel | async; track $index) {
+                <tr class="cursor-pointer hover" [routerLink]="['/admin/appointments/', appointment.id]">
                     <th>{{ $index+1 }}</th>
                     <td>{{ appointment.name }}</td>
                     <td>{{ appointment.address }}</td>

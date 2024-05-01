@@ -1,6 +1,6 @@
-<p class="text-5xl text-center mt-10 mb-1">{{ customer?.firstName }} {{ customer?.lastName }}</p>
-<p class="text-lg text-center mb-10">{{ customer?.email }}</p>
+<p class="mt-10 mb-1 text-5xl text-center">{{ (viewModel | async)?.customer?.firstName }} {{ (viewModel | async)?.customer?.lastName }}</p>
+<p class="mb-10 text-lg text-center">{{ (viewModel | async)?.customer?.email }}</p>
 
-@for (purchase of purchases; track purchase) {
+@for (purchase of (viewModel | async)?.purchases; track purchase) {
     <app-admin-packet [packet]="purchase.packet" [displaySignedInBtn]="true"></app-admin-packet>
 }

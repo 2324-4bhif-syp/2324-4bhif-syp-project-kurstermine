@@ -1,14 +1,16 @@
-import {Component, OnInit} from '@angular/core';
-import { AppointmentService } from '../../../shared/services/appointment.service';
-import { Appointment } from '../../../shared/models/appointment';
+import { Component, inject, OnInit } from '@angular/core';
+import { Appointment } from "@models";
 import { MatListModule } from '@angular/material/list';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { RouterModule } from '@angular/router';
-import {AppointmentApiService} from "../../../shared/services/api/appointment-api.service";
+import { AppointmentApiService } from "@services/api";
+import { StoreService } from '@services/store.service';
+import { distinctUntilChanged, map } from 'rxjs';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
     standalone: true,
-    imports: [MatListModule, MatExpansionModule, RouterModule],
+    imports: [MatListModule, MatExpansionModule, RouterModule, AsyncPipe],
     selector: 'app-admin-appointments',
     templateUrl: './admin-appointments.component.html',
     styleUrls: ['./admin-appointments.component.css'],
@@ -16,10 +18,16 @@ import {AppointmentApiService} from "../../../shared/services/api/appointment-ap
 export class AdminAppointmentsComponent implements OnInit {
     protected newAppointment: Appointment;
 
-    constructor(
-        protected appointmentService: AppointmentService,
-        protected appointmentApiService: AppointmentApiService
-    ) {
+    protected viewModel = inject(StoreService)
+        .store
+        .pipe(
+            map(model => model.appointments),
+            distinctUntilChanged(),
+        );
+
+    private appointmentApiService = inject(AppointmentApiService);
+
+    constructor() {
         this.newAppointment = {
             name: '',
             address: '',
@@ -40,7 +48,7 @@ export class AdminAppointmentsComponent implements OnInit {
     }
 
     add() {
-        this.appointmentService.add(this.newAppointment);
+        this.appointmentApiService.add(this.newAppointment);
 
         this.newAppointment = {
             name: '',
