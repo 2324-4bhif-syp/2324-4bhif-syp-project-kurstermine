@@ -1,4 +1,4 @@
-import {Component, inject} from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
@@ -6,7 +6,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Offer } from 'src/shared/models/offer';
 import { Packet } from 'src/shared/models/packet';
 import { UserAppointmentComponent } from "../user-appointment/user-appointment.component";
-import {CustomerApiService, OfferApiService, PacketApiService, PurchaseApiService} from "@services/api";
+import {OfferApiService, PacketApiService, PurchaseApiService} from "@services/api";
 import {Customer, Purchase} from "@models";
 import {StoreService} from "@services";
 import {distinctUntilChanged, map} from "rxjs";
@@ -18,7 +18,7 @@ import {distinctUntilChanged, map} from "rxjs";
     styleUrl: './user-packet-info.component.css',
     imports: [MatCardModule, MatIconModule, MatButtonModule, UserAppointmentComponent]
 })
-export class UserPacketInfoComponent {
+export class UserPacketInfoComponent implements OnInit {
 
     viewModelPurchases = inject(StoreService)
         .store
@@ -51,7 +51,6 @@ export class UserPacketInfoComponent {
     constructor(
         protected offerApiService: OfferApiService,
         protected packetApiService: PacketApiService,
-        protected customerApiService: CustomerApiService,
         protected purchaseApiService: PurchaseApiService,
         private route: ActivatedRoute
         ) {
@@ -110,6 +109,12 @@ export class UserPacketInfoComponent {
         };
 
         this.purchaseApiService.add(purchase);
+    }
+
+    ngOnInit(): void {
+        this.packetApiService.getAll();
+        this.purchaseApiService.getAllFromCustomer();
+        this.offerApiService.getAll();
     }
 
     protected readonly String = String;

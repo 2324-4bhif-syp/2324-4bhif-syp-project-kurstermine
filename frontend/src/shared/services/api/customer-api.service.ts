@@ -25,7 +25,9 @@ export class CustomerApiService extends ApiService {
             )
             .subscribe(customers => {
                 set(model => {
-                    model.customers = customers;
+                    if (model.customers.length === 0) {
+                        model.customers = customers;
+                    }
                 })
             })
     }

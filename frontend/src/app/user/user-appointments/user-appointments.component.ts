@@ -67,6 +67,6 @@ export class UserAppointmentsComponent implements OnInit {
 
     ngOnInit(): void {
         this.appointmentApiService.getAll();
-        this.participationApiService.getAll();
+        this.participationApiService.getAllFromCustomer();
     }
 }

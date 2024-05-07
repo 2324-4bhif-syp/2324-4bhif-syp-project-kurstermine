@@ -22,7 +22,9 @@ export class AppointmentManagementApiService extends ApiService {
             })
         ).subscribe(appointmentManagements => {
             set(model => {
-                model.appointmentManagements = appointmentManagements;
+                if (model.appointmentManagements.length === 0) {
+                    model.appointmentManagements = appointmentManagements;
+                }
             })
         })
     }

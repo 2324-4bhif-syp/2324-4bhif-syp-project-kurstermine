@@ -4,13 +4,25 @@ import { map } from 'rxjs';
 import { ApiService } from '@services/api/api.service';
 import { fromParticipationDto, fromPurchaseDto, Purchase, set } from '@models';
 import { PurchaseDto, ParticipationDto, fromPurchase } from '@models/dtos';
+import {KeycloakService} from "keycloak-angular";
+import {KeycloakProfile} from "keycloak-js";
 
 @Injectable({
     providedIn: 'root',
 })
 export class PurchaseApiService extends ApiService {
-    constructor(http: HttpClient) {
+
+    protected readonly keycloak: KeycloakService;
+    protected userProfile: KeycloakProfile | undefined;
+
+    constructor(http: HttpClient, keycloak: KeycloakService) {
         super(http, 'purchases');
+
+        this.keycloak = keycloak;
+
+        keycloak.loadUserProfile().then((profile) => {
+            this.userProfile = profile;
+        });
     }
 
     public getAll() {
@@ -27,14 +39,16 @@ export class PurchaseApiService extends ApiService {
             )
             .subscribe((purchases) => {
                 set((model) => {
-                    model.purchases = purchases;
+                    if (model.purchases.length === 0) {
+                        model.purchases = purchases;
+                    }
                 });
             });
     }
 
-    public getAllFromCustomer(id: string) {
+    public getAllFromCustomer() {
         this.http
-            .get<PurchaseDto[]>(`${this.url}/customer/${id}`, {
+            .get<PurchaseDto[]>(`${this.url}/customer/${this.userProfile?.id}`, {
                 headers: this.headers,
             })
             .pipe(
@@ -46,7 +60,9 @@ export class PurchaseApiService extends ApiService {
             )
             .subscribe((purchases) => {
                 set((model) => {
-                    model.purchases = purchases;
+                    if (model.purchases.length === 0) {
+                        model.purchases = purchases;
+                    }
                 });
             });
     }

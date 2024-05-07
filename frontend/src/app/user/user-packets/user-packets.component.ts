@@ -29,10 +29,10 @@ export class UserPacketsComponent implements OnInit {
             distinctUntilChanged()
         )
 
-    viewModelPurchases = inject(StoreService)
+    viewModelOffers = inject(StoreService)
         .store
         .pipe(
-            map(model => model.purchases),
+            map(model => model.offers),
             distinctUntilChanged()
         )
 
@@ -57,6 +57,6 @@ export class UserPacketsComponent implements OnInit {
 
     ngOnInit(): void {
         this.packetApiService.getAll();
-        this.purchaseApiService.getAll();
+        this.purchaseApiService.getAllFromCustomer();
     }
 }

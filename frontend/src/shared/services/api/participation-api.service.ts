@@ -4,13 +4,25 @@ import { map } from 'rxjs';
 import { fromParticipationDto, Participation, set } from '@models';
 import { ApiService } from '@services/api/api.service';
 import { ParticipationDto, fromParticipation } from '@models/dtos';
+import {KeycloakService} from "keycloak-angular";
+import {KeycloakProfile} from "keycloak-js";
 
 @Injectable({
     providedIn: 'root',
 })
 export class ParticipationApiService extends ApiService {
-    constructor(http: HttpClient) {
+
+    protected readonly keycloak: KeycloakService;
+    protected userProfile: KeycloakProfile | undefined;
+
+    constructor(http: HttpClient, keycloak: KeycloakService) {
         super(http, 'participations');
+
+        this.keycloak = keycloak;
+
+        keycloak.loadUserProfile().then((profile) => {
+            this.userProfile = profile;
+        });
     }
 
     public getAll() {
@@ -27,14 +39,16 @@ export class ParticipationApiService extends ApiService {
             )
             .subscribe((participations) => {
                 set((model) => {
-                    model.participations = participations;
+                    if (model.participations.length === 0) {
+                        model.participations = participations;
+                    }
                 });
             });
     }
 
-    public getAllFromCustomer(id: string) {
+    public getAllFromCustomer() {
         this.http
-            .get<ParticipationDto[]>(`${this.url}/customer/${id}`, {
+            .get<ParticipationDto[]>(`${this.url}/customer/${this.userProfile?.id}`, {
                 headers: this.headers,
             })
             .pipe(
@@ -46,7 +60,9 @@ export class ParticipationApiService extends ApiService {
             )
             .subscribe((participations) => {
                 set((model) => {
-                    model.participations = participations;
+                    if (model.participations.length === 0) {
+                        model.participations = participations;
+                    }
                 });
             });
     }

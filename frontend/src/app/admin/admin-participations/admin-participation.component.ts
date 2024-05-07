@@ -58,7 +58,7 @@ export class AdminParticipationComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.participationApiService.getAll();
+        this.participationApiService.getAllFromCustomer();
         this.customerApiService.getAll();
     }
 }

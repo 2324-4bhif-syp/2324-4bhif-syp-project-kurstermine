@@ -25,7 +25,9 @@ export class AppointmentApiService extends ApiService {
             )
             .subscribe(appointments => {
                 set(model => {
-                    model.appointments = appointments;
+                    if (model.appointments.length === 0) {
+                        model.appointments = appointments;
+                    }
                 })
             })
     }
