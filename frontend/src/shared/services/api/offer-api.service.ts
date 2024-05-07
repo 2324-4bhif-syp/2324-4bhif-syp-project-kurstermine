@@ -25,7 +25,10 @@ export class OfferApiService extends ApiService {
             )
             .subscribe(offers => {
                 set(model => {
-                    model.offers = offers;
+                    if (model.offers.length === 0) {
+                        console.log(offers);
+                        model.offers = offers;
+                    }
                 });
             });
     }

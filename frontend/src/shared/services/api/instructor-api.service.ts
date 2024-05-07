@@ -23,7 +23,9 @@ export class InstructorApiService extends ApiService {
                 })
             ).subscribe(instructors => {
                 set(model => {
-                    model.instructors = instructors;
+                    if (model.instructors.length === 0) {
+                        model.instructors = instructors;
+                    }
                 })
             })
     }

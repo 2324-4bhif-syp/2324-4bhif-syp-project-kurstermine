@@ -1,5 +1,5 @@
 import { APP_INITIALIZER, ApplicationConfig, Provider } from '@angular/core';
-import { provideRouter, withDebugTracing } from '@angular/router';
+import { provideRouter } from '@angular/router';
 
 import { routes } from "./app.routes";
 import { HTTP_INTERCEPTORS, provideHttpClient, withFetch, withInterceptorsFromDi } from "@angular/common/http";
@@ -27,7 +27,7 @@ export const appConfig: ApplicationConfig = {
 		KeycloakBearerInterceptorProvider,
 		KeycloakService,
 
-		provideRouter(routes, withDebugTracing()),
+		provideRouter(routes),
 		provideHttpClient(withFetch()),
 		provideHttpClient(withInterceptorsFromDi()),
 		provideAnimationsAsync()

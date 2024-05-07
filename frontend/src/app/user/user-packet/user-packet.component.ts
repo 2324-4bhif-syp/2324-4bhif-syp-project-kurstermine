@@ -5,7 +5,7 @@ import {MatButtonModule} from "@angular/material/button";
 import {MatCardModule} from "@angular/material/card";
 import {MatIconModule} from "@angular/material/icon";
 import {RouterLink} from "@angular/router";
-import {OfferApiService, PurchaseApiService} from "@services/api";
+import {OfferApiService, PacketApiService, PurchaseApiService} from "@services/api";
 import {StoreService} from "@services";
 import {distinctUntilChanged, map} from "rxjs";
 
@@ -40,6 +40,7 @@ export class UserPacketComponent implements OnInit {
     constructor(
         protected offerApiService: OfferApiService,
         protected purchaseApiService: PurchaseApiService,
+        protected packetApiService: PacketApiService
     ) {
     }
 
@@ -83,5 +84,6 @@ export class UserPacketComponent implements OnInit {
 
     ngOnInit(): void {
         this.offerApiService.getAll();
+        this.purchaseApiService.getAllFromCustomer();
     }
 }

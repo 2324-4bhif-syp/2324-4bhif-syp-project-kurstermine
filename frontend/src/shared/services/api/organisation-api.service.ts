@@ -25,7 +25,9 @@ export class OrganisationApiService extends ApiService {
             )
             .subscribe(organisations => {
                 set(model => {
-                    model.organisations = organisations;
+                    if (model.organisations.length === 0) {
+                        model.organisations = organisations;
+                    }
                 })
             });
     }
