@@ -1,7 +1,17 @@
-import { Appointment, AppointmentManagement, Customer, Instructor, Offer, Organisation, Packet, Participation, Purchase } from "@models";
-import { Draft, produce } from "immer";
-import { BehaviorSubject } from "rxjs";
-import {KeycloakProfile} from "keycloak-js";
+import {
+    Appointment,
+    AppointmentManagement,
+    Customer,
+    Instructor,
+    Offer,
+    Organisation,
+    Packet,
+    Participation,
+    Purchase,
+} from '@models';
+import { Draft, produce } from 'immer';
+import { KeycloakProfile } from 'keycloak-js';
+import { BehaviorSubject } from 'rxjs';
 
 export interface Model {
     readonly appointments: Appointment[];
@@ -26,7 +36,7 @@ export const store = new BehaviorSubject<Model>({
     appointmentManagements: [],
     customer: undefined,
     customers: [],
-    participations: []
+    participations: [],
 });
 
 export function set(recipe: (model: Draft<Model>) => void) {
@@ -39,6 +49,6 @@ export function userProfileToCustomer(userprofile: KeycloakProfile): Customer {
         id: userprofile.id,
         firstName: userprofile.firstName!,
         lastName: userprofile.lastName!,
-        email: userprofile.email!
-    }
+        email: userprofile.email!,
+    };
 }

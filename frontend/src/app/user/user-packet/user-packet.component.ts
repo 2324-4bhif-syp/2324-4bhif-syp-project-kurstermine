@@ -1,52 +1,42 @@
-import {Component, inject, Input, OnInit} from '@angular/core';
+import { Component, inject, Input, OnInit } from '@angular/core';
 import { Packet } from 'src/shared/models/packet';
-import {Customer, Offer, Purchase} from "@models";
-import {MatButtonModule} from "@angular/material/button";
-import {MatCardModule} from "@angular/material/card";
-import {MatIconModule} from "@angular/material/icon";
-import {RouterLink} from "@angular/router";
-import {OfferApiService, PurchaseApiService} from "@services/api";
-import {StoreService} from "@services";
-import {distinctUntilChanged, map} from "rxjs";
-import {KeycloakService} from "keycloak-angular";
-import {KeycloakProfile} from "keycloak-js";
-import {userProfileToCustomer} from "@models/model";
+import { Customer, Offer, Purchase } from '@models';
+import { RouterLink } from '@angular/router';
+import {
+    OfferApiService,
+    PacketApiService,
+    PurchaseApiService,
+} from '@services/api';
+import { StoreService } from '@services';
+import { distinctUntilChanged, map } from 'rxjs';
+import { KeycloakProfile } from 'keycloak-js';
+import { userProfileToCustomer } from '@models/model';
+import { KeycloakService } from 'keycloak-angular';
 
 @Component({
     selector: 'app-user-packet',
     standalone: true,
-    imports: [
-        MatButtonModule,
-        MatCardModule,
-        MatIconModule,
-        RouterLink
-    ],
+    imports: [RouterLink],
     templateUrl: './user-packet.component.html',
-    styleUrl: './user-packet.component.css'
+    styleUrl: './user-packet.component.css',
 })
 export class UserPacketComponent implements OnInit {
+    viewModelOffers = inject(StoreService).store.pipe(
+        map((model) => model.offers),
+        distinctUntilChanged(),
+    );
 
-    viewModelOffers = inject(StoreService)
-        .store
-        .pipe(
-            map(model => model.offers),
-            distinctUntilChanged()
-        )
-
-    viewModelPurchases = inject(StoreService)
-        .store
-        .pipe(
-            map(model => model.purchases),
-            distinctUntilChanged()
-        )
+    viewModelPurchases = inject(StoreService).store.pipe(
+        map((model) => model.purchases),
+        distinctUntilChanged(),
+    );
 
     protected userProfile: KeycloakProfile | undefined;
-    protected loggedInCustomer: Customer | undefined;
 
     constructor(
         protected offerApiService: OfferApiService,
         protected purchaseApiService: PurchaseApiService,
-        protected readonly keycloak: KeycloakService
+        protected readonly keycloak: KeycloakService,
     ) {
         keycloak.loadUserProfile().then((profile) => {
             this.userProfile = profile;
@@ -54,17 +44,18 @@ export class UserPacketComponent implements OnInit {
         });
     }
 
-    @Input({required: true})
+    @Input({ required: true })
     public packet!: Packet;
+    @Input({ required: true })
+    loggedInCustomer!: Customer;
 
     hasUserBought(packet: Packet): boolean {
         let data: Purchase[] = [];
-        this.viewModelPurchases
-            .subscribe(purchases => {
-                data = purchases;
-            });
+        this.viewModelPurchases.subscribe((purchases) => {
+            data = purchases;
+        });
 
-        return data.filter(p => p.id?.packetId === packet.id).length === 1;
+        return data.filter((p) => p.id?.packetId === packet.id).length === 1;
     }
 
     onBtnConfirm() {
@@ -76,19 +67,18 @@ export class UserPacketComponent implements OnInit {
             packet: this.packet,
             customer: this.loggedInCustomer!,
         };
-        console.log(purchase)
+        console.log(purchase);
 
         this.purchaseApiService.add(purchase);
     }
 
     getOffers(packetId: number) {
         let data: Offer[] = [];
-        this.viewModelOffers
-            .subscribe(offers => {
-                data = offers;
-            });
+        this.viewModelOffers.subscribe((offers) => {
+            data = offers;
+        });
 
-        return data.filter(o => o.id.packetId === packetId);
+        return data.filter((o) => o.id.packetId === packetId);
     }
 
     ngOnInit(): void {

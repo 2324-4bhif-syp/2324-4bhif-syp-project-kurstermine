@@ -17,17 +17,19 @@ export class InstructorApiService extends ApiService {
         this.http
             .get<InstructorDto[]>(this.url, {
                 headers: this.headers,
-            }).pipe(
+            })
+            .pipe(
                 map((dtos) => {
                     return dtos.map<Instructor>(fromInstructorDto);
-                })
-            ).subscribe(instructors => {
-                set(model => {
+                }),
+            )
+            .subscribe((instructors) => {
+                set((model) => {
                     if (model.instructors.length === 0) {
                         model.instructors = instructors;
                     }
-                })
-            })
+                });
+            });
     }
 
     public add(instructor: Instructor) {
@@ -40,10 +42,10 @@ export class InstructorApiService extends ApiService {
                     return fromInstructorDto(instructor);
                 }),
             )
-            .subscribe(instructor => {
-                set(model => {
+            .subscribe((instructor) => {
+                set((model) => {
                     model.instructors.push(instructor);
-                })
+                });
             });
     }
 }

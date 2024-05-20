@@ -1,51 +1,64 @@
 <div class="border-2 rounded-md shadow-lg card w-96">
     <div class="items-center text-center card-body">
-        <p class="text-3xl card-title">{{packet.name}}</p>
-        <p class="text-lg card-title">{{packet.price}} €</p>
+        <p class="text-3xl card-title">{{ packet.name }}</p>
+        <p class="text-lg card-title">{{ packet.price }} €</p>
 
         <div class="m-0 divider"></div>
 
         @for (offer of getOffers(packet.id!); track $index) {
-            <p>{{offer.appointment.name}}</p>
+            <p>{{ offer.appointment.name }}</p>
         }
 
-        <div class="card-actions justify-end">
-            <a routerLink="{{packet.id}}" class="btn btn-circle">
-                <span class="material-symbols-outlined">
-                    info
-                </span>
+        <div class="justify-end card-actions">
+            <a routerLink="{{ packet.id }}" class="btn btn-circle">
+                <span class="material-symbols-outlined"> info </span>
             </a>
 
-            @if(!hasUserBought(packet)) {
-                <label for="{{packet.id}}" class="btn btn-accent btn-circle modal-button">
-                    <span class="material-symbols-outlined">
-                        payment
-                    </span>
+            @if (!hasUserBought(packet)) {
+                <label
+                    for="{{ packet.id }}"
+                    class="btn btn-accent btn-circle modal-button"
+                >
+                    <span class="material-symbols-outlined"> payment </span>
                 </label>
 
-                <input type="checkbox" id="{{packet.id}}" class="modal-toggle" />
+                <input
+                    type="checkbox"
+                    id="{{ packet.id }}"
+                    class="modal-toggle"
+                />
                 <div class="modal">
                     <div class="modal-box">
-                        <h3 class="font-bold text-lg">Buy the {{packet.name}} packet for {{packet.price}} €?</h3>
+                        <h3 class="text-lg font-bold">
+                            Buy the {{ packet.name }} packet for
+                            {{ packet.price }} €?
+                        </h3>
                         <p class="py-4">Please confirm your purchase.</p>
-                        <div class="modal-action flex justify-center">
-                            <label for="{{packet.id}}" class="btn btn-accent rounded-md" (click)="onBtnConfirm()">
+                        <div class="flex justify-center modal-action">
+                            <label
+                                for="{{ packet.id }}"
+                                class="rounded-md btn btn-accent"
+                                (click)="onBtnConfirm()"
+                            >
                                 Confirm
                             </label>
-                            <label for="{{packet.id}}" class="btn btn-error rounded-md">
+                            <label
+                                for="{{ packet.id }}"
+                                class="rounded-md btn btn-error"
+                            >
                                 Cancel
                             </label>
                         </div>
                     </div>
                 </div>
             } @else {
-                <button class="btn btn-accent btn-disabled btn-circle" disabled="">
-                    <span class="material-symbols-outlined">
-                        done
-                    </span>
+                <button
+                    class="btn btn-accent btn-disabled btn-circle"
+                    disabled=""
+                >
+                    <span class="material-symbols-outlined"> done </span>
                 </button>
             }
         </div>
     </div>
 </div>
-

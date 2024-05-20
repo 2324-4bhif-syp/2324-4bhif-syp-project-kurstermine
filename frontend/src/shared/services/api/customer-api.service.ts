@@ -23,13 +23,13 @@ export class CustomerApiService extends ApiService {
                     return dtos.map<Customer>(fromCustomerDto);
                 }),
             )
-            .subscribe(customers => {
-                set(model => {
+            .subscribe((customers) => {
+                set((model) => {
                     if (model.customers.length === 0) {
                         model.customers = customers;
                     }
-                })
-            })
+                });
+            });
     }
 
     public getLoggedInCustomer() {
@@ -42,11 +42,11 @@ export class CustomerApiService extends ApiService {
                     return fromCustomerDto(customer);
                 }),
             )
-            .subscribe(customer => {
-                set(model => {
+            .subscribe((customer) => {
+                set((model) => {
                     model.customer = customer;
-                })
-            })
+                });
+            });
     }
 
     public add(customer: Customer) {
@@ -59,10 +59,10 @@ export class CustomerApiService extends ApiService {
                     return fromCustomerDto(customer);
                 }),
             )
-            .subscribe(customer => {
-                set(model => {
-                    model.customer = customer
-                })
+            .subscribe((customer) => {
+                set((model) => {
+                    model.customer = customer;
+                });
             });
     }
 }

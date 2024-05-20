@@ -4,14 +4,13 @@ import { map } from 'rxjs';
 import { fromParticipationDto, Participation, set } from '@models';
 import { ApiService } from '@services/api/api.service';
 import { ParticipationDto, fromParticipation } from '@models/dtos';
-import {KeycloakService} from "keycloak-angular";
-import {KeycloakProfile} from "keycloak-js";
+import { KeycloakService } from 'keycloak-angular';
+import { KeycloakProfile } from 'keycloak-js';
 
 @Injectable({
     providedIn: 'root',
 })
 export class ParticipationApiService extends ApiService {
-
     protected readonly keycloak: KeycloakService;
     protected userProfile: KeycloakProfile | undefined;
 
@@ -48,9 +47,12 @@ export class ParticipationApiService extends ApiService {
 
     public getAllFromCustomer() {
         this.http
-            .get<ParticipationDto[]>(`${this.url}/customer/${this.userProfile?.id}`, {
-                headers: this.headers,
-            })
+            .get<ParticipationDto[]>(
+                `${this.url}/customer/${this.userProfile?.id}`,
+                {
+                    headers: this.headers,
+                },
+            )
             .pipe(
                 map((appointments) => {
                     return appointments.map<Participation>(

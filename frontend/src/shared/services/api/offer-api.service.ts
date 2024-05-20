@@ -23,8 +23,8 @@ export class OfferApiService extends ApiService {
                     return dtos.map<Offer>(fromOfferDto);
                 }),
             )
-            .subscribe(offers => {
-                set(model => {
+            .subscribe((offers) => {
+                set((model) => {
                     if (model.offers.length === 0) {
                         console.log(offers);
                         model.offers = offers;
@@ -35,25 +35,18 @@ export class OfferApiService extends ApiService {
 
     public add(offer: Offer) {
         this.http
-            .post<OfferDto>(
-                this.url,
-                fromOffer(offer),
-                {
-                    headers: this.headers.set(
-                        'Content-Type',
-                        'application/json',
-                    ),
-                },
-            )
+            .post<OfferDto>(this.url, fromOffer(offer), {
+                headers: this.headers.set('Content-Type', 'application/json'),
+            })
             .pipe(
                 map((offer) => {
                     return fromOfferDto(offer);
                 }),
             )
-            .subscribe(offer => {
-                set(model => {
+            .subscribe((offer) => {
+                set((model) => {
                     model.offers.push(offer);
-                })
+                });
             });
     }
 
@@ -63,8 +56,8 @@ export class OfferApiService extends ApiService {
                 `${this.url}/${offer.id?.appointmentId}/${offer.id?.packetId}`,
             )
             .subscribe(() => {
-                set(model => {
-                    model.offers = model.offers.filter(o => o !== offer);
+                set((model) => {
+                    model.offers = model.offers.filter((o) => o !== offer);
                 });
             });
     }

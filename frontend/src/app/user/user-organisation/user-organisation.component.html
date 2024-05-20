@@ -1,11 +1,16 @@
-<div class="shadow-lg card card-compact w-96 bg-base-100" routerLink="{{organisation.id}}/packets">
+<div
+    class="shadow-lg card card-compact w-96 bg-base-100"
+    routerLink="{{ organisation.id }}/packets"
+>
     <figure>
-        <img class="h-28" src="{{getImageUrl()}}" alt="Organisation" />
+        <img class="h-28" src="{{ getImageUrl() }}" alt="Organisation" />
     </figure>
     <div class="card-body">
         <h2 class="card-title">{{ organisation.name }}</h2>
         <div class="justify-end card-actions">
-            <button class="rounded-md btn btn-primary text-base-100">See Packets</button>
+            <button class="rounded-md btn btn-primary text-base-100">
+                See Packets
+            </button>
         </div>
     </div>
 </div>

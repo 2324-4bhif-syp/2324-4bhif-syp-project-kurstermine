@@ -1,54 +1,47 @@
-import {Component, inject, OnInit} from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { UserAppointmentComponent } from '../user-appointment/user-appointment.component';
-import {Appointment, Participation} from '@models';
-import {MatFormField, MatLabel} from "@angular/material/form-field";
-import {FormsModule} from "@angular/forms";
-import {MatIcon} from "@angular/material/icon";
-import {MatInput} from "@angular/material/input";
-import {MatIconButton} from "@angular/material/button";
-import {AppointmentApiService} from "@services/api";
-import {ParticipationApiService} from "@services/api";
-import {StoreService} from "@services";
-import {distinctUntilChanged, map} from "rxjs";
+import { Appointment, Participation } from '@models';
+import { FormsModule } from '@angular/forms';
+import { AppointmentApiService } from '@services/api';
+import { ParticipationApiService } from '@services/api';
+import { StoreService } from '@services';
+import { distinctUntilChanged, map } from 'rxjs';
 
 @Component({
     selector: 'app-user-appointments',
     standalone: true,
-    imports: [UserAppointmentComponent, MatFormField, FormsModule, MatIcon, MatInput, MatIconButton, MatLabel],
+    imports: [UserAppointmentComponent, FormsModule],
     templateUrl: './user-appointments.component.html',
     styleUrl: './user-appointments.component.css',
 })
 export class UserAppointmentsComponent implements OnInit {
+    viewModelAppointments = inject(StoreService).store.pipe(
+        map((model) => model.appointments),
+        distinctUntilChanged(),
+    );
 
-    viewModelAppointments = inject(StoreService)
-        .store
-        .pipe(
-            map(model => model.appointments),
-            distinctUntilChanged()
-        )
-
-    viewModelParticipations = inject(StoreService)
-        .store
-        .pipe(
-            map(model => model.participations),
-            distinctUntilChanged()
-        )
+    viewModelParticipations = inject(StoreService).store.pipe(
+        map((model) => model.participations),
+        distinctUntilChanged(),
+    );
 
     constructor(
         protected appointmentApiService: AppointmentApiService,
-        protected participationApiService: ParticipationApiService
+        protected participationApiService: ParticipationApiService,
     ) {}
 
-    searchValue: string = "";
+    searchValue: string = '';
 
     doesUserParticipateIn(appointment: Appointment): boolean {
         let data: Participation[] = [];
-        this.viewModelParticipations
-            .subscribe(participations => {
-                data = participations;
-            });
+        this.viewModelParticipations.subscribe((participations) => {
+            data = participations;
+        });
 
-        return data.filter(p => p.id?.appointmentId === appointment.id).length === 1;
+        return (
+            data.filter((p) => p.id?.appointmentId === appointment.id)
+                .length === 1
+        );
     }
 
     search() {
@@ -57,12 +50,11 @@ export class UserAppointmentsComponent implements OnInit {
 
     getAppointments(): Appointment[] {
         let data: Appointment[] = [];
-        this.viewModelAppointments
-            .subscribe(appointments => {
-                data = appointments;
-            });
+        this.viewModelAppointments.subscribe((appointments) => {
+            data = appointments;
+        });
 
-        return data.filter(a => this.doesUserParticipateIn(a));
+        return data.filter((a) => this.doesUserParticipateIn(a));
     }
 
     ngOnInit(): void {

@@ -16,6 +16,6 @@ export const fromAppointmentManagement = (
                   appointment_id: appointmentManagement.id.appointmentId,
                   instructor_id: appointmentManagement.id.instructorId,
               }
-            : undefined
+            : undefined,
     };
 };

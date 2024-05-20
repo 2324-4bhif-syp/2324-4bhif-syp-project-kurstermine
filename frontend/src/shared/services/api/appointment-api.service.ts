@@ -23,13 +23,13 @@ export class AppointmentApiService extends ApiService {
                     return dtos.map<Appointment>(fromAppointmentDto);
                 }),
             )
-            .subscribe(appointments => {
-                set(model => {
+            .subscribe((appointments) => {
+                set((model) => {
                     if (model.appointments.length === 0) {
                         model.appointments = appointments;
                     }
-                })
-            })
+                });
+            });
     }
 
     public add(appointment: Appointment) {
@@ -42,11 +42,11 @@ export class AppointmentApiService extends ApiService {
                     return fromAppointmentDto(appointment);
                 }),
             )
-            .subscribe(appointment => {
-                set(model => {
+            .subscribe((appointment) => {
+                set((model) => {
                     model.appointments.push(appointment);
-                })
-            })
+                });
+            });
     }
 
     public search(pattern: String) {
@@ -54,12 +54,15 @@ export class AppointmentApiService extends ApiService {
             .get<AppointmentDto[]>(`${this.url}/search?pattern=${pattern}`)
             .pipe(
                 map((appointmentDtos: AppointmentDto[]) => {
-                    return appointmentDtos.map(appointmentDto => fromAppointmentDto(appointmentDto));
-                })
-            ).subscribe(appointments => {
-                set(model => {
+                    return appointmentDtos.map((appointmentDto) =>
+                        fromAppointmentDto(appointmentDto),
+                    );
+                }),
+            )
+            .subscribe((appointments) => {
+                set((model) => {
                     model.appointments = appointments;
-                })
+                });
             });
     }
 }

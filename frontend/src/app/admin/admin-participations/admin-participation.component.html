@@ -1,47 +1,61 @@
 <div class="flex justify-center">
     <div class="w-4/5 shadow-2xl collapse collapse-arrow">
-        <input type="radio" name="radio" [checked]="panelOpenState" (click)="panelOpenState = !panelOpenState"/>
-        <div class="flex items-center gap-2 text-xl font-medium shadow-lg collapse-title">
-            <span class="material-symbols-outlined">
-                group
-            </span>
+        <input
+            type="radio"
+            name="radio"
+            [checked]="panelOpenState"
+            (click)="panelOpenState = !panelOpenState"
+        />
+        <div
+            class="flex items-center gap-2 text-xl font-medium shadow-lg collapse-title"
+        >
+            <span class="material-symbols-outlined"> group </span>
 
             Customers
         </div>
         <div class="collapse-content">
-
-            @for (participation of (viewModel | async)?.participations; track participation) {
+            @for (
+                participation of (viewModel | async)?.participations;
+                track participation
+            ) {
                 <div class="grid items-center grid-cols-3 mt-5">
                     <p>
                         {{ participation.customer.firstName }}
                         {{ participation.customer.lastName }}
                     </p>
-                    <button class="btn btn-error btn-circle btn-md" (click)="remove(participation)">
-                        <span class="material-symbols-outlined">
-                            delete
-                        </span>
+                    <button
+                        class="btn btn-error btn-circle btn-md"
+                        (click)="remove(participation)"
+                    >
+                        <span class="material-symbols-outlined"> delete </span>
                     </button>
                 </div>
             }
 
             @if ((viewModel | async)?.customers?.length! > 0) {
                 <div class="grid items-center grid-cols-3 gap-5 mt-5">
-                    <select [(ngModel)]="selectedCustomer" class="w-full max-w-xs border-2 rounded-md select select-accent">
-                        @for (customer of (viewModel | async)?.customers; track customer) {
+                    <select
+                        [(ngModel)]="selectedCustomer"
+                        class="w-full max-w-xs border-2 rounded-md select select-accent"
+                    >
+                        @for (
+                            customer of (viewModel | async)?.customers;
+                            track customer
+                        ) {
                             <option [ngValue]="customer">
                                 {{ customer.firstName }}
                                 {{ customer.lastName }}
                             </option>
                         }
                     </select>
-                    <button class="btn btn-accent btn-circle btn-md" (click)="add()">
-                            <span class="material-symbols-outlined">
-                                add
-                            </span>
+                    <button
+                        class="btn btn-accent btn-circle btn-md"
+                        (click)="add()"
+                    >
+                        <span class="material-symbols-outlined"> add </span>
                     </button>
                 </div>
             }
-
         </div>
     </div>
 </div>
