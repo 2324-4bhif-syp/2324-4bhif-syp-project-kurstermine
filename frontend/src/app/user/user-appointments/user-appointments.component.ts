@@ -38,7 +38,10 @@ export class UserAppointmentsComponent implements OnInit {
             data = participations;
         });
 
-        return data.filter((p) => p.id?.appointmentId === appointment.id).length === 1;
+        return (
+            data.filter((p) => p.id?.appointmentId === appointment.id)
+                .length === 1
+        );
     }
 
     search() {

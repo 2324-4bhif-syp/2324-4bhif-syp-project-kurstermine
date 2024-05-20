@@ -21,11 +21,20 @@ export class AdminAppointmentManagementComponent {
     protected viewModel = inject(StoreService).store.pipe(
         map((model) => ({
             instructors: model.instructors,
-            appointmentManagements: model.appointmentManagements.filter(
-                (appointmentManagement) =>
-                    appointmentManagement.appointment.id ===
-                    this.appointment?.id,
-            ),
+            appointmentManagements: model.appointmentManagements
+                .filter(
+                    (appointmentManagement) =>
+                        appointmentManagement.id?.appointmentId ===
+                        this.appointment?.id,
+                )
+                .map((appointmentManagement) => ({
+                    ...appointmentManagement,
+                    instructor: model.instructors.find(
+                        (instructor) =>
+                            instructor.id ===
+                            appointmentManagement.id?.instructorId,
+                    ),
+                })),
         })),
         distinctUntilChanged(),
     );
@@ -43,8 +52,6 @@ export class AdminAppointmentManagementComponent {
                 appointmentId: this.appointment.id,
                 instructorId: this.selectedInstructor.id,
             },
-            instructor: this.selectedInstructor,
-            appointment: this.appointment,
         };
 
         this.appointmentManagementApiService.add(appointmentManagement);

@@ -7,8 +7,9 @@
 </p>
 
 @for (purchase of (viewModel | async)?.purchases; track purchase) {
+    <!--TODO: remove !-->
     <app-admin-packet
-        [packet]="purchase.packet"
+        [packet]="purchase.packet!"
         [displaySignedInBtn]="true"
     ></app-admin-packet>
 }

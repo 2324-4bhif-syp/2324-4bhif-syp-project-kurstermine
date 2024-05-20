@@ -23,21 +23,30 @@ export class AdminParticipationComponent implements OnInit {
 
     protected viewModel = inject(StoreService).store.pipe(
         map((model) => ({
-            participations: model.participations.filter(
-                (participation) =>
-                    participation.appointment.id === this.appointment?.id,
-            ),
+            participations: model.participations
+                .filter(
+                    (participation) =>
+                        participation.id?.appointmentId ===
+                        this.appointment?.id,
+                )
+                .map((participation) => ({
+                    ...participation,
+                    customer: model.customers.find(
+                        (customer) =>
+                            participation.id?.customerId === customer.id,
+                    ),
+                })),
             customers: model.customers.filter(
                 (customer) =>
                     !model.participations
                         .filter(
                             (participation) =>
-                                participation.appointment.id ===
+                                participation.id?.appointmentId ===
                                 this.appointment?.id,
                         )
                         .some(
                             (participation) =>
-                                participation.customer.id === customer.id,
+                                participation.id?.customerId === customer.id,
                         ),
             ),
         })),
@@ -53,8 +62,6 @@ export class AdminParticipationComponent implements OnInit {
                 appointmentId: this.appointment.id,
                 customerId: this.selectedCustomer.id,
             },
-            customer: this.selectedCustomer,
-            appointment: this.appointment,
         };
 
         this.participationApiService.add(participation);

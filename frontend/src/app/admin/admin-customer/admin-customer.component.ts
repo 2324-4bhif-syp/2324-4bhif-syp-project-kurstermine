@@ -18,10 +18,17 @@ export class AdminCustomerComponent {
 
     protected viewModel = inject(StoreService).store.pipe(
         map((model) => ({
-            customer: model.customer,
-            purchases: model.purchases.filter(
-                (purchase) => purchase.customer.id === this.id,
+            customer: model.customers.find(
+                (customer) => customer.id === this.id,
             ),
+            purchases: model.purchases
+                .filter((purchase) => purchase.id?.customerId === this.id)
+                .map((purchase) => ({
+                    ...purchase,
+                    packet: model.packets.find(
+                        (packet) => packet.id === purchase.id?.packetId,
+                    ),
+                })),
         })),
         distinctUntilChanged(),
     );

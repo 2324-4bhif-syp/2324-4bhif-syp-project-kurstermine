@@ -1,55 +1,55 @@
-import {Component, inject, OnInit} from '@angular/core';
-import { MatButtonModule } from '@angular/material/button';
-import { MatCardModule } from '@angular/material/card';
-import { MatIconModule } from '@angular/material/icon';
+import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Offer } from 'src/shared/models/offer';
 import { Packet } from 'src/shared/models/packet';
-import { UserAppointmentComponent } from "../user-appointment/user-appointment.component";
-import {OfferApiService, PacketApiService, PurchaseApiService} from "@services/api";
-import {Customer, Purchase} from "@models";
-import {StoreService} from "@services";
-import {distinctUntilChanged, map} from "rxjs";
-import {userProfileToCustomer} from "@models/model";
-import {KeycloakService} from "keycloak-angular";
-import {KeycloakProfile} from "keycloak-js";
+import { UserAppointmentComponent } from '../user-appointment/user-appointment.component';
+import {
+    OfferApiService,
+    PacketApiService,
+    PurchaseApiService,
+} from '@services/api';
+import { Customer, Purchase } from '@models';
+import { StoreService } from '@services';
+import { distinctUntilChanged, map } from 'rxjs';
+import { userProfileToCustomer } from '@models/model';
+import { KeycloakService } from 'keycloak-angular';
+import { KeycloakProfile } from 'keycloak-js';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
     selector: 'app-user-packet-info',
     standalone: true,
     templateUrl: './user-packet-info.component.html',
     styleUrl: './user-packet-info.component.css',
-    imports: [MatCardModule, MatIconModule, MatButtonModule, UserAppointmentComponent]
+    imports: [UserAppointmentComponent, AsyncPipe],
 })
 export class UserPacketInfoComponent implements OnInit {
+    viewModelPurchases = inject(StoreService).store.pipe(
+        map((model) => model.purchases),
+        distinctUntilChanged(),
+    );
 
-    viewModelPurchases = inject(StoreService)
-        .store
-        .pipe(
-            map(model => model.purchases),
-            distinctUntilChanged()
-        )
+    viewModelPackets = inject(StoreService).store.pipe(
+        map((model) => model.packets),
+        distinctUntilChanged(),
+    );
 
-    viewModelPackets = inject(StoreService)
-        .store
-        .pipe(
-            map(model => model.packets),
-            distinctUntilChanged()
-        )
+    viewModelOffers = inject(StoreService).store.pipe(
+        map((model) => ({
+            offers: model.offers.map((offer) => ({
+                ...offer,
+                appointment: model.appointments.find(
+                    (appointment) => appointment.id === offer.id.appointmentId,
+                ),
+            })),
+        })),
+        distinctUntilChanged(),
+    );
 
-    viewModelOffers = inject(StoreService)
-        .store
-        .pipe(
-            map(model => model.offers),
-            distinctUntilChanged()
-        )
-
-    viewModelCustomer = inject(StoreService)
-        .store
-        .pipe(
-            map(model => model.customer),
-            distinctUntilChanged()
-        )
+    viewModelCustomer = inject(StoreService).store.pipe(
+        map((model) => model.customer),
+        distinctUntilChanged(),
+    );
 
     protected userProfile: KeycloakProfile | undefined;
     protected loggedInCustomer: Customer | undefined;
@@ -59,8 +59,8 @@ export class UserPacketInfoComponent implements OnInit {
         protected packetApiService: PacketApiService,
         protected purchaseApiService: PurchaseApiService,
         private route: ActivatedRoute,
-        protected readonly keycloak: KeycloakService
-        ) {
+        protected readonly keycloak: KeycloakService,
+    ) {
         if (isNaN(this.id)) {
             this.id = this.packetPathId;
         }
@@ -76,32 +76,20 @@ export class UserPacketInfoComponent implements OnInit {
 
     public get wasPurchased(): boolean {
         let data: Purchase[] = [];
-        this.viewModelPurchases
-            .subscribe(purchases => {
-                data = purchases;
-            });
+        this.viewModelPurchases.subscribe((purchases) => {
+            data = purchases;
+        });
 
-        return data.filter(p => p.id?.packetId === this.id).length === 1;
+        return data.filter((p) => p.id?.packetId === this.id).length === 1;
     }
 
     public get packet(): Packet | undefined {
         let data: Packet[] = [];
-        this.viewModelPackets
-            .subscribe(packets => {
-                data = packets;
-            });
+        this.viewModelPackets.subscribe((packets) => {
+            data = packets;
+        });
 
-        return data.filter(p => p.id === this.id)[0];
-    }
-
-    public get offers(): Offer[] {
-        let data: Offer[] = [];
-        this.viewModelOffers
-            .subscribe(offers => {
-                data = offers;
-            });
-
-        return data.filter(o => o.id.packetId === this.id);
+        return data.filter((p) => p.id === this.id)[0];
     }
 
     onBtnConfirm() {
@@ -110,11 +98,7 @@ export class UserPacketInfoComponent implements OnInit {
                 packetId: this.packet?.id!,
                 customerId: this.loggedInCustomer!.id!,
             },
-            packet: this.packet!,
-            customer: this.loggedInCustomer!,
         };
-        console.log(purchase)
-
         this.purchaseApiService.add(purchase);
     }
 

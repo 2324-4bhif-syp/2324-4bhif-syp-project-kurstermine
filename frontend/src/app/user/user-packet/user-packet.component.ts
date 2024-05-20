@@ -1,27 +1,35 @@
-import { Component, inject, Input, OnInit } from '@angular/core';
+import { Component, CSP_NONCE, inject, Input, OnInit } from '@angular/core';
 import { Packet } from 'src/shared/models/packet';
 import { Customer, Offer, Purchase } from '@models';
 import { RouterLink } from '@angular/router';
-import {
-    OfferApiService,
-    PurchaseApiService,
-} from '@services/api';
+import { OfferApiService, PurchaseApiService } from '@services/api';
 import { StoreService } from '@services';
-import { distinctUntilChanged, map } from 'rxjs';
+import { distinctUntilChanged, map, of } from 'rxjs';
 import { KeycloakProfile } from 'keycloak-js';
 import { userProfileToCustomer } from '@models/model';
 import { KeycloakService } from 'keycloak-angular';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
     selector: 'app-user-packet',
     standalone: true,
-    imports: [RouterLink],
+    imports: [RouterLink, AsyncPipe],
     templateUrl: './user-packet.component.html',
     styleUrl: './user-packet.component.css',
 })
 export class UserPacketComponent implements OnInit {
     viewModelOffers = inject(StoreService).store.pipe(
-        map((model) => model.offers),
+        map((model) => ({
+            offers: model.offers
+                .filter((offer) => offer.id.packetId == this.packet.id)
+                .map((offer) => ({
+                    ...offer,
+                    appointment: model.appointments.find(
+                        (appointment) =>
+                            appointment.id === offer.id.appointmentId,
+                    ),
+                })),
+        })),
         distinctUntilChanged(),
     );
 
@@ -62,21 +70,9 @@ export class UserPacketComponent implements OnInit {
                 packetId: this.packet.id!,
                 customerId: this.loggedInCustomer!.id!,
             },
-            packet: this.packet,
-            customer: this.loggedInCustomer!,
         };
-        console.log(purchase);
 
         this.purchaseApiService.add(purchase);
-    }
-
-    getOffers(packetId: number) {
-        let data: Offer[] = [];
-        this.viewModelOffers.subscribe((offers) => {
-            data = offers;
-        });
-
-        return data.filter((o) => o.id.packetId === packetId);
     }
 
     ngOnInit(): void {

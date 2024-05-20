@@ -6,8 +6,6 @@ export interface Participation {
         appointmentId: number;
         customerId: string;
     };
-    appointment: Appointment;
-    customer: Customer;
 }
 
 export const fromParticipationDto = (
@@ -20,7 +18,5 @@ export const fromParticipationDto = (
                   customerId: participation.id.customer_id,
               }
             : undefined,
-        appointment: null!,
-        customer: null!,
     };
 };

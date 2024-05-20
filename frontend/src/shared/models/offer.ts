@@ -6,8 +6,6 @@ export interface Offer {
         appointmentId: number;
         packetId: number;
     };
-    appointment: Appointment;
-    packet: Packet;
 }
 
 export const fromOfferDto = (offer: OfferDto): Offer => {
@@ -16,7 +14,5 @@ export const fromOfferDto = (offer: OfferDto): Offer => {
             appointmentId: offer.id.appointment_id,
             packetId: offer.id.packet_id,
         },
-        appointment: fromAppointmentDto(offer.appointment),
-        packet: null!,
     };
 };

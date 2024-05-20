@@ -5,8 +5,8 @@
 
         <div class="m-0 divider"></div>
 
-        @for (offer of getOffers(packet.id!); track $index) {
-            <p>{{ offer.appointment.name }}</p>
+        @for (offer of (viewModelOffers | async)?.offers; track $index) {
+            <p>{{ offer.appointment?.name }}</p>
         }
 
         <div class="justify-end card-actions">
