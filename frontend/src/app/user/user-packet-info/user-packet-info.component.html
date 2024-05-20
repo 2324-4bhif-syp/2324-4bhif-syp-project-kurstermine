@@ -14,28 +14,28 @@
                     Purchased
                 </button>
             } @else {
-                <button class="rounded-md btn btn-accent" onclick="my_modal_1.showModal()">
+                <label for="{{id}}" class="btn btn-accent rounded-md modal-button">
                     <span class="material-symbols-outlined">
                         payment
                     </span>
                     Buy
-                </button>
-                <dialog id="my_modal_1" class="modal">
+                </label>
+
+                <input type="checkbox" id="{{id}}" class="modal-toggle" />
+                <div class="modal">
                     <div class="modal-box">
-                        <h3 class="font-bold text-lg">Buy this packet for {{packet?.price}} €?</h3>
-                        <p class="py-4">Press ESC key or click the button below to close</p>
-                        <div class="modal-action">
-                            <form method="dialog">
-                                <button class="btn btn-accent rounded-md" (click)="onBtnConfirm()">
-                                    Confirm
-                                </button>
-                                <button class="btn btn-error rounded-md">
-                                    Cancel
-                                </button>
-                            </form>
+                        <h3 class="font-bold text-lg">Buy the {{packet?.name}} packet for {{packet?.price}} €?</h3>
+                        <p class="py-4">Please confirm your purchase.</p>
+                        <div class="modal-action flex justify-center">
+                            <label for="{{id}}" class="btn btn-accent rounded-md" (click)="onBtnConfirm()">
+                                Confirm
+                            </label>
+                            <label for="{{id}}" class="btn btn-error rounded-md">
+                                Cancel
+                            </label>
                         </div>
                     </div>
-                </dialog>
+                </div>
             }
         </div>
     </div>

@@ -16,7 +16,7 @@ export const fromOfferDto = (offer: OfferDto): Offer => {
             appointmentId: offer.id.appointment_id,
             packetId: offer.id.packet_id,
         },
-        appointment: null!,
-        packet: null!,
+        appointment: offer.appointment,
+        packet: offer.packet,
     }
 }
