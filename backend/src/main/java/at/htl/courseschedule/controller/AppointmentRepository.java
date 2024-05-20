@@ -26,7 +26,7 @@ public class AppointmentRepository {
             return getAll();
         }
 
-        TypedQuery<Appointment> query = em.createQuery(Util.getSimilarityString(Appointment.class, "name", "address"), Appointment.class);
+        TypedQuery<Appointment> query = em.createQuery(SearchUtil.getSimilarityString(Appointment.class, "name", "address"), Appointment.class);
         query.setParameter("pattern", pattern);
         query.setParameter("minEntropy", MIN_ENTROPY);
         return query.getResultList();

@@ -2,9 +2,9 @@ package at.htl.courseschedule.controller;
 
 import java.util.Arrays;
 
-public final class Util {
+public final class SearchUtil {
 
-    private Util() {}
+    private SearchUtil() {}
 
     public static <T> String getSimilarityString(Class<T> classType, String... members) {
         StringBuilder builder = new StringBuilder();
@@ -25,15 +25,16 @@ public final class Util {
         );
 
         builder.append(String.format(
-                " order by word_similarity(%s, cast(:pattern as character(255))) desc", members[0])
+                " order by cast(word_similarity(%s, cast(:pattern as character(255))) as double) ", members[0])
         );
 
         Arrays.stream(members).skip(1).forEach(member ->
                 builder.append(String.format(
-                        ", word_similarity(%s, cast(:pattern as character(255))) desc", member)
+                        "+ cast(word_similarity(%s, cast(:pattern as character(255))) as double) ", member)
                 )
         );
 
+        builder.append("desc");
         return builder.toString();
     }
 }
