@@ -20,8 +20,8 @@
             ) {
                 <div class="grid items-center grid-cols-3 mt-5">
                     <p>
-                        {{ participation.customer.firstName }}
-                        {{ participation.customer.lastName }}
+                        {{ participation.customer?.firstName }}
+                        {{ participation.customer?.lastName }}
                     </p>
                     <button
                         class="btn btn-error btn-circle btn-md"

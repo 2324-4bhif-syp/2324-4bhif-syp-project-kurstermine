@@ -1,4 +1,4 @@
-import { Appointment, Instructor } from '@models';
+import { Appointment, fromAppointmentDto, Instructor } from '@models';
 import { AppointmentManagementDto } from '@models/dtos';
 
 export interface AppointmentManagement {
@@ -6,8 +6,6 @@ export interface AppointmentManagement {
         appointmentId: number;
         instructorId: string;
     };
-    appointment: Appointment;
-    instructor: Instructor;
 }
 
 export const fromAppointmentManagementDto = (
@@ -20,7 +18,5 @@ export const fromAppointmentManagementDto = (
                   instructorId: appointmentManagement.id.instructor_id,
               }
             : undefined,
-        appointment: null!, // :)
-        instructor: null!, // :)
     };
 };

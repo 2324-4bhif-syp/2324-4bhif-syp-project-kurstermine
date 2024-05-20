@@ -4,7 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Appointment, Packet } from '@models';
 import { ActivatedRoute } from '@angular/router';
 import { StoreService } from '@services/store.service';
-import { distinctUntilChanged, map } from 'rxjs';
+import { distinctUntilChanged, map, of } from 'rxjs';
 
 @Component({
     selector: 'app-admin-packet',
@@ -20,10 +20,15 @@ export class AdminPacketComponent {
         map((model) => ({
             packet: this.packet,
             appointments: model.offers
-                .filter((offer) => offer.packet.id === this.id)
-                .map((offer) => offer.appointment),
+                .filter((offer) => offer.id?.packetId === this.packet.id)
+                .map((offer) => {
+                    return model.appointments.find(
+                        (appointment) =>
+                            appointment.id === offer.id?.appointmentId,
+                    );
+                }),
             participations: model.participations.filter(
-                (participation) => participation.customer.id === this.id,
+                (participation) => participation.id?.customerId === this.id,
             ),
         })),
         distinctUntilChanged(),

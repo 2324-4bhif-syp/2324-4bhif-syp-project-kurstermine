@@ -68,7 +68,7 @@ export class AppointmentManagementApiService extends ApiService {
     public remove(appointmentManagement: AppointmentManagement) {
         this.http
             .delete(
-                `${this.url}/${appointmentManagement.appointment.id}/${appointmentManagement.instructor.id}`,
+                `${this.url}/${appointmentManagement.id?.appointmentId}/${appointmentManagement.id?.instructorId}`,
             )
             .subscribe(() => {
                 set((model) => {

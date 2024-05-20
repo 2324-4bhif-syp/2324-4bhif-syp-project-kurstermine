@@ -21,8 +21,17 @@ export class AdminInstructorComponent {
                 (instructor) => instructor.id === this.id,
             ),
             appointments: model.appointmentManagements
-                .filter((appointment) => appointment.instructor.id === this.id)
-                .map((appointment) => appointment.appointment),
+                .filter((appointmentManagement) => {
+                    return appointmentManagement.id?.instructorId === this.id;
+                })
+                .map((appointmentManagement) => {
+                    return model.appointments.find((appointment) => {
+                        return (
+                            appointment.id ===
+                            appointmentManagement.id?.appointmentId
+                        );
+                    });
+                }),
         })),
         distinctUntilChanged(),
     );

@@ -23,12 +23,12 @@
             ) {
                 <tr
                     class="cursor-pointer hover"
-                    [routerLink]="['/admin/appointments/', appointment.id]"
+                    [routerLink]="['/admin/appointments/', appointment?.id]"
                 >
                     <th>{{ $index + 1 }}</th>
-                    <td>{{ appointment.name }}</td>
-                    <td>{{ appointment.address }}</td>
-                    <td>{{ appointment.date.toDateString() }}</td>
+                    <td>{{ appointment?.name }}</td>
+                    <td>{{ appointment?.address }}</td>
+                    <td>{{ appointment?.date?.toDateString() }}</td>
                 </tr>
             }
         </tbody>

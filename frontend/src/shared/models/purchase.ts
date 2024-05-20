@@ -6,8 +6,6 @@ export interface Purchase {
         packetId: number;
         customerId: string;
     };
-    packet: Packet;
-    customer: Customer;
 }
 
 export const fromPurchaseDto = (purchase: PurchaseDto): Purchase => {
@@ -18,7 +16,5 @@ export const fromPurchaseDto = (purchase: PurchaseDto): Purchase => {
                   customerId: purchase.id.customer_id,
               }
             : undefined,
-        packet: null!,
-        customer: null!,
     };
 };

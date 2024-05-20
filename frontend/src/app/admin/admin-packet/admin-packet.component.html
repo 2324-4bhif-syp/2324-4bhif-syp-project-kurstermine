@@ -20,11 +20,10 @@
             track appointment
         ) {
             <div class="grid items-center grid-cols-3">
-                <p>{{ appointment.name }}</p>
+                <p>{{ appointment?.name }}</p>
 
                 @if (displaySignedInBtn) {
                     @if (true) {
-                        // TODO: Implement signed in logic
                         <div class="badge badge-accent">Signed in</div>
                     } @else {
                         <div class="badge badge-ghost">Signed out</div>

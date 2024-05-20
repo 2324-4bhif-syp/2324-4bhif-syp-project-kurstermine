@@ -20,7 +20,7 @@ import { distinctUntilChanged, map } from 'rxjs';
     templateUrl: './admin-packets.component.html',
     styleUrl: './admin-packets.component.css',
 })
-export class AdminPacketsComponent implements OnInit {
+export class AdminPacketsComponent {
     private packetApiService = inject(PacketApiService);
 
     protected viewModel = inject(StoreService).store.pipe(

@@ -27,10 +27,7 @@
         track packet;
         let index = $index
     ) {
-        <app-user-packet
-            [packet]="packet"
-        >
-        </app-user-packet>
+        <app-user-packet [packet]="packet"> </app-user-packet>
     } @empty {
         No packets available!
     }
