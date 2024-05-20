@@ -1,9 +1,7 @@
 import { Component } from '@angular/core';
 import { KeycloakService } from 'keycloak-angular';
 import { Roles } from '@models';
-import { MatDialog, MatDialogRef } from "@angular/material/dialog";
 import { MatToolbar, MatToolbarRow } from "@angular/material/toolbar"
-import { LogoutDialogComponent } from "./other/logout-dialog/logout-dialog.component";
 import { MatIcon } from '@angular/material/icon';
 import { MatMenu, MatMenuTrigger } from '@angular/material/menu';
 import { RouterModule, RouterOutlet } from '@angular/router';
@@ -16,20 +14,13 @@ import { RouterModule, RouterOutlet } from '@angular/router';
     styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
-    constructor(protected keycloak: KeycloakService,
-        private dialog: MatDialog) {
+    constructor(protected keycloak: KeycloakService) {
         this.isAdmin = keycloak.getUserRoles().includes(Roles.Admin);
     }
 
     isAdmin = false;
 
     onBtnLogout() {
-        const dialogRef: MatDialogRef<LogoutDialogComponent> = this.dialog.open(
-            LogoutDialogComponent,
-            {
-                height: '160px',
-                width: '500px'
-            },
-        );
+        this.keycloak.logout().catch(reason => console.log("Logout failed: " + reason));
     }
 }

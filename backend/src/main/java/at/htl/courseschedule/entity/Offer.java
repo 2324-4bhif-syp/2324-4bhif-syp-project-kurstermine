@@ -35,6 +35,7 @@ public class Offer {
     //endregion
 
     //region getter and setter
+
     public OfferId getId() {
         return id;
     }
@@ -51,9 +52,14 @@ public class Offer {
         this.appointment = appointment;
     }
 
+    public Packet getPacket() {
+        return packet;
+    }
+
     public void setPacket(Packet packet) {
         this.packet = packet;
     }
+
     //endregion
 
     @Override

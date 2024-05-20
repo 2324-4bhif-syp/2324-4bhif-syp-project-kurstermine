@@ -1,6 +1,7 @@
 import { Appointment, AppointmentManagement, Customer, Instructor, Offer, Organisation, Packet, Participation, Purchase } from "@models";
 import { Draft, produce } from "immer";
 import { BehaviorSubject } from "rxjs";
+import {KeycloakProfile} from "keycloak-js";
 
 export interface Model {
     readonly appointments: Appointment[];
@@ -31,4 +32,13 @@ export const store = new BehaviorSubject<Model>({
 export function set(recipe: (model: Draft<Model>) => void) {
     const next = produce(store.value, recipe);
     store.next(next);
+}
+
+export function userProfileToCustomer(userprofile: KeycloakProfile): Customer {
+    return {
+        id: userprofile.id,
+        firstName: userprofile.firstName!,
+        lastName: userprofile.lastName!,
+        email: userprofile.email!
+    }
 }

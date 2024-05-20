@@ -134,11 +134,27 @@
     </div>
 
     <div class="navbar-end">
-        <button class="btn btn-circle btn-ghost" (click)="onBtnLogout()">
+        <label for="logout" class="btn btn-circle btn-ghost modal-button">
             <span class="material-symbols-outlined">
                 Logout
             </span>
-        </button>
+        </label>
+
+        <input type="checkbox" id="logout" class="modal-toggle" />
+        <div class="modal">
+            <div class="modal-box">
+                <p class="text-2xl text-center">Logout</p>
+                <p class="text-lg text-center mb-3">Do you really want to log out?</p>
+                <div class="modal-action flex justify-center">
+                    <label for="logout" class="btn btn-accent rounded-md">
+                        Cancel
+                    </label>
+                    <label for="logout" class="btn btn-error rounded-md" (click)="onBtnLogout()">
+                        Logout
+                    </label>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 

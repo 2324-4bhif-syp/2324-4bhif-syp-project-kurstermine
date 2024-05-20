@@ -5,9 +5,12 @@ import {MatButtonModule} from "@angular/material/button";
 import {MatCardModule} from "@angular/material/card";
 import {MatIconModule} from "@angular/material/icon";
 import {RouterLink} from "@angular/router";
-import {OfferApiService, PacketApiService, PurchaseApiService} from "@services/api";
+import {OfferApiService, PurchaseApiService} from "@services/api";
 import {StoreService} from "@services";
 import {distinctUntilChanged, map} from "rxjs";
+import {KeycloakService} from "keycloak-angular";
+import {KeycloakProfile} from "keycloak-js";
+import {userProfileToCustomer} from "@models/model";
 
 @Component({
     selector: 'app-user-packet',
@@ -37,17 +40,22 @@ export class UserPacketComponent implements OnInit {
             distinctUntilChanged()
         )
 
+    protected userProfile: KeycloakProfile | undefined;
+    protected loggedInCustomer: Customer | undefined;
+
     constructor(
         protected offerApiService: OfferApiService,
         protected purchaseApiService: PurchaseApiService,
-        protected packetApiService: PacketApiService
+        protected readonly keycloak: KeycloakService
     ) {
+        keycloak.loadUserProfile().then((profile) => {
+            this.userProfile = profile;
+            this.loggedInCustomer = userProfileToCustomer(this.userProfile!);
+        });
     }
 
     @Input({required: true})
     public packet!: Packet;
-    @Input({ required: true })
-    loggedInCustomer!: Customer;
 
     hasUserBought(packet: Packet): boolean {
         let data: Purchase[] = [];
@@ -63,11 +71,12 @@ export class UserPacketComponent implements OnInit {
         let purchase: Purchase = {
             id: {
                 packetId: this.packet.id!,
-                customerId: this.loggedInCustomer.id!,
+                customerId: this.loggedInCustomer!.id!,
             },
             packet: this.packet,
-            customer: this.loggedInCustomer,
+            customer: this.loggedInCustomer!,
         };
+        console.log(purchase)
 
         this.purchaseApiService.add(purchase);
     }
