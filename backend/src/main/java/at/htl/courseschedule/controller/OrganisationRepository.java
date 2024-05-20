@@ -37,7 +37,7 @@ public class OrganisationRepository implements PanacheRepository<Organisation> {
             return listAll();
         }
 
-        TypedQuery<Organisation> query = em.createQuery(Util.getSimilarityString(Organisation.class, "name"), Organisation.class);
+        TypedQuery<Organisation> query = em.createQuery(SearchUtil.getSimilarityString(Organisation.class, "name"), Organisation.class);
         query.setParameter("pattern", pattern);
         query.setParameter("minEntropy", MIN_ENTROPY);
         return query.getResultList();

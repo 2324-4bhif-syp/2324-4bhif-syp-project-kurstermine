@@ -27,7 +27,7 @@ public class PacketRepository {
             return getAll();
         }
 
-        TypedQuery<Packet> query = em.createQuery(Util.getSimilarityString(Packet.class, "name"), Packet.class);
+        TypedQuery<Packet> query = em.createQuery(SearchUtil.getSimilarityString(Packet.class, "name"), Packet.class);
         query.setParameter("pattern", pattern);
         query.setParameter("minEntropy", MIN_ENTROPY);
         return query.getResultList();
