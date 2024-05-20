@@ -1,12 +1,12 @@
-import {Appointment, Offer, Packet} from "@models";
+import { Offer } from '@models';
+import { AppointmentDto, fromAppointment } from './appointment-dto';
 
 export interface OfferDto {
     id: {
-        appointment_id: number,
-        packet_id: number,
-    },
-    appointment: Appointment,
-    packet: Packet
+        appointment_id: number;
+        packet_id: number;
+    };
+    appointment: AppointmentDto;
 }
 
 export const fromOffer = (offer: Offer): OfferDto => {
@@ -15,7 +15,6 @@ export const fromOffer = (offer: Offer): OfferDto => {
             appointment_id: offer.id.appointmentId,
             packet_id: offer.id.packetId,
         },
-        appointment: offer.appointment,
-        packet: offer.packet
-    }
-}
+        appointment: fromAppointment(offer.appointment),
+    };
+};

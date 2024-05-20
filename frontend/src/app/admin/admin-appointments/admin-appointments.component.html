@@ -3,25 +3,25 @@
 <div class="overflow-x-auto">
     <table class="table">
         <thead>
-        <tr>
-            <th></th>
-            <th>Appointment</th>
-            <th>Where</th>
-            <th>When</th>
-        </tr>
+            <tr>
+                <th></th>
+                <th>Appointment</th>
+                <th>Where</th>
+                <th>When</th>
+            </tr>
         </thead>
         <tbody>
-
             @for (appointment of viewModel | async; track $index) {
-                <tr class="cursor-pointer hover" [routerLink]="['/admin/appointments/', appointment.id]">
-                    <th>{{ $index+1 }}</th>
+                <tr
+                    class="cursor-pointer hover"
+                    [routerLink]="['/admin/appointments/', appointment.id]"
+                >
+                    <th>{{ $index + 1 }}</th>
                     <td>{{ appointment.name }}</td>
                     <td>{{ appointment.address }}</td>
                     <td>{{ appointment.date.toDateString() }}</td>
                 </tr>
             }
-
         </tbody>
     </table>
 </div>
-

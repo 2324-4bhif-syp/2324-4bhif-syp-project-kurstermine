@@ -4,14 +4,13 @@ import { map } from 'rxjs';
 import { ApiService } from '@services/api/api.service';
 import { fromParticipationDto, fromPurchaseDto, Purchase, set } from '@models';
 import { PurchaseDto, ParticipationDto, fromPurchase } from '@models/dtos';
-import {KeycloakService} from "keycloak-angular";
-import {KeycloakProfile} from "keycloak-js";
+import { KeycloakService } from 'keycloak-angular';
+import { KeycloakProfile } from 'keycloak-js';
 
 @Injectable({
     providedIn: 'root',
 })
 export class PurchaseApiService extends ApiService {
-
     protected readonly keycloak: KeycloakService;
     protected userProfile: KeycloakProfile | undefined;
 
@@ -32,9 +31,7 @@ export class PurchaseApiService extends ApiService {
             })
             .pipe(
                 map((purchasesDto) => {
-                    return purchasesDto.map<Purchase>(
-                        fromPurchaseDto,
-                    );
+                    return purchasesDto.map<Purchase>(fromPurchaseDto);
                 }),
             )
             .subscribe((purchases) => {
@@ -48,14 +45,15 @@ export class PurchaseApiService extends ApiService {
 
     public getAllFromCustomer() {
         this.http
-            .get<PurchaseDto[]>(`${this.url}/customer/${this.userProfile?.id}`, {
-                headers: this.headers,
-            })
+            .get<PurchaseDto[]>(
+                `${this.url}/customer/${this.userProfile?.id}`,
+                {
+                    headers: this.headers,
+                },
+            )
             .pipe(
                 map((purchasesDto) => {
-                    return purchasesDto.map<Purchase>(
-                        fromPurchaseDto,
-                    );
+                    return purchasesDto.map<Purchase>(fromPurchaseDto);
                 }),
             )
             .subscribe((purchases) => {
@@ -68,21 +66,17 @@ export class PurchaseApiService extends ApiService {
     }
 
     public add(purchase: Purchase) {
-        this.http.post<ParticipationDto[]>(
-            this.url,
-            fromPurchase(purchase),
-            {
-                headers: this.headers.set(
-                    'Content-Type',
-                    'application/json',
-                ),
-            },
-        )
+        this.http
+            .post<ParticipationDto[]>(this.url, fromPurchase(purchase), {
+                headers: this.headers.set('Content-Type', 'application/json'),
+            })
             .pipe(
-                map(participationDtos => participationDtos.map(fromParticipationDto))
+                map((participationDtos) =>
+                    participationDtos.map(fromParticipationDto),
+                ),
             )
-            .subscribe(participations => {
-                set(model => {
+            .subscribe((participations) => {
+                set((model) => {
                     model.participations = participations;
                 });
             });
@@ -94,8 +88,10 @@ export class PurchaseApiService extends ApiService {
                 `${this.url}/${purchase.id?.packetId}/${purchase.id?.customerId}`,
             )
             .subscribe(() => {
-                set(model => {
-                    model.purchases = model.purchases.filter(p => p !== purchase);
+                set((model) => {
+                    model.purchases = model.purchases.filter(
+                        (p) => p !== purchase,
+                    );
                 });
             });
     }

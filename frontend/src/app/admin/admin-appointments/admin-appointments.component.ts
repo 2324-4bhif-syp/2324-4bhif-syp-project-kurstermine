@@ -1,16 +1,14 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { Appointment } from "@models";
-import { MatListModule } from '@angular/material/list';
-import { MatExpansionModule } from '@angular/material/expansion';
+import { Appointment } from '@models';
 import { RouterModule } from '@angular/router';
-import { AppointmentApiService } from "@services/api";
+import { AppointmentApiService } from '@services/api';
 import { StoreService } from '@services/store.service';
 import { distinctUntilChanged, map } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
 
 @Component({
     standalone: true,
-    imports: [MatListModule, MatExpansionModule, RouterModule, AsyncPipe],
+    imports: [RouterModule, AsyncPipe],
     selector: 'app-admin-appointments',
     templateUrl: './admin-appointments.component.html',
     styleUrls: ['./admin-appointments.component.css'],
@@ -18,12 +16,10 @@ import { AsyncPipe } from '@angular/common';
 export class AdminAppointmentsComponent implements OnInit {
     protected newAppointment: Appointment;
 
-    protected viewModel = inject(StoreService)
-        .store
-        .pipe(
-            map(model => model.appointments),
-            distinctUntilChanged(),
-        );
+    protected viewModel = inject(StoreService).store.pipe(
+        map((model) => model.appointments),
+        distinctUntilChanged(),
+    );
 
     private appointmentApiService = inject(AppointmentApiService);
 

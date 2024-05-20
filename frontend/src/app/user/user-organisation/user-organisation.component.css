@@ -14,12 +14,19 @@
 
 .toggle-card-hr {
     color: black;
-    background-image: linear-gradient(to right, rgba(0, 0, 0, 0), black, rgba(0, 0, 0, 0));
+    background-image: linear-gradient(
+        to right,
+        rgba(0, 0, 0, 0),
+        black,
+        rgba(0, 0, 0, 0)
+    );
     width: 180px;
 }
 
 .org-card {
-    transition: opacity 0.2s ease, border 0.2s ease;
+    transition:
+        opacity 0.2s ease,
+        border 0.2s ease;
 }
 
 .org-card:hover {

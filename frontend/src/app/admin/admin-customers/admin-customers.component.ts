@@ -1,16 +1,14 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { Customer } from '@models';
-import { MatListModule } from '@angular/material/list';
-import { MatIconModule } from '@angular/material/icon';
 import { RouterModule } from '@angular/router';
-import { CustomerApiService } from "@services/api";
+import { CustomerApiService } from '@services/api';
 import { StoreService } from '@services/store.service';
 import { distinctUntilChanged, map } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
 
 @Component({
     standalone: true,
-    imports: [MatListModule, MatIconModule, RouterModule, AsyncPipe],
+    imports: [RouterModule, AsyncPipe],
     selector: 'app-admin-customers',
     templateUrl: './admin-customers.component.html',
     styleUrls: ['./admin-customers.component.css'],
@@ -18,12 +16,10 @@ import { AsyncPipe } from '@angular/common';
 export class AdminCustomersComponent implements OnInit {
     protected newCustomer: Customer;
 
-    protected viewModel = inject(StoreService)
-        .store
-        .pipe(
-            map(model => model.customers),
-            distinctUntilChanged(),
-        );
+    protected viewModel = inject(StoreService).store.pipe(
+        map((model) => model.customers),
+        distinctUntilChanged(),
+    );
 
     private customerApiService = inject(CustomerApiService);
 

@@ -1,17 +1,17 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map } from "rxjs";
+import { map } from 'rxjs';
 import { fromPacketDto, Packet, set } from '@models';
 import { ApiService } from '@services/api/api.service';
 import { PacketDto, fromPacket } from '@models/dtos';
 
 @Injectable({
-	providedIn: 'root'
+    providedIn: 'root',
 })
 export class PacketApiService extends ApiService {
-	constructor(http: HttpClient) {
-		super(http, "packets");
-	}
+    constructor(http: HttpClient) {
+        super(http, 'packets');
+    }
 
     public getAll() {
         this.http
@@ -23,8 +23,8 @@ export class PacketApiService extends ApiService {
                     return dtos.map<Packet>(fromPacketDto);
                 }),
             )
-            .subscribe(packets => {
-                set(model => {
+            .subscribe((packets) => {
+                set((model) => {
                     if (model.packets.length === 0) {
                         console.log(packets);
                         model.packets = packets;
@@ -43,8 +43,8 @@ export class PacketApiService extends ApiService {
                     return fromPacketDto(packetDto);
                 }),
             )
-            .subscribe(packet => {
-                set(model => {
+            .subscribe((packet) => {
+                set((model) => {
                     model.packets.push(packet);
                 });
             });
@@ -55,11 +55,13 @@ export class PacketApiService extends ApiService {
             .get<PacketDto[]>(`${this.url}/search?pattern=${pattern}`)
             .pipe(
                 map((packetDtos: PacketDto[]) => {
-                    return packetDtos.map(packetDto => fromPacketDto(packetDto));
-                })
+                    return packetDtos.map((packetDto) =>
+                        fromPacketDto(packetDto),
+                    );
+                }),
             )
-            .subscribe(packets => {
-                set(model => {
+            .subscribe((packets) => {
+                set((model) => {
                     model.packets = packets;
                 });
             });

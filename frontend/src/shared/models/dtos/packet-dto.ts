@@ -1,10 +1,10 @@
-import { Packet, Organisation } from "@models";
+import { Packet, Organisation } from '@models';
 
 export interface PacketDto {
-    id?: number,
-    name: string,
-    price: number,
-    organisation?: Organisation
+    id?: number;
+    name: string;
+    price: number;
+    organisation?: Organisation;
 }
 
 export const fromPacket = (packet: Packet): PacketDto => {
@@ -12,6 +12,6 @@ export const fromPacket = (packet: Packet): PacketDto => {
         id: packet.id,
         name: packet.name,
         price: packet.price,
-        organisation: packet.organisation
-    }
-}
+        organisation: packet.organisation,
+    };
+};

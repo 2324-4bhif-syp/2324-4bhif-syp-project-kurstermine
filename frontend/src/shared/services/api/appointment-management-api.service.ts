@@ -1,8 +1,15 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs';
-import { AppointmentManagement, fromAppointmentManagementDto, set } from '@models';
-import { AppointmentManagementDto, fromAppointmentManagement } from '@models/dtos';
+import {
+    AppointmentManagement,
+    fromAppointmentManagementDto,
+    set,
+} from '@models';
+import {
+    AppointmentManagementDto,
+    fromAppointmentManagement,
+} from '@models/dtos';
 import { ApiService } from '@services/api/api.service';
 
 @Injectable({
@@ -14,24 +21,27 @@ export class AppointmentManagementApiService extends ApiService {
     }
 
     public getAll() {
-        this.http.get<AppointmentManagementDto[]>(this.url, {
-            headers: this.headers,
-        }).pipe(
-            map((dtos) => {
-                return dtos.map<AppointmentManagement>(fromAppointmentManagementDto);
+        this.http
+            .get<AppointmentManagementDto[]>(this.url, {
+                headers: this.headers,
             })
-        ).subscribe(appointmentManagements => {
-            set(model => {
-                if (model.appointmentManagements.length === 0) {
-                    model.appointmentManagements = appointmentManagements;
-                }
-            })
-        })
+            .pipe(
+                map((dtos) => {
+                    return dtos.map<AppointmentManagement>(
+                        fromAppointmentManagementDto,
+                    );
+                }),
+            )
+            .subscribe((appointmentManagements) => {
+                set((model) => {
+                    if (model.appointmentManagements.length === 0) {
+                        model.appointmentManagements = appointmentManagements;
+                    }
+                });
+            });
     }
 
-    public add(
-        appointmentManagement: AppointmentManagement,
-    ) {
+    public add(appointmentManagement: AppointmentManagement) {
         this.http
             .post<AppointmentManagementDto>(
                 this.url,
@@ -48,24 +58,25 @@ export class AppointmentManagementApiService extends ApiService {
                     fromAppointmentManagementDto(appointmentManagement),
                 ),
             )
-            .subscribe(appointmentManagement => {
-                set(model => {
+            .subscribe((appointmentManagement) => {
+                set((model) => {
                     model.appointmentManagements.push(appointmentManagement);
-                })
+                });
             });
     }
 
-    public remove(
-        appointmentManagement: AppointmentManagement,
-    ) {
-        this.http.delete(
-            `${this.url}/${appointmentManagement.appointment.id}/${appointmentManagement.instructor.id}`,
-        ).subscribe(() => {
-            set(model => {
-                model.appointmentManagements = model.appointmentManagements.filter(
-                    (am) => am !== appointmentManagement,
-                );
-            })
-        });
+    public remove(appointmentManagement: AppointmentManagement) {
+        this.http
+            .delete(
+                `${this.url}/${appointmentManagement.appointment.id}/${appointmentManagement.instructor.id}`,
+            )
+            .subscribe(() => {
+                set((model) => {
+                    model.appointmentManagements =
+                        model.appointmentManagements.filter(
+                            (am) => am !== appointmentManagement,
+                        );
+                });
+            });
     }
 }
