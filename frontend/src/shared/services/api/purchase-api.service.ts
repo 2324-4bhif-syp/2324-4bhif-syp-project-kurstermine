@@ -77,7 +77,9 @@ export class PurchaseApiService extends ApiService {
             )
             .subscribe((participations) => {
                 set((model) => {
-                    model.participations = participations;
+                    console.log(participations)
+                    model.participations.push(...participations);
+                    model.purchases.push(purchase);
                 });
             });
     }

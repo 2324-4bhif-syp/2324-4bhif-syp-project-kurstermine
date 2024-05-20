@@ -4,7 +4,6 @@ import { Customer, Offer, Purchase } from '@models';
 import { RouterLink } from '@angular/router';
 import {
     OfferApiService,
-    PacketApiService,
     PurchaseApiService,
 } from '@services/api';
 import { StoreService } from '@services';
@@ -32,6 +31,7 @@ export class UserPacketComponent implements OnInit {
     );
 
     protected userProfile: KeycloakProfile | undefined;
+    protected loggedInCustomer: Customer | undefined;
 
     constructor(
         protected offerApiService: OfferApiService,
@@ -46,8 +46,6 @@ export class UserPacketComponent implements OnInit {
 
     @Input({ required: true })
     public packet!: Packet;
-    @Input({ required: true })
-    loggedInCustomer!: Customer;
 
     hasUserBought(packet: Packet): boolean {
         let data: Purchase[] = [];
