@@ -1,0 +1,39 @@
+@startuml
+
+class Category {
+}
+
+class Token {
+}
+
+class Course {
+}
+
+class Appointment {
+}
+
+class User {
+}
+
+entity Customer {
+}
+
+entity Organisator {
+}
+
+entity Instructor {
+}
+
+Appointment "*"--"1" Course
+Course "*"--"1" Category
+(Customer, Category) .. Token
+Token "0/1"-right-"*" Appointment
+Category "*"--"1" Organisation: < owns
+Organisator "*"-right-"1" Organisation: > leads
+(Instructor, Organisation) .. Hire
+AppointmentManagement .. (Instructor, Appointment)
+User -- Instructor
+User -- Customer
+User -- Organisator
+
+@enduml
