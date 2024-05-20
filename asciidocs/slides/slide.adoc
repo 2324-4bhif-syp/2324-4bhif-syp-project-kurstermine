@@ -32,7 +32,7 @@ endif::[]
 [background-video="baby-video.mp4",background-video-loop=true,background-video-muted=true,background-opacity="0.5"]
 == Sprint-Vereinbarungen
 
-* CLD verbessert
+* CLD angepasst
 * Frontend-Architektur auf Single Source of Truth umgestellt
 
 
@@ -43,33 +43,42 @@ endif::[]
 [plantuml, svg]
 ----
 @startuml
-left to right direction
 
-package Keycloak {
-    class User {
-    }
-
-    class Customer {
-    }
-
-    class Organisator {
-    }
-
-    class Instructor {
-    }
+class Category {
 }
 
-Packet -left- Appointment
-Packet "*"--"1" Organisation: < owns
-Organisation "1"--"*" Organisator: < leads
-Hire .. (Organisation, Instructor)
-Instructor -- User
-Customer -- User
-Organisator -- User
-Offer .. (Packet, Appointment)
-(Appointment, Instructor) .. AppointmentManagement
-(Appointment, Customer) .. Participation
-(Packet, Customer) .. Purchase
+class Token {
+}
+
+class Course {
+}
+
+class Appointment {
+}
+
+class User {
+}
+
+entity Customer {
+}
+
+entity Organisator {
+}
+
+entity Instructor {
+}
+
+Appointment "*"--"1" Course
+Course "*"--"1" Category
+(Customer, Category) .. Token
+Token "0/1"-right-"*" Appointment
+Category "*"--"1" Organisation: < owns
+Organisator "*"-right-"1" Organisation: > leads
+(Instructor, Organisation) .. Hire
+AppointmentManagement .. (Instructor, Appointment)
+User -- Instructor
+User -- Customer
+User -- Organisator
 
 @enduml
 ----
