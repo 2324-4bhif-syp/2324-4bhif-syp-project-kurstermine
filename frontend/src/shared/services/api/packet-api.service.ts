@@ -26,7 +26,6 @@ export class PacketApiService extends ApiService {
             .subscribe((packets) => {
                 set((model) => {
                     if (model.packets.length === 0) {
-                        console.log(packets);
                         model.packets = packets;
                     }
                 });

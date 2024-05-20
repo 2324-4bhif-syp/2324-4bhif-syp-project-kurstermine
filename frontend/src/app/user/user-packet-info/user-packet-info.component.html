@@ -1,45 +1,36 @@
 <div class="mt-10 space-y-5">
     <div>
-        <p class="text-5xl text-center">{{ packet?.name }}</p>
-        <p class="text-2xl text-center">{{ packet?.price }} €</p>
+        <p class="text-5xl text-center">{{packet?.name}}</p>
+        <p class="text-2xl text-center">{{packet?.price}} €</p>
     </div>
 
     <div class="flex justify-center">
         <div>
-            @if (wasPurchased) {
-                <button class="btn btn-accent btn-disabled" disabled="">
-                    <span class="material-symbols-outlined"> done </span>
+            @if(wasPurchased) {
+                <button class="btn btn-accent btn-disabled rounded-md" disabled="">
+                    <span class="material-symbols-outlined">
+                        done
+                    </span>
                     Purchased
                 </button>
             } @else {
-                <label
-                    for="{{ id }}"
-                    class="btn btn-accent rounded-md modal-button"
-                >
-                    <span class="material-symbols-outlined"> payment </span>
+                <label for="{{id}}" class="btn btn-accent rounded-md modal-button">
+                    <span class="material-symbols-outlined">
+                        payment
+                    </span>
                     Buy
                 </label>
 
-                <input type="checkbox" id="{{ id }}" class="modal-toggle" />
+                <input type="checkbox" id="{{id}}" class="modal-toggle" />
                 <div class="modal">
                     <div class="modal-box">
-                        <h3 class="font-bold text-lg">
-                            Buy the {{ packet?.name }} packet for
-                            {{ packet?.price }} €?
-                        </h3>
-                        <p class="py-4">Please confirm your purchase.</p>
+                        <h3 class="font-bold text-center text-lg">Buy the {{packet?.name}} packet for {{packet?.price}} €?</h3>
+                        <p class="py-4 text-center">Please confirm your purchase.</p>
                         <div class="modal-action flex justify-center">
-                            <label
-                                for="{{ id }}"
-                                class="btn btn-accent rounded-md"
-                                (click)="onBtnConfirm()"
-                            >
+                            <label for="{{id}}" class="btn btn-accent rounded-md" (click)="onBtnConfirm()">
                                 Confirm
                             </label>
-                            <label
-                                for="{{ id }}"
-                                class="btn btn-error rounded-md"
-                            >
+                            <label for="{{id}}" class="btn btn-error rounded-md">
                                 Cancel
                             </label>
                         </div>
@@ -52,8 +43,7 @@
     <div class="flex flex-wrap w-full gap-5 justify-evenly">
         @for (offer of offers; track $index) {
             <app-user-appointment
-                [appointment]="offer.appointment"
-            ></app-user-appointment>
+                [appointment]="offer.appointment"></app-user-appointment>
         }
     </div>
 </div>
