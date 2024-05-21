@@ -1,6 +1,4 @@
-import { Participation } from '../participation';
-import { AppointmentDto, fromAppointment } from './appointment-dto';
-import { CustomerDto, fromCustomer } from './customer-dto';
+import { Participation } from '@models';
 
 export interface ParticipationDto {
     id?: {

@@ -1,4 +1,4 @@
-import { Appointment } from '../appointment';
+import { Appointment } from '@models';
 
 export interface AppointmentDto {
     id?: number;

@@ -1,26 +1,39 @@
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { map, Observable } from 'rxjs';
-import {
-    fromInstructor,
-    InstructorDto,
-} from '../../models/dtos/instructor-dto';
-import { fromInstructorDto, Instructor } from '../../models/instructor';
-import { ApiService } from './api.service';
+import { Injectable } from '@angular/core';
+import { map } from 'rxjs';
+import { fromInstructorDto, Instructor, set } from '@models';
+import { ApiService } from '@services/api/api.service';
+import { InstructorDto, fromInstructor } from '@models/dtos';
 
 @Injectable({
     providedIn: 'root',
 })
-export class InstructorApiService extends ApiService<
-    Instructor,
-    InstructorDto
-> {
+export class InstructorApiService extends ApiService {
     constructor(http: HttpClient) {
-        super(http, 'instructors', fromInstructorDto);
+        super(http, 'instructors');
     }
 
-    public add(instructor: Instructor): Observable<Instructor> {
-        return this.http
+    public getAll() {
+        this.http
+            .get<InstructorDto[]>(this.url, {
+                headers: this.headers,
+            })
+            .pipe(
+                map((dtos) => {
+                    return dtos.map<Instructor>(fromInstructorDto);
+                }),
+            )
+            .subscribe((instructors) => {
+                set((model) => {
+                    if (model.instructors.length === 0) {
+                        model.instructors = instructors;
+                    }
+                });
+            });
+    }
+
+    public add(instructor: Instructor) {
+        this.http
             .post<InstructorDto>(this.url, fromInstructor(instructor), {
                 headers: this.headers.set('Content-Type', 'application/json'),
             })
@@ -28,6 +41,11 @@ export class InstructorApiService extends ApiService<
                 map((instructor) => {
                     return fromInstructorDto(instructor);
                 }),
-            );
+            )
+            .subscribe((instructor) => {
+                set((model) => {
+                    model.instructors.push(instructor);
+                });
+            });
     }
 }

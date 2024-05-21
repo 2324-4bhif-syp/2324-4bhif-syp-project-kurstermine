@@ -1,4 +1,4 @@
-import { CustomerDto } from './dtos/customer-dto';
+import { CustomerDto } from '@models/dtos';
 
 export interface Customer {
     id?: string;
@@ -13,5 +13,5 @@ export const fromCustomerDto = (customer: CustomerDto): Customer => {
         firstName: customer.firstName,
         lastName: customer.lastName,
         email: customer.email,
-    }
-}
+    };
+};

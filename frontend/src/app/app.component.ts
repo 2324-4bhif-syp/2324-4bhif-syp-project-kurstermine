@@ -1,35 +1,48 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { KeycloakService } from 'keycloak-angular';
-import { Roles } from '../shared/models/roles';
-import {MatDialog, MatDialogRef} from "@angular/material/dialog";
-import { MatToolbar, MatToolbarRow } from "@angular/material/toolbar"
-import {LogoutDialogComponent} from "./other/logout-dialog/logout-dialog.component";
-import { MatIcon } from '@angular/material/icon';
-import { MatMenu, MatMenuTrigger } from '@angular/material/menu';
+import { Roles } from '@models';
 import { RouterModule, RouterOutlet } from '@angular/router';
+import {
+    AppointmentApiService,
+    AppointmentManagementApiService,
+    CustomerApiService,
+    InstructorApiService,
+    OfferApiService,
+    OrganisationApiService,
+    PacketApiService,
+    ParticipationApiService,
+    PurchaseApiService,
+} from '@services/api';
 
 @Component({
     standalone: true,
-    imports: [MatToolbar, MatToolbarRow, MatIcon, MatMenu, MatMenuTrigger, RouterOutlet, RouterModule],
+    imports: [RouterOutlet, RouterModule],
     selector: 'app-root',
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
-    constructor(protected keycloak: KeycloakService,
-                private dialog: MatDialog) {
+    appointmentApiService = inject(AppointmentApiService).getAll();
+    appointmentManagementApiService = inject(
+        AppointmentManagementApiService,
+    ).getAll();
+    customerApiService = inject(CustomerApiService).getAll();
+    instructorApiService = inject(InstructorApiService).getAll();
+    offerApiService = inject(OfferApiService).getAll();
+    organisationApiService = inject(OrganisationApiService).getAll();
+    packetApiService = inject(PacketApiService).getAll();
+    participationApiService = inject(ParticipationApiService).getAll();
+    purchaseApiService = inject(PurchaseApiService).getAll();
+
+    constructor(protected keycloak: KeycloakService) {
         this.isAdmin = keycloak.getUserRoles().includes(Roles.Admin);
     }
 
     isAdmin = false;
 
     onBtnLogout() {
-        const dialogRef: MatDialogRef<LogoutDialogComponent> = this.dialog.open(
-            LogoutDialogComponent,
-            {
-                height: '160px',
-                width: '500px'
-            },
-        );
+        this.keycloak
+            .logout()
+            .catch((reason) => console.log('Logout failed: ' + reason));
     }
 }

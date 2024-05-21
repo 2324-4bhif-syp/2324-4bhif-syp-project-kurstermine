@@ -1,7 +1,10 @@
 <p class="my-10 text-5xl text-center">Packets</p>
 
-@for (p of getAllPackets(); track p) {
-    <app-admin-packet [packet]="p" [displaySignedInBtn]="false"></app-admin-packet>
+@for (p of viewModel | async; track p) {
+    <app-admin-packet
+        [packet]="p"
+        [displaySignedInBtn]="false"
+    ></app-admin-packet>
 }
 
 <!-- For adding a Packet

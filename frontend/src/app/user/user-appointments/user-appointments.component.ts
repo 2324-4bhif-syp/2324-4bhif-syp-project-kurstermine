@@ -1,45 +1,64 @@
-import { Component } from '@angular/core';
-import { AppointmentService } from '../../../shared/services/appointment.service';
+import { Component, inject, OnInit } from '@angular/core';
 import { UserAppointmentComponent } from '../user-appointment/user-appointment.component';
-import { Appointment } from '../../../shared/models/appointment';
-import { CustomerService } from '../../../shared/services/customer.service';
-import { ParticipationService } from '../../../shared/services/participation.service';
-import {MatFormField, MatLabel} from "@angular/material/form-field";
-import {FormsModule} from "@angular/forms";
-import {MatIcon} from "@angular/material/icon";
-import {MatInput} from "@angular/material/input";
-import {MatIconButton} from "@angular/material/button";
+import { Appointment, Participation } from '@models';
+import { FormsModule } from '@angular/forms';
+import { AppointmentApiService } from '@services/api';
+import { ParticipationApiService } from '@services/api';
+import { StoreService } from '@services';
+import { distinctUntilChanged, map } from 'rxjs';
 
 @Component({
     selector: 'app-user-appointments',
     standalone: true,
-    imports: [UserAppointmentComponent, MatFormField, FormsModule, MatIcon, MatInput, MatIconButton, MatLabel],
+    imports: [UserAppointmentComponent, FormsModule],
     templateUrl: './user-appointments.component.html',
     styleUrl: './user-appointments.component.css',
 })
-export class UserAppointmentsComponent {
+export class UserAppointmentsComponent implements OnInit {
+    viewModelAppointments = inject(StoreService).store.pipe(
+        map((model) => model.appointments),
+        distinctUntilChanged(),
+    );
+
+    viewModelParticipations = inject(StoreService).store.pipe(
+        map((model) => model.participations),
+        distinctUntilChanged(),
+    );
+
     constructor(
-        protected appointmentService: AppointmentService,
-        protected participationService: ParticipationService,
-        protected customerService: CustomerService,
+        protected appointmentApiService: AppointmentApiService,
+        protected participationApiService: ParticipationApiService,
     ) {}
 
-    searchValue: string = "";
+    searchValue: string = '';
 
-    isIncluded(appointment: Appointment): boolean {
+    doesUserParticipateIn(appointment: Appointment): boolean {
+        let data: Participation[] = [];
+        this.viewModelParticipations.subscribe((participations) => {
+            data = participations;
+        });
+
         return (
-            this.participationService.get(
-                (participation) =>
-                    participation.id?.appointmentId === appointment.id,
-            ).length === 1
+            data.filter((p) => p.id?.appointmentId === appointment.id)
+                .length === 1
         );
     }
 
     search() {
-        this.appointmentService.search(this.searchValue);
+        this.appointmentApiService.search(this.searchValue);
     }
 
     getAppointments(): Appointment[] {
-        return this.appointmentService.get(appointment => this.isIncluded(appointment));
+        let data: Appointment[] = [];
+        this.viewModelAppointments.subscribe((appointments) => {
+            data = appointments;
+        });
+
+        return data.filter((a) => this.doesUserParticipateIn(a));
+    }
+
+    ngOnInit(): void {
+        this.appointmentApiService.getAll();
+        this.participationApiService.getAllFromCustomer();
     }
 }

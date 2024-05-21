@@ -1,53 +1,82 @@
-import { Component, Input } from '@angular/core';
+import { Component, CSP_NONCE, inject, Input, OnInit } from '@angular/core';
 import { Packet } from 'src/shared/models/packet';
-import {MatDialog, MatDialogRef} from "@angular/material/dialog";
-import {UserBuyPacketConfirmDialogComponent} from "../user-buy-packet-confirm-dialog/user-buy-packet-confirm-dialog.component";
-import {Customer} from "../../../shared/models/customer";
-import {OfferService} from "../../../shared/services/offer.service";
-import {MatButtonModule} from "@angular/material/button";
-import {MatCardModule} from "@angular/material/card";
-import {MatIconModule} from "@angular/material/icon";
-import {RouterLink} from "@angular/router";
+import { Customer, Offer, Purchase } from '@models';
+import { RouterLink } from '@angular/router';
+import { OfferApiService, PurchaseApiService } from '@services/api';
+import { StoreService } from '@services';
+import { distinctUntilChanged, map, of } from 'rxjs';
+import { KeycloakProfile } from 'keycloak-js';
+import { userProfileToCustomer } from '@models/model';
+import { KeycloakService } from 'keycloak-angular';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
     selector: 'app-user-packet',
     standalone: true,
-    imports: [
-        MatButtonModule,
-        MatCardModule,
-        MatIconModule,
-        RouterLink
-    ],
+    imports: [RouterLink, AsyncPipe],
     templateUrl: './user-packet.component.html',
-    styleUrl: './user-packet.component.css'
+    styleUrl: './user-packet.component.css',
 })
-export class UserPacketComponent {
+export class UserPacketComponent implements OnInit {
+    viewModelOffers = inject(StoreService).store.pipe(
+        map((model) => ({
+            offers: model.offers
+                .filter((offer) => offer.id.packetId == this.packet.id)
+                .map((offer) => ({
+                    ...offer,
+                    appointment: model.appointments.find(
+                        (appointment) =>
+                            appointment.id === offer.id.appointmentId,
+                    ),
+                })),
+        })),
+        distinctUntilChanged(),
+    );
 
-    constructor(private dialog: MatDialog, protected offerService: OfferService) {
+    viewModelPurchases = inject(StoreService).store.pipe(
+        map((model) => model.purchases),
+        distinctUntilChanged(),
+    );
+
+    protected userProfile: KeycloakProfile | undefined;
+    protected loggedInCustomer: Customer | undefined;
+
+    constructor(
+        protected offerApiService: OfferApiService,
+        protected purchaseApiService: PurchaseApiService,
+        protected readonly keycloak: KeycloakService,
+    ) {
+        keycloak.loadUserProfile().then((profile) => {
+            this.userProfile = profile;
+            this.loggedInCustomer = userProfileToCustomer(this.userProfile!);
+        });
     }
 
-    @Input({required: true})
+    @Input({ required: true })
     public packet!: Packet;
-    @Input({ required: true })
-    loggedInCustomer!: Customer;
-    @Input({ required: true })
-    showSignIn!: boolean;
 
-    onBtnSignIn() {
-        let dialogRef: MatDialogRef<UserBuyPacketConfirmDialogComponent> = this.dialog.open(
-            UserBuyPacketConfirmDialogComponent,
-            {
-                height: '150px',
-                width: '500px',
-                data: {
-                    packet: this.packet!,
-                    loggedInCustomer: this.loggedInCustomer!,
-                },
-            },
-        );
+    hasUserBought(packet: Packet): boolean {
+        let data: Purchase[] = [];
+        this.viewModelPurchases.subscribe((purchases) => {
+            data = purchases;
+        });
+
+        return data.filter((p) => p.id?.packetId === packet.id).length === 1;
     }
 
-    getOffers(packetId: number) {
-        return this.offerService.get(offer => offer.id.packetId == packetId);
+    onBtnConfirm() {
+        let purchase: Purchase = {
+            id: {
+                packetId: this.packet.id!,
+                customerId: this.loggedInCustomer!.id!,
+            },
+        };
+
+        this.purchaseApiService.add(purchase);
+    }
+
+    ngOnInit(): void {
+        this.offerApiService.getAll();
+        this.purchaseApiService.getAllFromCustomer();
     }
 }

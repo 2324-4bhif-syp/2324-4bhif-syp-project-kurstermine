@@ -1,54 +1,50 @@
-import {Component, Input} from '@angular/core';
-import { PacketService } from 'src/shared/services/packet.service';
-import {CustomerService} from "../../../shared/services/customer.service";
-import {Packet} from "../../../shared/models/packet";
-import {PurchaseService} from "../../../shared/services/purchase.service";
-import {UserPacketComponent} from "../user-packet/user-packet.component";
-import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import { Component, inject, OnInit } from '@angular/core';
+import { UserPacketComponent } from '../user-packet/user-packet.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { PacketApiService } from '@services/api';
+import { PurchaseApiService } from '@services/api';
+import { StoreService } from '@services';
+import { distinctUntilChanged, map } from 'rxjs';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
-	selector: 'app-user-packets',
+    selector: 'app-user-packets',
     standalone: true,
-    imports: [
-        UserPacketComponent,
-        ReactiveFormsModule,
-        FormsModule
-    ],
-	templateUrl: './user-packets.component.html',
-	styleUrl: './user-packets.component.css'
+    imports: [UserPacketComponent, ReactiveFormsModule, FormsModule, AsyncPipe],
+    templateUrl: './user-packets.component.html',
+    styleUrl: './user-packets.component.css',
 })
-export class UserPacketsComponent {
-	expandedIndex = 0;
+export class UserPacketsComponent implements OnInit {
+    expandedIndex = 0;
 
-	constructor(
-		protected packetService: PacketService,
-        protected customerService: CustomerService,
-        protected purchaseService: PurchaseService
-	) {
-	}
+    viewModelPackets = inject(StoreService).store.pipe(
+        map((model) => model.packets),
+        distinctUntilChanged(),
+    );
 
-    @Input()
-    packets: Packet[] | undefined;
-    searchValue: string = "";
+    viewModelOffers = inject(StoreService).store.pipe(
+        map((model) => model.offers),
+        distinctUntilChanged(),
+    );
 
-    isIncluded(packet: Packet): boolean {
-        return (
-            this.purchaseService.get(
-                (purchase) =>
-                    purchase.id?.packetId === packet.id,
-            ).length === 1
-        );
-    }
+    viewModelCustomer = inject(StoreService).store.pipe(
+        map((model) => model.customer),
+        distinctUntilChanged(),
+    );
+
+    constructor(
+        protected packetApiService: PacketApiService,
+        protected purchaseApiService: PurchaseApiService,
+    ) {}
+
+    searchValue: string = '';
 
     search() {
-        this.packetService.search(this.searchValue);
+        this.packetApiService.search(this.searchValue);
     }
 
-    getPackets() {
-        if (this.packets) {
-            return this.packets;
-        }
-
-        return this.packetService.get()
+    ngOnInit(): void {
+        this.packetApiService.getAll();
+        this.purchaseApiService.getAllFromCustomer();
     }
 }

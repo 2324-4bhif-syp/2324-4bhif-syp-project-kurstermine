@@ -9,12 +9,12 @@ import { Roles } from '../shared/models/roles';
 import { UserPacketsComponent } from './user/user-packets/user-packets.component';
 import { UserPacketInfoComponent } from './user/user-packet-info/user-packet-info.component';
 import { AdminCustomerComponent } from './admin/admin-customer/admin-customer.component';
-import { AdminPacketsComponent } from "./admin/admin-packets/admin-packets.component";
-import { AdminInstructorComponent } from "./admin/admin-instructor/admin-instructor.component";
+import { AdminPacketsComponent } from './admin/admin-packets/admin-packets.component';
+import { AdminInstructorComponent } from './admin/admin-instructor/admin-instructor.component';
 import { AdminAppointmentComponent } from './admin/admin-appointment/admin-appointment.component';
-import { HomeComponent } from "./other/home/home.component";
-import { UserOrganisationsComponent } from "./user/user-organisations/user-organisations.component";
-import { UserPacketsOfOrgComponent } from "./user/user-packets-of-org/user-packets-of-org.component";
+import { HomeComponent } from './other/home/home.component';
+import { UserOrganisationsComponent } from './user/user-organisations/user-organisations.component';
+import { UserPacketsOfOrgComponent } from './user/user-packets-of-org/user-packets-of-org.component';
 import { Routes } from '@angular/router';
 
 export const routes: Routes = [
@@ -35,35 +35,35 @@ export const routes: Routes = [
         path: 'organisations/:id/packets',
         component: UserPacketsOfOrgComponent,
         canActivate: [AuthGuard, RoleGuard],
-        data: { roles: [Roles.Customer] }
+        data: { roles: [Roles.Customer] },
     },
     {
         path: 'organisations/:organisationId/packets/:packetId',
         component: UserPacketInfoComponent,
         canActivate: [AuthGuard, RoleGuard],
-        data: { roles: [Roles.Customer] }
+        data: { roles: [Roles.Customer] },
     },
     {
         path: 'home',
         component: HomeComponent,
-        canActivate: [AuthGuard]
+        canActivate: [AuthGuard],
     },
     {
         path: 'user',
         component: UserComponent,
-        canActivate: [AuthGuard]
+        canActivate: [AuthGuard],
     },
     {
         path: 'packets',
         component: UserPacketsComponent,
         canActivate: [AuthGuard, RoleGuard],
-        data: { roles: [Roles.Customer] }
+        data: { roles: [Roles.Customer] },
     },
     {
         path: 'packets/:id',
         component: UserPacketInfoComponent,
         canActivate: [AuthGuard, RoleGuard],
-        data: { roles: [Roles.Customer] }
+        data: { roles: [Roles.Customer] },
     },
     {
         path: 'admin',
@@ -72,7 +72,7 @@ export const routes: Routes = [
                 path: 'packets',
                 component: AdminPacketsComponent,
                 canActivate: [AuthGuard, RoleGuard],
-                data: { roles: [Roles.Admin] }
+                data: { roles: [Roles.Admin] },
             },
             {
                 path: 'customers',
@@ -109,7 +109,7 @@ export const routes: Routes = [
                 component: AdminAppointmentComponent,
                 canActivate: [AuthGuard, RoleGuard],
                 data: { roles: [Roles.Admin] },
-            }
-        ]
-    }
+            },
+        ],
+    },
 ];

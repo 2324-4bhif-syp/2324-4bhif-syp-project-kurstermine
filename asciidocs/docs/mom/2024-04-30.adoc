@@ -1,4 +1,4 @@
-= Neunte Sprintplanung
+= Zehnte Sprintplanung
 ifndef::imagesdir[:imagesdir: images]
 :icons: font
 //:sectnums:    // Nummerierung der Überschriften / section numbering
@@ -17,8 +17,6 @@ endif::backend-html5[]
 |===
 |anwesend
 
-|Herr Prof. Stütz
-
 |Herr Prof. Aberger
 
 |Winnie Ilming
@@ -26,8 +24,6 @@ endif::backend-html5[]
 |Moritz Gruber
 
 |Lukas Sonnleitner
-
-|Bajtik Berg
 |===
 
 .Ort und Zeit
@@ -37,18 +33,20 @@ endif::backend-html5[]
 |HTL Leonding, 4BHIF
 
 |von-bis
-|Di. 2024-04-02, 6. EH
+|Di. 2024-04-30, 5. EH
 |Dauer
 |20 min
 |===
 
 == Besprochene Themen
-* Breadcrumbs für die Navigation
-* Appointments eines bestimmten Users
-* OpenSearch?
-* Deployment fixen
+* Package statt Packet
+* Category 1--n Course 1--n Appointment
+* Kundenkonto mit Buchungsjournal und Guthaben
 
 == Vereinbarungen und Entscheidungen
+* Angular auf Single Source of Truth umstrukturieren
+* Änderungen visualisieren und ausprobieren (z. B. CLD)
+
 
 .Was wurde vereinbart?
 [%autowidth]
@@ -57,18 +55,18 @@ endif::backend-html5[]
 
 | Hr. Ilming
 a| link:https://vm81.htl-leonding.ac.at/agiles/99-373/current[Youtrack]
-| 02.04.2024
+| 21.05.2024
 
 | Hr. Gruber
 a| link:https://vm81.htl-leonding.ac.at/agiles/99-373/current[Youtrack]
-| 16.04.2024
+| 21.05.2024
 
 | Hr. Sonnleitner
 a| link:https://vm81.htl-leonding.ac.at/agiles/99-373/current[Youtrack]
-| 16.04.2024
+| 21.05.2024
 
 | Hr. Berg
 a| link:https://vm81.htl-leonding.ac.at/agiles/99-373/current[Youtrack]
-| 16.04.2024
+| 21.05.2024
 
 |===

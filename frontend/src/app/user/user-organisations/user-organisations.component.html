@@ -2,22 +2,28 @@
 
 <div class="flex items-center justify-center mt-5 mb-20">
     <form (submit)="search()" class="w-1/2">
-        <label class="border-2 rounded-3xl input input-bordered input-primary flex items-center gap-2 pr-0">
-            <input type="text" class="grow" placeholder="Search" [(ngModel)]="searchValue" [ngModelOptions]="{standalone: true}"/>
-            <button class="btn btn-ghost hover:bg-transparent hover:outline-none">
-                <span class="material-symbols-outlined">
-                    search
-                </span>
+        <label
+            class="border-2 rounded-3xl input input-bordered input-primary flex items-center gap-2 pr-0"
+        >
+            <input
+                type="text"
+                class="grow"
+                placeholder="Search"
+                [(ngModel)]="searchValue"
+                [ngModelOptions]="{ standalone: true }"
+            />
+            <button
+                class="btn btn-ghost hover:bg-transparent hover:outline-none"
+            >
+                <span class="material-symbols-outlined"> search </span>
             </button>
         </label>
     </form>
 </div>
 
 <div class="flex flex-wrap w-full gap-5 justify-evenly">
-    @for (o of organisationService.get(); track o.id) {
-        <app-user-organisation
-            [organisation]="o"
-        ></app-user-organisation>
+    @for (o of viewModelOrganisations | async; track o.id) {
+        <app-user-organisation [organisation]="o"></app-user-organisation>
     } @empty {
         No organisations available!
     }

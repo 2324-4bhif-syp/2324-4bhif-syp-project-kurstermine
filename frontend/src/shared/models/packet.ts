@@ -1,11 +1,11 @@
-import { PacketDto } from "./dtos/packet-dto";
-import {Organisation} from "./organisation";
+import { PacketDto } from '@models/dtos';
+import { Organisation } from '@models';
 
 export interface Packet {
-    id?: number,
-    name: string,
-    price: number,
-    organisation?: Organisation
+    id?: number;
+    name: string;
+    price: number;
+    organisation?: Organisation;
 }
 
 export const fromPacketDto = (packet: PacketDto): Packet => {
@@ -13,6 +13,6 @@ export const fromPacketDto = (packet: PacketDto): Packet => {
         id: packet.id,
         name: packet.name,
         price: packet.price,
-        organisation: packet.organisation
-    }
-}
+        organisation: packet.organisation,
+    };
+};

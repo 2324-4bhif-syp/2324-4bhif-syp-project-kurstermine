@@ -1,30 +1,41 @@
-import {Component} from '@angular/core';
-import {Packet} from "../../../shared/models/packet";
-import {PacketService} from "../../../shared/services/packet.service";
-import {ActivatedRoute} from "@angular/router";
-import {UserPacketsComponent} from "../user-packets/user-packets.component";
+import { Component, inject, OnInit } from '@angular/core';
+import { Packet } from '../../../shared/models/packet';
+import { ActivatedRoute } from '@angular/router';
+import { UserPacketsComponent } from '../user-packets/user-packets.component';
+import { PacketApiService } from '@services/api';
+import { distinctUntilChanged, map } from 'rxjs';
+import { StoreService } from '@services/store.service';
 
 @Component({
-  selector: 'app-user-packets-of-org',
-  standalone: true,
-    imports: [
-        UserPacketsComponent
-    ],
-  templateUrl: './user-packets-of-org.component.html',
-  styleUrl: './user-packets-of-org.component.css'
+    selector: 'app-user-packets-of-org',
+    standalone: true,
+    imports: [UserPacketsComponent],
+    templateUrl: './user-packets-of-org.component.html',
+    styleUrl: './user-packets-of-org.component.css',
 })
-export class UserPacketsOfOrgComponent {
+export class UserPacketsOfOrgComponent implements OnInit {
+    viewModelPackets = inject(StoreService).store.pipe(
+        map((model) => model.packets),
+        distinctUntilChanged(),
+    );
 
-    constructor(protected packetService: PacketService,
-                private route: ActivatedRoute,) {
-    }
+    constructor(
+        protected packetApiService: PacketApiService,
+        private route: ActivatedRoute,
+    ) {}
 
     public id = Number(this.route.snapshot.params['id']);
 
-    /*@Input({required: true})
-    protected organisation!: Organisation;*/
-
     getPacketsOfOrg(): Packet[] {
-        return this.packetService.get(p => p.organisation?.id === this.id);
+        let data: Packet[] = [];
+        this.viewModelPackets.subscribe((packets) => {
+            data = packets;
+        });
+
+        return data.filter((p) => p.organisation?.id === this.id);
+    }
+
+    ngOnInit(): void {
+        this.packetApiService.getAll();
     }
 }

@@ -1,19 +1,14 @@
-import { Component, Input } from '@angular/core';
-import { Appointment } from '../../../shared/models/appointment';
-import { InstructorService } from '../../../shared/services/instructor.service';
-import { Instructor } from '../../../shared/models/instructor';
-import { AppointmentManagement } from '../../../shared/models/appointmentManagement';
-import { AppointmentManagementService } from '../../../shared/services/appointment-management.service';
+import { Component, inject, Input } from '@angular/core';
+import { Appointment, AppointmentManagement, Instructor } from '@models';
 import { FormsModule } from '@angular/forms';
-import { MatListModule } from '@angular/material/list';
-import { MatIconModule } from '@angular/material/icon';
-import { MatSelectModule } from '@angular/material/select';
-import { MatButtonModule } from '@angular/material/button';
-import { MatExpansionModule } from '@angular/material/expansion';
+import { distinctUntilChanged, map } from 'rxjs';
+import { StoreService } from '@services';
+import { AppointmentManagementApiService } from '@services/api';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
     standalone: true,
-    imports: [FormsModule, MatListModule, MatIconModule, MatSelectModule, MatButtonModule, MatExpansionModule],
+    imports: [FormsModule, AsyncPipe],
     selector: 'app-admin-appointment-management',
     templateUrl: './admin-appointment-management.component.html',
     styleUrls: ['./admin-appointment-management.component.css'],
@@ -23,27 +18,30 @@ export class AdminAppointmentManagementComponent {
     protected selectedInstructor: Instructor | undefined;
     protected panelOpenState: boolean = false;
 
-    constructor(
-        protected appointmentManagementService: AppointmentManagementService,
-        protected instructorService: InstructorService,
-    ) {}
-
-    protected getAppointmentManagement(): AppointmentManagement[] {
-        return this.appointmentManagementService.get(
-            (appointmentManagement) =>
-                appointmentManagement.appointment.id == this.appointment?.id,
-        );
-    }
-
-    protected getInstructors(): Instructor[] {
-        return this.instructorService.get(
-            (instructor) =>
-                !this.getAppointmentManagement().some(
+    protected viewModel = inject(StoreService).store.pipe(
+        map((model) => ({
+            instructors: model.instructors,
+            appointmentManagements: model.appointmentManagements
+                .filter(
                     (appointmentManagement) =>
-                        appointmentManagement.instructor.id === instructor.id,
-                ),
-        );
-    }
+                        appointmentManagement.id?.appointmentId ===
+                        this.appointment?.id,
+                )
+                .map((appointmentManagement) => ({
+                    ...appointmentManagement,
+                    instructor: model.instructors.find(
+                        (instructor) =>
+                            instructor.id ===
+                            appointmentManagement.id?.instructorId,
+                    ),
+                })),
+        })),
+        distinctUntilChanged(),
+    );
+
+    protected appointmentManagementApiService = inject(
+        AppointmentManagementApiService,
+    );
 
     public add() {
         if (!this.selectedInstructor || !this.appointment) return;
@@ -54,14 +52,12 @@ export class AdminAppointmentManagementComponent {
                 appointmentId: this.appointment.id,
                 instructorId: this.selectedInstructor.id,
             },
-            instructor: this.selectedInstructor,
-            appointment: this.appointment,
         };
 
-        this.appointmentManagementService.add(appointmentManagement);
+        this.appointmentManagementApiService.add(appointmentManagement);
     }
 
     public remove(appointmentManagement: AppointmentManagement) {
-        this.appointmentManagementService.remove(appointmentManagement);
+        this.appointmentManagementApiService.remove(appointmentManagement);
     }
 }

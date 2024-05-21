@@ -1,15 +1,17 @@
-import {Organisation} from "../organisation";
+import { Organisation } from '@models';
 
 export interface OrganisationDto {
-    id?: number,
-    name: string,
-    uniqueName: string
+    id?: number;
+    name: string;
+    uniqueName: string;
 }
 
-export const fromOrganisation = (organisation: Organisation): OrganisationDto => {
+export const fromOrganisation = (
+    organisation: Organisation,
+): OrganisationDto => {
     return {
         id: organisation.id,
         name: organisation.name,
         uniqueName: organisation.uniqueName,
-    }
-}
+    };
+};

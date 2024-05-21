@@ -1,37 +1,32 @@
-import { Component, Input } from '@angular/core';
-import { AppointmentService } from '../../../shared/services/appointment.service';
-import { Appointment } from '../../../shared/models/appointment';
+import { Component, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { MatExpansionModule } from '@angular/material/expansion';
-import { AdminAppointmentManagementComponent } from '../admin-appointment-management/admin-appointment-management.component';
-import { AdminParticipationComponent } from '../admin-participations/admin-participation.component';
-import { MatIconModule } from '@angular/material/icon';
+import { AdminAppointmentManagementComponent } from '@components/admin/admin-appointment-management/admin-appointment-management.component';
+import { AdminParticipationComponent } from '@components/admin/admin-participations/admin-participation.component';
+import { StoreService } from '@services/store.service';
+import { distinctUntilChanged, map } from 'rxjs';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
     standalone: true,
-    imports: [MatExpansionModule, AdminAppointmentManagementComponent, AdminParticipationComponent, MatIconModule],
+    imports: [
+        AdminAppointmentManagementComponent,
+        AdminParticipationComponent,
+        AsyncPipe,
+    ],
     selector: 'app-admin-appointment',
     templateUrl: './admin-appointment.component.html',
     styleUrls: ['./admin-appointment.component.css'],
 })
 export class AdminAppointmentComponent {
-    ;
+    private id = Number(inject(ActivatedRoute).snapshot.params['id']);
 
-    constructor(
-        protected appointmentService: AppointmentService,
-        private route: ActivatedRoute
-        ) {
-    }
-
-    id = Number(this.route.snapshot.params['id']);
-
-    protected get appointment() {
-        let appointment = this.appointmentService.get((a) => a.id === this.id)[0];
-        if (appointment) {
-            return appointment;
-        }
-        return undefined;
-    }
+    protected viewModel = inject(StoreService).store.pipe(
+        map((model) => model.appointments),
+        map((appointments) =>
+            appointments.find((appointment) => appointment.id === this.id),
+        ),
+        distinctUntilChanged(),
+    );
 
     String = String;
 }

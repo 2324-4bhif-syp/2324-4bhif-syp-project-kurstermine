@@ -1,54 +1,57 @@
-import { Component, Input } from '@angular/core';
-import { CustomerService } from '../../../shared/services/customer.service';
-import { ParticipationService } from '../../../shared/services/participation.service';
-import { Appointment } from '../../../shared/models/appointment';
-import { Customer } from '../../../shared/models/customer';
-import { Participation } from '../../../shared/models/participation';
+import { Component, inject, Input, OnInit } from '@angular/core';
+import { Appointment, Customer, Participation } from '@models';
 import { FormsModule } from '@angular/forms';
-import { MatListModule } from '@angular/material/list';
-import { MatIconModule } from '@angular/material/icon';
-import { MatSelectModule } from '@angular/material/select';
-import { MatButtonModule } from '@angular/material/button';
-import { MatExpansionModule } from '@angular/material/expansion';
+import { ParticipationApiService, CustomerApiService } from '@services/api';
+import { StoreService } from '@services/store.service';
+import { distinctUntilChanged, map } from 'rxjs';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
     standalone: true,
-    imports: [FormsModule, MatListModule, MatIconModule, MatSelectModule, MatButtonModule, MatExpansionModule],
+    imports: [FormsModule, AsyncPipe],
     selector: 'app-admin-participations',
     templateUrl: './admin-participation.component.html',
     styleUrls: ['./admin-participation.component.css'],
 })
-export class AdminParticipationComponent {
+export class AdminParticipationComponent implements OnInit {
     @Input() appointment: Appointment | undefined;
-    protected participationService: ParticipationService;
-    protected customerService: CustomerService;
     protected selectedCustomer: Customer | undefined;
     protected panelOpenState: boolean = false;
 
-    constructor(
-        participationService: ParticipationService,
-        customerService: CustomerService,
-    ) {
-        this.participationService = participationService;
-        this.customerService = customerService;
-    }
+    private participationApiService = inject(ParticipationApiService);
+    private customerApiService = inject(CustomerApiService);
 
-    protected getParticipation() {
-        return this.participationService.get(
-            (participation) =>
-                participation.id?.appointmentId == this.appointment?.id
-        );
-    }
-
-    protected getCustomers(): Customer[] {
-        return this.customerService.get(
-            (customer) =>
-                !this.getParticipation().some(
+    protected viewModel = inject(StoreService).store.pipe(
+        map((model) => ({
+            participations: model.participations
+                .filter(
                     (participation) =>
-                        participation.id?.customerId === customer.id,
-                ),
-        );
-    }
+                        participation.id?.appointmentId ===
+                        this.appointment?.id,
+                )
+                .map((participation) => ({
+                    ...participation,
+                    customer: model.customers.find(
+                        (customer) =>
+                            participation.id?.customerId === customer.id,
+                    ),
+                })),
+            customers: model.customers.filter(
+                (customer) =>
+                    !model.participations
+                        .filter(
+                            (participation) =>
+                                participation.id?.appointmentId ===
+                                this.appointment?.id,
+                        )
+                        .some(
+                            (participation) =>
+                                participation.id?.customerId === customer.id,
+                        ),
+            ),
+        })),
+        distinctUntilChanged(),
+    );
 
     public add() {
         if (!this.selectedCustomer || !this.appointment) return;
@@ -59,14 +62,17 @@ export class AdminParticipationComponent {
                 appointmentId: this.appointment.id,
                 customerId: this.selectedCustomer.id,
             },
-            customer: this.selectedCustomer,
-            appointment: this.appointment,
         };
 
-        this.participationService.add(participation);
+        this.participationApiService.add(participation);
     }
 
     public remove(participation: Participation) {
-        this.participationService.remove(participation);
+        this.participationApiService.remove(participation);
+    }
+
+    ngOnInit(): void {
+        this.participationApiService.getAllFromCustomer();
+        this.customerApiService.getAll();
     }
 }

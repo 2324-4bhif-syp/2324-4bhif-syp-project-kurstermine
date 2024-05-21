@@ -1,25 +1,33 @@
 <div class="shadow collapse collapse-arrow">
-    <input type="radio" name="radio" [checked]="panelOpenState" (click)="panelOpenState = !panelOpenState" />
+    <input
+        type="radio"
+        name="radio"
+        [checked]="panelOpenState"
+        (click)="panelOpenState = !panelOpenState"
+    />
     <div class="flex items-center gap-2 text-xl font-medium collapse-title">
-        <span class="material-symbols-outlined">
-            package_2
-        </span>
+        <span class="material-symbols-outlined"> package_2 </span>
 
-        {{ packet.name }}
+        {{ (viewModel | async)?.packet?.name }}
 
-        <p class="text-base-content">{{ packet.price }} €</p>
+        <p class="text-base-content">
+            {{ (viewModel | async)?.packet?.price }} €
+        </p>
     </div>
     <div class="collapse-content">
-        @for (appointment of getAllAppointmentsFromPacket(); track appointment) {
+        @for (
+            appointment of (viewModel | async)?.appointments;
+            track appointment
+        ) {
             <div class="grid items-center grid-cols-3">
-                <p>{{ appointment.name }}</p>
-    
+                <p>{{ appointment?.name }}</p>
+
                 @if (displaySignedInBtn) {
-                @if (isUserParticipatingInAppointment(appointment)) {
-                <div class="badge badge-accent">Signed in</div>
-                } @else {
-                <div class="badge badge-ghost">Signed out</div>
-                }
+                    @if (true) {
+                        <div class="badge badge-accent">Signed in</div>
+                    } @else {
+                        <div class="badge badge-ghost">Signed out</div>
+                    }
                 }
             </div>
         }

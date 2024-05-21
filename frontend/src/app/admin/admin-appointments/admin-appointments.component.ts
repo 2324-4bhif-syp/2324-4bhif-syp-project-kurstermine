@@ -1,23 +1,29 @@
-import { Component } from '@angular/core';
-import { AppointmentService } from '../../../shared/services/appointment.service';
-import { Appointment } from '../../../shared/models/appointment';
-import { MatListModule } from '@angular/material/list';
-import { MatExpansionModule } from '@angular/material/expansion';
+import { Component, inject, OnInit } from '@angular/core';
+import { Appointment } from '@models';
 import { RouterModule } from '@angular/router';
+import { AppointmentApiService } from '@services/api';
+import { StoreService } from '@services/store.service';
+import { distinctUntilChanged, map } from 'rxjs';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
     standalone: true,
-    imports: [MatListModule, MatExpansionModule, RouterModule],
+    imports: [RouterModule, AsyncPipe],
     selector: 'app-admin-appointments',
     templateUrl: './admin-appointments.component.html',
     styleUrls: ['./admin-appointments.component.css'],
 })
-export class AdminAppointmentsComponent {
-    protected appointmentService: AppointmentService;
+export class AdminAppointmentsComponent implements OnInit {
     protected newAppointment: Appointment;
 
-    constructor(appointmentService: AppointmentService) {
-        this.appointmentService = appointmentService;
+    protected viewModel = inject(StoreService).store.pipe(
+        map((model) => model.appointments),
+        distinctUntilChanged(),
+    );
+
+    private appointmentApiService = inject(AppointmentApiService);
+
+    constructor() {
         this.newAppointment = {
             name: '',
             address: '',
@@ -38,7 +44,7 @@ export class AdminAppointmentsComponent {
     }
 
     add() {
-        this.appointmentService.add(this.newAppointment);
+        this.appointmentApiService.add(this.newAppointment);
 
         this.newAppointment = {
             name: '',
@@ -46,5 +52,9 @@ export class AdminAppointmentsComponent {
             date: new Date(),
             duration: 0,
         };
+    }
+
+    ngOnInit(): void {
+        this.appointmentApiService.getAll();
     }
 }
