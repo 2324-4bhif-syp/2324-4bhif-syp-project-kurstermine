@@ -39,15 +39,14 @@ endif::backend-html5[]
 |von-bis
 |Fr. 2024-10-11, 5. EH
 |Dauer
-|20 min
+|10 min
 |===
 
 == Besprochene Themen
 * CLD neu - Absprache und Verifikation
 
 == Vereinbarungen und Entscheidungen
-* Neues CLD implementieren im backend und frontend
-
+* Neues CLD implementieren im Backend und Frontend
 
 .Was wurde vereinbart?
 [%autowidth]
@@ -56,18 +55,18 @@ endif::backend-html5[]
 
 | Hr. Ilming
 a| link:https://vm81.htl-leonding.ac.at/agiles/99-373/current[Youtrack]
-| 21.05.2024
+| 25.10.2024
 
 | Hr. Gruber
 a| link:https://vm81.htl-leonding.ac.at/agiles/99-373/current[Youtrack]
-| 21.05.2024
+| 25.10.2024
 
 | Hr. Sonnleitner
 a| link:https://vm81.htl-leonding.ac.at/agiles/99-373/current[Youtrack]
-| 21.05.2024
+| 25.10.2024
 
 | Hr. Berg
 a| link:https://vm81.htl-leonding.ac.at/agiles/99-373/current[Youtrack]
-| 21.05.2024
+| 25.10.2024
 
 |===
