@@ -1,7 +1,6 @@
 package at.htl.courseschedule.controller;
 
 import at.htl.courseschedule.entity.Organisation;
-import at.htl.courseschedule.entity.Packet;
 import io.quarkus.hibernate.orm.panache.PanacheRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;

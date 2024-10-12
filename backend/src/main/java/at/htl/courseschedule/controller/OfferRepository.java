@@ -1,9 +1,6 @@
 package at.htl.courseschedule.controller;
 
 import at.htl.courseschedule.entity.Appointment;
-import at.htl.courseschedule.entity.Offer;
-import at.htl.courseschedule.entity.Packet;
-import at.htl.courseschedule.entity.ids.OfferId;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;

@@ -1,20 +1,20 @@
 package at.htl.courseschedule.controller;
 
-import at.htl.courseschedule.entity.BabyUser;
+import at.htl.courseschedule.entity.User;
 import jakarta.enterprise.context.ApplicationScoped;
 
 import java.util.UUID;
 
 @ApplicationScoped
 public class UserRepository {
-    public BabyUser getOrCreateUser(UUID uuid) {
-        BabyUser user = BabyUser.findById(uuid);
+    public User getOrCreateUser(UUID uuid) {
+        User user = User.findById(uuid);
         return user == null ? createUser(uuid) : user;
     }
 
-    private BabyUser createUser(UUID uuid) {
-        BabyUser user = new BabyUser(uuid);
-        BabyUser.persist(user);
+    private User createUser(UUID uuid) {
+        User user = new User(uuid);
+        User.persist(user);
         return user;
     }
 }

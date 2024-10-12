@@ -21,11 +21,11 @@ public class Hire {
     @ManyToOne(fetch = FetchType.LAZY)
     @MapsId("instructorId")
     @OnDelete(action = OnDeleteAction.CASCADE)
-    private BabyUser instructor;
+    private User instructor;
 
     public Hire() {}
 
-    public Hire(@NotNull Organisation organisation, @NotNull BabyUser instructor) {
+    public Hire(@NotNull Organisation organisation, @NotNull User instructor) {
         this.organisation = organisation;
         this.id = new HireId(organisation.getId(), instructor.getUuid());
     }

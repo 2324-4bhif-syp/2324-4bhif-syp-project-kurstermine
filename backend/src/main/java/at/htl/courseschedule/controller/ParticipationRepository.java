@@ -2,8 +2,6 @@ package at.htl.courseschedule.controller;
 
 import at.htl.courseschedule.boundary.Role;
 import at.htl.courseschedule.entity.Appointment;
-import at.htl.courseschedule.entity.Participation;
-import at.htl.courseschedule.entity.ids.ParticipationId;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;

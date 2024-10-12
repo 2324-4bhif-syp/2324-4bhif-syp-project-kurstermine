@@ -1,11 +1,6 @@
 package at.htl.courseschedule.controller;
 
 import at.htl.courseschedule.boundary.Role;
-import at.htl.courseschedule.entity.Packet;
-import at.htl.courseschedule.entity.Participation;
-import at.htl.courseschedule.entity.Purchase;
-import at.htl.courseschedule.entity.ids.ParticipationId;
-import at.htl.courseschedule.entity.ids.PurchaseId;
 import io.quarkus.logging.Log;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;

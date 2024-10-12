@@ -1,8 +1,6 @@
 package at.htl.courseschedule.boundary;
 
 import at.htl.courseschedule.controller.OfferRepository;
-import at.htl.courseschedule.entity.Offer;
-import at.htl.courseschedule.entity.ids.OfferId;
 import jakarta.annotation.security.PermitAll;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;

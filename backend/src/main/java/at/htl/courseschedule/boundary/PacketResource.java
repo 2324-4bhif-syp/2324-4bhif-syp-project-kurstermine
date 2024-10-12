@@ -1,7 +1,6 @@
 package at.htl.courseschedule.boundary;
 
 import at.htl.courseschedule.controller.PacketRepository;
-import at.htl.courseschedule.entity.Packet;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;

@@ -1,6 +1,5 @@
 package at.htl.courseschedule.controller;
 
-import at.htl.courseschedule.entity.Packet;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;

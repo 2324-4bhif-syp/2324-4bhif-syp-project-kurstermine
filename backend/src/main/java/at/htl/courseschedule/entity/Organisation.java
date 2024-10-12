@@ -15,14 +15,18 @@ public class Organisation extends PanacheEntityBase {
     private String uniqueName;
 
     @OneToMany
-    private Set<BabyUser> organisators;
+    private Set<User> organisators;
+
+    @OneToMany
+    private Set<Category> categories;
 
     public Organisation() {}
 
-    public Organisation(String name, String uniqueName, Set<BabyUser> organisators) {
+    public Organisation(String name, String uniqueName, Set<User> organisators, Set<Category> categories) {
         this.name = name;
         this.uniqueName = uniqueName;
         this.organisators = organisators;
+        this.categories = categories;
     }
 
     public Long getId() {
@@ -49,8 +53,16 @@ public class Organisation extends PanacheEntityBase {
         this.uniqueName = uniqueName;
     }
 
-    public Set<BabyUser> getOrganisators() {
+    public Set<User> getOrganisators() {
         return organisators;
+    }
+
+    public Set<Category> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(Set<Category> categories) {
+        this.categories = categories;
     }
 
     @Override

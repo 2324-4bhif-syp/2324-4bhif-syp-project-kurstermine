@@ -4,7 +4,6 @@ import at.htl.courseschedule.controller.OrganisationImageRepository;
 import at.htl.courseschedule.controller.OrganisationRepository;
 import at.htl.courseschedule.entity.Organisation;
 import at.htl.courseschedule.entity.OrganisationImage;
-import at.htl.courseschedule.entity.Packet;
 import jakarta.annotation.security.PermitAll;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;

@@ -3,19 +3,28 @@ package at.htl.courseschedule.entity;
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
-public class BabyUser extends PanacheEntityBase {
+@Table(name = "B_User")
+public class User extends PanacheEntityBase {
     @Id
     private UUID uuid;
 
-    public BabyUser() {
+    @OneToMany
+    private List<Token> tokens;
+
+    public User() {
     }
 
-    public BabyUser(UUID uuid) {
+    public User(UUID uuid) {
         this.uuid = uuid;
+        this.tokens = new ArrayList<>();
     }
 
     public UUID getUuid() {
@@ -24,6 +33,14 @@ public class BabyUser extends PanacheEntityBase {
 
     public void setUuid(UUID uuid) {
         this.uuid = uuid;
+    }
+
+    public List<Token> getTokens() {
+        return tokens;
+    }
+
+    public void setTokens(List<Token> tokens) {
+        this.tokens = tokens;
     }
 
     @Override
@@ -38,7 +55,7 @@ public class BabyUser extends PanacheEntityBase {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        BabyUser user = (BabyUser) o;
+        User user = (User) o;
 
         return uuid.equals(user.uuid);
     }
