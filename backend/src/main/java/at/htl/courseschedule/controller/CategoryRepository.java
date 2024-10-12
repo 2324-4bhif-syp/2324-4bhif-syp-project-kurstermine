@@ -1,7 +1,7 @@
 package at.htl.courseschedule.controller;
 
 import at.htl.courseschedule.entity.Category;
-import io.quarkus.hibernate.orm.panache.PanacheRepositoryBase;
+import io.quarkus.hibernate.orm.panache.PanacheRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 
@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 @ApplicationScoped
-public class CategoryRepository implements PanacheRepositoryBase<Category, String> {
+public class CategoryRepository implements PanacheRepository<Category> {
     @Inject
     OrganisationRepository organisationRepository;
 
