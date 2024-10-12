@@ -3,6 +3,7 @@ package at.htl.courseschedule.entity;
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import jakarta.persistence.*;
 
+import java.util.Map;
 import java.util.Set;
 
 @Entity
@@ -18,11 +19,11 @@ public class Organisation extends PanacheEntityBase {
     private Set<User> organisators;
 
     @OneToMany
-    private Set<Category> categories;
+    private Map<String, Category> categories;
 
     public Organisation() {}
 
-    public Organisation(String name, String uniqueName, Set<User> organisators, Set<Category> categories) {
+    public Organisation(String name, String uniqueName, Set<User> organisators, Map<String, Category> categories) {
         this.name = name;
         this.uniqueName = uniqueName;
         this.organisators = organisators;
@@ -57,11 +58,11 @@ public class Organisation extends PanacheEntityBase {
         return organisators;
     }
 
-    public Set<Category> getCategories() {
+    public Map<String, Category> getCategories() {
         return categories;
     }
 
-    public void setCategories(Set<Category> categories) {
+    public void setCategories(Map<String, Category> categories) {
         this.categories = categories;
     }
 

@@ -11,8 +11,6 @@ import jakarta.transaction.Transactional;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.*;
 
-import java.util.List;
-
 @Path("organisations")
 public class OrganisationResource {
     @Inject
@@ -57,21 +55,6 @@ public class OrganisationResource {
         }
 
         return Response.ok(organisationImage.getImage()).build();
-    }
-
-    @GET
-    @Path("packets/{id}")
-    @RolesAllowed({Role.Admin, Role.Organisator})
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response getPacketsByOrganisationId(@PathParam("id") Long id) {
-        Organisation organisation = organisationRepository.findById(id);
-
-        if (organisation == null) {
-            return Response.status(404).build();
-        }
-
-        List<Packet> packets = organisationRepository.getPacketsByOrganisationId(id);
-        return Response.ok(packets).build();
     }
 
     @GET

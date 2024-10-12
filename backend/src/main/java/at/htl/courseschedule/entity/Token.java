@@ -1,7 +1,6 @@
 package at.htl.courseschedule.entity;
 
 import jakarta.persistence.*;
-import org.keycloak.representations.AccessTokenResponse;
 
 import java.util.UUID;
 
