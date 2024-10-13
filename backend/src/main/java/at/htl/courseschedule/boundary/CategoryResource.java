@@ -50,6 +50,7 @@ public class CategoryResource {
     @Path("{organisation-id}/{name}")
     @Produces(MediaType.APPLICATION_JSON)
     @RolesAllowed({Role.Admin, Role.Organisator})
+    @Transactional
     public Response deleteCategory(@PathParam("organisation-id") Long organisationId, @PathParam("name") String name) {
         categoryRepository.deleteCategory(organisationId, name);
         return Response.status(Response.Status.NO_CONTENT).build();

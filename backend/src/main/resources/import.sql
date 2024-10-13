@@ -37,7 +37,7 @@ values
     ('Apple', 'apple'),
     ('Facebook', 'facebook');
 
-insert into packet (name, price, organisation_id)
+/*insert into packet (name, price, organisation_id)
 values
     ('Angebot', 49.99, 1),
     ('Sport', 99.99, 1),
@@ -72,7 +72,7 @@ values
     (18, 9),
     (19, 10),
     (20, 10);
-
+*/
 
 -- insert into Participation (appointment_id, customer_id) values (1, 1);
 -- insert into Participation (appointment_id, customer_id) values (1, 2);
