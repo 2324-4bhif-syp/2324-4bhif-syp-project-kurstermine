@@ -1,0 +1,21 @@
+<p class="text-5xl text-center my-10">Courses</p>
+
+<div class="flex flex-wrap gap-5 justify-evenly">
+    @for (course of (viewModel | async)?.courses; track course) {
+        <div class="border-2 rounded-md shadow-lg card w-80">
+            <div class="items-center text-center card-body">
+                <p class="text-3xl card-title">{{ course.name }}</p>
+                <div class="m-0 divider"></div>
+
+                <button (click)="selectCourse(course)" class="btn btn-outline">
+                    View Course
+                    <span class="material-symbols-outlined">
+                        arrow_forward
+                    </span>
+                </button>
+            </div>
+        </div>
+    } @empty {
+        No courses available!
+    }
+</div>
