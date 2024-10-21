@@ -33,6 +33,11 @@ export interface Model {
   readonly tokens: Token[];
   readonly currentUser: User;
   readonly categories: Category[];
+  readonly courseView: {
+    readonly selectedCategory?: Category;
+    readonly selectedOrganisation?: Organisation;
+    readonly selectedCourse?: Course;
+  }
 }
 
 export const store = new BehaviorSubject<Model>({
@@ -46,7 +51,23 @@ export const store = new BehaviorSubject<Model>({
   customer: undefined,
   customers: [],
   participations: [],
-  categories: [],
+  categories: [
+    {
+      id: 1,
+      name: "category1",
+      organisationId: 1
+    },
+    {
+      id: 2,
+      name: "category2",
+      organisationId: 2
+    },
+    {
+      id: 3,
+      name: "category3",
+      organisationId: 2
+    }
+  ],
   currentUser: {
     id: "thomas",
     firstName: "thomas",
@@ -57,7 +78,22 @@ export const store = new BehaviorSubject<Model>({
     {
       id: 1,
       categoryId: 1,
-      name: "Sport",
+      name: "Tennis",
+    },
+    {
+      id: 2,
+      categoryId: 2,
+      name: "Fußball",
+    },
+    {
+      id: 3,
+      categoryId: 1,
+      name: "Ski",
+    },
+    {
+      id: 4,
+      categoryId: 3,
+      name: "Leetcode",
     },
   ],
   tokens: [
@@ -78,6 +114,7 @@ export const store = new BehaviorSubject<Model>({
       email: "thomas.thomas@thomas.thomas",
     },
   ],
+  courseView: {}
 });
 
 export function set(recipe: (model: Draft<Model>) => void) {

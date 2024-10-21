@@ -5,7 +5,7 @@ import { UserAppointmentsComponent } from './user/user-appointments/user-appoint
 import { AdminAppointmentsComponent } from './admin/admin-appointments/admin-appointments.component';
 import { UserComponent } from './other/userinfo/user.component';
 import { AdminCustomersComponent } from './admin/admin-customers/admin-customers.component';
-import { Roles } from '../shared/models/roles';
+import { Roles } from '@models';
 import { UserPacketsComponent } from './user/user-packets/user-packets.component';
 import { UserPacketInfoComponent } from './user/user-packet-info/user-packet-info.component';
 import { AdminCustomerComponent } from './admin/admin-customer/admin-customer.component';
@@ -16,6 +16,7 @@ import { HomeComponent } from './other/home/home.component';
 import { UserOrganisationsComponent } from './user/user-organisations/user-organisations.component';
 import { UserPacketsOfOrgComponent } from './user/user-packets-of-org/user-packets-of-org.component';
 import { Routes } from '@angular/router';
+import { UserCourseExplorerComponent } from "@components/user/user-course-explorer/user-course-explorer.component";
 
 export const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -56,6 +57,12 @@ export const routes: Routes = [
     {
         path: 'packets',
         component: UserPacketsComponent,
+        canActivate: [AuthGuard, RoleGuard],
+        data: { roles: [Roles.Customer] },
+    },
+    {
+        path: 'courses',
+        component: UserCourseExplorerComponent,
         canActivate: [AuthGuard, RoleGuard],
         data: { roles: [Roles.Customer] },
     },
