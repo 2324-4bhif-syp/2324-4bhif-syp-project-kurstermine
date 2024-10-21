@@ -1,6 +1,9 @@
 import { Appointment, Customer } from '@models';
 import { ParticipationDto } from '@models/dtos';
 
+/**
+  * @deprecated
+*/
 export interface Participation {
     id?: {
         appointmentId: number;
