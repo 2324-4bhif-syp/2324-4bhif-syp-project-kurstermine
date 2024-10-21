@@ -1,5 +1,4 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { UserAppointmentComponent } from '../user-appointment/user-appointment.component';
 import { UserOrganisationComponent } from '../user-organisation/user-organisation.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { OrganisationApiService } from '@services/api';
@@ -11,7 +10,6 @@ import { AsyncPipe } from '@angular/common';
     selector: 'app-user-organisations',
     standalone: true,
     imports: [
-        UserAppointmentComponent,
         UserOrganisationComponent,
         ReactiveFormsModule,
         FormsModule,

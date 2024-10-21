@@ -41,7 +41,14 @@ export interface Model {
 }
 
 export const store = new BehaviorSubject<Model>({
-  appointments: [],
+  appointments: [{
+      id: 1,
+      name: "App1",
+      address: "Limesstraße",
+      date: new Date("2024-05-06"),
+      duration: 30,
+      courseId: 1
+  }],
   packets: [],
   organisations: [],
   offers: [],

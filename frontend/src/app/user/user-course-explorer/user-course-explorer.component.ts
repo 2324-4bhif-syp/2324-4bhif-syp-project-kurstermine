@@ -1,19 +1,16 @@
 import {Component, inject} from '@angular/core';
 import {StoreService} from "@services";
 import {distinctUntilChanged, map} from "rxjs";
-import {UserAppointmentComponent} from "@components/user/user-appointment/user-appointment.component";
 import {AsyncPipe} from "@angular/common";
 import {FormsModule} from "@angular/forms";
 import {Category} from "@models/category";
 import {Organisation, set} from "@models";
-import {Course} from "@models/course";
 import {UserCoursesComponent} from "@components/user/user-courses/user-courses.component";
 
 @Component({
   selector: 'app-user-course-explorer',
   standalone: true,
     imports: [
-        UserAppointmentComponent,
         AsyncPipe,
         FormsModule,
         UserCoursesComponent
