@@ -7,12 +7,20 @@
                 <p class="text-3xl card-title">{{ course.name }}</p>
                 <div class="m-0 divider"></div>
 
-                <button (click)="selectCourse(course)" class="btn btn-outline">
+                <a
+                    [routerLink]="[
+                        '/courses',
+                        course.category?.organisation?.id,
+                        course.category?.id,
+                        course.id,
+                    ]"
+                    class="btn btn-outline"
+                >
                     View Course
                     <span class="material-symbols-outlined">
                         arrow_forward
                     </span>
-                </button>
+                </a>
             </div>
         </div>
     } @empty {

@@ -1,12 +1,25 @@
 <div class="flex flex-row">
     <ul class="menu rounded-box w-56">
-        @for (organisation of (viewModel | async)?.organisations; track organisation) {
+        @for (
+            organisation of (viewModel | async)?.organisations;
+            track organisation
+        ) {
             <li>
-                <a (click)="selectOrganisation(organisation)">{{ organisation.name }}</a>
+                <a
+                    [routerLink]="[organisation.id]"
+                    routerLinkActive="border-b-2 border-accent"
+                    (click)="selectOrganisation(organisation)"
+                    >{{ organisation.name }}</a
+                >
                 <ul>
                     @for (category of organisation.categories; track category) {
                         <li>
-                            <a (click)="selectCategory(category)">{{ category.name }}</a>
+                            <a
+                                [routerLink]="[organisation.id, category.id]"
+                                routerLinkActive="border-b-2 border-accent"
+                                (click)="selectCategory(category)"
+                                >{{ category.name }}</a
+                            >
                         </li>
                     }
                 </ul>
@@ -15,6 +28,6 @@
     </ul>
 
     <div class="grow">
-        <app-user-courses/>
+        <router-outlet> </router-outlet>
     </div>
 </div>
