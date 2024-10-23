@@ -1,36 +1,48 @@
-import { Component, inject } from '@angular/core';
-import { KeycloakService } from 'keycloak-angular';
-import { Roles } from '@models';
-import { RouterModule, RouterOutlet } from '@angular/router';
+import { Component, inject } from "@angular/core";
+import { RouterModule, RouterOutlet } from "@angular/router";
+import { Roles } from "@models";
 import {
-    AppointmentApiService,
-    AppointmentManagementApiService,
-    OrganisationApiService,
-} from '@services/api';
+  AppointmentApiService,
+  AppointmentManagementApiService,
+  OrganisationApiService,
+  CourseApiService,
+  TokenApiService,
+  CategoryApiService
+} from "@services/api";
+import { KeycloakService } from "keycloak-angular";
 
 @Component({
-    standalone: true,
-    imports: [RouterOutlet, RouterModule],
-    selector: 'app-root',
-    templateUrl: './app.component.html',
-    styleUrls: ['./app.component.css'],
+  standalone: true,
+  imports: [RouterOutlet, RouterModule],
+  selector: "app-root",
+  templateUrl: "./app.component.html",
+  styleUrls: ["./app.component.css"],
 })
 export class AppComponent {
-    appointmentApiService = inject(AppointmentApiService).getAll();
-    appointmentManagementApiService = inject(
-        AppointmentManagementApiService,
-    ).getAll();
-    organisationApiService = inject(OrganisationApiService).getAll();
+  private appointmentApiService = inject(AppointmentApiService);
+  private appointmentManagementApiService = inject(AppointmentManagementApiService);
+  private organisationApiService = inject(OrganisationApiService);
+  private coursesApiService = inject(CourseApiService);
+  private tokenApiService = inject(TokenApiService);
+  private categoryApiService = inject(CategoryApiService);
+  private keycloak = inject(KeycloakService);
 
-    constructor(protected keycloak: KeycloakService) {
-        this.isAdmin = keycloak.getUserRoles().includes(Roles.Admin);
-    }
+  protected isAdmin = false;
 
-    isAdmin = false;
+  constructor() {
+    this.isAdmin = this.keycloak.getUserRoles().includes(Roles.Admin);
 
-    onBtnLogout() {
-        this.keycloak
-            .logout()
-            .catch((reason) => console.log('Logout failed: ' + reason));
-    }
+    this.appointmentApiService.getAll();
+    this.appointmentManagementApiService.getAll();
+    this.organisationApiService.getAll();
+    this.coursesApiService.getAll();
+    this.tokenApiService.getAll();
+    this.categoryApiService.getAll();
+  }
+
+  protected onBtnLogout(): void {
+    this.keycloak
+      .logout()
+      .catch((reason) => console.log("Logout failed: " + reason));
+  }
 }

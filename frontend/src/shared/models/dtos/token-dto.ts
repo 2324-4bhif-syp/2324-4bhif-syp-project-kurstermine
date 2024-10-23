@@ -2,7 +2,7 @@ import { Token } from "@models";
 
 export interface TokenDto {
     id: string; // UUID
-    appointment: {
+    appointment?: {
         id?: number;
     };
     category: {

@@ -1,6 +1,6 @@
-import { ChangeDetectorRef, Component, inject, OnDestroy, OnInit } from "@angular/core";
+import { ChangeDetectorRef, Component, inject, OnInit } from "@angular/core";
 import { AsyncPipe } from "@angular/common";
-import { distinctUntilChanged, map, Subscription } from "rxjs";
+import { distinctUntilChanged, map } from "rxjs";
 import { StoreService } from "@services";
 import { Course } from "@models/course";
 import { set } from "@models";

@@ -6,7 +6,9 @@ export interface AppointmentDto {
   date: string;
   duration: number;
   address: string;
-  courseId?: number;
+  course: {
+    id?: number;
+  }
 }
 
 export const fromAppointment = (appointment: Appointment): AppointmentDto => {
@@ -16,6 +18,8 @@ export const fromAppointment = (appointment: Appointment): AppointmentDto => {
     date: appointment.date.toISOString(),
     duration: appointment.duration * 60,
     name: appointment.name,
-    courseId: appointment.courseId,
+    course: {
+      id: appointment.courseId,
+    },
   };
 };

@@ -30,107 +30,16 @@ export interface Model {
 }
 
 export const store = new BehaviorSubject<Model>({
-  appointments: [
-    {
-      id: 1,
-      name: "App1",
-      address: "Limesstraße",
-      date: new Date("2024-05-06"),
-      duration: 30,
-      courseId: 1,
-    },
-  ],
+  appointments: [],
   organisations: [],
   instructors: [],
   appointmentManagements: [],
   customers: [],
-  categories: [
-    {
-      id: 1,
-      name: "category1",
-      organisationId: 1,
-    },
-    {
-      id: 2,
-      name: "category2",
-      organisationId: 2,
-    },
-    {
-      id: 3,
-      name: "category3",
-      organisationId: 2,
-    },
-  ],
-  currentUser: {
-    id: "thomas",
-    firstName: "thomas",
-    lastName: "thomas",
-    email: "thomas.thomas@thomas.thomas",
-  },
-  courses: [
-    {
-      id: 1,
-      categoryId: 1,
-      name: "Tennis",
-    },
-    {
-      id: 2,
-      categoryId: 2,
-      name: "Fußball",
-    },
-    {
-      id: 3,
-      categoryId: 1,
-      name: "Ski",
-    },
-    {
-      id: 4,
-      categoryId: 3,
-      name: "Leetcode",
-    },
-    {
-      id: 5,
-      categoryId: 1,
-      name: "Tennis",
-    },
-    {
-      id: 6,
-      categoryId: 1,
-      name: "Tennis",
-    },
-    {
-      id: 7,
-      categoryId: 1,
-      name: "Tennis",
-    },
-    {
-      id: 8,
-      categoryId: 1,
-      name: "Tennis",
-    },
-    {
-      id: 9,
-      categoryId: 1,
-      name: "Tennis",
-    },
-  ],
-  tokens: [
-    {
-      id: "",
-      categoryId: 1,
-      purchasedAt: new Date(),
-      redeemedAt: new Date(),
-      userId: "thomas",
-    },
-  ],
-  users: [
-    {
-      id: "thomas",
-      firstName: "thomas",
-      lastName: "thomas",
-      email: "thomas.thomas@thomas.thomas",
-    },
-  ],
+  categories: [],
+  currentUser: undefined,
+  courses: [],
+  tokens: [],
+  users: [],
   courseView: {},
 });
 

@@ -1,6 +1,6 @@
 import { Component, inject } from "@angular/core";
 import { StoreService } from "@services";
-import { distinctUntilChanged, map } from "rxjs";
+import { distinctUntilChanged, map, tap } from "rxjs";
 import { AsyncPipe } from "@angular/common";
 import { FormsModule } from "@angular/forms";
 import { Category } from "@models/category";

@@ -1,8 +1,8 @@
-import { ChangeDetectorRef, Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AppointmentApiService } from '@services/api';
 import { StoreService } from '@services';
-import { distinctUntilChanged, map, Subscription, tap } from 'rxjs';
+import { distinctUntilChanged, map } from 'rxjs';
 import {AsyncPipe} from "@angular/common";
 import { ActivatedRoute } from '@angular/router';
 import { set } from '@models/model';
@@ -18,7 +18,6 @@ export class UserAppointmentsComponent implements OnInit {
     private storeService: StoreService = inject(StoreService);
     private appointmentApiService: AppointmentApiService = inject(AppointmentApiService);
     private route = inject(ActivatedRoute);
-    private cdr = inject(ChangeDetectorRef);
 
     protected viewModel = this.storeService.store.pipe(map(model => ({
             appointments: model.appointments.filter(a => a.courseId === model.courseView.selectedCourse?.id)
@@ -45,7 +44,6 @@ export class UserAppointmentsComponent implements OnInit {
           c => c.id === courseId
         );
       });
-      this.appointmentApiService.getAll();
     }
 
     protected readonly String = String;
