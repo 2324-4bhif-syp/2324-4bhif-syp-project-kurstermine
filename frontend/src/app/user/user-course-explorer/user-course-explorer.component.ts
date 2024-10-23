@@ -33,7 +33,10 @@ export class UserCourseExplorerComponent {
         ...o,
         categories: model.categories.filter(
           (cat) => cat.organisationId === o.id,
-        ),
+        ).map((cat) => ({
+          ...cat,
+          unusedTokens: model.tokens.filter(t => t.categoryId === cat.id && t.appointmentId === undefined).length,
+        })),
       })),
     })),
     distinctUntilChanged(),

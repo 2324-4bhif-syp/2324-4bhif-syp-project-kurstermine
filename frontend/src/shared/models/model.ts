@@ -135,7 +135,6 @@ export const store = new BehaviorSubject<Model>({
       purchasedAt: new Date(),
       redeemedAt: new Date(),
       userId: "thomas",
-      appointmentId: 1,
     },
   ],
   users: [
