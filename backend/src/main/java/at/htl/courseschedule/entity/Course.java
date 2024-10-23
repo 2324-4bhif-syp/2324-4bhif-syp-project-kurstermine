@@ -1,19 +1,32 @@
 package at.htl.courseschedule.entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
-
-import java.util.List;
 
 @Entity
 public class Course {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToMany
-    private List<Appointment> appointments;
+    @JsonProperty("name")
+    @Column(name = "name")
+    private String name;
 
-    public Course(List<Appointment> appointments) {
-        this.appointments = appointments;
+    @ManyToOne(
+            fetch = FetchType.LAZY,
+            cascade = {
+                    CascadeType.DETACH,
+                    CascadeType.MERGE,
+                    CascadeType.PERSIST,
+                    CascadeType.REFRESH
+            }
+    )
+    @JoinColumn(name = "category_id")
+    private Category category;
+
+    public Course(String name, Category category) {
+        this.name = name;
+        this.category = category;
     }
 
     public Course() {}
@@ -26,11 +39,28 @@ public class Course {
         this.id = id;
     }
 
-    public List<Appointment> getAppointments() {
-        return appointments;
+    public String getName() {
+        return name;
     }
 
-    public void setAppointments(List<Appointment> appointments) {
-        this.appointments = appointments;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+    @Override
+    public String toString() {
+        return "Course{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", category=" + category +
+                '}';
     }
 }

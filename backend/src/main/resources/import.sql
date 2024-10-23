@@ -1,11 +1,7 @@
 -- This file allow to write SQL commands that will be emitted in test and dev.
--- The commands are commented as their support depends of the database
--- insert into myentity (id, field) values(1, 'field-1');
--- insert into myentity (id, field) values(2, 'field-2');
--- insert into myentity (id, field) values(3, 'field-3');
--- alter sequence myentity_seq restart with 4;
 create extension if not exists pg_trgm;
 
+/*
 insert into Appointment (name, date, duration, address)
 values
     ('Yoga', '2022-11-09 12:00:00', 1800000000000, 'Sophiengutstraße'),
@@ -27,56 +23,55 @@ values
     ('Aerial Silk Spectacle', '2024-08-15 19:00:00', 1800000000000, 'Sky High Gym'),
     ('Wilderness Survival Training', '2024-11-20 09:00:00', 1800000000000, 'Nature Reserve Camp'),
     ('Sensory Deprivation Float', '2025-02-25 12:00:00', 1800000000000, 'Floatation Therapy Spa'),
-    ('Glow-in-the-Dark Yoga', '2025-05-30 20:00:00', 1800000000000, 'Luminous Yoga Studio');
+    ('Glow-in-the-Dark Yoga', '2025-05-30 20:00:00', 1800000000000, 'Luminous Yoga Studio');*/
 
-insert into organisation (name, uniquename)
-values
+-- Insert for Organisation
+INSERT INTO organisation (name, uniquename) VALUES
     ('Google', 'google'),
     ('Microsoft', 'microsoft'),
     ('Amazon', 'amazon'),
     ('Apple', 'apple'),
     ('Facebook', 'facebook');
 
-/*insert into packet (name, price, organisation_id)
-values
-    ('Angebot', 49.99, 1),
-    ('Sport', 99.99, 1),
-    ('Basic', 39.99, 2),
-    ('Premium', 149.99, 2),
-    ('Starter', 79.99, 3),
-    ('Professional', 199.99, 3),
-    ('Standard', 69.99, 4),
-    ('Deluxe', 129.99, 4),
-    ('Bronze', 49.99, 5),
-    ('Silver', 89.99, 5);
+-- Insert for Category
+INSERT INTO category (name, organisation_id) VALUES
+    ('Software Development', 1),
+    ('Data Science', 1),
+    ('Finance', 2);
 
-insert into offer (appointment_id, packet_id)
-values
-    (1, 1),
-    (2, 1),
-    (3, 2),
-    (4, 2),
-    (5, 3),
-    (6, 3),
-    (7, 4),
-    (8, 4),
-    (9, 5),
-    (10, 5),
-    (11, 6),
-    (12, 6),
-    (13, 7),
-    (14, 7),
-    (15, 8),
-    (16, 8),
-    (17, 9),
-    (18, 9),
-    (19, 10),
-    (20, 10);
-*/
+-- Insert for User
+-- UUID generation using PostgreSQL function gen_random_uuid()
+INSERT INTO b_user (uuid) VALUES
+    ('f47ac10b-58cc-4372-a567-0e02b2c3d479'),
+    ('4fcd3b34-7d1e-4772-bf25-65a8e20b9d60'),
+    ('ae5df6de-2d1c-4f62-9f2c-7f2b3cb41c44');
 
--- insert into Participation (appointment_id, customer_id) values (1, 1);
--- insert into Participation (appointment_id, customer_id) values (1, 2);
--- insert into Participation (appointment_id, customer_id) values (1, 3);
--- insert into Participation (appointment_id, customer_id) values (2, 5);
--- insert into Participation (appointment_id, customer_id) values (3, 5);
--- insert into Appointment_Management (appointment_id, instructor_id) values (1, 4);
+-- Insert for Course
+INSERT INTO course (name, category_id) VALUES
+    ('Java Programming', 1),
+    ('Python for Data Science', 2),
+    ('Corporate Finance', 3);
+
+-- Insert for Appointment
+INSERT INTO appointment (name, date, duration, address, course_id) VALUES
+    ('Java Class - Session 1', '2024-10-25 10:00:00', 1800000000000, 'Main Campus, Room 101', 1),
+    ('Python Data Science Workshop', '2024-11-10 14:00:00', 1800000000000, 'Tech Building, Room 204', 2),
+    ('Corporate Finance Intro', '2024-10-30 09:00:00', 1800000000000, 'Business Hall, Room 301', 3);
+
+-- Insert for AppointmentManagement
+INSERT INTO appointment_management (appointment_id, instructor_uuid) VALUES
+    (1, 'f47ac10b-58cc-4372-a567-0e02b2c3d479'),
+    (2, '4fcd3b34-7d1e-4772-bf25-65a8e20b9d60'),
+    (3, 'ae5df6de-2d1c-4f62-9f2c-7f2b3cb41c44');
+
+-- Insert for Hire
+INSERT INTO hire (organisation_id, instructor_uuid) VALUES
+    (1, 'f47ac10b-58cc-4372-a567-0e02b2c3d479'),
+    (1, '4fcd3b34-7d1e-4772-bf25-65a8e20b9d60'),
+    (2, 'ae5df6de-2d1c-4f62-9f2c-7f2b3cb41c44');
+
+-- Insert for Token
+INSERT INTO token (id, category_id, appointment_id, user_id) VALUES
+    ('e65d7654-3d1b-4d1c-b8df-4b8a0b8a7e63', 1, 1, 'f47ac10b-58cc-4372-a567-0e02b2c3d479'),
+    ('da75bc12-6a9f-46c2-bcb5-8f6d9642e3d1', 2, 2, '4fcd3b34-7d1e-4772-bf25-65a8e20b9d60'),
+    ('d76f6f8e-4b1e-4d5b-bcef-4b2d634a2d9a', 3, 3, 'ae5df6de-2d1c-4f62-9f2c-7f2b3cb41c44');
