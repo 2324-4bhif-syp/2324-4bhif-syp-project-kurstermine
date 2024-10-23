@@ -49,7 +49,6 @@ export class UserCourseExplorerComponent {
   protected selectCategory(category: Category): void {
     set((model) => {
       model.courseView.selectedCategory = category;
-      model.courseView.selectedOrganisation = undefined;
     });
   }
 }

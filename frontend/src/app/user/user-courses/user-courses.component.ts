@@ -1,10 +1,10 @@
-import { Component, inject } from "@angular/core";
+import { ChangeDetectorRef, Component, inject, OnDestroy, OnInit } from "@angular/core";
 import { AsyncPipe } from "@angular/common";
-import { distinctUntilChanged, map } from "rxjs";
+import { distinctUntilChanged, map, Subscription } from "rxjs";
 import { StoreService } from "@services";
 import { Course } from "@models/course";
 import { set } from "@models";
-import { RouterModule } from "@angular/router";
+import { ActivatedRoute, RouterModule } from "@angular/router";
 
 @Component({
   selector: "app-user-courses",
@@ -13,8 +13,10 @@ import { RouterModule } from "@angular/router";
   templateUrl: "./user-courses.component.html",
   styleUrl: "./user-courses.component.css",
 })
-export class UserCoursesComponent {
+export class UserCoursesComponent implements OnInit {
   private storeService: StoreService = inject(StoreService);
+  private route = inject(ActivatedRoute);
+  private cdr = inject(ChangeDetectorRef);
 
   protected viewModel = this.storeService.store.pipe(
     map(model => ({
@@ -33,19 +35,34 @@ export class UserCoursesComponent {
         }))
         .filter(c =>
           model.courseView.selectedCategory !== undefined
-            ? c.category?.id === model.courseView.selectedCategory.id
+            ? c.category?.id === model.courseView.selectedCategory?.id
             : model.courseView.selectedOrganisation !== undefined
               ? c.category?.organisation?.id ===
-                model.courseView.selectedOrganisation.id
+                model.courseView.selectedOrganisation?.id
               : false,
         ),
     })),
     distinctUntilChanged(),
   );
 
-  protected selectCourse(course: Course): void {
-    set((model) => {
+  protected selectCourse(course: Course) {
+    set(model => {
       model.courseView.selectedCourse = course;
+    });
+  }
+
+  ngOnInit(): void {
+    let organisationId = Number(this.route.snapshot.params["organisationId"]);
+    let categoryId = Number(this.route.snapshot.params["categoryId"]);
+
+    set(model => {
+      model.courseView.selectedOrganisation = model.organisations.find(
+        o => o.id === organisationId,
+      );
+
+      model.courseView.selectedCategory = model.categories.find(
+        c => c.id === categoryId,
+      );
     });
   }
 }

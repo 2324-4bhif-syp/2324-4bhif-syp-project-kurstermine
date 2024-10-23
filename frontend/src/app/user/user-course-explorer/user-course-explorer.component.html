@@ -1,11 +1,12 @@
 <p class="text-5xl text-center pb-10 mt-10 shadow-lg">Course Explorer</p>
 
 <div class="flex flex-row">
-    <ul class="menu rounded-box min-w-64 pb-72 rounded-none border-r-2">
+    <ul class="menu min-w-64 pb-72 rounded-none border-r-2">
         @for (
             organisation of (viewModel | async)?.organisations;
             track organisation
         ) {
+        @if (organisation !== undefined ){
             <li>
                 <a
                     [routerLink]="[organisation.id]"
@@ -26,6 +27,7 @@
                     }
                 </ul>
             </li>
+            }
         }
     </ul>
 
