@@ -2,6 +2,7 @@ package at.htl.courseschedule.boundary;
 
 import at.htl.courseschedule.controller.CourseRepository;
 import at.htl.courseschedule.entity.Course;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.*;
@@ -13,17 +14,24 @@ public class CourseResource {
     CourseRepository courseRepository;
 
     @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @RolesAllowed({Role.Organisator, Role.Admin, Role.Instructor, Role.Customer})
+    public Response getAllCourses() {
+        return Response.ok(courseRepository.listAll()).build();
+    }
+
+    @GET
     @Path("{category-id}")
     @Produces(MediaType.APPLICATION_JSON)
-    //@RolesAllowed({Role.Organisator, Role.Admin, Role.Instructor, Role.Customer})
-    public Response getAllCourses(@PathParam("category-id") Long categoryId) {
+    @RolesAllowed({Role.Organisator, Role.Admin, Role.Instructor, Role.Customer})
+    public Response getAllCoursesOfCategory(@PathParam("category-id") Long categoryId) {
         return Response.ok(courseRepository.getAllCoursesForCategory(categoryId)).build();
     }
 
     @GET
     @Path("id/{course-id}")
     @Produces(MediaType.APPLICATION_JSON)
-    //@RolesAllowed({Role.Customer, Role.Admin, Role.Instructor, Role.Organisator})
+    @RolesAllowed({Role.Customer, Role.Admin, Role.Instructor, Role.Organisator})
     public Response getCourseById(@PathParam("course-id") Long courseId) {
         return Response.ok(courseRepository.findById(courseId)).build();
     }
@@ -32,7 +40,7 @@ public class CourseResource {
     @Path("{category-id}")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    //@RolesAllowed({Role.Organisator, Role.Admin})
+    @RolesAllowed({Role.Organisator, Role.Admin})
     @Transactional
     public Response createCourse(@PathParam("category-id") Long categoryId,
                                  Course course,
@@ -45,7 +53,7 @@ public class CourseResource {
     @DELETE
     @Path("{course-id}")
     @Produces(MediaType.APPLICATION_JSON)
-    //@RolesAllowed({Role.Organisator, Role.Admin})
+    @RolesAllowed({Role.Organisator, Role.Admin})
     @Transactional
     public Response deleteCourse(@PathParam("course-id") Long courseId) {
         courseRepository.deleteById(courseId);
