@@ -22,10 +22,15 @@ export class UserAppointmentsComponent implements OnInit {
         distinctUntilChanged()
     );
 
-    protected searchValue: string = '';
+    protected searchValue: string = "";
+    protected view: "table" | "card" = "card";
 
     protected search(): void {
         this.appointmentApiService.search(this.searchValue);
+    }
+
+    protected changeView(view: "table" | "card"): void {
+        this.view = view;
     }
 
     public ngOnInit(): void {

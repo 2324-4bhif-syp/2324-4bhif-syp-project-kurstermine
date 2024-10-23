@@ -1,6 +1,6 @@
-<p class="text-5xl text-center my-10">Appointments</p>
+<p class="text-4xl text-center mt-10 mb-5">Appointments</p>
 
-<div class="flex items-center justify-center mt-5 mb-20">
+<!--div class="flex items-center justify-center mt-5 mb-20">
     <form (submit)="search()" class="w-1/2">
         <label
             class="border-2 rounded-3xl input input-bordered input-primary flex items-center gap-2 pr-0"
@@ -19,48 +19,106 @@
             </button>
         </label>
     </form>
+</div-->
+
+<div class="flex justify-center mb-10">
+    <div class="form-control w-16">
+        <label class="label cursor-pointer">
+            <span class="label-text">
+                <span class="material-symbols-outlined align-middle">dashboard</span>
+            </span>
+            <input (change)="changeView('card')" type="radio" name="radio-10" class="radio checked:bg-accent" checked="checked" />
+        </label>
+    </div>
+    <div class="form-control w-16">
+        <label class="label cursor-pointer">
+            <span class="label-text">
+                <span class="material-symbols-outlined align-middle">table_rows</span>
+            </span>
+            <input (change)="changeView('table')" type="radio" name="radio-10" class="radio checked:bg-accent" />
+        </label>
+    </div>
 </div>
 
-<div class="flex flex-wrap gap-5 justify-evenly">
-    @for (appointment of (viewModel | async)?.appointments; track appointment.id) {
-        <div class="border-2 rounded-md shadow-lg card w-96">
-            <div class="items-center text-center card-body">
-                <p class="text-3xl card-title">{{ appointment.name }}</p>
-
-                <div class="m-0 divider"></div>
-
-                <div class="flex flex-col">
-                    <span class="material-symbols-outlined"> location_on </span>
-                    {{ appointment.address }}
-                </div>
-
-                <div class="flex justify-center w-full">
-                    <div class="w-1/2 m-0 divider"></div>
-                </div>
-
-                <div class="flex flex-col">
-                    <span class="material-symbols-outlined"> today </span>
-                    {{ appointment.date.getDay() }}.{{ appointment.date.getMonth() }}.{{
-                        appointment.date.getFullYear()
-                    }}
-                </div>
-
-                <div class="flex w-full justify-evenly">
-                    <div class="flex flex-col">
-                        <span class="material-symbols-outlined"> schedule </span>
+@if (view === 'table') {
+    <div class="overflow-x-auto">
+        <table class="table">
+            <!-- head -->
+            <thead>
+            <tr>
+                <th></th>
+                <th>Name</th>
+                <th>Address</th>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Duration</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                @for (appointment of (viewModel | async)?.appointments; track $index) {
+                    <th>{{ $index + 1 }}</th>
+                    <td>{{ appointment.name }}</td>
+                    <td>{{ appointment.address }}</td>
+                    <td>
+                        {{ appointment.date.getDay() }}.{{ appointment.date.getMonth() }}.{{
+                            appointment.date.getFullYear()
+                        }}
+                    </td>
+                    <td>
                         {{ appointment.date.getHours() }}:{{
                             String(appointment.date.getMinutes()).padStart(2, "0")
                         }}
+                    </td>
+                    <td>{{ appointment.duration }}</td>
+                }
+            </tr>
+            </tbody>
+        </table>
+    </div>
+}
+
+@if (view === 'card') {
+    <div class="flex flex-wrap gap-5 justify-evenly">
+        @for (appointment of (viewModel | async)?.appointments; track appointment) {
+            <div class="border-2 rounded-md shadow-lg card w-96">
+                <div class="items-center text-center card-body">
+                    <p class="text-3xl card-title">{{ appointment.name }}</p>
+                    <div class="m-0 divider"></div>
+
+                    <div class="flex flex-col">
+                        <span class="material-symbols-outlined"> location_on </span>
+                        {{ appointment.address }}
+                    </div>
+
+                    <div class="flex justify-center w-full">
+                        <div class="w-1/2 m-0 divider"></div>
                     </div>
 
                     <div class="flex flex-col">
-                        <span class="material-symbols-outlined"> timelapse </span>
-                        {{ appointment.duration }} min
+                        <span class="material-symbols-outlined"> today </span>
+                        {{ appointment.date.getDay() }}.{{ appointment.date.getMonth() }}.{{
+                            appointment.date.getFullYear()
+                        }}
+                    </div>
+
+                    <div class="flex w-full justify-evenly">
+                        <div class="flex flex-col">
+                            <span class="material-symbols-outlined"> schedule </span>
+                            {{ appointment.date.getHours() }}:{{
+                                String(appointment.date.getMinutes()).padStart(2, "0")
+                            }}
+                        </div>
+
+                        <div class="flex flex-col">
+                            <span class="material-symbols-outlined"> timelapse </span>
+                            {{ appointment.duration }} min
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    } @empty {
-        No appointments available!
-    }
-</div>
+        } @empty {
+            No appointments available!
+        }
+    </div>
+}

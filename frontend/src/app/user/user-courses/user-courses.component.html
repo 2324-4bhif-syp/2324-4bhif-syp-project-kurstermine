@@ -1,8 +1,32 @@
-<p class="text-5xl text-center my-10">Courses</p>
+@if ((viewModel | async)?.selectedCategory) {
+    <p class="text-4xl text-center mt-10">Tokens</p>
+    <p class="text-center mb-5">Buy Tokens for the Category: {{(viewModel | async)?.selectedCategory?.name}}</p>
 
-<div class="flex flex-wrap gap-5 justify-evenly">
+    <div class="flex justify-evenly mb-5">
+        <button class="btn btn-outline text-lg">
+            1
+            <span class="material-symbols-outlined">poker_chip</span>
+        </button>
+
+        <button class="btn btn-outline text-lg">
+            5
+            <span class="material-symbols-outlined">poker_chip</span>
+        </button>
+
+        <button class="btn btn-outline text-lg">
+            10
+            <span class="material-symbols-outlined">poker_chip</span>
+        </button>
+    </div>
+
+    <div class="m-0 divider"></div>
+}
+
+<p class="text-4xl text-center mb-10 mt-5">Courses</p>
+
+<div class="flex flex-wrap gap-5 justify-center">
     @for (course of (viewModel | async)?.courses; track course) {
-        <div class="border-2 rounded-md shadow-lg card w-80">
+        <div class="border-2 rounded-md shadow-lg card w-72 justify-self-center">
             <div class="items-center text-center card-body">
                 <p class="text-3xl card-title">{{ course.name }}</p>
                 <div class="m-0 divider"></div>
@@ -14,6 +38,7 @@
                         course.category?.id,
                         course.id,
                     ]"
+                    (click)="selectCourse(course)"
                     class="btn btn-outline"
                 >
                     View Course

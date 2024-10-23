@@ -4,7 +4,7 @@ import { distinctUntilChanged, map } from "rxjs";
 import { StoreService } from "@services";
 import { Course } from "@models/course";
 import { set } from "@models";
-import { ActivatedRoute, Route, Router, RouterModule } from "@angular/router";
+import { RouterModule } from "@angular/router";
 
 @Component({
   selector: "app-user-courses",
@@ -18,6 +18,7 @@ export class UserCoursesComponent {
 
   protected viewModel = this.storeService.store.pipe(
     map((model) => ({
+      selectedCategory: model.courseView.selectedCategory,
       courses: model.courses
         .map((c) => ({
           ...c,
