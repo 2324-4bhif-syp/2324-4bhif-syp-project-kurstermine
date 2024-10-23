@@ -55,24 +55,24 @@
             </tr>
             </thead>
             <tbody>
-            <tr>
                 @for (appointment of (viewModel | async)?.appointments; track $index) {
-                    <th>{{ $index + 1 }}</th>
-                    <td>{{ appointment.name }}</td>
-                    <td>{{ appointment.address }}</td>
-                    <td>
-                        {{ appointment.date.getDay() }}.{{ appointment.date.getMonth() }}.{{
-                            appointment.date.getFullYear()
-                        }}
-                    </td>
-                    <td>
-                        {{ appointment.date.getHours() }}:{{
-                            String(appointment.date.getMinutes()).padStart(2, "0")
-                        }}
-                    </td>
-                    <td>{{ appointment.duration }}</td>
+                    <tr>
+                        <th>{{ $index + 1 }}</th>
+                        <td>{{ appointment.name }}</td>
+                        <td>{{ appointment.address }}</td>
+                        <td>
+                            {{ appointment.date.getDay() }}.{{ appointment.date.getMonth() }}.{{
+                                appointment.date.getFullYear()
+                            }}
+                        </td>
+                        <td>
+                            {{ appointment.date.getHours() }}:{{
+                                String(appointment.date.getMinutes()).padStart(2, "0")
+                            }}
+                        </td>
+                        <td>{{ appointment.duration }}</td>
+                    </tr>
                 }
-            </tr>
             </tbody>
         </table>
     </div>
