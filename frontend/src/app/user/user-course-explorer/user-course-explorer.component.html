@@ -1,5 +1,5 @@
 <div
-    class="bg-[url('/assets/course-explorer-banner-darker.jpg')] bg-cover bg-center pb-10 pt-10 shadow-lg"
+    class="bg-[url('/assets/course-explorer-banner.jpg')] bg-cover bg-center pb-10 pt-10 shadow-lg"
 >
     <p
         class="text-5xl text-center text-white"
@@ -18,12 +18,12 @@
             @if (organisation !== undefined) {
                 <li>
                     <a
-                        class="border-b-2 rounded-none"
+                        class="border-b-2 rounded-none h-10"
                         [routerLink]="[organisation.id]"
                         routerLinkActive="border-accent border-solid"
                         (click)="selectOrganisation(organisation)"
                     >
-                        <p>
+                        <p >
                             {{ organisation.name }}
                         </p>
                     </a>
@@ -34,7 +34,7 @@
                         ) {
                             <li>
                                 <a
-                                    class="border-b-2 flex justify-between rounded-none"
+                                    class="border-b-2 flex justify-between rounded-none h-10"
                                     [routerLink]="[
                                         organisation.id,
                                         category.id,
