@@ -17,21 +17,21 @@ export class UserCoursesComponent {
   private storeService: StoreService = inject(StoreService);
 
   protected viewModel = this.storeService.store.pipe(
-    map((model) => ({
+    map(model => ({
       selectedCategory: model.courseView.selectedCategory,
       courses: model.courses
-        .map((c) => ({
+        .map(c => ({
           ...c,
           category: model.categories
-            .map((cat) => ({
+            .map(cat => ({
               ...cat,
               organisation: model.organisations.find(
-                (o) => o.id === cat.organisationId,
+                o => o.id === cat.organisationId,
               ),
             }))
-            .find((cat) => cat.id === c.categoryId),
+            .find(cat => cat.id === c.categoryId),
         }))
-        .filter((c) =>
+        .filter(c =>
           model.courseView.selectedCategory !== undefined
             ? c.category?.id === model.courseView.selectedCategory.id
             : model.courseView.selectedOrganisation !== undefined
