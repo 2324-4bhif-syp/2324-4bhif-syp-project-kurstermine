@@ -37,26 +37,43 @@ INSERT INTO organisation (name, uniquename) VALUES
 INSERT INTO category (name, organisation_id) VALUES
     ('Software Development', 1),
     ('Data Science', 1),
-    ('Finance', 2);
+    ('Finance', 2),
+    ('Baby Swimming', 5),
+    ('Personal Training', 5),
+    ('Nutrition', 4),
+    ('English Language', 3),
+    ('Spanish Language', 4);
 
 -- Insert for User
 -- UUID generation using PostgreSQL function gen_random_uuid()
 INSERT INTO b_user (uuid) VALUES
     ('f47ac10b-58cc-4372-a567-0e02b2c3d479'),
     ('4fcd3b34-7d1e-4772-bf25-65a8e20b9d60'),
-    ('ae5df6de-2d1c-4f62-9f2c-7f2b3cb41c44');
+    ('ae5df6de-2d1c-4f62-9f2c-7f2b3cb41c44'),
+    ('123e4567-e89b-12d3-a456-426614174005'),
+    ('123e4567-e89b-12d3-a456-426614174006'),
+    ('123e4567-e89b-12d3-a456-426614174007'),
+    ('123e4567-e89b-12d3-a456-426614174008');
 
 -- Insert for Course
 INSERT INTO course (name, category_id) VALUES
     ('Java Programming', 1),
     ('Python for Data Science', 2),
-    ('Corporate Finance', 3);
+    ('Corporate Finance', 3),
+    ('Beginner Strength Training', 4),
+    ('Advanced Nutrition', 6),
+    ('English for Beginners', 7),
+    ('Spanish for Business', 7);
 
 -- Insert for Appointment
 INSERT INTO appointment (name, date, duration, address, course_id) VALUES
     ('Java Class - Session 1', '2024-10-25 10:00:00', 1800000000000, 'Main Campus, Room 101', 1),
     ('Python Data Science Workshop', '2024-11-10 14:00:00', 1800000000000, 'Tech Building, Room 204', 2),
-    ('Corporate Finance Intro', '2024-10-30 09:00:00', 1800000000000, 'Business Hall, Room 301', 3);
+    ('Corporate Finance Intro', '2024-10-30 09:00:00', 1800000000000, 'Business Hall, Room 301', 3),
+    ('Strength Training Basics', '2024-11-20 10:00:00', 1800000000000, 'Fitness Center, Room A', 3),
+    ('Nutrition and Health', '2024-11-22 12:00:00', 1800000000000, 'Fitness Center, Room B', 2),
+    ('Beginner English Workshop', '2024-12-05 09:00:00', 1800000000000, 'Language Academy, Room 101', 2),
+    ('Spanish for Business Professionals', '2024-12-12 14:00:00', 1800000000000, 'Language Academy, Room 102', 1);
 
 -- Insert for AppointmentManagement
 INSERT INTO appointment_management (appointment_id, instructor_uuid) VALUES
@@ -74,4 +91,8 @@ INSERT INTO hire (organisation_id, instructor_uuid) VALUES
 INSERT INTO token (id, category_id, appointment_id, user_id) VALUES
     ('e65d7654-3d1b-4d1c-b8df-4b8a0b8a7e63', 1, 1, 'f47ac10b-58cc-4372-a567-0e02b2c3d479'),
     ('da75bc12-6a9f-46c2-bcb5-8f6d9642e3d1', 2, 2, '4fcd3b34-7d1e-4772-bf25-65a8e20b9d60'),
-    ('d76f6f8e-4b1e-4d5b-bcef-4b2d634a2d9a', 3, 3, 'ae5df6de-2d1c-4f62-9f2c-7f2b3cb41c44');
+    ('d76f6f8e-4b1e-4d5b-bcef-4b2d634a2d9a', 3, 3, 'ae5df6de-2d1c-4f62-9f2c-7f2b3cb41c44'),
+    ('9f91b4c0-d230-4f34-9517-73f69b5ad3df', 6, null, '123e4567-e89b-12d3-a456-426614174008'),
+    ('b5e631a4-2fc9-40a6-a5ed-4078a8ad5e2f', 7, null, '123e4567-e89b-12d3-a456-426614174008'),
+    ('22e5f4a7-82e0-4b36-9284-bc35dcb258f5', 8, null, '123e4567-e89b-12d3-a456-426614174008'),
+    ('e093dd16-5d95-47d7-bf77-3dfb1e9d682e', 7, null, '123e4567-e89b-12d3-a456-426614174008');

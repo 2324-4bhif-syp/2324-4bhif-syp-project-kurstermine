@@ -30,7 +30,10 @@ public class Token {
                     CascadeType.REFRESH
             }
     )
-    @JoinColumn(name = "appointment_id")
+    @JoinColumn(
+            name = "appointment_id",
+            nullable = true
+    )
     private Appointment appointment;
 
     @ManyToOne(
