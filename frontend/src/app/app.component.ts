@@ -5,13 +5,7 @@ import { RouterModule, RouterOutlet } from '@angular/router';
 import {
     AppointmentApiService,
     AppointmentManagementApiService,
-    CustomerApiService,
-    InstructorApiService,
-    OfferApiService,
     OrganisationApiService,
-    PacketApiService,
-    ParticipationApiService,
-    PurchaseApiService,
 } from '@services/api';
 
 @Component({
@@ -26,13 +20,7 @@ export class AppComponent {
     appointmentManagementApiService = inject(
         AppointmentManagementApiService,
     ).getAll();
-    customerApiService = inject(CustomerApiService).getAll();
-    instructorApiService = inject(InstructorApiService).getAll();
-    offerApiService = inject(OfferApiService).getAll();
     organisationApiService = inject(OrganisationApiService).getAll();
-    packetApiService = inject(PacketApiService).getAll();
-    participationApiService = inject(ParticipationApiService).getAll();
-    purchaseApiService = inject(PurchaseApiService).getAll();
 
     constructor(protected keycloak: KeycloakService) {
         this.isAdmin = keycloak.getUserRoles().includes(Roles.Admin);

@@ -1,79 +1,65 @@
 import {
   Appointment,
   AppointmentManagement,
-  Customer,
-  Instructor,
-  Offer,
   Organisation,
-  Packet,
-  Participation,
-  Purchase,
+  Course,
+  User,
+  Token,
+  Category,
 } from "@models";
 import { Draft, produce } from "immer";
 import { KeycloakProfile } from "keycloak-js";
 import { BehaviorSubject } from "rxjs";
-import { Course } from "./course";
-import { User } from "./user";
-import { Token } from "./token";
-import { Category } from "./category";
 
 export interface Model {
   readonly appointments: Appointment[];
-  readonly packets: Packet[];
   readonly organisations: Organisation[];
-  readonly offers: Offer[];
-  readonly purchases: Purchase[];
   readonly appointmentManagements: AppointmentManagement[];
-  readonly instructors: Instructor[];
-  readonly customer: Customer | undefined;
-  readonly customers: Customer[];
-  readonly participations: Participation[];
+  readonly instructors: User[];
+  readonly customers: User[];
   readonly users: User[];
   readonly courses: Course[];
   readonly tokens: Token[];
-  readonly currentUser: User;
+  readonly currentUser?: User;
   readonly categories: Category[];
   readonly courseView: {
     readonly selectedCategory?: Category;
     readonly selectedOrganisation?: Organisation;
     readonly selectedCourse?: Course;
-  }
+  };
 }
 
 export const store = new BehaviorSubject<Model>({
-  appointments: [{
+  appointments: [
+    {
       id: 1,
       name: "App1",
       address: "Limesstraße",
       date: new Date("2024-05-06"),
       duration: 30,
-      courseId: 1
-  }],
-  packets: [],
+      courseId: 1,
+    },
+  ],
   organisations: [],
-  offers: [],
-  purchases: [],
   instructors: [],
   appointmentManagements: [],
-  customer: undefined,
   customers: [],
-  participations: [],
   categories: [
     {
       id: 1,
       name: "category1",
-      organisationId: 1
+      organisationId: 1,
     },
     {
       id: 2,
       name: "category2",
-      organisationId: 2
+      organisationId: 2,
     },
     {
       id: 3,
       name: "category3",
-      organisationId: 2
-    }
+      organisationId: 2,
+    },
   ],
   currentUser: {
     id: "thomas",
@@ -102,31 +88,31 @@ export const store = new BehaviorSubject<Model>({
       categoryId: 3,
       name: "Leetcode",
     },
-      {
-          id: 5,
-          categoryId: 1,
-          name: "Tennis",
-      },
-      {
-          id: 6,
-          categoryId: 1,
-          name: "Tennis",
-      },
-      {
-          id: 7,
-          categoryId: 1,
-          name: "Tennis",
-      },
-      {
-          id: 8,
-          categoryId: 1,
-          name: "Tennis",
-      },
-      {
-          id: 9,
-          categoryId: 1,
-          name: "Tennis",
-      },
+    {
+      id: 5,
+      categoryId: 1,
+      name: "Tennis",
+    },
+    {
+      id: 6,
+      categoryId: 1,
+      name: "Tennis",
+    },
+    {
+      id: 7,
+      categoryId: 1,
+      name: "Tennis",
+    },
+    {
+      id: 8,
+      categoryId: 1,
+      name: "Tennis",
+    },
+    {
+      id: 9,
+      categoryId: 1,
+      name: "Tennis",
+    },
   ],
   tokens: [
     {
@@ -145,7 +131,7 @@ export const store = new BehaviorSubject<Model>({
       email: "thomas.thomas@thomas.thomas",
     },
   ],
-  courseView: {}
+  courseView: {},
 });
 
 export function set(recipe: (model: Draft<Model>) => void) {
@@ -153,7 +139,7 @@ export function set(recipe: (model: Draft<Model>) => void) {
   store.next(next);
 }
 
-export function userProfileToCustomer(userprofile: KeycloakProfile): Customer {
+export function userProfileToUser(userprofile: KeycloakProfile): User {
   return {
     id: userprofile.id,
     firstName: userprofile.firstName!,

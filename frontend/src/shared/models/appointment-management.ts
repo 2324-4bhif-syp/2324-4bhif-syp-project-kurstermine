@@ -1,4 +1,3 @@
-import { Appointment, fromAppointmentDto, Instructor } from '@models';
 import { AppointmentManagementDto } from '@models/dtos';
 
 export interface AppointmentManagement {
