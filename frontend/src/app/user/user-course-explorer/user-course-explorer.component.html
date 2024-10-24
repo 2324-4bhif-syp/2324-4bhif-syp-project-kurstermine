@@ -23,7 +23,7 @@
                         routerLinkActive="border-accent border-solid"
                         (click)="selectOrganisation(organisation)"
                     >
-                        <p >
+                        <p>
                             {{ organisation.name }}
                         </p>
                     </a>
@@ -70,15 +70,18 @@
 
     <div class="grow mb-20 mx-5">
         <div class="breadcrumbs text-sm">
-          <ul>
-            @for (breadcrumb of (viewModel | async)?.breadcrumbs; track breadcrumb) {
-                <li>
-                    <a [routerLink]="breadcrumb?.link">
-                        {{ breadcrumb?.name }}
-                    </a>
-                </li>
-            }
-          </ul>
+            <ul>
+                @for (
+                    breadcrumb of (viewModel | async)?.breadcrumbs;
+                    track breadcrumb
+                ) {
+                    <li>
+                        <p>
+                            {{ breadcrumb?.name }}
+                        </p>
+                    </li>
+                }
+            </ul>
         </div>
 
         <router-outlet />
