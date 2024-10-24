@@ -21,8 +21,8 @@
     </form>
 </div>
 
-<div class="flex flex-wrap w-full gap-5 justify-evenly">
-    @for (o of viewModelOrganisations | async; track o.id) {
+<div class="flex flex-wrap w-full gap-5 justify-evenly mb-60">
+    @for (o of viewModelOrganisations | async; track o) {
         <app-user-organisation [organisation]="o"></app-user-organisation>
     } @empty {
         No organisations available!

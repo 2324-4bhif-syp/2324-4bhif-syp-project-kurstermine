@@ -1,5 +1,5 @@
 import { Component, inject, Input } from '@angular/core';
-import { Appointment, AppointmentManagement, Instructor } from '@models';
+import { Appointment, AppointmentManagement, User } from '@models';
 import { FormsModule } from '@angular/forms';
 import { distinctUntilChanged, map } from 'rxjs';
 import { StoreService } from '@services';
@@ -15,7 +15,7 @@ import { AsyncPipe } from '@angular/common';
 })
 export class AdminAppointmentManagementComponent {
     @Input() appointment: Appointment | undefined;
-    protected selectedInstructor: Instructor | undefined;
+    protected selectedInstructor: User | undefined;
     protected panelOpenState: boolean = false;
 
     protected viewModel = inject(StoreService).store.pipe(

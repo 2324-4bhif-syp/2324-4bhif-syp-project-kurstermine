@@ -10,7 +10,6 @@ import jakarta.enterprise.event.Observes;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
@@ -39,7 +38,9 @@ public class InitBean {
                 "microsoft.png",
                 "amazon.png",
                 "apple.png",
-                "facebook.png"
+                "facebook.png",
+                "akw.jpg",
+                "elvira.jpg"
         );
 
         for (int i = 0; i < organisations.size() && i < imgNames.size(); i++) {
@@ -63,7 +64,7 @@ public class InitBean {
 
         try {
             organisationImageRepository.persist(new OrganisationImage(inputStream.readAllBytes(), organisation));
-        } catch (IOException e) {
+        } catch (Exception e) {
             Log.error("Setting Images for Example-Data failed!");
             return false;
         }

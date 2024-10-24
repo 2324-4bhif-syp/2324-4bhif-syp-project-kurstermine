@@ -23,16 +23,16 @@ public class AppointmentManagement {
     @ManyToOne(fetch = FetchType.LAZY)
     @MapsId("instructorId")
     @OnDelete(action = OnDeleteAction.CASCADE)
-    private BabyUser instructor;
+    private User instructor;
     //endregion
 
     //region constructors
     public AppointmentManagement() {
     }
 
-    public AppointmentManagement(@NotNull Appointment appointment, @NotNull BabyUser instructor) {
+    public AppointmentManagement(@NotNull Appointment appointment, @NotNull User instructor) {
         this.appointment = appointment;
-        this.id = new AppointmentManagementId(appointment.getId(), instructor.getUuid());
+        this.id = new AppointmentManagementId(appointment.getId(), instructor.getId());
     }
     //endregion
 
@@ -53,11 +53,11 @@ public class AppointmentManagement {
         this.appointment = appointment;
     }
 
-    public BabyUser getInstructor() {
+    public User getInstructor() {
         return instructor;
     }
 
-    public void setInstructor(BabyUser instructor) {
+    public void setInstructor(User instructor) {
         this.instructor = instructor;
     }
 

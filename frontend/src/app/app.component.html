@@ -17,7 +17,7 @@
                         <a
                             routerLink="organisations"
                             class="text-xl btn btn-ghost justify-normal"
-                            routerLinkActive="bg-accent"
+                            routerLinkActive="border-2 border-accent"
                         >
                             <span class="material-symbols-outlined">
                                 business
@@ -27,7 +27,7 @@
                         <a
                             routerLink="appointments"
                             class="text-xl btn btn-ghost justify-normal"
-                            routerLinkActive="bg-accent"
+                            routerLinkActive="border-2 border-accent"
                         >
                             <span class="material-symbols-outlined">
                                 today
@@ -35,19 +35,19 @@
                             Appointments
                         </a>
                         <a
-                            routerLink="packets"
+                            routerLink="courses"
                             class="text-xl btn btn-ghost justify-normal"
-                            routerLinkActive="bg-accent"
+                            routerLinkActive="border-2 border-accent"
                         >
                             <span class="material-symbols-outlined">
                                 category
                             </span>
-                            Packets
+                            Course Explorer
                         </a>
                         <a
                             routerLink="user"
                             class="text-xl btn btn-ghost justify-normal"
-                            routerLinkActive="bg-accent"
+                            routerLinkActive="border-2 border-accent"
                         >
                             <span class="material-symbols-outlined">
                                 account_circle
@@ -116,7 +116,7 @@
         @if (!isAdmin) {
             <a
                 routerLink="organisations"
-                routerLinkActive="bg-accent"
+                routerLinkActive="border-2 border-accent"
                 class="text-xl btn btn-ghost"
             >
                 <span class="material-symbols-outlined"> business </span>
@@ -125,23 +125,25 @@
             <a
                 routerLink="appointments"
                 class="text-xl btn btn-ghost"
-                routerLinkActive="bg-accent"
+                routerLinkActive="border-2 border-accent"
             >
                 <span class="material-symbols-outlined"> today </span>
                 Appointments
             </a>
             <a
-                routerLink="packets"
-                class="text-xl btn btn-ghost"
-                routerLinkActive="bg-accent"
+                routerLink="courses"
+                class="text-xl btn btn-ghost justify-normal"
+                routerLinkActive="border-2 border-accent"
             >
-                <span class="material-symbols-outlined"> category </span>
-                Packets
+                            <span class="material-symbols-outlined">
+                                category
+                            </span>
+                Course Explorer
             </a>
             <a
                 routerLink="user"
                 class="text-xl btn btn-ghost"
-                routerLinkActive="bg-accent"
+                routerLinkActive="border-2 border-accent"
             >
                 <span class="material-symbols-outlined"> account_circle </span>
                 User
@@ -219,9 +221,10 @@
     </div>
 </div>
 
-<router-outlet></router-outlet>
+<router-outlet/>
 
-<footer class="p-10 footer bg-neutral text-neutral-content mt-60">
+<!-- mt-60 -->
+<footer class="bottom-0 w-100 p-10 footer bg-slate-900 text-neutral-content">
     <aside>
         <span class="material-symbols-outlined"> weekend </span>
         <p>CouSch<br />Providing reliable software since 2023</p>

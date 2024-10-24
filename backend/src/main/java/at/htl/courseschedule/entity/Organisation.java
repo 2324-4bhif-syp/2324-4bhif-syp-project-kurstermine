@@ -14,12 +14,21 @@ public class Organisation extends PanacheEntityBase {
 
     private String uniqueName;
 
-    @OneToMany
-    private Set<BabyUser> organisators;
+    @OneToMany(
+            fetch = FetchType.LAZY,
+            cascade = {
+                    CascadeType.DETACH,
+                    CascadeType.MERGE,
+                    CascadeType.PERSIST,
+                    CascadeType.REFRESH
+            }
+    )
+    @JoinColumn(name = "organisator_id")
+    private Set<User> organisators;
 
     public Organisation() {}
 
-    public Organisation(String name, String uniqueName, Set<BabyUser> organisators) {
+    public Organisation(String name, String uniqueName, Set<User> organisators) {
         this.name = name;
         this.uniqueName = uniqueName;
         this.organisators = organisators;
@@ -49,7 +58,7 @@ public class Organisation extends PanacheEntityBase {
         this.uniqueName = uniqueName;
     }
 
-    public Set<BabyUser> getOrganisators() {
+    public Set<User> getOrganisators() {
         return organisators;
     }
 

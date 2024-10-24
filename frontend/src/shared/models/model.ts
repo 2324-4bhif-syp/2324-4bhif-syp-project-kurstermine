@@ -1,54 +1,58 @@
 import {
-    Appointment,
-    AppointmentManagement,
-    Customer,
-    Instructor,
-    Offer,
-    Organisation,
-    Packet,
-    Participation,
-    Purchase,
-} from '@models';
-import { Draft, produce } from 'immer';
-import { KeycloakProfile } from 'keycloak-js';
-import { BehaviorSubject } from 'rxjs';
+  Appointment,
+  AppointmentManagement,
+  Organisation,
+  Course,
+  User,
+  Token,
+  Category,
+} from "@models";
+import { Draft, produce } from "immer";
+import { KeycloakProfile } from "keycloak-js";
+import { BehaviorSubject } from "rxjs";
 
 export interface Model {
-    readonly appointments: Appointment[];
-    readonly packets: Packet[];
-    readonly organisations: Organisation[];
-    readonly offers: Offer[];
-    readonly purchases: Purchase[];
-    readonly appointmentManagements: AppointmentManagement[];
-    readonly instructors: Instructor[];
-    readonly customer: Customer | undefined;
-    readonly customers: Customer[];
-    readonly participations: Participation[];
+  readonly appointments: Appointment[];
+  readonly organisations: Organisation[];
+  readonly appointmentManagements: AppointmentManagement[];
+  readonly instructors: User[];
+  readonly customers: User[];
+  readonly users: User[];
+  readonly courses: Course[];
+  readonly tokens: Token[];
+  readonly currentUser?: User;
+  readonly categories: Category[];
+  readonly courseView: {
+    readonly selectedCategoryId?: number;
+    readonly selectedOrganisationId?: number;
+    readonly selectedCourseId?: number;
+  };
 }
 
 export const store = new BehaviorSubject<Model>({
-    appointments: [],
-    packets: [],
-    organisations: [],
-    offers: [],
-    purchases: [],
-    instructors: [],
-    appointmentManagements: [],
-    customer: undefined,
-    customers: [],
-    participations: [],
+  appointments: [],
+  organisations: [],
+  instructors: [],
+  appointmentManagements: [],
+  customers: [],
+  categories: [],
+  currentUser: undefined,
+  courses: [],
+  tokens: [],
+  users: [],
+  courseView: {},
 });
 
 export function set(recipe: (model: Draft<Model>) => void) {
-    const next = produce(store.value, recipe);
-    store.next(next);
+  const next = produce(store.value, recipe);
+  store.next(next);
 }
 
-export function userProfileToCustomer(userprofile: KeycloakProfile): Customer {
-    return {
-        id: userprofile.id,
-        firstName: userprofile.firstName!,
-        lastName: userprofile.lastName!,
-        email: userprofile.email!,
-    };
+export function userProfileToUser(userprofile: KeycloakProfile): User {
+  return {
+    id: userprofile.id,
+    firstName: userprofile.firstName!,
+    lastName: userprofile.lastName!,
+    email: userprofile.email!,
+  };
 }
