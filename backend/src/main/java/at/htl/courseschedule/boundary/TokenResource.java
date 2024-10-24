@@ -16,6 +16,13 @@ public class TokenResource {
     TokenRepository tokenRepository;
 
     @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @RolesAllowed({Role.Admin, Role.Instructor, Role.Customer, Role.Organisator}) //TODO - only admin
+    public Response getAllTokens() {
+        return Response.ok(tokenRepository.listAll()).build();
+    }
+
+    @GET
     @Path("{token-id}")
     @Produces(MediaType.APPLICATION_JSON)
     @RolesAllowed({Role.Admin, Role.Instructor, Role.Customer, Role.Organisator})

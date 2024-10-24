@@ -13,12 +13,12 @@ public class CourseRepository implements PanacheRepository<Course> {
     CategoryRepository categoryRepository;
 
     public List<Course> getAllCoursesForCategory(Long categoryId) {
-        return categoryRepository.findById(categoryId).getCourses();
+        return this.find("category.id", categoryId).list();
     }
 
     public Long addCourse(Long categoryId, Course course) {
-        categoryRepository.findById(categoryId).getCourses().add(course);
+        course.setCategory(categoryRepository.findById(categoryId));
+        this.persist(course);
         return course.getId();
     }
-
 }

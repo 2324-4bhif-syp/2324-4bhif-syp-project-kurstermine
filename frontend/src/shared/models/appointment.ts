@@ -15,9 +15,9 @@ export const fromAppointmentDto = (
   return {
     id: appointment.id,
     address: appointment.address,
-    date: new Date(appointment.date),
+    date: new Date(Date.parse(appointment.date)),
     duration: appointment.duration / 60,
     name: appointment.name,
-    courseId: appointment.courseId,
+    courseId: appointment.course.id,
   };
 };

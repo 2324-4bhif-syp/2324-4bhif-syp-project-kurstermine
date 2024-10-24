@@ -3,7 +3,6 @@ package at.htl.courseschedule.entity;
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import jakarta.persistence.*;
 
-import java.util.Map;
 import java.util.Set;
 
 @Entity
@@ -15,19 +14,24 @@ public class Organisation extends PanacheEntityBase {
 
     private String uniqueName;
 
-    @OneToMany
+    @OneToMany(
+            fetch = FetchType.LAZY,
+            cascade = {
+                    CascadeType.DETACH,
+                    CascadeType.MERGE,
+                    CascadeType.PERSIST,
+                    CascadeType.REFRESH
+            }
+    )
+    @JoinColumn(name = "organisator_id")
     private Set<User> organisators;
-
-    @OneToMany
-    private Map<String, Category> categories;
 
     public Organisation() {}
 
-    public Organisation(String name, String uniqueName, Set<User> organisators, Map<String, Category> categories) {
+    public Organisation(String name, String uniqueName, Set<User> organisators) {
         this.name = name;
         this.uniqueName = uniqueName;
         this.organisators = organisators;
-        this.categories = categories;
     }
 
     public Long getId() {
@@ -56,14 +60,6 @@ public class Organisation extends PanacheEntityBase {
 
     public Set<User> getOrganisators() {
         return organisators;
-    }
-
-    public Map<String, Category> getCategories() {
-        return categories;
-    }
-
-    public void setCategories(Map<String, Category> categories) {
-        this.categories = categories;
     }
 
     @Override

@@ -6,7 +6,6 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 
 import java.util.List;
-import java.util.Map;
 
 @ApplicationScoped
 public class CategoryRepository implements PanacheRepository<Category> {
@@ -14,19 +13,24 @@ public class CategoryRepository implements PanacheRepository<Category> {
     OrganisationRepository organisationRepository;
 
     public List<Category> getAllForOrganisation(Long organisationId) {
-       return organisationRepository.findById(organisationId).getCategories().values().stream().toList();
+       return this.find("organisation.id", organisationId).list();
     }
 
     public Category getByName(Long organisationId, String name) {
-        return organisationRepository.findById(organisationId).getCategories().get(name);
+        return this.find("organisation.id", organisationId)
+                .list().stream()
+                .filter(c -> c.getName().equals(name))
+                .findFirst()
+                .orElse(null);
     }
 
     public boolean addCategory(Long organisationId, Category category) {
-        Map<String, Category> categories = organisationRepository.findById(organisationId).getCategories();
-        return categories.putIfAbsent(category.getName(), category) == null;
-    }
+        if (getByName(organisationId, category.getName()) != null) {
+            return false;
+        }
 
-    public void deleteCategory(Long organisationId, String category) {
-        organisationRepository.findById(organisationId).getCategories().remove(category);
+        category.setOrganisation(organisationRepository.findById(organisationId));
+        this.persist(category);
+        return true;
     }
 }

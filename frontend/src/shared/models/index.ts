@@ -1,14 +1,12 @@
-export { Appointment, fromAppointmentDto } from '@models/appointment';
+export { Appointment, fromAppointmentDto } from "@models/appointment";
 export {
-    AppointmentManagement,
-    fromAppointmentManagementDto,
-} from '@models/appointmentManagement';
-export { Customer, fromCustomerDto } from '@models/customer';
-export { Offer, fromOfferDto } from '@models/offer';
-export { Organisation, fromOrganisationDto } from '@models/organisation';
-export { Packet, fromPacketDto } from '@models/packet';
-export { Participation, fromParticipationDto } from '@models/participation';
-export { Purchase, fromPurchaseDto } from '@models/purchase';
-export { Instructor, fromInstructorDto } from '@models/instructor';
-export { Roles } from '@models/roles';
-export { Model, store, set } from '@models/model';
+  AppointmentManagement,
+  fromAppointmentManagementDto,
+} from "@models/appointment-management";
+export { Organisation, fromOrganisationDto } from "@models/organisation";
+export { Roles } from "@models/roles";
+export { User } from "@models/user";
+export { Token } from "@models/token";
+export { Category } from "@models/category";
+export { Course } from "@models/course";
+export { Model, store, set } from "@models/model";

@@ -1,6 +1,6 @@
 import { Component, inject } from "@angular/core";
 import { StoreService } from "@services";
-import { distinctUntilChanged, map } from "rxjs";
+import { distinctUntilChanged, map, tap } from "rxjs";
 import { AsyncPipe } from "@angular/common";
 import { FormsModule } from "@angular/forms";
 import { Category } from "@models/category";
@@ -31,24 +31,49 @@ export class UserCourseExplorerComponent {
     map((model) => ({
       organisations: model.organisations.map((o) => ({
         ...o,
-        categories: model.categories.filter(
-          (cat) => cat.organisationId === o.id,
-        ),
+        categories: model.categories
+          .filter((cat) => cat.organisationId === o.id)
+          .map((cat) => ({
+            ...cat,
+            unusedTokens: model.tokens.filter(
+              (t) => t.categoryId === cat.id && t.appointmentId === undefined,
+            ).length,
+          })),
       })),
+      breadcrumbs: [
+        model.organisations
+          .map((o) => ({
+            id: o.id,
+            name: o.name,
+          }))
+          .find((o) => o.id === model.courseView.selectedOrganisationId),
+        model.categories
+          .map((c) => ({
+            id: c.id,
+            name: c.name,
+          }))
+          .find((c) => c.id === model.courseView.selectedCategoryId),
+        model.courses
+          .map((c) => ({
+            id: c.id,
+            name: c.name,
+          }))
+          .find((c) => c.id === model.courseView.selectedCourseId),
+      ].filter((x) => !!x),
     })),
     distinctUntilChanged(),
   );
 
   protected selectOrganisation(organisation: Organisation): void {
     set((model) => {
-      model.courseView.selectedCategory = undefined;
-      model.courseView.selectedOrganisation = organisation;
+      model.courseView.selectedCategoryId = undefined;
+      model.courseView.selectedOrganisationId = organisation.id;
     });
   }
 
   protected selectCategory(category: Category): void {
     set((model) => {
-      model.courseView.selectedCategory = category;
+      model.courseView.selectedCategoryId = category.id;
     });
   }
 }

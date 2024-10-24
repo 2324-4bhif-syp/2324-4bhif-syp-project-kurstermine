@@ -8,16 +8,23 @@ import jakarta.transaction.Transactional;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.*;
 
-@Path("Courses")
+@Path("courses")
 public class CourseResource {
     @Inject
     CourseRepository courseRepository;
 
     @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @RolesAllowed({Role.Organisator, Role.Admin, Role.Instructor, Role.Customer})
+    public Response getAllCourses() {
+        return Response.ok(courseRepository.listAll()).build();
+    }
+
+    @GET
     @Path("{category-id}")
     @Produces(MediaType.APPLICATION_JSON)
     @RolesAllowed({Role.Organisator, Role.Admin, Role.Instructor, Role.Customer})
-    public Response getAllCourses(@PathParam("category-id") Long categoryId) {
+    public Response getAllCoursesOfCategory(@PathParam("category-id") Long categoryId) {
         return Response.ok(courseRepository.getAllCoursesForCategory(categoryId)).build();
     }
 
@@ -35,7 +42,9 @@ public class CourseResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @RolesAllowed({Role.Organisator, Role.Admin})
     @Transactional
-    public Response createCourse(@PathParam("category-id") Long categoryId, Course course, @Context UriInfo uriInfo) {
+    public Response createCourse(@PathParam("category-id") Long categoryId,
+                                 Course course,
+                                 @Context UriInfo uriInfo) {
         UriBuilder builder = uriInfo.getAbsolutePathBuilder()
                 .path(String.format("id/%d", courseRepository.addCourse(categoryId, course)));
         return Response.created(builder.build()).build();

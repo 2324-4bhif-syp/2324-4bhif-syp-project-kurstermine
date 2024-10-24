@@ -9,15 +9,49 @@ public class Token {
     @Id @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    @ManyToOne
+    @ManyToOne(
+            fetch = FetchType.LAZY,
+            cascade = {
+                    CascadeType.DETACH,
+                    CascadeType.MERGE,
+                    CascadeType.PERSIST,
+                    CascadeType.REFRESH
+            }
+    )
+    @JoinColumn(name = "category_id")
     private Category category;
 
-    @ManyToOne
+    @ManyToOne(
+            fetch = FetchType.LAZY,
+            cascade = {
+                    CascadeType.DETACH,
+                    CascadeType.MERGE,
+                    CascadeType.PERSIST,
+                    CascadeType.REFRESH
+            }
+    )
+    @JoinColumn(
+            name = "appointment_id",
+            nullable = true
+    )
     private Appointment appointment;
 
-    public Token(Category category, Appointment appointment) {
+    @ManyToOne(
+            fetch = FetchType.LAZY,
+            cascade = {
+                    CascadeType.DETACH,
+                    CascadeType.MERGE,
+                    CascadeType.PERSIST,
+                    CascadeType.REFRESH
+            }
+    )
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    public Token(Category category, Appointment appointment, User user) {
         this.category = category;
         this.appointment = appointment;
+        this.user = user;
     }
 
     public Token() {}
@@ -44,5 +78,23 @@ public class Token {
 
     public void setAppointment(Appointment appointment) {
         this.appointment = appointment;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    @Override
+    public String toString() {
+        return "Token{" +
+                "id=" + id +
+                ", category=" + category +
+                ", appointment=" + appointment +
+                ", user=" + user +
+                '}';
     }
 }

@@ -16,6 +16,7 @@ public class Appointment {
     @JsonProperty("name")
     @Column(name = "name")
     private String name;
+
     @JsonProperty("date")
     @Column(name = "date")
     private LocalDateTime startDate;
@@ -23,9 +24,22 @@ public class Appointment {
     @JsonProperty("duration")
     @Column(name = "duration")
     private Duration duration;
+
     @JsonProperty("address")
     @Column(name = "address")
     private String address;
+
+    @ManyToOne(
+            fetch = FetchType.LAZY,
+            cascade = {
+                    CascadeType.DETACH,
+                    CascadeType.MERGE,
+                    CascadeType.PERSIST,
+                    CascadeType.REFRESH
+            }
+    )
+    @JoinColumn(name = "course_id")
+    private Course course;
     //endregion
 
     //region constructors
@@ -39,13 +53,21 @@ public class Appointment {
         this.address = address;
     }
 
-    public Appointment(Long id, String name, LocalDateTime startDate, Duration duration, String address) {
+    public Appointment(String name, LocalDateTime startDate, Duration duration, String address, Course course) {
         this(name, startDate, duration, address);
-        this.id = id;
+        this.course = course;
     }
     //endregion
 
     //region getter and setter
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public String getName() {
         return name;
     }
@@ -78,22 +100,26 @@ public class Appointment {
         this.address = address;
     }
 
-    public Long getId() {
-        return id;
+    public Course getCourse() {
+        return course;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setCourse(Course course) {
+        this.course = course;
     }
+
     //endregion
+
 
     @Override
     public String toString() {
         return "Appointment{" +
-                "name='" + name + '\'' +
-                ", startDate=" + startDate + '\'' +
-                ", duration=" + duration + '\'' +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", startDate=" + startDate +
+                ", duration=" + duration +
                 ", address='" + address + '\'' +
+                ", course=" + course +
                 '}';
     }
 }

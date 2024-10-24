@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 KEYCLOAK_HOME=keycloak
 BACKEND_HOME=backend
 FRONTEND_HOME=frontend

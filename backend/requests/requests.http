@@ -109,3 +109,48 @@ username=moritz&password=moritz&grant_type=password&client_id=quarkus-service&cl
 
 GET https://babyapp.ddns.net/api/appointments
 Authorization: Bearer {{access_token}}
+
+
+### Category Endpoints
+###
+GET http://localhost:8080/categories/1
+Accept: application/json
+Content-Type: */*
+
+###
+GET http://localhost:8080/categories/1/Software Development
+Accept: application/json
+Content-Type: */*
+
+###
+POST http://localhost:8080/categories/1
+Content-Type: application/json
+
+{
+  "name": "NewCategory"
+}
+
+###
+DELETE http://localhost:8080/categories/4
+
+### Course Endpoints
+###
+GET http://localhost:8080/courses/2
+Accept: application/json
+Content-Type: */*
+
+###
+GET http://localhost:8080/courses/id/3
+Accept: application/json
+Content-Type: */*
+
+###
+POST http://localhost:8080/courses/1
+Content-Type: application/json
+
+{
+  "name": "NewCourse"
+}
+
+###
+DELETE http://localhost:8080/courses/4
