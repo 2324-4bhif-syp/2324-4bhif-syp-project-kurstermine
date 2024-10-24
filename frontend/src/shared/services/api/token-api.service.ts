@@ -42,5 +42,24 @@ export class TokenApiService extends ApiService {
       });
   }
 
+    public update(token: Token) {
+        this.http
+            .put<TokenDto>(`${this.url}/${token.id}`, fromModel(token), {
+                headers: this.headers.set("Content-Type", "application/json"),
+            })
+            .pipe(map(fromDto))
+            .subscribe((token) => {
+                set((model) => {
+                    const index: number = model.tokens.findIndex(t => t.id === token.id);
+                    console.log(index)
+                    if (index > -1) {
+                        model.tokens.splice(index, 1, token);
+                    }
+
+                    console.log(token)
+                });
+            });
+    }
+
   // todo: delete
 }

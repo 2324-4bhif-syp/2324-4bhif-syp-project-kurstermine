@@ -2,15 +2,9 @@ import { Token } from "@models";
 
 export interface TokenDto {
     id: string; // UUID
-    appointment?: {
-        id?: number;
-    };
-    category: {
-        id: number;
-    };
-    user: {
-        id: string; // UUID
-    };
+    appointmentId?: number | null
+    categoryId: number;
+    userId: string; // UUID
     purchasedAt: Date;
     redeemedAt: Date;
 }
@@ -18,15 +12,9 @@ export interface TokenDto {
 export const fromToken = (token: Token): TokenDto => {
     return {
         id: token.id,
-        appointment: {
-            id: token.appointmentId
-        },
-        category: {
-            id: token.categoryId
-        },
-        user: {
-            id: token.userId
-        },
+        appointmentId: token.appointmentId,
+        categoryId: token.categoryId,
+        userId: token.userId,
         purchasedAt: token.purchasedAt,
         redeemedAt: token.redeemedAt
     };
