@@ -68,7 +68,19 @@
         }
     </ul>
 
-    <div class="grow mb-20 mx-10">
+    <div class="grow mb-20 mx-5">
+        <div class="breadcrumbs text-sm">
+          <ul>
+            @for (breadcrumb of (viewModel | async)?.breadcrumbs; track breadcrumb) {
+                <li>
+                    <a [routerLink]="breadcrumb?.link">
+                        {{ breadcrumb?.name }}
+                    </a>
+                </li>
+            }
+          </ul>
+        </div>
+
         <router-outlet />
     </div>
 </div>

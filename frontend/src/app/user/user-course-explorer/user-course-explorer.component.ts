@@ -40,6 +40,29 @@ export class UserCourseExplorerComponent {
             ).length,
           })),
       })),
+      breadcrumbs: [
+        model.organisations
+          .map((o) => ({
+            id: o.id,
+            name: o.name,
+            link: `/courses/${o.id}`,
+          }))
+          .find((o) => o.id === model.courseView.selectedOrganisationId),
+        model.categories
+          .map((c) => ({
+            id: c.id,
+            name: c.name,
+            link: `/courses/${model.courseView.selectedOrganisationId}/${c.id}`,
+          }))
+          .find((c) => c.id === model.courseView.selectedCategoryId),
+        model.courses
+          .map((c) => ({
+            id: c.id,
+            name: c.name,
+            link: `/courses/${model.courseView.selectedOrganisationId}/${model.courseView.selectedCategoryId}/${c.id}`,
+          }))
+          .find((c) => c.id === model.courseView.selectedCourseId),
+      ].filter((x) => !!x),
     })),
     distinctUntilChanged(),
   );

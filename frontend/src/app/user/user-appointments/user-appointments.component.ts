@@ -42,6 +42,10 @@ export class UserAppointmentsComponent implements OnInit {
   public ngOnInit(): void {
     this.route.params.subscribe((params) => {
       set((model) => {
+        model.courseView.selectedOrganisationId = Number(
+          params["organisationId"],
+        );
+        model.courseView.selectedCategoryId = Number(params["categoryId"]);
         model.courseView.selectedCourseId = Number(params["courseId"]);
       });
     });

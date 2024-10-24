@@ -60,6 +60,7 @@ export class UserCoursesComponent implements OnInit {
           params["organisationId"],
         );
         model.courseView.selectedCategoryId = Number(params["categoryId"]);
+        model.courseView.selectedCourseId = Number(params["courseId"]);
       });
     });
   }
