@@ -25,52 +25,76 @@
     <div class="form-control w-16">
         <label class="label cursor-pointer">
             <span class="label-text">
-                <span class="material-symbols-outlined align-middle">dashboard</span>
+                <span class="material-symbols-outlined align-middle"
+                    >dashboard</span
+                >
             </span>
-            <input (change)="changeView('card')" type="radio" name="radio-10" class="radio checked:bg-accent" checked="checked" />
+            <input
+                (change)="changeView('card')"
+                type="radio"
+                name="radio-10"
+                class="radio checked:bg-accent"
+                checked="checked"
+            />
         </label>
     </div>
     <div class="form-control w-16">
         <label class="label cursor-pointer">
             <span class="label-text">
-                <span class="material-symbols-outlined align-middle">table_rows</span>
+                <span class="material-symbols-outlined align-middle"
+                    >table_rows</span
+                >
             </span>
-            <input (change)="changeView('table')" type="radio" name="radio-10" class="radio checked:bg-accent" />
+            <input
+                (change)="changeView('table')"
+                type="radio"
+                name="radio-10"
+                class="radio checked:bg-accent"
+            />
         </label>
     </div>
 </div>
 
-@if (view === 'table') {
+@if (view === "table") {
     <div class="overflow-x-auto">
         <table class="table">
             <!-- head -->
             <thead>
-            <tr>
-                <th></th>
-                <th>Name</th>
-                <th>Address</th>
-                <th>Date</th>
-                <th>Time</th>
-                <th>Duration</th>
-            </tr>
+                <tr>
+                    <th></th>
+                    <th>Name</th>
+                    <th>Address</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>Duration</th>
+                </tr>
             </thead>
             <tbody>
-                @for (appointment of (viewModel | async)?.appointments; track $index) {
+                @for (
+                    appointment of (viewModel | async)?.appointments;
+                    track $index
+                ) {
                     <tr>
                         <th>{{ $index + 1 }}</th>
                         <td>{{ appointment.name }}</td>
                         <td>{{ appointment.address }}</td>
                         <td>
-                            {{ appointment.date.getDay() }}.{{ appointment.date.getMonth() }}.{{
-                                appointment.date.getFullYear()
-                            }}
+                            {{ appointment.date.toLocaleDateString() }}
                         </td>
                         <td>
-                            {{ appointment.date.getHours() }}:{{
-                                String(appointment.date.getMinutes()).padStart(2, "0")
+                            {{
+                                String(appointment.date.getHours()).padStart(
+                                    2,
+                                    "0"
+                                )
+                            }}:{{
+                                String(appointment.date.getMinutes()).padStart(
+                                    2,
+                                    "0"
+                                )
                             }}
                         </td>
-                        <td>{{ appointment.duration }}</td>
+                        <td>{{ appointment.duration }} min</td>
                     </tr>
                 }
             </tbody>
@@ -78,16 +102,21 @@
     </div>
 }
 
-@if (view === 'card') {
+@if (view === "card") {
     <div class="flex flex-wrap gap-5 justify-evenly">
-        @for (appointment of (viewModel | async)?.appointments; track appointment) {
+        @for (
+            appointment of (viewModel | async)?.appointments;
+            track appointment
+        ) {
             <div class="border-2 rounded-md shadow-lg card w-96">
                 <div class="items-center text-center card-body">
                     <p class="text-3xl card-title">{{ appointment.name }}</p>
                     <div class="m-0 divider"></div>
 
                     <div class="flex flex-col">
-                        <span class="material-symbols-outlined"> location_on </span>
+                        <span class="material-symbols-outlined">
+                            location_on
+                        </span>
                         {{ appointment.address }}
                     </div>
 
@@ -97,21 +126,31 @@
 
                     <div class="flex flex-col">
                         <span class="material-symbols-outlined"> today </span>
-                        {{ appointment.date.getDay() }}.{{ appointment.date.getMonth() }}.{{
-                            appointment.date.getFullYear()
-                        }}
+                        {{ appointment.date.toLocaleDateString() }}
                     </div>
 
                     <div class="flex w-full justify-evenly">
                         <div class="flex flex-col">
-                            <span class="material-symbols-outlined"> schedule </span>
-                            {{ appointment.date.getHours() }}:{{
-                                String(appointment.date.getMinutes()).padStart(2, "0")
+                            <span class="material-symbols-outlined">
+                                schedule
+                            </span>
+                            {{
+                                String(appointment.date.getHours()).padStart(
+                                    2,
+                                    "0"
+                                )
+                            }}:{{
+                                String(appointment.date.getMinutes()).padStart(
+                                    2,
+                                    "0"
+                                )
                             }}
                         </div>
 
                         <div class="flex flex-col">
-                            <span class="material-symbols-outlined"> timelapse </span>
+                            <span class="material-symbols-outlined">
+                                timelapse
+                            </span>
                             {{ appointment.duration }} min
                         </div>
                     </div>

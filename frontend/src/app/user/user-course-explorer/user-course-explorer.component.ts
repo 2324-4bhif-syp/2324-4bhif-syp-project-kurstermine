@@ -31,12 +31,14 @@ export class UserCourseExplorerComponent {
     map((model) => ({
       organisations: model.organisations.map((o) => ({
         ...o,
-        categories: model.categories.filter(
-          (cat) => cat.organisationId === o.id,
-        ).map((cat) => ({
-          ...cat,
-          unusedTokens: model.tokens.filter(t => t.categoryId === cat.id && t.appointmentId === undefined).length,
-        })),
+        categories: model.categories
+          .filter((cat) => cat.organisationId === o.id)
+          .map((cat) => ({
+            ...cat,
+            unusedTokens: model.tokens.filter(
+              (t) => t.categoryId === cat.id && t.appointmentId === undefined,
+            ).length,
+          })),
       })),
     })),
     distinctUntilChanged(),
@@ -44,14 +46,14 @@ export class UserCourseExplorerComponent {
 
   protected selectOrganisation(organisation: Organisation): void {
     set((model) => {
-      model.courseView.selectedCategory = undefined;
-      model.courseView.selectedOrganisation = organisation;
+      model.courseView.selectedCategoryId = undefined;
+      model.courseView.selectedOrganisationId = organisation.id;
     });
   }
 
   protected selectCategory(category: Category): void {
     set((model) => {
-      model.courseView.selectedCategory = category;
+      model.courseView.selectedCategoryId = category.id;
     });
   }
 }

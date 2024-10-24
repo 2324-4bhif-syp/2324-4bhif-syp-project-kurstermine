@@ -23,9 +23,9 @@ export interface Model {
   readonly currentUser?: User;
   readonly categories: Category[];
   readonly courseView: {
-    readonly selectedCategory?: Category;
-    readonly selectedOrganisation?: Organisation;
-    readonly selectedCourse?: Course;
+    readonly selectedCategoryId?: number;
+    readonly selectedOrganisationId?: number;
+    readonly selectedCourseId?: number;
   };
 }
 

@@ -1,4 +1,4 @@
-import { Component, inject } from "@angular/core";
+import { Component, inject, OnInit } from "@angular/core";
 import { RouterModule, RouterOutlet } from "@angular/router";
 import { Roles } from "@models";
 import {
@@ -7,7 +7,7 @@ import {
   OrganisationApiService,
   CourseApiService,
   TokenApiService,
-  CategoryApiService
+  CategoryApiService,
 } from "@services/api";
 import { KeycloakService } from "keycloak-angular";
 
@@ -18,9 +18,11 @@ import { KeycloakService } from "keycloak-angular";
   templateUrl: "./app.component.html",
   styleUrls: ["./app.component.css"],
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   private appointmentApiService = inject(AppointmentApiService);
-  private appointmentManagementApiService = inject(AppointmentManagementApiService);
+  private appointmentManagementApiService = inject(
+    AppointmentManagementApiService,
+  );
   private organisationApiService = inject(OrganisationApiService);
   private coursesApiService = inject(CourseApiService);
   private tokenApiService = inject(TokenApiService);
@@ -29,7 +31,7 @@ export class AppComponent {
 
   protected isAdmin = false;
 
-  constructor() {
+  public ngOnInit(): void {
     this.isAdmin = this.keycloak.getUserRoles().includes(Roles.Admin);
 
     this.appointmentApiService.getAll();

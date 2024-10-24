@@ -19,26 +19,28 @@ export class UserCoursesComponent implements OnInit {
   private cdr = inject(ChangeDetectorRef);
 
   protected viewModel = this.storeService.store.pipe(
-    map(model => ({
-      selectedCategory: model.courseView.selectedCategory,
+    map((model) => ({
+      selectedCategory: model.categories.find(
+        (c) => c.id === model.courseView.selectedCategoryId,
+      ),
       courses: model.courses
-        .map(c => ({
+        .map((c) => ({
           ...c,
           category: model.categories
-            .map(cat => ({
+            .map((cat) => ({
               ...cat,
               organisation: model.organisations.find(
-                o => o.id === cat.organisationId,
+                (o) => o.id === cat.organisationId,
               ),
             }))
-            .find(cat => cat.id === c.categoryId),
+            .find((cat) => cat.id === c.categoryId),
         }))
-        .filter(c =>
-          model.courseView.selectedCategory !== undefined
-            ? c.category?.id === model.courseView.selectedCategory?.id
-            : model.courseView.selectedOrganisation !== undefined
+        .filter((c) =>
+          model.courseView.selectedCategoryId
+            ? c.category?.id === model.courseView.selectedCategoryId
+            : model.courseView.selectedOrganisationId
               ? c.category?.organisation?.id ===
-                model.courseView.selectedOrganisation?.id
+                model.courseView.selectedOrganisationId
               : false,
         ),
     })),
@@ -46,23 +48,19 @@ export class UserCoursesComponent implements OnInit {
   );
 
   protected selectCourse(course: Course) {
-    set(model => {
-      model.courseView.selectedCourse = course;
+    set((model) => {
+      model.courseView.selectedCourseId = course.categoryId;
     });
   }
 
-  ngOnInit(): void {
-    let organisationId = Number(this.route.snapshot.params["organisationId"]);
-    let categoryId = Number(this.route.snapshot.params["categoryId"]);
-
-    set(model => {
-      model.courseView.selectedOrganisation = model.organisations.find(
-        o => o.id === organisationId,
-      );
-
-      model.courseView.selectedCategory = model.categories.find(
-        c => c.id === categoryId,
-      );
+  public ngOnInit(): void {
+    this.route.params.subscribe((params) => {
+      set((model) => {
+        model.courseView.selectedOrganisationId = Number(
+          params["organisationId"],
+        );
+        model.courseView.selectedCategoryId = Number(params["categoryId"]);
+      });
     });
   }
 }
