@@ -33,7 +33,7 @@ endif::[]
 == Sprint-Vereinbarungen
 
 * CLD angepasst
-* Frontend-Architektur auf Single Source of Truth umgestellt
+* Frontend basierend auf neues CLD umstrukturiert
 
 
 [backround-image="cld.png",background-opacity="0.3"]
@@ -43,6 +43,7 @@ endif::[]
 [plantuml, svg]
 ----
 @startuml
+left to right direction
 
 class Category {
 }
@@ -59,26 +60,17 @@ class Appointment {
 class User {
 }
 
-entity Customer {
-}
-
-entity Organisator {
-}
-
-entity Instructor {
-}
-
-Appointment "*"--"1" Course
-Course "*"--"1" Category
-(Customer, Category) .. Token
-Token "0/1"-right-"*" Appointment
-Category "*"--"1" Organisation: < owns
-Organisator "*"-right-"1" Organisation: > leads
-(Instructor, Organisation) .. Hire
-AppointmentManagement .. (Instructor, Appointment)
-User -- Instructor
-User -- Customer
-User -- Organisator
+Appointment "*"--"1" Course: > belongs to
+Course "*"--"1" Category: > belongs to
+User "1"--"*" Token: > Customer
+Token "*"--"1" Category: > belongs to
+Token "*"--"0..1" Appointment
+Organisation "1"--"*" Category: > offers
+User "*"--"1" Organisation: > Organisator
+User -- Appointment: > Instructor
+User "1"--"*" Hire: > Instructor
+Hire "*"--"1" Organisation
+AppointmentManagement .. (User, Appointment)
 
 @enduml
 ----
@@ -94,35 +86,35 @@ User -- Organisator
 == [.margin-b-10]#Terminologie#
 image::architecture.png[height=80%, width=80%]
 
-[%auto-animate]
-== [.margin-b-10]#Homescreen vorher#
-image::previous-homescreen.png[height=80%, width=80%]
-
-[%auto-animate]
-== [.margin-b-10]#Homescreen nachher#
-image::new-homescreen.png[height=80%, width=80%]
-
-[%auto-animate]
-== [.margin-b-10]#Organisations vorher#
-image::organisations-previous.png[height=80%, width=80%]
-
-[%auto-animate]
-== [.margin-b-10]#Organisations nachher#
-image::organisations-new.png[height=80%, width=80%]
-
-[%auto-animate]
-== [.margin-b-10]#Appointments vorher#
-image::appointments-previous.png[height=80%, width=80%]
-
-[%auto-animate]
-== [.margin-b-10]#Appointments nachher#
-image::appointments-new.png[height=80%, width=80%]
-
-[background-video="baby-video3.mp4",background-video-loop=true,background-video-muted=true,background-opacity="0.5"]
-== Konfiguration
-//* Projekt wird auf Winnie's PC gehostet
-* Probleme mit Keycloak beim Deployment
-* Präsentation auf Localhost
+// [%auto-animate]
+// == [.margin-b-10]#Homescreen vorher#
+// image::previous-homescreen.png[height=80%, width=80%]
+//
+// [%auto-animate]
+// == [.margin-b-10]#Homescreen nachher#
+// image::new-homescreen.png[height=80%, width=80%]
+//
+// [%auto-animate]
+// == [.margin-b-10]#Organisations vorher#
+// image::organisations-previous.png[height=80%, width=80%]
+//
+// [%auto-animate]
+// == [.margin-b-10]#Organisations nachher#
+// image::organisations-new.png[height=80%, width=80%]
+//
+// [%auto-animate]
+// == [.margin-b-10]#Appointments vorher#
+// image::appointments-previous.png[height=80%, width=80%]
+//
+// [%auto-animate]
+// == [.margin-b-10]#Appointments nachher#
+// image::appointments-new.png[height=80%, width=80%]
+//
+// [background-video="baby-video3.mp4",background-video-loop=true,background-video-muted=true,background-opacity="0.5"]
+// == Konfiguration
+// //* Projekt wird auf Winnie's PC gehostet
+// * Probleme mit Keycloak beim Deployment
+// * Präsentation auf Localhost
 
 [background-video="baby-video4.mp4",background-video-loop=true,background-video-muted=true,background-opacity="0.5"]
 == Live Demo
