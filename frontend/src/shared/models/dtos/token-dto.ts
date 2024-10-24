@@ -1,12 +1,12 @@
 import { Token } from "@models";
 
 export interface TokenDto {
-    id: string; // UUID
+    id?: string; // UUID
     appointmentId?: number | null
     categoryId: number;
     userId: string; // UUID
-    purchasedAt: Date;
-    redeemedAt: Date;
+    purchasedAt?: Date;
+    redeemedAt?: Date;
 }
 
 export const fromToken = (token: Token): TokenDto => {

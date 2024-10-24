@@ -3,10 +3,12 @@ package at.htl.courseschedule.boundary;
 import at.htl.courseschedule.controller.AppointmentRepository;
 import at.htl.courseschedule.controller.CategoryRepository;
 import at.htl.courseschedule.controller.TokenRepository;
+import at.htl.courseschedule.controller.UserRepository;
 import at.htl.courseschedule.dto.TokenDto;
 import at.htl.courseschedule.entity.Appointment;
 import at.htl.courseschedule.entity.Category;
 import at.htl.courseschedule.entity.Token;
+import io.quarkus.logging.Log;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
@@ -25,6 +27,9 @@ public class TokenResource {
 
     @Inject
     CategoryRepository categoryRepository;
+
+    @Inject
+    UserRepository userRepository;
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
@@ -46,10 +51,14 @@ public class TokenResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @RolesAllowed({Role.Admin, Role.Instructor, Role.Customer, Role.Organisator})
-    public Response createToken(Token token, @Context UriInfo uriInfo) {
-        if(token == null) {
+    public Response createToken(TokenDto dto, @Context UriInfo uriInfo) {
+        if(dto == null) {
             return Response.status(400).build();
         }
+
+        var token = new Token();
+        token.setCategory(categoryRepository.findById(dto.categoryId()));
+        token.setUser(userRepository.getOrCreateUser(dto.userId()));
 
         tokenRepository.persist(token);
 

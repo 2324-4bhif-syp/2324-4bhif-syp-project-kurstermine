@@ -36,7 +36,7 @@ export class UserCourseExplorerComponent {
           .map((cat) => ({
             ...cat,
             unusedTokens: model.tokens.filter(
-              (t) => t.categoryId === cat.id && t.appointmentId === undefined,
+              (t) => t.categoryId === cat.id && t.appointmentId === undefined && t.userId === model.currentUser?.id,
             ).length,
           })),
       })),

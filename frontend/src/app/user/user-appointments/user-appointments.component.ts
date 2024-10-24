@@ -1,12 +1,12 @@
 import { Component, inject, OnInit } from "@angular/core";
 import { FormsModule } from "@angular/forms";
-import {AppointmentApiService, TokenApiService} from "@services/api";
+import { AppointmentApiService, TokenApiService } from "@services/api";
 import { StoreService } from "@services";
 import { distinctUntilChanged, map } from "rxjs";
 import { AsyncPipe } from "@angular/common";
 import { ActivatedRoute } from "@angular/router";
 import { set } from "@models/model";
-import {Appointment, Token} from "@models";
+import { Appointment, Token } from "@models";
 
 @Component({
   selector: "app-user-appointments",
@@ -24,14 +24,21 @@ export class UserAppointmentsComponent implements OnInit {
 
   protected viewModel = this.storeService.store.pipe(
     map((model) => ({
-      appointments: model.appointments.filter(
-        (a) => a.courseId === model.courseView.selectedCourseId,
-      ).map((a) => ({
+      appointments: model.appointments
+        .filter((a) => a.courseId === model.courseView.selectedCourseId)
+        .map((a) => ({
           ...a,
-          isAppointmentBooked: model.tokens.find((t) => t.appointmentId === a.id) !== undefined
-      })),
+          isAppointmentBooked:
+            model.tokens.find(
+              (t) =>
+                t.appointmentId === a.id && t.userId === model.currentUser?.id,
+            ) !== undefined,
+        })),
       unusedTokens: model.tokens.filter(
-        (t) => t.categoryId === model.courseView.selectedCategoryId && t.appointmentId === undefined,
+        (t) =>
+          t.categoryId === model.courseView.selectedCategoryId &&
+          t.appointmentId === undefined &&
+          t.userId === model.currentUser?.id,
       ).length,
     })),
     distinctUntilChanged(),
@@ -61,14 +68,17 @@ export class UserAppointmentsComponent implements OnInit {
   }
 
   protected addAppointmentToToken(appointment: Appointment): void {
-      const token: Token | undefined = this.storeService.store.value.tokens.find(
-          (t) => t.categoryId === this.storeService.store.value.courseView.selectedCategoryId && t.appointmentId === undefined,
-      );
+    const token: Token | undefined = this.storeService.store.value.tokens.find(
+      (t) =>
+        t.categoryId ===
+          this.storeService.store.value.courseView.selectedCategoryId &&
+        t.appointmentId === undefined,
+    );
 
-      if (token !== undefined) {
-          const updatedToken: Token = {...token};
-          updatedToken.appointmentId = appointment.id;
-          this.tokenApiService.update(updatedToken);
-      }
+    if (token !== undefined) {
+      const updatedToken: Token = { ...token };
+      updatedToken.appointmentId = appointment.id;
+      this.tokenApiService.update(updatedToken);
+    }
   }
 }

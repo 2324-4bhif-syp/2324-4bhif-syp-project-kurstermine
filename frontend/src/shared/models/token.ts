@@ -1,12 +1,12 @@
 import { TokenDto } from "@models/dtos/token-dto";
 
 export interface Token {
-  id: string; // UUID
+  id?: string; // UUID
   appointmentId?: number;
   categoryId: number;
   userId: string; // UUID
-  purchasedAt: Date;
-  redeemedAt: Date;
+  purchasedAt?: Date;
+  redeemedAt?: Date;
 }
 
 export const fromTokenDto = (token: TokenDto): Token => {
@@ -15,7 +15,7 @@ export const fromTokenDto = (token: TokenDto): Token => {
     appointmentId: token.appointmentId === null ? undefined : token.appointmentId,
     categoryId: token.categoryId,
     userId: token.userId,
-    purchasedAt: new Date(token.purchasedAt),
-    redeemedAt: new Date(token.redeemedAt),
+    purchasedAt: token.purchasedAt,
+    redeemedAt: token.redeemedAt,
   };
 };
