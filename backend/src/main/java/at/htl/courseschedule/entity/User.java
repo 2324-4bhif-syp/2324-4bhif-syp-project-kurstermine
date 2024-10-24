@@ -11,27 +11,27 @@ import java.util.UUID;
 @Table(name = "B_User")
 public class User extends PanacheEntityBase {
     @Id
-    private UUID uuid;
+    private UUID id;
 
     public User() {
     }
 
-    public User(UUID uuid) {
-        this.uuid = uuid;
+    public User(UUID id) {
+        this.id = id;
     }
 
-    public UUID getUuid() {
-        return this.uuid;
+    public UUID getId() {
+        return this.id;
     }
 
-    public void setUuid(UUID uuid) {
-        this.uuid = uuid;
+    public void setId(UUID id) {
+        this.id = id;
     }
 
     @Override
     public String toString() {
         return "User{" +
-                "uuid=" + uuid +
+                "id=" + id +
                 '}';
     }
 
@@ -42,11 +42,11 @@ public class User extends PanacheEntityBase {
 
         User user = (User) o;
 
-        return uuid.equals(user.uuid);
+        return id.equals(user.id);
     }
 
     @Override
     public int hashCode() {
-        return uuid.hashCode();
+        return id.hashCode();
     }
 }

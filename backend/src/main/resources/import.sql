@@ -46,7 +46,7 @@ INSERT INTO category (name, organisation_id) VALUES
 
 -- Insert for User
 -- UUID generation using PostgreSQL function gen_random_uuid()
-INSERT INTO b_user (uuid) VALUES
+INSERT INTO b_user (id) VALUES
     ('f47ac10b-58cc-4372-a567-0e02b2c3d479'),
     ('4fcd3b34-7d1e-4772-bf25-65a8e20b9d60'),
     ('ae5df6de-2d1c-4f62-9f2c-7f2b3cb41c44'),
@@ -73,16 +73,17 @@ INSERT INTO appointment (name, date, duration, address, course_id) VALUES
     ('Strength Training Basics', '2024-11-20 10:00:00', 1800000000000, 'Fitness Center, Room A', 3),
     ('Nutrition and Health', '2024-11-22 12:00:00', 1800000000000, 'Fitness Center, Room B', 2),
     ('Beginner English Workshop', '2024-12-05 09:00:00', 1800000000000, 'Language Academy, Room 101', 2),
-    ('Spanish for Business Professionals', '2024-12-12 14:00:00', 1800000000000, 'Language Academy, Room 102', 1);
+    ('Spanish for Business Professionals', '2024-12-12 14:00:00', 1800000000000, 'Language Academy, Room 102', 1),
+    ('Russian for Beginners', '2024-12-12 14:00:00', 1800000000000, 'HTL Leonding, Room K03', 6);
 
 -- Insert for AppointmentManagement
-INSERT INTO appointment_management (appointment_id, instructor_uuid) VALUES
+INSERT INTO appointment_management (appointment_id, instructor_id) VALUES
     (1, 'f47ac10b-58cc-4372-a567-0e02b2c3d479'),
     (2, '4fcd3b34-7d1e-4772-bf25-65a8e20b9d60'),
     (3, 'ae5df6de-2d1c-4f62-9f2c-7f2b3cb41c44');
 
 -- Insert for Hire
-INSERT INTO hire (organisation_id, instructor_uuid) VALUES
+INSERT INTO hire (organisation_id, instructor_id) VALUES
     (1, 'f47ac10b-58cc-4372-a567-0e02b2c3d479'),
     (1, '4fcd3b34-7d1e-4772-bf25-65a8e20b9d60'),
     (2, 'ae5df6de-2d1c-4f62-9f2c-7f2b3cb41c44');
