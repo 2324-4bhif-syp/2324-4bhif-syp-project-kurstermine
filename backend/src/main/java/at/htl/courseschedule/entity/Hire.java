@@ -27,7 +27,7 @@ public class Hire {
 
     public Hire(@NotNull Organisation organisation, @NotNull User instructor) {
         this.organisation = organisation;
-        this.id = new HireId(organisation.getId(), instructor.getUuid());
+        this.id = new HireId(organisation.getId(), instructor.getId());
     }
 
     public HireId getId() {

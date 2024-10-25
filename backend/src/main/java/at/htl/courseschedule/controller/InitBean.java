@@ -38,7 +38,9 @@ public class InitBean {
                 "microsoft.png",
                 "amazon.png",
                 "apple.png",
-                "facebook.png"
+                "facebook.png",
+                "akw.jpg",
+                "elvira.jpg"
         );
 
         for (int i = 0; i < organisations.size() && i < imgNames.size(); i++) {

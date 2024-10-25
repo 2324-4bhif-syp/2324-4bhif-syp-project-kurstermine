@@ -1,6 +1,7 @@
 import { Component, inject, OnInit } from "@angular/core";
 import { RouterModule, RouterOutlet } from "@angular/router";
-import { Roles } from "@models";
+import { Roles, set } from "@models";
+import { userProfileToUser } from "@models/model";
 import {
   AppointmentApiService,
   AppointmentManagementApiService,
@@ -33,6 +34,11 @@ export class AppComponent implements OnInit {
 
   public ngOnInit(): void {
     this.isAdmin = this.keycloak.getUserRoles().includes(Roles.Admin);
+    this.keycloak.getKeycloakInstance().loadUserProfile().then((profile) => {
+      set((model) => {
+        model.currentUser = userProfileToUser(profile);
+      });
+    });
 
     this.appointmentApiService.getAll();
     this.appointmentManagementApiService.getAll();

@@ -32,7 +32,7 @@ public class AppointmentManagement {
 
     public AppointmentManagement(@NotNull Appointment appointment, @NotNull User instructor) {
         this.appointment = appointment;
-        this.id = new AppointmentManagementId(appointment.getId(), instructor.getUuid());
+        this.id = new AppointmentManagementId(appointment.getId(), instructor.getId());
     }
     //endregion
 

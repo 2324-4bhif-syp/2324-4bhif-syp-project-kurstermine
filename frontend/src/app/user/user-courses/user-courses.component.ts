@@ -1,10 +1,11 @@
-import { ChangeDetectorRef, Component, inject, OnInit } from "@angular/core";
+import { Component, inject, OnInit } from "@angular/core";
 import { AsyncPipe } from "@angular/common";
 import { distinctUntilChanged, map } from "rxjs";
 import { StoreService } from "@services";
 import { Course } from "@models/course";
 import { set } from "@models";
 import { ActivatedRoute, RouterModule } from "@angular/router";
+import { TokenApiService } from "@services/api";
 
 @Component({
   selector: "app-user-courses",
@@ -15,8 +16,8 @@ import { ActivatedRoute, RouterModule } from "@angular/router";
 })
 export class UserCoursesComponent implements OnInit {
   private storeService: StoreService = inject(StoreService);
+  private tokenApiService = inject(TokenApiService);
   private route = inject(ActivatedRoute);
-  private cdr = inject(ChangeDetectorRef);
 
   protected viewModel = this.storeService.store.pipe(
     map((model) => ({
@@ -51,6 +52,22 @@ export class UserCoursesComponent implements OnInit {
     set((model) => {
       model.courseView.selectedCourseId = course.categoryId;
     });
+  }
+
+  protected getTokens(amount: number) {
+    let categoryId = this.storeService.store.value.courseView.selectedCategoryId;
+    let userId = this.storeService.store.value.currentUser?.id;
+
+    if (!userId || !categoryId) {
+      return;
+    }
+
+    for (let i = 0; i < amount; i++) {
+      this.tokenApiService.add({
+        userId: userId,
+        categoryId: categoryId,
+      });
+    }
   }
 
   public ngOnInit(): void {

@@ -31,7 +31,10 @@ INSERT INTO organisation (name, uniquename) VALUES
     ('Microsoft', 'microsoft'),
     ('Amazon', 'amazon'),
     ('Apple', 'apple'),
-    ('Facebook', 'facebook');
+    ('Facebook', 'facebook'),
+    ('Akademie',  'akw'),
+    ('Ich gebe dir Raum', 'elvira');
+
 
 -- Insert for Category
 INSERT INTO category (name, organisation_id) VALUES
@@ -42,11 +45,14 @@ INSERT INTO category (name, organisation_id) VALUES
     ('Personal Training', 5),
     ('Nutrition', 4),
     ('English Language', 3),
-    ('Spanish Language', 4);
+    ('Spanish Language', 4),
+    ('Schwimmen', 6),
+    ('Aqua-relax', 6),
+    ('Körperorientierte Visualisierung', 7);
 
 -- Insert for User
 -- UUID generation using PostgreSQL function gen_random_uuid()
-INSERT INTO b_user (uuid) VALUES
+INSERT INTO b_user (id) VALUES
     ('f47ac10b-58cc-4372-a567-0e02b2c3d479'),
     ('4fcd3b34-7d1e-4772-bf25-65a8e20b9d60'),
     ('ae5df6de-2d1c-4f62-9f2c-7f2b3cb41c44'),
@@ -63,7 +69,16 @@ INSERT INTO course (name, category_id) VALUES
     ('Beginner Strength Training', 4),
     ('Advanced Nutrition', 6),
     ('English for Beginners', 7),
-    ('Spanish for Business', 7);
+    ('Spanish for Business', 7),
+    ('Neugeborenen Schwimmen', 9),
+    ('Baby Schwimmen', 9),
+    ('Kleinkind Schwimmen', 9),
+    ('Kinder Schwimmen', 9),
+    ('Aqua Gym für Schwangere', 10),
+    ('Aqua Fit für Alle', 10),
+    ('Herzblüte', 11),
+    ('Sicherer Ort', 11),
+    ('Körpererkundung', 11);
 
 -- Insert for Appointment
 INSERT INTO appointment (name, date, duration, address, course_id) VALUES
@@ -73,16 +88,27 @@ INSERT INTO appointment (name, date, duration, address, course_id) VALUES
     ('Strength Training Basics', '2024-11-20 10:00:00', 1800000000000, 'Fitness Center, Room A', 3),
     ('Nutrition and Health', '2024-11-22 12:00:00', 1800000000000, 'Fitness Center, Room B', 2),
     ('Beginner English Workshop', '2024-12-05 09:00:00', 1800000000000, 'Language Academy, Room 101', 2),
-    ('Spanish for Business Professionals', '2024-12-12 14:00:00', 1800000000000, 'Language Academy, Room 102', 1);
+    ('Spanish for Business Professionals', '2024-12-12 14:00:00', 1800000000000, 'Language Academy, Room 102', 1),
+    ('Russian for Beginners', '2024-12-12 14:00:00', 1800000000000, 'HTL Leonding, Room K03', 6),
+    ('FR 13:40 Neugeborene', '2024-11-08 13:40', 1200000000000, 'Wellnessoase Hummelhof', 8),
+    ('FR 13:40 Neugeborene', '2024-11-15 13:40', 1200000000000, 'Wellnessoase Hummelhof', 8),
+    ('FR 13:40 Neugeborene', '2024-11-22 13:40', 1200000000000, 'Wellnessoase Hummelhof', 8),
+    ('FR 13:40 Neugeborene', '2024-11-29 13:40', 1200000000000, 'Wellnessoase Hummelhof', 8),
+    ('FR 13:40 Neugeborene', '2024-12-06 13:40', 1200000000000, 'Wellnessoase Hummelhof', 8),
+    ('FR 14:00 Babys', '2024-11-08 14:00', 1800000000000, 'Wellnessoase Hummelhof', 9),
+    ('FR 14:00 Babys', '2024-11-15 14:00', 1800000000000, 'Wellnessoase Hummelhof', 9),
+    ('FR 14:00 Babys', '2024-11-22 14:00', 1800000000000, 'Wellnessoase Hummelhof', 9),
+    ('FR 14:00 Babys', '2024-11-29 14:00', 1800000000000, 'Wellnessoase Hummelhof', 9),
+    ('FR 14:00 Babys', '2024-12-06 14:00', 1800000000000, 'Wellnessoase Hummelhof', 9);
 
 -- Insert for AppointmentManagement
-INSERT INTO appointment_management (appointment_id, instructor_uuid) VALUES
+INSERT INTO appointment_management (appointment_id, instructor_id) VALUES
     (1, 'f47ac10b-58cc-4372-a567-0e02b2c3d479'),
     (2, '4fcd3b34-7d1e-4772-bf25-65a8e20b9d60'),
     (3, 'ae5df6de-2d1c-4f62-9f2c-7f2b3cb41c44');
 
 -- Insert for Hire
-INSERT INTO hire (organisation_id, instructor_uuid) VALUES
+INSERT INTO hire (organisation_id, instructor_id) VALUES
     (1, 'f47ac10b-58cc-4372-a567-0e02b2c3d479'),
     (1, '4fcd3b34-7d1e-4772-bf25-65a8e20b9d60'),
     (2, 'ae5df6de-2d1c-4f62-9f2c-7f2b3cb41c44');

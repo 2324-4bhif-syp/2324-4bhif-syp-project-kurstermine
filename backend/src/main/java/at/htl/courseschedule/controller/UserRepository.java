@@ -1,13 +1,13 @@
 package at.htl.courseschedule.controller;
 
 import at.htl.courseschedule.entity.User;
-import io.quarkus.hibernate.orm.panache.PanacheRepository;
+import io.quarkus.hibernate.orm.panache.PanacheRepositoryBase;
 import jakarta.enterprise.context.ApplicationScoped;
 
 import java.util.UUID;
 
 @ApplicationScoped
-public class UserRepository implements PanacheRepository<User> {
+public class UserRepository implements PanacheRepositoryBase<User, UUID> {
     public User getOrCreateUser(UUID uuid) {
         User user = User.findById(uuid);
         return user == null ? createUser(uuid) : user;
