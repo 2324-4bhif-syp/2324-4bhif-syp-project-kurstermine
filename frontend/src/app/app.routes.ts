@@ -8,7 +8,10 @@ import { AdminAppointmentComponent } from './admin/admin-appointment/admin-appoi
 import { HomeComponent } from './other/home/home.component';
 import { UserOrganisationsComponent } from './user/user-organisations/user-organisations.component';
 import { Routes } from '@angular/router';
-import { UserCourseExplorerComponent, routes as userExplorerRouters } from "@components/user/user-course-explorer/user-course-explorer.component";
+import {
+    UserCourseExplorerComponent,
+    routes as userExplorerRouters,
+} from '@components/user/user-course-explorer/user-course-explorer.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },

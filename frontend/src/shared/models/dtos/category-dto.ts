@@ -1,4 +1,4 @@
-import { Category } from "@models";
+import { Category } from '@models';
 
 export interface CategoryDto {
     id: number;
@@ -13,7 +13,7 @@ export const fromCategory = (category: Category): CategoryDto => {
         id: category.id,
         name: category.name,
         organisation: {
-            id: category.organisationId
-        }
+            id: category.organisationId,
+        },
     };
 };

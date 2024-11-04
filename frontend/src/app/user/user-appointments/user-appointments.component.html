@@ -155,8 +155,17 @@
                         </div>
                     </div>
 
-                    <button (click)="addAppointmentToToken(appointment)" class="btn btn-outline mt-5" [disabled]="(viewModel | async)?.unusedTokens === 0 || appointment.isAppointmentBooked">
-                        <span class="material-symbols-outlined">library_add</span>
+                    <button
+                        (click)="addAppointmentToToken(appointment)"
+                        class="btn btn-outline mt-5"
+                        [disabled]="
+                            (viewModel | async)?.unusedTokens === 0 ||
+                            appointment.isAppointmentBooked
+                        "
+                    >
+                        <span class="material-symbols-outlined"
+                            >library_add</span
+                        >
                         Add
                     </button>
                 </div>

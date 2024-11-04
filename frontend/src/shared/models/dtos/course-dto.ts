@@ -1,4 +1,4 @@
-import { Course } from "@models";
+import { Course } from '@models';
 
 export interface CourseDto {
     id: number;
@@ -13,7 +13,7 @@ export const fromCourse = (course: Course): CourseDto => {
         id: course.id,
         name: course.name,
         category: {
-            id: course.categoryId
-        }
+            id: course.categoryId,
+        },
     };
 };

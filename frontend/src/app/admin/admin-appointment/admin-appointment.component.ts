@@ -7,10 +7,7 @@ import { AsyncPipe } from '@angular/common';
 
 @Component({
     standalone: true,
-    imports: [
-        AdminAppointmentManagementComponent,
-        AsyncPipe,
-    ],
+    imports: [AdminAppointmentManagementComponent, AsyncPipe],
     selector: 'app-admin-appointment',
     templateUrl: './admin-appointment.component.html',
     styleUrls: ['./admin-appointment.component.css'],
