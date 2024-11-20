@@ -29,15 +29,15 @@ export class TokenApiService extends ApiService {
       });
   }
 
-  public add(token: Token) {
+  public add(token: Token, amount: number) {
     this.http
-      .post<TokenDto>(`${this.url}`, fromModel(token), {
+      .post<TokenDto[]>(`${this.url}/${amount}`, fromModel(token), {
         headers: this.headers.set("Content-Type", "application/json"),
       })
-      .pipe(map(fromDto))
-      .subscribe((token) => {
+      .pipe(map((dtos) => dtos.map(fromDto)))
+      .subscribe((tokens) => {
         set((model) => {
-          model.tokens.push(token);
+          model.tokens.push(...tokens);
         });
       });
   }

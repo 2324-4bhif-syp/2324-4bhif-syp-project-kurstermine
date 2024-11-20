@@ -15,6 +15,8 @@ import jakarta.transaction.Transactional;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.*;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.UUID;
 
 @Path("tokens")
@@ -52,27 +54,26 @@ public class TokenResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @RolesAllowed({Role.Admin, Role.Instructor, Role.Customer, Role.Organisator})
-    public Response createToken(TokenDto dto, @PathParam("numOfTokens") int numOfTokens,
-                                @Context UriInfo uriInfo) {
-        if(dto == null) {
+    public Response createToken(TokenDto dto, @PathParam("numOfTokens") int numOfTokens, @Context UriInfo uriInfo) {
+        if(dto == null || numOfTokens < 1) {
             return Response.status(400).build();
         }
 
-        var token = new Token();
-
+        List<Token> tokens = new LinkedList<>();
         for(int i = 0; i < numOfTokens; i++) {
-            token = new Token();
+            var token = new Token();
             token.setCategory(categoryRepository.findById(dto.categoryId()));
             token.setUser(userRepository.getOrCreateUser(dto.userId()));
+            tokens.add(token);
 
             tokenRepository.persist(token);
         }
 
         UriBuilder uriBuilder = uriInfo
                 .getAbsolutePathBuilder()
-                .path(token.getId().toString());
+                .path(tokens.get(tokens.size() - 1).getId().toString());
 
-        return Response.created(uriBuilder.build()).entity(TokenDto.fromToken(token)).build();
+        return Response.created(uriBuilder.build()).entity(tokens.stream().map(TokenDto::fromToken)).build();
     }
 
     @DELETE
