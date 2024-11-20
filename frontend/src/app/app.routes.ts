@@ -16,7 +16,10 @@ export const routes: Routes = [
         path: 'appointments',
         component: UserAppointmentsComponent,
         canActivate: [AuthGuard, RoleGuard],
-        data: { roles: [Roles.Customer] },
+        data: {
+            roles: [Roles.Customer],
+            onlyBooked: true,
+        },
     },
     {
         path: 'organisations',
