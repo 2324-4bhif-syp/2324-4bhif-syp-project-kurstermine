@@ -170,10 +170,12 @@
                             <div class="tooltip tooltip-error" data-tip="You have no tokens!">
                                 <ng-container *ngTemplateOutlet="addButton"/>
                             </div>
-                        } @else {
+                        } @else if (appointment.isAppointmentBooked) {
                             <div class="tooltip tooltip-success" data-tip="You booked this appointment!">
                                 <ng-container *ngTemplateOutlet="addButton"/>
                             </div>
+                        } @else {
+                            <ng-container *ngTemplateOutlet="addButton"/>
                         }
 
                         <ng-template #addButton>
