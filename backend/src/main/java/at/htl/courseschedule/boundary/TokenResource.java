@@ -47,20 +47,26 @@ public class TokenResource {
     }
 
     @POST
+    @Path("{numOfTokens}")
     @Transactional
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @RolesAllowed({Role.Admin, Role.Instructor, Role.Customer, Role.Organisator})
-    public Response createToken(TokenDto dto, @Context UriInfo uriInfo) {
+    public Response createToken(TokenDto dto, @PathParam("numOfTokens") int numOfTokens,
+                                @Context UriInfo uriInfo) {
         if(dto == null) {
             return Response.status(400).build();
         }
 
         var token = new Token();
-        token.setCategory(categoryRepository.findById(dto.categoryId()));
-        token.setUser(userRepository.getOrCreateUser(dto.userId()));
 
-        tokenRepository.persist(token);
+        for(int i = 0; i < numOfTokens; i++) {
+            token = new Token();
+            token.setCategory(categoryRepository.findById(dto.categoryId()));
+            token.setUser(userRepository.getOrCreateUser(dto.userId()));
+
+            tokenRepository.persist(token);
+        }
 
         UriBuilder uriBuilder = uriInfo
                 .getAbsolutePathBuilder()
