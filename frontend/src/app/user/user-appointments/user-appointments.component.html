@@ -157,14 +157,21 @@
 
                     <button
                         (click)="addAppointmentToToken(appointment)"
-                        [disabled]="(viewModel | async)?.unusedTokens === 0"
+                        [disabled]="
+                            (viewModel | async)?.unusedTokens === 0 ||
+                            appointment.isAppointmentBooked
+                        "
                         class="btn btn-outline mt-5"
                     >
                         @if (appointment.isAppointmentBooked) {
-                            <span class="material-symbols-outlined">check_circle</span>
+                            <span class="material-symbols-outlined"
+                                >check_circle</span
+                            >
                             Booked
                         } @else {
-                            <span class="material-symbols-outlined">library_add</span>
+                            <span class="material-symbols-outlined"
+                                >library_add</span
+                            >
                             Add
                         }
                     </button>
