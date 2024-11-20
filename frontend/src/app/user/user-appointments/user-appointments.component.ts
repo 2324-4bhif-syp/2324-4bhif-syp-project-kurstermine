@@ -3,7 +3,7 @@ import { FormsModule } from "@angular/forms";
 import { AppointmentApiService, TokenApiService } from "@services/api";
 import { StoreService } from "@services";
 import { distinctUntilChanged, map } from "rxjs";
-import { AsyncPipe } from "@angular/common";
+import {AsyncPipe, NgTemplateOutlet} from "@angular/common";
 import { ActivatedRoute } from "@angular/router";
 import { set } from "@models/model";
 import { Appointment, Token } from "@models";
@@ -11,12 +11,13 @@ import { Appointment, Token } from "@models";
 @Component({
   selector: "app-user-appointments",
   standalone: true,
-  imports: [FormsModule, AsyncPipe],
+    imports: [FormsModule, AsyncPipe, NgTemplateOutlet],
   templateUrl: "./user-appointments.component.html",
   styleUrl: "./user-appointments.component.css",
 })
 export class UserAppointmentsComponent implements OnInit {
   protected readonly String = String;
+  protected onlyBooked: boolean = false;
   private storeService = inject(StoreService);
   private appointmentApiService = inject(AppointmentApiService);
   private tokenApiService = inject(TokenApiService);
@@ -25,7 +26,15 @@ export class UserAppointmentsComponent implements OnInit {
   protected viewModel = this.storeService.store.pipe(
     map((model) => ({
       appointments: model.appointments
-        .filter((a) => a.courseId === model.courseView.selectedCourseId)
+        .filter((a) => this.onlyBooked ?
+            true :
+            a.courseId === model.courseView.selectedCourseId)
+        .filter((a) => this.onlyBooked ?
+            model.tokens.find(
+                (t) => t.appointmentId === a.id && t.userId === model.currentUser?.id
+            ) !== undefined :
+            true)
+        .sort((a1, a2) => a1.date.getTime() - a2.date.getTime())
         .map((a) => ({
           ...a,
           isAppointmentBooked:
@@ -56,6 +65,8 @@ export class UserAppointmentsComponent implements OnInit {
   }
 
   public ngOnInit(): void {
+    this.onlyBooked = this.route.snapshot.data["onlyBooked"] ?? false;
+
     this.route.params.subscribe((params) => {
       set((model) => {
         model.courseView.selectedOrganisationId = Number(
@@ -65,6 +76,10 @@ export class UserAppointmentsComponent implements OnInit {
         model.courseView.selectedCourseId = Number(params["courseId"]);
       });
     });
+  }
+
+  protected isAppointmentOver(appointment: Appointment): boolean {
+    return appointment.date < new Date();
   }
 
   protected addAppointmentToToken(appointment: Appointment): void {
