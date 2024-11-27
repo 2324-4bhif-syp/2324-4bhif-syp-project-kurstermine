@@ -4,8 +4,6 @@ import at.htl.courseschedule.controller.AppointmentRepository;
 import at.htl.courseschedule.controller.CategoryRepository;
 import at.htl.courseschedule.controller.TokenRepository;
 import at.htl.courseschedule.dto.TokenDto;
-import at.htl.courseschedule.entity.Appointment;
-import at.htl.courseschedule.entity.Category;
 import at.htl.courseschedule.entity.Token;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
@@ -43,12 +41,12 @@ public class TokenResource {
     }
 
     @POST
-    @Path("{numOfTokens}")
+    @Path("{amount-of-tokens}")
     @Transactional
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @RolesAllowed({Role.Admin, Role.Instructor, Role.Customer, Role.Organisator})
-    public Response createToken(TokenDto dto, @PathParam("numOfTokens") int amountOfTokens, @Context UriInfo uriInfo) {
+    public Response createToken(TokenDto dto, @PathParam("amount-of-tokens") int amountOfTokens, @Context UriInfo uriInfo) {
         if(dto == null || amountOfTokens < 1) {
             return Response.status(400).build();
         }
