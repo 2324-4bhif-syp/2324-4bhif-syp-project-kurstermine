@@ -3,19 +3,16 @@ package at.htl.courseschedule.boundary;
 import at.htl.courseschedule.controller.AppointmentRepository;
 import at.htl.courseschedule.controller.CategoryRepository;
 import at.htl.courseschedule.controller.TokenRepository;
-import at.htl.courseschedule.controller.UserRepository;
 import at.htl.courseschedule.dto.TokenDto;
 import at.htl.courseschedule.entity.Appointment;
 import at.htl.courseschedule.entity.Category;
 import at.htl.courseschedule.entity.Token;
-import io.quarkus.logging.Log;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.*;
 
-import java.util.LinkedList;
 import java.util.List;
 import java.util.UUID;
 
@@ -29,9 +26,6 @@ public class TokenResource {
 
     @Inject
     CategoryRepository categoryRepository;
-
-    @Inject
-    UserRepository userRepository;
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
@@ -54,20 +48,12 @@ public class TokenResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @RolesAllowed({Role.Admin, Role.Instructor, Role.Customer, Role.Organisator})
-    public Response createToken(TokenDto dto, @PathParam("numOfTokens") int numOfTokens, @Context UriInfo uriInfo) {
-        if(dto == null || numOfTokens < 1) {
+    public Response createToken(TokenDto dto, @PathParam("numOfTokens") int amountOfTokens, @Context UriInfo uriInfo) {
+        if(dto == null || amountOfTokens < 1) {
             return Response.status(400).build();
         }
 
-        List<Token> tokens = new LinkedList<>();
-        for(int i = 0; i < numOfTokens; i++) {
-            var token = new Token();
-            token.setCategory(categoryRepository.findById(dto.categoryId()));
-            token.setUser(userRepository.getOrCreateUser(dto.userId()));
-            tokens.add(token);
-
-            tokenRepository.persist(token);
-        }
+        List<Token> tokens = tokenRepository.createTokens(amountOfTokens, dto);
 
         UriBuilder uriBuilder = uriInfo
                 .getAbsolutePathBuilder()
