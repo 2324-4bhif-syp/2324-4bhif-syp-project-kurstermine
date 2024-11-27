@@ -12,17 +12,26 @@ import jakarta.inject.Inject;
 public class MailService {
     @CheckedTemplate(requireTypeSafeExpressions = false)
     static class ConfirmationTemplate {
-        static native TemplateInstance confirm(String packetName, String receiver);
+        static native TemplateInstance confirmPurchase(String categoryName, int amountOfTokens, String receiver);
+        static native TemplateInstance confirmAppointmentBooking(String appointmentName, String receiver);
     }
 
     @Inject
     ReactiveMailer reactiveMailer;
 
-    public Uni<Void> sendConfirmationMail(String email, String packetName, String receiver) {
+    public Uni<Void> sendPurchaseConfirmationMail(String email, String categoryName, int amountOfTokens, String receiver) {
         return sendMail(Mail.withHtml(
                 email,
                 "Confirmation for Purchase",
-                ConfirmationTemplate.confirm(packetName, receiver).render()
+                ConfirmationTemplate.confirmPurchase(categoryName, amountOfTokens, receiver).render()
+        ));
+    }
+
+    public Uni<Void> sendAppointmentConfirmationMail(String email, String appointmentName, String receiver) {
+        return sendMail(Mail.withHtml(
+                email,
+                "Confirmation for Booking",
+                ConfirmationTemplate.confirmAppointmentBooking(appointmentName, receiver).render()
         ));
     }
 
