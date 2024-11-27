@@ -1,7 +1,5 @@
 package at.htl.courseschedule.boundary;
 
-import at.htl.courseschedule.controller.AppointmentRepository;
-import at.htl.courseschedule.controller.CategoryRepository;
 import at.htl.courseschedule.controller.TokenRepository;
 import at.htl.courseschedule.dto.TokenDto;
 import at.htl.courseschedule.entity.Token;
@@ -18,12 +16,6 @@ import java.util.UUID;
 public class TokenResource {
     @Inject
     TokenRepository tokenRepository;
-
-    @Inject
-    AppointmentRepository appointmentRepository;
-
-    @Inject
-    CategoryRepository categoryRepository;
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
@@ -91,12 +83,6 @@ public class TokenResource {
             return Response.status(404).build();
         }
 
-        Category category = categoryRepository.findById(token.categoryId());
-        Appointment appointment = appointmentRepository.getById(token.appointmentId());
-
-        oldToken.setCategory(category);
-        oldToken.setAppointment(appointment);
-
-        return Response.ok(TokenDto.fromToken(oldToken)).build();
+        return Response.ok(TokenDto.fromToken(tokenRepository.updateToken(oldToken, token))).build();
     }
 }

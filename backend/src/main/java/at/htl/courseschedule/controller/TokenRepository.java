@@ -69,4 +69,25 @@ public class TokenRepository implements PanacheRepositoryBase<Token, UUID> {
 
         return tokens;
     }
+
+    public Token updateToken(Token token, TokenDto dto) {
+        Category category = categoryRepository.findById(dto.categoryId());
+        Appointment appointment = appointmentRepository.getById(dto.appointmentId());
+
+        token.setCategory(category);
+        token.setAppointment(appointment);
+
+        UserRepresentation customer = keycloakUserRepository.getById(dto.userId(), Role.Customer);
+
+        mailService.sendAppointmentConfirmationMail(
+                customer.getEmail(),
+                appointment.getName(),
+                String.format("%s %s", customer.getFirstName(), customer.getLastName())
+        ).subscribe().with(
+                ignored -> {},
+                error -> Log.error("Error while sending Email: ", error)
+        );
+
+        return getEntityManager().merge(token);
+    }
 }
