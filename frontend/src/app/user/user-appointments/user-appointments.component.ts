@@ -49,6 +49,7 @@ export class UserAppointmentsComponent implements OnInit {
                                 t.appointmentId === a.id &&
                                 t.userId === model.currentUser?.id,
                         ) !== undefined,
+                    isInFuture: a.date > new Date(),
                 })),
             stackedAppointments: model.appointments
                 .filter((a) =>

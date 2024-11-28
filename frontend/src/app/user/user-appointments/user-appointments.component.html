@@ -75,9 +75,9 @@
                     track $index
                 ) {
                     <tr
-                        [class.bg-blue-100]="isAppointmentOver(appointment)"
-                        [class.line-through]="isAppointmentOver(appointment)"
-                        [class.bg-green-100]="!isAppointmentOver(appointment)"
+                        [class.bg-blue-100]="!appointment.isInFuture"
+                        [class.line-through]="!appointment.isInFuture"
+                        [class.bg-green-100]="appointment.isInFuture"
                     >
                         <th>{{ $index + 1 }}</th>
                         <td>{{ appointment.name }}</td>
@@ -241,6 +241,9 @@
                             }
                         </tbody>
                     </table>
+                    @if (!appointment.hasFutureAppointments) {
+                        <div class="badge badge-primary badge-lg">Finished</div>
+                    }
                 </div>
             </div>
         } @empty {
