@@ -121,7 +121,17 @@ export class UserAppointmentsComponent implements OnInit {
                             duration: number;
                         }[];
                     }[],
-                ),
+                )
+                .map((group) => ({
+                    ...group,
+                    dates: group.dates.map((date) => ({
+                        ...date,
+                        isInFuture: date.date > new Date(),
+                    })),
+                    hasFutureAppointments: group.dates.some(
+                        (date) => date.date > new Date(),
+                    ),
+                })),
             unusedTokens: model.tokens.filter(
                 (t) =>
                     t.categoryId === model.courseView.selectedCategoryId &&
@@ -130,7 +140,6 @@ export class UserAppointmentsComponent implements OnInit {
             ).length,
         })),
         distinctUntilChanged(),
-        tap((x) => console.log(x.stackedAppointments)),
     );
 
     protected searchValue: string = "";
@@ -158,10 +167,6 @@ export class UserAppointmentsComponent implements OnInit {
                 model.courseView.selectedCourseId = Number(params["courseId"]);
             });
         });
-    }
-
-    protected isAppointmentOver(appointment: { date: Date }): boolean {
-        return appointment.date < new Date();
     }
 
     protected addAppointmentToToken(appointment: { id?: number }): void {

@@ -7,40 +7,40 @@ import { Token, fromTokenDto as fromDto } from "@models/token";
 import { set } from "@models/model";
 
 @Injectable({
-  providedIn: "root",
+    providedIn: "root",
 })
 export class TokenApiService extends ApiService {
-  constructor(http: HttpClient) {
-    super(http, "tokens");
-  }
+    constructor(http: HttpClient) {
+        super(http, "tokens");
+    }
 
-  public getAll() {
-    this.http
-      .get<TokenDto[]>(this.url, {
-        headers: this.headers,
-      })
-      .pipe(map((dtos) => dtos.map(fromDto)))
-      .subscribe((tokens) => {
-        set((model) => {
-          if (model.tokens.length === 0) {
-            model.tokens = tokens;
-          }
-        });
-      });
-  }
+    public getAll() {
+        this.http
+            .get<TokenDto[]>(this.url, {
+                headers: this.headers,
+            })
+            .pipe(map((dtos) => dtos.map(fromDto)))
+            .subscribe((tokens) => {
+                set((model) => {
+                    if (model.tokens.length === 0) {
+                        model.tokens = tokens;
+                    }
+                });
+            });
+    }
 
-  public add(token: Token, amount: number) {
-    this.http
-      .post<TokenDto[]>(`${this.url}/${amount}`, fromModel(token), {
-        headers: this.headers.set("Content-Type", "application/json"),
-      })
-      .pipe(map((dtos) => dtos.map(fromDto)))
-      .subscribe((tokens) => {
-        set((model) => {
-          model.tokens.push(...tokens);
-        });
-      });
-  }
+    public add(token: Token, amount: number) {
+        this.http
+            .post<TokenDto[]>(`${this.url}/${amount}`, fromModel(token), {
+                headers: this.headers.set("Content-Type", "application/json"),
+            })
+            .pipe(map((dtos) => dtos.map(fromDto)))
+            .subscribe((tokens) => {
+                set((model) => {
+                    model.tokens.push(...tokens);
+                });
+            });
+    }
 
     public update(token: Token) {
         this.http
@@ -50,16 +50,15 @@ export class TokenApiService extends ApiService {
             .pipe(map(fromDto))
             .subscribe((token) => {
                 set((model) => {
-                    const index: number = model.tokens.findIndex(t => t.id === token.id);
-                    console.log(index)
+                    const index: number = model.tokens.findIndex(
+                        (t) => t.id === token.id,
+                    );
                     if (index > -1) {
                         model.tokens.splice(index, 1, token);
                     }
-
-                    console.log(token)
                 });
             });
     }
 
-  // todo: delete
+    // todo: delete
 }
