@@ -46,13 +46,13 @@ export class AppComponent implements OnInit {
                 if (user.id !== undefined) {
                     this.tokenApiService.getAllForUser(user.id);
                 }
-            });
 
-        this.appointmentApiService.getAll();
-        this.appointmentManagementApiService.getAll();
-        this.organisationApiService.getAll();
-        this.coursesApiService.getAll();
-        this.categoryApiService.getAll();
+                this.appointmentApiService.getAll();
+                this.appointmentManagementApiService.getAll();
+                this.organisationApiService.getAll();
+                this.coursesApiService.getAll();
+                this.categoryApiService.getAll();
+            });
     }
 
     protected onBtnLogout(): void {
