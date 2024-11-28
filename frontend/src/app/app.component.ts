@@ -1,6 +1,6 @@
 import { Component, inject, OnInit } from "@angular/core";
 import { RouterModule, RouterOutlet } from "@angular/router";
-import { Roles, set } from "@models";
+import {Roles, set, User} from "@models";
 import { userProfileToUser } from "@models/model";
 import {
     AppointmentApiService,
@@ -38,16 +38,20 @@ export class AppComponent implements OnInit {
             .getKeycloakInstance()
             .loadUserProfile()
             .then((profile) => {
+                const user: User = userProfileToUser(profile);
                 set((model) => {
-                    model.currentUser = userProfileToUser(profile);
+                    model.currentUser = user;
                 });
+
+                if (user.id !== undefined) {
+                    this.tokenApiService.getAllForUser(user.id);
+                }
             });
 
         this.appointmentApiService.getAll();
         this.appointmentManagementApiService.getAll();
         this.organisationApiService.getAll();
         this.coursesApiService.getAll();
-        this.tokenApiService.getAll();
         this.categoryApiService.getAll();
     }
 

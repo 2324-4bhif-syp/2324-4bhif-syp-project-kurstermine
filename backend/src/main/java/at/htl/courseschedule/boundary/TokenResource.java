@@ -19,9 +19,21 @@ public class TokenResource {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @RolesAllowed({Role.Admin, Role.Instructor, Role.Customer, Role.Organisator}) //TODO - only admin
+    @RolesAllowed(Role.Admin)
     public Response getAllTokens() {
         return Response.ok(tokenRepository.listAll().stream().map(TokenDto::fromToken)).build();
+    }
+
+    @GET
+    @Path("{user-id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    @RolesAllowed({Role.Admin, Role.Instructor, Role.Customer, Role.Organisator})
+    public Response getAllTokensForUser(@PathParam("user-id") UUID userId) {
+        return Response.ok(
+                tokenRepository.listAll().stream()
+                        .filter(t -> t.getUser().getId().equals(userId))
+                        .map(TokenDto::fromToken)
+        ).build();
     }
 
     @GET

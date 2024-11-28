@@ -14,17 +14,15 @@ export class TokenApiService extends ApiService {
         super(http, "tokens");
     }
 
-    public getAll() {
+    public getAllForUser(userId: string) {
         this.http
-            .get<TokenDto[]>(this.url, {
+            .get<TokenDto[]>(`${this.url}/${userId}`, {
                 headers: this.headers,
             })
             .pipe(map((dtos) => dtos.map(fromDto)))
             .subscribe((tokens) => {
                 set((model) => {
-                    if (model.tokens.length === 0) {
-                        model.tokens = tokens;
-                    }
+                    model.tokens = tokens;
                 });
             });
     }
