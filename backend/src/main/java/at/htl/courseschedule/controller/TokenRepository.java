@@ -10,12 +10,11 @@ import io.quarkus.hibernate.orm.panache.PanacheRepositoryBase;
 import io.quarkus.logging.Log;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
-import org.eclipse.microprofile.jwt.JsonWebToken;
-import org.keycloak.representations.idm.UserRepresentation;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import org.eclipse.microprofile.jwt.JsonWebToken;
+import org.keycloak.representations.idm.UserRepresentation;
 
 @ApplicationScoped
 public class TokenRepository implements PanacheRepositoryBase<Token, UUID> {
@@ -42,8 +41,7 @@ public class TokenRepository implements PanacheRepositoryBase<Token, UUID> {
         List<Token> tokens = new ArrayList<>();
 
         Category category = categoryRepository.findById(tokenDto.categoryId());
-        User user = userRepository.findById(tokenDto.userId());
-
+        User user = userRepository.getOrCreateUser(tokenDto.userId());
 
         for (int i = 0; i < amount; i++) {
             Token token = new Token();
@@ -54,39 +52,60 @@ public class TokenRepository implements PanacheRepositoryBase<Token, UUID> {
             persist(token);
         }
 
-        UserRepresentation customer = keycloakUserRepository
-                .getById(UUID.fromString(jsonWebToken.getClaim("sub")), Role.Customer);
+        UserRepresentation customer = keycloakUserRepository.getById(
+            UUID.fromString(jsonWebToken.getClaim("sub")),
+            Role.Customer
+        );
 
-        mailService.sendPurchaseConfirmationMail(
+        mailService
+            .sendPurchaseConfirmationMail(
                 customer.getEmail(),
                 category.getName(),
                 amount,
-                String.format("%s %s", customer.getFirstName(), customer.getLastName())
-        ).subscribe().with(
+                String.format(
+                    "%s %s",
+                    customer.getFirstName(),
+                    customer.getLastName()
+                )
+            )
+            .subscribe()
+            .with(
                 ignored -> {},
                 error -> Log.error("Error while sending Email: ", error)
-        );
+            );
 
         return tokens;
     }
 
     public Token updateToken(Token token, TokenDto dto) {
         Category category = categoryRepository.findById(dto.categoryId());
-        Appointment appointment = appointmentRepository.getById(dto.appointmentId());
+        Appointment appointment = appointmentRepository.getById(
+            dto.appointmentId()
+        );
 
         token.setCategory(category);
         token.setAppointment(appointment);
 
-        UserRepresentation customer = keycloakUserRepository.getById(dto.userId(), Role.Customer);
+        UserRepresentation customer = keycloakUserRepository.getById(
+            dto.userId(),
+            Role.Customer
+        );
 
-        mailService.sendAppointmentConfirmationMail(
+        mailService
+            .sendAppointmentConfirmationMail(
                 customer.getEmail(),
                 appointment.getName(),
-                String.format("%s %s", customer.getFirstName(), customer.getLastName())
-        ).subscribe().with(
+                String.format(
+                    "%s %s",
+                    customer.getFirstName(),
+                    customer.getLastName()
+                )
+            )
+            .subscribe()
+            .with(
                 ignored -> {},
                 error -> Log.error("Error while sending Email: ", error)
-        );
+            );
 
         return getEntityManager().merge(token);
     }

@@ -74,7 +74,8 @@
                     appointment of (viewModel | async)?.appointments;
                     track $index
                 ) {
-                    <tr [class.bg-blue-100]="isAppointmentOver(appointment)"
+                    <tr
+                        [class.bg-blue-100]="isAppointmentOver(appointment)"
                         [class.line-through]="isAppointmentOver(appointment)"
                         [class.bg-green-100]="!isAppointmentOver(appointment)"
                     >
@@ -108,16 +109,16 @@
 @if (view === "card") {
     <div class="flex flex-wrap gap-5 justify-evenly mb-20">
         @for (
-            appointment of (viewModel | async)?.appointments;
+            appointment of (viewModel | async)?.stackedAppointments;
             track appointment
         ) {
-            <div
-                [class.border-blue-500]="isAppointmentOver(appointment)"
-                [class.border-green-500]="!isAppointmentOver(appointment)"
-                class="border-4 rounded-md shadow-lg card w-96"
-            >
+            <div class="border-4 rounded-md shadow-lg card w-96">
                 <div class="items-center text-center card-body">
-                    <p class="text-3xl card-title">{{ appointment.name }}</p>
+                    <div>
+                        <p class="text-3xl card-title">
+                            {{ appointment.name }}
+                        </p>
+                    </div>
                     <div class="m-0 divider"></div>
 
                     <div class="flex flex-col">
@@ -131,72 +132,205 @@
                         <div class="w-1/2 m-0 divider"></div>
                     </div>
 
-                    <div
-                        [class.line-through]="isAppointmentOver(appointment)"
-                        class="flex flex-col"
-                    >
-                        <span class="material-symbols-outlined"> today </span>
-                        {{ appointment.date.toLocaleDateString() }}
-                    </div>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Time</th>
+                                <th>Duration</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @for (date of appointment.dates; track date) {
+                                <tr
+                                    [class.bg-blue-100]="
+                                        isAppointmentOver(date)
+                                    "
+                                    [class.line-through]="
+                                        isAppointmentOver(date)
+                                    "
+                                    [class.bg-green-100]="
+                                        !isAppointmentOver(date)
+                                    "
+                                >
+                                    <td>
+                                        {{ date.date.toLocaleDateString() }}
+                                    </td>
+                                    <td>
+                                        {{
+                                            String(
+                                                date.date.getHours()
+                                            ).padStart(2, "0")
+                                        }}:{{
+                                            String(
+                                                date.date.getMinutes()
+                                            ).padStart(2, "0")
+                                        }}
+                                    </td>
+                                    <td>{{ date.duration }} min</td>
+                                    <td>
+                                        @if (!onlyBooked) {
+                                            @if (
+                                                (viewModel | async)
+                                                    ?.unusedTokens === 0
+                                            ) {
+                                                <div
+                                                    class="tooltip tooltip-error"
+                                                    data-tip="You have no tokens!"
+                                                >
+                                                    <ng-container
+                                                        *ngTemplateOutlet="
+                                                            addButton
+                                                        "
+                                                    />
+                                                </div>
+                                            } @else if (
+                                                date.isAppointmentBooked
+                                            ) {
+                                                <div
+                                                    class="tooltip tooltip-success"
+                                                    data-tip="You booked this appointment!"
+                                                >
+                                                    <ng-container
+                                                        *ngTemplateOutlet="
+                                                            addButton
+                                                        "
+                                                    />
+                                                </div>
+                                            } @else {
+                                                <ng-container
+                                                    *ngTemplateOutlet="
+                                                        addButton
+                                                    "
+                                                />
+                                            }
 
-                    <div class="flex w-full justify-evenly">
+                                            <ng-template #addButton>
+                                                <button
+                                                    (click)="
+                                                        addAppointmentToToken(
+                                                            date
+                                                        )
+                                                    "
+                                                    [disabled]="
+                                                        (viewModel | async)
+                                                            ?.unusedTokens ===
+                                                            0 ||
+                                                        date.isAppointmentBooked
+                                                    "
+                                                    class="btn btn-outline"
+                                                >
+                                                    @if (
+                                                        date.isAppointmentBooked
+                                                    ) {
+                                                        <span
+                                                            class="material-symbols-outlined"
+                                                            >check_circle</span
+                                                        >
+                                                    } @else {
+                                                        <span
+                                                            class="material-symbols-outlined"
+                                                            >library_add</span
+                                                        >
+                                                    }
+                                                </button>
+                                            </ng-template>
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+
+                    @for (date of appointment.dates; track date) {
+                        <!--
                         <div class="flex flex-col">
                             <span class="material-symbols-outlined">
-                                schedule
+                                today
                             </span>
-                            {{
-                                String(appointment.date.getHours()).padStart(
-                                    2,
-                                    "0"
-                                )
-                            }}:{{
-                                String(appointment.date.getMinutes()).padStart(
-                                    2,
-                                    "0"
-                                )
-                            }}
+                            {{ date.date.toLocaleDateString() }}
                         </div>
 
-                        <div class="flex flex-col">
-                            <span class="material-symbols-outlined">
-                                timelapse
-                            </span>
-                            {{ appointment.duration }} min
-                        </div>
-                    </div>
+                        <div class="flex w-full justify-evenly">
+                            <div class="flex flex-col">
+                                <span class="material-symbols-outlined">
+                                    schedule
+                                </span>
+                                {{
+                                    String(date.date.getHours()).padStart(
+                                        2,
+                                        "0"
+                                    )
+                                }}:{{
+                                    String(date.date.getMinutes()).padStart(
+                                        2,
+                                        "0"
+                                    )
+                                }}
+                            </div>
 
-                    @if (!onlyBooked && !isAppointmentOver(appointment)) {
-                        @if ((viewModel | async)?.unusedTokens === 0) {
-                            <div class="tooltip tooltip-error" data-tip="You have no tokens!">
-                                <ng-container *ngTemplateOutlet="addButton"/>
+                            <div class="flex flex-col">
+                                <span class="material-symbols-outlined">
+                                    timelapse
+                                </span>
+                                {{ date.duration }} min
                             </div>
-                        } @else if (appointment.isAppointmentBooked) {
-                            <div class="tooltip tooltip-success" data-tip="You booked this appointment!">
-                                <ng-container *ngTemplateOutlet="addButton"/>
-                            </div>
-                        } @else {
-                            <ng-container *ngTemplateOutlet="addButton"/>
+                        </div>
+
+                        @if (!onlyBooked) {
+                            @if ((viewModel | async)?.unusedTokens === 0) {
+                                <div
+                                    class="tooltip tooltip-error"
+                                    data-tip="You have no tokens!"
+                                >
+                                    <ng-container
+                                        *ngTemplateOutlet="addButton"
+                                    />
+                                </div>
+                            } @else if (date.isAppointmentBooked) {
+                                <div
+                                    class="tooltip tooltip-success"
+                                    data-tip="You booked this appointment!"
+                                >
+                                    <ng-container
+                                        *ngTemplateOutlet="addButton"
+                                    />
+                                </div>
+                            } @else {
+                                <ng-container *ngTemplateOutlet="addButton" />
+                            }
+
+                            <ng-template #addButton>
+                                <button
+                                    (click)="addAppointmentToToken(date)"
+                                    [disabled]="
+                                        (viewModel | async)?.unusedTokens ===
+                                            0 || date.isAppointmentBooked
+                                    "
+                                    class="btn btn-outline mt-5"
+                                >
+                                    @if (date.isAppointmentBooked) {
+                                        <span class="material-symbols-outlined"
+                                            >check_circle</span
+                                        >
+                                        Booked
+                                    } @else {
+                                        <span class="material-symbols-outlined"
+                                            >library_add</span
+                                        >
+                                        Add
+                                    }
+                                </button>
+                            </ng-template>
                         }
 
-                        <ng-template #addButton>
-                            <button
-                                (click)="addAppointmentToToken(appointment)"
-                                [disabled]="(viewModel | async)?.unusedTokens === 0 || appointment.isAppointmentBooked"
-                                class="btn btn-outline mt-5"
-                            >
-                                @if (appointment.isAppointmentBooked) {
-                                    <span class="material-symbols-outlined">check_circle</span>
-                                    Booked
-                                } @else {
-                                    <span class="material-symbols-outlined">library_add</span>
-                                    Add
-                                }
-                            </button>
-                        </ng-template>
-                    }
-
-                    @if (isAppointmentOver(appointment)) {
-                        <div class="badge badge-primary badge-lg">Finished</div>
+                        @if (isAppointmentOver(date)) {
+                            <div class="badge badge-primary badge-lg">
+                                Finished
+                            </div>
+                        }
+                        -->
                     }
                 </div>
             </div>
