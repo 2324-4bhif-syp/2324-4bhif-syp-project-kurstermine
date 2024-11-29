@@ -32,8 +32,9 @@ endif::[]
 [background-video="baby-video.mp4",background-video-loop=true,background-video-muted=true,background-opacity="0.5"]
 == Sprint-Vereinbarungen
 
-* CLD angepasst
-* Frontend basierend auf neues CLD umstrukturiert
+* Appointments gestapelt anzeigen
+* Ansicht für die bereits gebuchten Appointments
+* E-Mails verschicken beim Kauf von Tokens und bei der Buchung von Appointments
 
 
 [backround-image="cld.png",background-opacity="0.3"]
