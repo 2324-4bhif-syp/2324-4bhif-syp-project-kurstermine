@@ -31,9 +31,11 @@ export class AppComponent implements OnInit {
     private keycloak = inject(KeycloakService);
 
     protected isAdmin = false;
+    protected isOrganisator = false;
 
     public ngOnInit(): void {
         this.isAdmin = this.keycloak.getUserRoles().includes(Roles.Admin);
+        this.isOrganisator = this.keycloak.getUserRoles().includes(Roles.Organisator);
         this.keycloak
             .getKeycloakInstance()
             .loadUserProfile()

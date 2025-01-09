@@ -1,0 +1,35 @@
+<div
+    class="bg-[url('/assets/appointments-banner.jpg')] bg-cover bg-center pb-20 pt-20 mb-10 shadow-lg"
+>
+    <p
+        class="text-5xl text-center text-white"
+        style="text-shadow: black 0 0 10px"
+    >
+        Appointments
+    </p>
+</div>
+
+<div class="overflow-x-auto mb-60">
+    <table class="table">
+        <thead>
+        <tr>
+            <th></th>
+            <th>Appointment</th>
+            <th>Where</th>
+            <th>When</th>
+        </tr>
+        </thead>
+        <tbody>
+            @for (appointment of viewModel | async; track $index) {
+                <tr
+                    class="cursor-pointer hover"
+                >
+                    <th>{{ $index + 1 }}</th>
+                    <td>{{ appointment.name }}</td>
+                    <td>{{ appointment.address }}</td>
+                    <td>{{ appointment.date.toDateString() }}</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

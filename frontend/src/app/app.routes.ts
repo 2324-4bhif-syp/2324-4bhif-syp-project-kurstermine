@@ -8,7 +8,8 @@ import { AdminAppointmentComponent } from './admin/admin-appointment/admin-appoi
 import { HomeComponent } from './other/home/home.component';
 import { UserOrganisationsComponent } from './user/user-organisations/user-organisations.component';
 import { Routes } from '@angular/router';
-import { UserCourseExplorerComponent, routes as userExplorerRouters } from "@components/user/user-course-explorer/user-course-explorer.component";
+import { routes as userExplorerRouters } from "@components/user/user-course-explorer/user-course-explorer.component";
+import {OrgAppointmentsComponent} from "@components/organisator/org-appointments/org-appointments.component";
 
 export const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -57,6 +58,17 @@ export const routes: Routes = [
                 component: AdminAppointmentComponent,
                 canActivate: [AuthGuard, RoleGuard],
                 data: { roles: [Roles.Admin] },
+            },
+        ],
+    },
+    {
+        path: 'organisator',
+        children: [
+            {
+                path: 'appointments',
+                component: OrgAppointmentsComponent,
+                canActivate: [AuthGuard, RoleGuard],
+                data: { roles: [Roles.Organisator] },
             },
         ],
     },
