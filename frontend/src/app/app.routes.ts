@@ -1,20 +1,21 @@
-import { AuthGuard } from './other/guard/auth.guard';
-import { RoleGuard } from './other/guard/role.guard';
-import { UserAppointmentsComponent } from './user/user-appointments/user-appointments.component';
-import { AdminAppointmentsComponent } from './admin/admin-appointments/admin-appointments.component';
-import { UserComponent } from './other/userinfo/user.component';
-import { Roles } from '@models';
-import { AdminAppointmentComponent } from './admin/admin-appointment/admin-appointment.component';
-import { HomeComponent } from './other/home/home.component';
-import { UserOrganisationsComponent } from './user/user-organisations/user-organisations.component';
-import { Routes } from '@angular/router';
+import { AuthGuard } from "./other/guard/auth.guard";
+import { RoleGuard } from "./other/guard/role.guard";
+import { UserAppointmentsComponent } from "./user/user-appointments/user-appointments.component";
+import { AdminAppointmentsComponent } from "./admin/admin-appointments/admin-appointments.component";
+import { UserComponent } from "./other/userinfo/user.component";
+import { Roles } from "@models";
+import { AdminAppointmentComponent } from "./admin/admin-appointment/admin-appointment.component";
+import { HomeComponent } from "./other/home/home.component";
+import { UserOrganisationsComponent } from "./user/user-organisations/user-organisations.component";
+import { Routes } from "@angular/router";
 import { routes as userExplorerRouters } from "@components/user/user-course-explorer/user-course-explorer.component";
-import {OrgAppointmentsComponent} from "@components/organisator/org-appointments/org-appointments.component";
+import { OrgAppointmentsComponent } from "@components/organisator/org-appointments/org-appointments.component";
+import { OrgAppointmentComponent } from "./organisator/org-appointment/org-appointment.component";
 
 export const routes: Routes = [
-    { path: '', redirectTo: 'home', pathMatch: 'full' },
+    { path: "", redirectTo: "home", pathMatch: "full" },
     {
-        path: 'appointments',
+        path: "appointments",
         component: UserAppointmentsComponent,
         canActivate: [AuthGuard, RoleGuard],
         data: {
@@ -23,38 +24,38 @@ export const routes: Routes = [
         },
     },
     {
-        path: 'organisations',
+        path: "organisations",
         component: UserOrganisationsComponent,
         canActivate: [AuthGuard, RoleGuard],
         data: { roles: [Roles.Customer] },
     },
     {
-        path: 'home',
+        path: "home",
         component: HomeComponent,
         canActivate: [AuthGuard],
     },
     {
-        path: 'user',
+        path: "user",
         component: UserComponent,
         canActivate: [AuthGuard],
     },
     {
-        path: 'courses',
+        path: "courses",
         children: userExplorerRouters,
         canActivate: [AuthGuard, RoleGuard],
         data: { roles: [Roles.Customer] },
     },
     {
-        path: 'admin',
+        path: "admin",
         children: [
             {
-                path: 'appointments',
+                path: "appointments",
                 component: AdminAppointmentsComponent,
                 canActivate: [AuthGuard, RoleGuard],
                 data: { roles: [Roles.Admin] },
             },
             {
-                path: 'appointments/:id',
+                path: "appointments/:id",
                 component: AdminAppointmentComponent,
                 canActivate: [AuthGuard, RoleGuard],
                 data: { roles: [Roles.Admin] },
@@ -62,11 +63,17 @@ export const routes: Routes = [
         ],
     },
     {
-        path: 'organisator',
+        path: "organisator",
         children: [
             {
-                path: 'appointments',
+                path: "appointments",
                 component: OrgAppointmentsComponent,
+                canActivate: [AuthGuard, RoleGuard],
+                data: { roles: [Roles.Organisator] },
+            },
+            {
+                path: "appointments/:id",
+                component: OrgAppointmentComponent,
                 canActivate: [AuthGuard, RoleGuard],
                 data: { roles: [Roles.Organisator] },
             },

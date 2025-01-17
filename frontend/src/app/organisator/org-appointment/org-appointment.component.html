@@ -1,0 +1,150 @@
+<div class="m-4 space-y-4">
+    <!--{{ (viewModel | async)?.appointment }}-->
+    <div class="grid grid-cols-2 gap-4">
+        <div class="border rounded-md p-4 space-y-1">
+            <div class="flex justify-between items-center">
+                <p class="font-semibold text-lg">Overview</p>
+                <button class="btn btn-sm">
+                    <span class="material-symbols-outlined">edit</span>
+                </button>
+            </div>
+
+            <div class="flex flex-row">
+                <div class="w-10 flex items-center justify-center">
+                    <span class="material-symbols-outlined"> tag </span>
+                </div>
+                <p>
+                    {{ (viewModel | async)?.appointment?.name }}
+                </p>
+            </div>
+
+            <div class="flex flex-row">
+                <div class="w-10 flex items-center justify-center">
+                    <span class="material-symbols-outlined"> location_on </span>
+                </div>
+                <span>{{ (viewModel | async)?.appointment?.address }} </span>
+            </div>
+
+            <div class="flex flex-row">
+                <div class="w-10 flex items-center justify-center">
+                    <span class="material-symbols-outlined"> schedule </span>
+                </div>
+                <span
+                    >{{
+                        (viewModel | async)?.appointment?.date?.toDateString()
+                    }}
+                </span>
+            </div>
+
+            <div class="flex flex-row">
+                <div class="w-10 flex items-center justify-center">
+                    <span class="material-symbols-outlined"> timelapse </span>
+                </div>
+                <span
+                    >{{ (viewModel | async)?.appointment?.duration }} min
+                </span>
+            </div>
+        </div>
+
+        <div class="border rounded-md p-4 space-y-1">
+            <div class="flex justify-between items-center">
+                <p class="font-semibold text-lg">Instructors</p>
+                <button class="btn btn-sm">
+                    <span class="material-symbols-outlined">add</span>
+                </button>
+            </div>
+
+            <div class="overflow-x-auto">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Firstname</th>
+                            <th>LastName</th>
+                        </tr>
+                    </thead>
+                    @if (
+                        (viewModel | async)?.appointment?.bookings?.length ??
+                        0 > 0
+                    ) {
+                        <tbody>
+                            @for (
+                                instructor of (viewModel | async)?.appointment
+                                    ?.instructors;
+                                track $index
+                            ) {
+                                <tr class="hover">
+                                    <td>{{ instructor?.firstName }}</td>
+                                    <td>{{ instructor?.lastName }}</td>
+                                </tr>
+                            }
+                        </tbody>
+                    } @else {
+                        <tbody>
+                            <tr>
+                                <td colspan="5">
+                                    <div
+                                        class="flex justify-center font-semibold text-gray-500"
+                                    >
+                                        No Data
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    }
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="border rounded-md p-4 space-y-1">
+        <p class="font-semibold text-lg">Bookings</p>
+
+        <div class="overflow-x-auto">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Firstname</th>
+                        <th>LastName</th>
+                        <th>E-Mail</th>
+                        <th>Booked at</th>
+                    </tr>
+                </thead>
+                @if (
+                    (viewModel | async)?.appointment?.bookings?.length ?? 0 > 0
+                ) {
+                    <tbody>
+                        @for (
+                            booking of (viewModel | async)?.appointment
+                                ?.bookings;
+                            track $index
+                        ) {
+                            <tr class="hover">
+                                <td>{{ $index + 1 }}</td>
+                                <td>{{ booking.user?.firstName }}</td>
+                                <td>{{ booking.user?.lastName }}</td>
+                                <td>{{ booking.user?.email }}</td>
+                                <td>
+                                    {{ booking.redeemedAt?.toDateString() }}
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                } @else {
+                    <tbody>
+                        <tr>
+                            <td colspan="5">
+                                <div
+                                    class="flex justify-center font-semibold text-gray-500"
+                                >
+                                    No Data
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                }
+            </table>
+        </div>
+    </div>
+</div>
