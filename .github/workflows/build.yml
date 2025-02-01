@@ -25,7 +25,7 @@ jobs:
           ./cicd/build.sh
 
       - name: Archive Project
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: Course-schedule
           path: dist/courseschedule.jar
