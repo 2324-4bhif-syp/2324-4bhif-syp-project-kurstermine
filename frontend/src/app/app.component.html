@@ -11,112 +11,61 @@
                 </div>
                 <ul
                     tabindex="0"
-                    class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-60"
+                    class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-64"
                 >
-                    @if (!isAdmin && !isOrganisator) {
-                        <a
-                            routerLink="organisations"
-                            class="text-xl btn btn-ghost justify-normal"
-                            routerLinkActive="border-2 border-accent"
-                        >
-                            <span class="material-symbols-outlined">
-                                business
-                            </span>
-                            Organisations
-                        </a>
-                        <a
-                            routerLink="appointments"
-                            class="text-xl btn btn-ghost justify-normal"
-                            routerLinkActive="border-2 border-accent"
-                        >
-                            <span class="material-symbols-outlined">
-                                today
-                            </span>
-                            Appointments
-                        </a>
-                        <a
-                            routerLink="courses"
-                            class="text-xl btn btn-ghost justify-normal"
-                            routerLinkActive="border-2 border-accent"
-                        >
-                            <span class="material-symbols-outlined">
-                                category
-                            </span>
-                            Course Explorer
-                        </a>
-                        <a
-                            routerLink="user"
-                            class="text-xl btn btn-ghost justify-normal"
-                            routerLinkActive="border-2 border-accent"
-                        >
-                            <span class="material-symbols-outlined">
-                                account_circle
-                            </span>
-                            User
-                        </a>
-                    } @else if (isOrganisator) {
+                    @if (isOrganisator) {
                         <a
                             routerLink="organisator/appointments"
                             class="text-xl btn btn-ghost justify-normal"
                             routerLinkActive="border-2 border-accent"
                         >
                             <span class="material-symbols-outlined">
-                                today
-                            </span>
-                            Appointments
-                        </a>
-                    } @else {
-                        <a
-                            routerLink="admin/customers"
-                            class="text-xl btn btn-ghost justify-normal"
-                            routerLinkActive="bg-accent"
-                        >
-                            <span class="material-symbols-outlined">
-                                group
-                            </span>
-                            Customers
-                        </a>
-                        <a
-                            routerLink="admin/instructors"
-                            class="text-xl btn btn-ghost justify-normal"
-                            routerLinkActive="bg-accent"
-                        >
-                            <span class="material-symbols-outlined">
-                                build
-                            </span>
-                            Instructors
-                        </a>
-                        <a
-                            routerLink="admin/appointments"
-                            class="text-xl btn btn-ghost justify-normal"
-                            routerLinkActive="bg-accent"
-                        >
-                            <span class="material-symbols-outlined">
                                 calendar_today
                             </span>
-                            Appointments
-                        </a>
-                        <a
-                            routerLink="admin/packets"
-                            class="text-xl btn btn-ghost justify-normal"
-                            routerLinkActive="bg-accent"
-                        >
-                            <span class="material-symbols-outlined">
-                                category
-                            </span>
-                            Packets
-                        </a>
-                        <a
-                            routerLink="user"
-                            class="text-xl btn btn-ghost justify-normal"
-                            routerLinkActive="bg-accent"
-                        >
-                            <span class="material-symbols-outlined">
-                                account_circle
-                            </span>
-                            User
+                            Your organisation
                         </a>
                     }
+
+                    <a
+                        routerLink="organisations"
+                        class="text-xl btn btn-ghost justify-normal"
+                        routerLinkActive="border-2 border-accent"
+                    >
+                        <span class="material-symbols-outlined">
+                            business
+                        </span>
+                        Organisations
+                    </a>
+                    <a
+                        routerLink="appointments"
+                        class="text-xl btn btn-ghost justify-normal"
+                        routerLinkActive="border-2 border-accent"
+                    >
+                        <span class="material-symbols-outlined">
+                            today
+                        </span>
+                        Appointments
+                    </a>
+                    <a
+                        routerLink="courses"
+                        class="text-xl btn btn-ghost justify-normal"
+                        routerLinkActive="border-2 border-accent"
+                    >
+                        <span class="material-symbols-outlined">
+                            category
+                        </span>
+                        Course Explorer
+                    </a>
+                    <a
+                        routerLink="user"
+                        class="text-xl btn btn-ghost justify-normal"
+                        routerLinkActive="border-2 border-accent"
+                    >
+                        <span class="material-symbols-outlined">
+                            account_circle
+                        </span>
+                        User
+                    </a>
                 </ul>
             </div>
         </div>
@@ -124,90 +73,49 @@
     </div>
 
     <div class="hidden gap-4 navbar-center lg:flex">
-        @if (!isAdmin && !isOrganisator) {
-            <a
-                routerLink="organisations"
-                routerLinkActive="border-2 border-accent"
-                class="text-xl btn btn-ghost"
-            >
-                <span class="material-symbols-outlined"> business </span>
-                Organisations
-            </a>
-            <a
-                routerLink="appointments"
-                class="text-xl btn btn-ghost"
-                routerLinkActive="border-2 border-accent"
-            >
-                <span class="material-symbols-outlined"> today </span>
-                Appointments
-            </a>
-            <a
-                routerLink="courses"
-                class="text-xl btn btn-ghost justify-normal"
-                routerLinkActive="border-2 border-accent"
-            >
-                <span class="material-symbols-outlined"> category </span>
-                Course Explorer
-            </a>
-            <a
-                routerLink="user"
-                class="text-xl btn btn-ghost"
-                routerLinkActive="border-2 border-accent"
-            >
-                <span class="material-symbols-outlined"> account_circle </span>
-                User
-            </a>
-        } @else if (isOrganisator) {
+        @if (isOrganisator) {
             <a
                 routerLink="organisator/appointments"
                 class="text-xl btn btn-ghost justify-normal"
                 routerLinkActive="border-2 border-accent"
             >
-                <span class="material-symbols-outlined"> today </span>
-                Appointments
-            </a>
-        } @else {
-            <a
-                routerLink="admin/customers"
-                class="text-xl btn btn-ghost"
-                routerLinkActive="bg-accent"
-            >
-                <span class="material-symbols-outlined"> group </span>
-                Customers
-            </a>
-            <a
-                routerLink="admin/instructors"
-                class="text-xl btn btn-ghost"
-                routerLinkActive="bg-accent"
-            >
-                <span class="material-symbols-outlined"> build </span>
-                Instructors
-            </a>
-            <a
-                routerLink="admin/appointments"
-                class="text-xl btn btn-ghost"
-                routerLinkActive="bg-accent"
-            >
                 <span class="material-symbols-outlined"> calendar_today </span>
-                Appointments
-            </a>
-            <a
-                routerLink="admin/packets"
-                class="text-xl btn btn-ghost"
-                routerLinkActive="bg-accent"
-            >
-                <span class="material-symbols-outlined"> category </span>
-                Packets
-            </a>
-            <a
-                routerLink="user"
-                class="text-xl btn btn-ghost"
-                routerLinkActive="bg-accent"
-            >
-                <span class="material-symbols-outlined"> account_circle </span>
-                User
+                Your organisation
             </a>
         }
+
+        <a
+            routerLink="organisations"
+            routerLinkActive="border-2 border-accent"
+            class="text-xl btn btn-ghost"
+        >
+            <span class="material-symbols-outlined"> business </span>
+            Organisations
+        </a>
+        <a
+            routerLink="appointments"
+            class="text-xl btn btn-ghost"
+            routerLinkActive="border-2 border-accent"
+        >
+            <span class="material-symbols-outlined"> today </span>
+            Appointments
+        </a>
+        <a
+            routerLink="courses"
+            class="text-xl btn btn-ghost justify-normal"
+            routerLinkActive="border-2 border-accent"
+        >
+            <span class="material-symbols-outlined"> category </span>
+            Course Explorer
+        </a>
+        <a
+            routerLink="user"
+            class="text-xl btn btn-ghost"
+            routerLinkActive="border-2 border-accent"
+        >
+            <span class="material-symbols-outlined"> account_circle </span>
+            User
+        </a>
     </div>
 
     <div class="navbar-end">
