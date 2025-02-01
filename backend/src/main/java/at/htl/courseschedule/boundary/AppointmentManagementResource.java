@@ -9,6 +9,7 @@ import jakarta.transaction.Transactional;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @Path("/appointment-managements")
@@ -53,6 +54,23 @@ public class AppointmentManagementResource {
                 .path(appointmentManagement.getId().toString());
 
         return Response.created(uriBuilder.build()).entity(appointmentManagement).build();
+    }
+
+    @POST
+    @Transactional
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    @RolesAllowed({Role.Organisator, Role.Admin})
+    public Response createAppointmentManagementBatch(List<AppointmentManagement> appointmentManagements) {
+        if (appointmentManagements == null || appointmentManagements.isEmpty()) {
+            return Response.status(400).build();
+        }
+
+        for (AppointmentManagement appointmentManagement : appointmentManagements) {
+            appointmentManagementRepository.create(appointmentManagement);
+        }
+
+        return Response.ok().build();
     }
 
     @DELETE
