@@ -49,6 +49,10 @@ export class AppComponent implements OnInit {
                     this.tokenApiService.getAllForUser(user.id);
                 }
 
+                if (this.isOrganisator) {
+                    this.tokenApiService.getAllForOrganisation();
+                }
+
                 this.appointmentApiService.getAll();
                 this.appointmentManagementApiService.getAll();
                 this.organisationApiService.getAll();

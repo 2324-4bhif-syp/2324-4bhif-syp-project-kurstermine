@@ -1,9 +1,10 @@
 import { AsyncPipe } from "@angular/common";
 import { Component, inject, OnInit } from "@angular/core";
-import { ActivatedRoute, RouterModule } from "@angular/router";
-import { set } from "@models/model";
+import { ActivatedRoute } from "@angular/router";
+import {set, store} from "@models/model";
 import { StoreService } from "@services/store.service";
 import { distinctUntilChanged, map } from "rxjs";
+import {CustomerApiService} from "@services/api/customer-api-service";
 
 @Component({
     selector: "app-org-appointment",
@@ -14,14 +15,16 @@ import { distinctUntilChanged, map } from "rxjs";
 })
 export class OrgAppointmentComponent implements OnInit {
     private route = inject(ActivatedRoute);
+    private store = inject(StoreService).store;
+    private customerApiService = inject(CustomerApiService);
 
-    protected viewModel = inject(StoreService).store.pipe(
+    protected viewModel = this.store.pipe(
         map((model) => ({
             appointment: {
                 ...model.appointments.find(
                     (a) => a.id === model.appointmentView.selectedAppointmentId,
                 ),
-                bookings: model.tokens
+                bookings: model.tokensForCurrentOrganisation
                     .filter(
                         (t) =>
                             t.appointmentId ===
@@ -29,7 +32,7 @@ export class OrgAppointmentComponent implements OnInit {
                     )
                     .map((t) => ({
                         ...t,
-                        user: model.users.find((u) => u.id === t.userId),
+                        user: this.customerApiService.getById(t.userId),
                     }))
                     .sort((a, b) =>
                         // redeemedAt should be populated since an appointment was set for the token

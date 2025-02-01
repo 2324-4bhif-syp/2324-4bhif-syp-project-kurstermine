@@ -106,7 +106,7 @@
                     <tr>
                         <th></th>
                         <th>Firstname</th>
-                        <th>LastName</th>
+                        <th>Lastname</th>
                         <th>E-Mail</th>
                         <th>Booked at</th>
                     </tr>
@@ -122,9 +122,9 @@
                         ) {
                             <tr class="hover">
                                 <td>{{ $index + 1 }}</td>
-                                <td>{{ booking.user?.firstName }}</td>
-                                <td>{{ booking.user?.lastName }}</td>
-                                <td>{{ booking.user?.email }}</td>
+                                <td>{{ (booking.user | async)?.firstName }}</td>
+                                <td>{{ (booking.user | async)?.lastName }}</td>
+                                <td>{{ (booking.user | async)?.email }}</td>
                                 <td>
                                     {{ booking.redeemedAt?.toDateString() }}
                                 </td>

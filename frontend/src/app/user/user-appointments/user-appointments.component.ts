@@ -33,7 +33,7 @@ export class UserAppointmentsComponent implements OnInit {
                 )
                 .filter((a) =>
                     this.onlyBooked
-                        ? model.tokens.find(
+                        ? model.tokensForCurrentUser.find(
                               (t) =>
                                   t.appointmentId === a.id &&
                                   t.userId === model.currentUser?.id,
@@ -44,7 +44,7 @@ export class UserAppointmentsComponent implements OnInit {
                 .map((a) => ({
                     ...a,
                     isAppointmentBooked:
-                        model.tokens.find(
+                        model.tokensForCurrentUser.find(
                             (t) =>
                                 t.appointmentId === a.id &&
                                 t.userId === model.currentUser?.id,
@@ -59,7 +59,7 @@ export class UserAppointmentsComponent implements OnInit {
                 )
                 .filter((a) =>
                     this.onlyBooked
-                        ? model.tokens.find(
+                        ? model.tokensForCurrentUser.find(
                               (t) =>
                                   t.appointmentId === a.id &&
                                   t.userId === model.currentUser?.id,
@@ -70,7 +70,7 @@ export class UserAppointmentsComponent implements OnInit {
                 .map((a) => ({
                     ...a,
                     isAppointmentBooked:
-                        model.tokens.find(
+                        model.tokensForCurrentUser.find(
                             (t) =>
                                 t.appointmentId === a.id &&
                                 t.userId === model.currentUser?.id,
@@ -133,7 +133,7 @@ export class UserAppointmentsComponent implements OnInit {
                         (date) => date.date > new Date(),
                     ),
                 })),
-            unusedTokens: model.tokens.filter(
+            unusedTokens: model.tokensForCurrentUser.filter(
                 (t) =>
                     t.categoryId === model.courseView.selectedCategoryId &&
                     t.appointmentId === undefined &&
@@ -172,7 +172,7 @@ export class UserAppointmentsComponent implements OnInit {
 
     protected addAppointmentToToken(appointment: { id?: number }): void {
         const token: Token | undefined =
-            this.storeService.store.value.tokens.find(
+            this.storeService.store.value.tokensForCurrentUser.find(
                 (t) =>
                     t.categoryId ===
                         this.storeService.store.value.courseView

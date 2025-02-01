@@ -14,6 +14,19 @@ export class TokenApiService extends ApiService {
         super(http, "tokens");
     }
 
+    public getAllForOrganisation() {
+        this.http
+            .get<TokenDto[]>(`${this.url}`, {
+                headers: this.headers,
+            })
+            .pipe(map((dtos) => dtos.map(fromDto)))
+            .subscribe((tokens) => {
+                set((model) => {
+                    model.tokensForCurrentOrganisation = tokens;
+                });
+            });
+    }
+
     public getAllForUser(userId: string) {
         this.http
             .get<TokenDto[]>(`${this.url}/${userId}`, {
@@ -22,7 +35,7 @@ export class TokenApiService extends ApiService {
             .pipe(map((dtos) => dtos.map(fromDto)))
             .subscribe((tokens) => {
                 set((model) => {
-                    model.tokens = tokens;
+                    model.tokensForCurrentUser = tokens;
                 });
             });
     }
@@ -35,7 +48,7 @@ export class TokenApiService extends ApiService {
             .pipe(map((dtos) => dtos.map(fromDto)))
             .subscribe((tokens) => {
                 set((model) => {
-                    model.tokens.push(...tokens);
+                    model.tokensForCurrentUser.push(...tokens);
                 });
             });
     }
@@ -48,11 +61,11 @@ export class TokenApiService extends ApiService {
             .pipe(map(fromDto))
             .subscribe((token) => {
                 set((model) => {
-                    const index: number = model.tokens.findIndex(
+                    const index: number = model.tokensForCurrentUser.findIndex(
                         (t) => t.id === token.id,
                     );
                     if (index > -1) {
-                        model.tokens.splice(index, 1, token);
+                        model.tokensForCurrentUser.splice(index, 1, token);
                     }
                 });
             });

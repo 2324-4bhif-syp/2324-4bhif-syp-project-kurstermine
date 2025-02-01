@@ -16,7 +16,7 @@ export class OrgAppointmentsComponent {
         map((model) =>
             model.appointments.map((a) => ({
                 ...a,
-                bookings: model.tokens.filter((t) => t.appointmentId === a.id)
+                bookings: model.tokensForCurrentOrganisation.filter((t) => t.appointmentId === a.id)
                     .length,
             })),
         ),

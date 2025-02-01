@@ -19,9 +19,18 @@ public class TokenResource {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @RolesAllowed(Role.Admin)
+    @RolesAllowed({Role.Admin, Role.Organisator})
     public Response getAllTokens() {
         return Response.ok(tokenRepository.listAll().stream().map(TokenDto::fromToken)).build();
+    }
+
+    @GET
+    @Path("organisation") // Get all Tokens for the Organisation of the current logged in organisator
+    @Produces(MediaType.APPLICATION_JSON)
+    @RolesAllowed({Role.Admin, Role.Organisator})
+    public Response getAllTokensForOrganisation() {
+        // Not implemented yet
+        return Response.ok().build();
     }
 
     @GET
