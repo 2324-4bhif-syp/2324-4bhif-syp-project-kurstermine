@@ -1,7 +1,7 @@
 import { AsyncPipe } from "@angular/common";
 import { Component, inject, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
-import {set, store} from "@models/model";
+import {set} from "@models/model";
 import { StoreService } from "@services/store.service";
 import { distinctUntilChanged, map } from "rxjs";
 import {CustomerApiService} from "@services/api/customer-api-service";

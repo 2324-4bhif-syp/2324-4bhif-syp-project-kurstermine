@@ -19,7 +19,8 @@ export interface Model {
     readonly customers: User[];
     readonly users: User[];
     readonly courses: Course[];
-    readonly tokens: Token[];
+    readonly tokensForCurrentUser: Token[];
+    readonly tokensForCurrentOrganisation: Token[];
     readonly currentUser?: User;
     readonly categories: Category[];
     readonly courseView: {
@@ -41,7 +42,8 @@ export const store = new BehaviorSubject<Model>({
     categories: [],
     currentUser: undefined,
     courses: [],
-    tokens: [],
+    tokensForCurrentUser: [],
+    tokensForCurrentOrganisation: [],
     users: [],
     courseView: {},
     appointmentView: {},

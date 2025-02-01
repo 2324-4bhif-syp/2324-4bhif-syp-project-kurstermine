@@ -2,11 +2,11 @@ import { Component, inject, OnInit } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { AppointmentApiService, TokenApiService } from "@services/api";
 import { StoreService } from "@services";
-import { distinctUntilChanged, map, tap } from "rxjs";
+import { distinctUntilChanged, map } from "rxjs";
 import { AsyncPipe, NgTemplateOutlet } from "@angular/common";
 import { ActivatedRoute } from "@angular/router";
 import { set } from "@models/model";
-import { Appointment, Token } from "@models";
+import { Token } from "@models";
 
 @Component({
     selector: "app-user-appointments",

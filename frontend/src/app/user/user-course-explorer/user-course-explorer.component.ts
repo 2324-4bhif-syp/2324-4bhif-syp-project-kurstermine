@@ -1,6 +1,6 @@
 import { Component, inject } from "@angular/core";
 import { StoreService } from "@services";
-import { distinctUntilChanged, map, tap } from "rxjs";
+import { distinctUntilChanged, map } from "rxjs";
 import { AsyncPipe } from "@angular/common";
 import { FormsModule } from "@angular/forms";
 import { Category } from "@models/category";
@@ -15,10 +15,8 @@ import { RoleGuard } from "@components/other/guard/role.guard";
     selector: "app-user-course-explorer",
     standalone: true,
     imports: [
-        UserAppointmentsComponent,
         AsyncPipe,
         FormsModule,
-        UserCoursesComponent,
         RouterModule,
     ],
     templateUrl: "./user-course-explorer.component.html",
