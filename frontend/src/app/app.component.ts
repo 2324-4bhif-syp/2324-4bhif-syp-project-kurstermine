@@ -1,6 +1,6 @@
 import { Component, inject, OnInit } from "@angular/core";
 import { RouterModule, RouterOutlet } from "@angular/router";
-import {Roles, set, User} from "@models";
+import { Roles, set, User } from "@models";
 import { userProfileToUser } from "@models/model";
 import {
     AppointmentApiService,
@@ -9,6 +9,7 @@ import {
     CourseApiService,
     TokenApiService,
     CategoryApiService,
+    InstructorApiService,
 } from "@services/api";
 import { KeycloakService } from "keycloak-angular";
 
@@ -27,6 +28,7 @@ export class AppComponent implements OnInit {
     private organisationApiService = inject(OrganisationApiService);
     private coursesApiService = inject(CourseApiService);
     private tokenApiService = inject(TokenApiService);
+    private instructorApiService = inject(InstructorApiService);
     private categoryApiService = inject(CategoryApiService);
     private keycloak = inject(KeycloakService);
 
@@ -35,7 +37,9 @@ export class AppComponent implements OnInit {
 
     public ngOnInit(): void {
         this.isAdmin = this.keycloak.getUserRoles().includes(Roles.Admin);
-        this.isOrganisator = this.keycloak.getUserRoles().includes(Roles.Organisator);
+        this.isOrganisator = this.keycloak
+            .getUserRoles()
+            .includes(Roles.Organisator);
         this.keycloak
             .getKeycloakInstance()
             .loadUserProfile()
@@ -51,6 +55,7 @@ export class AppComponent implements OnInit {
 
                 if (this.isOrganisator) {
                     this.tokenApiService.getAllForOrganisation();
+                    this.instructorApiService.getAllForOrganisation();
                 }
 
                 this.appointmentApiService.getAll();

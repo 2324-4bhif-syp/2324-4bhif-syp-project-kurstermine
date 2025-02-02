@@ -30,6 +30,7 @@ export interface Model {
     };
     readonly appointmentView: {
         readonly selectedAppointmentId?: number;
+        readonly appointmentManagements: AppointmentManagement[];
     };
 }
 
@@ -46,7 +47,9 @@ export const store = new BehaviorSubject<Model>({
     tokensForCurrentOrganisation: [],
     users: [],
     courseView: {},
-    appointmentView: {},
+    appointmentView: {
+        appointmentManagements: [],
+    },
 });
 
 export function set(recipe: (model: Draft<Model>) => void) {

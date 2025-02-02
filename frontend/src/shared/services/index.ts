@@ -1,1 +1,1 @@
-export { StoreService } from '@services/store.service';
+export * from "@services/store.service";
