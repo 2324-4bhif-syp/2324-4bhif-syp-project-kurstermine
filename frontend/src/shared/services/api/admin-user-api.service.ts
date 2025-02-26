@@ -31,4 +31,12 @@ export class AdminUserApiService extends ApiService {
         this.getAll();
       });
   }
+
+  deleteRole(userId: string, role: string) {
+    this.http
+      .delete(`${this.url}/${userId}?role=${role}`, {})
+      .subscribe(() => {
+        this.getAll();
+      });
+  }
 }

@@ -16,11 +16,12 @@
           <td>{{ user.email }}</td>
           <td>
             @for (role of user.roles; track $index) {
-              <div class="badge badge-primary badge-outline">{{role}}</div>
+              <div class="badge badge-primary badge-outline cursor-pointer hover:line-through hover:badge-outline hover:badge-error"
+              (click)="deleteRole(user.id!, role)">{{role}}</div>
             }
           </td>
         </tr>
-        <button (click)="openRoleAdder(user.id!)">Add Role</button>
+        <button (click)="openRoleAdder(user)">Add Role</button>
       }
     </tbody>
   </table>
@@ -28,7 +29,7 @@
 <dialog #RoleAdder>
   <p>Choose a Role</p>
   <select [(ngModel)]="userRole">
-    @for (role of roles; track $index) {
+    @for (role of getRoles(); track $index) {
       <option>{{role}}</option>
     }
   </select>

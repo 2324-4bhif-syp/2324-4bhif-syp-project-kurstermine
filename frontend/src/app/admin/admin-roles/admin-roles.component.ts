@@ -4,6 +4,7 @@ import {distinctUntilChanged, map} from "rxjs";
 import {AsyncPipe} from "@angular/common";
 import {AdminUserApiService} from "@services/api/admin-user-api.service";
 import {FormsModule} from "@angular/forms";
+import {AdminUser} from "@models/admin-user";
 
 @Component({
   selector: 'app-admin-roles',
@@ -24,13 +25,13 @@ export class AdminRolesComponent implements OnInit {
   );
 
   protected userRole: string = "";
-  protected userId?: string = "";
+  protected user!: AdminUser;
   readonly roles = ["admin", "organisator", "instructor", "customer"];
 
-  openRoleAdder(id: string) {
+  openRoleAdder(user: AdminUser) {
     console.log(this.roleAdder);
     this.roleAdder.nativeElement.showModal();
-    this.userId = id;
+    this.user = user;
   }
 
   ngOnInit() {
@@ -43,7 +44,18 @@ export class AdminRolesComponent implements OnInit {
 
   addRole() {
     console.log(this.userRole);
-    this.adminUserApi.addRole(this.userId!, this.userRole);
+    this.adminUserApi.addRole(this.user.id!, this.userRole);
     this.close();
+  }
+
+  getRoles() {
+    if (!this.user) {
+      return this.roles;
+    }
+    return this.roles.filter((role) => !this.user.roles.includes(role));
+  }
+
+  deleteRole(id: string, role: string) {
+    this.adminUserApi.deleteRole(id, role);
   }
 }
