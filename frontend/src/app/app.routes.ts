@@ -11,6 +11,7 @@ import { Routes } from "@angular/router";
 import { routes as userExplorerRouters } from "@components/user/user-course-explorer/user-course-explorer.component";
 import { OrgAppointmentsComponent } from "@components/organisator/org-appointments/org-appointments.component";
 import { OrgAppointmentComponent } from "./organisator/org-appointment/org-appointment.component";
+import {AdminRolesComponent} from "@components/admin/admin-roles/admin-roles.component";
 
 export const routes: Routes = [
     { path: "", redirectTo: "home", pathMatch: "full" },
@@ -49,7 +50,13 @@ export const routes: Routes = [
         path: "admin",
         children: [
             {
-                path: "appointments",
+              path: 'roles',
+              component: AdminRolesComponent,
+              canActivate: [AuthGuard, RoleGuard],
+              data: { roles: [Roles.Admin] },
+            },
+            {
+                path: 'appointments',
                 component: AdminAppointmentsComponent,
                 canActivate: [AuthGuard, RoleGuard],
                 data: { roles: [Roles.Admin] },
