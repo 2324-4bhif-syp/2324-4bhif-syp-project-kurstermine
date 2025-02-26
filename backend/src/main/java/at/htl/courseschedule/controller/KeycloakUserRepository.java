@@ -19,7 +19,7 @@ public class KeycloakUserRepository {
     @ConfigProperty(name = "realm.name")
     String realmName;
 
-    private UsersResource getUsers() {
+    public UsersResource getUsers() {
         return keycloak.realm(realmName).users();
     }
 
