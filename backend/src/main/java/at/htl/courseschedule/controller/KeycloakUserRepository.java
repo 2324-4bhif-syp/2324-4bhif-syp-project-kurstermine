@@ -1,5 +1,6 @@
 package at.htl.courseschedule.controller;
 
+import at.htl.courseschedule.boundary.Role;
 import at.htl.courseschedule.dto.AdminUserDTO;
 import at.htl.courseschedule.dto.UserDTO;
 import jakarta.enterprise.context.ApplicationScoped;
@@ -28,6 +29,7 @@ public class KeycloakUserRepository {
     public List<AdminUserDTO> getAllUsers() {
         var users = getUsers().list().stream();
 
+        //TODO: Use Role.get instead of User.get
         return users.map(user ->
                         AdminUserDTO.fromUserRepresentation(user, getRolesForUser(user.getId()))).toList();
     }
@@ -83,5 +85,21 @@ public class KeycloakUserRepository {
         getUsers().get(id.toString()).update(userRepresentation);
 
         return UserDTO.fromUserRepresentation(userRepresentation);
+    }
+
+    public boolean isValidRole(String role) {
+        if (role == null || role.isEmpty()) {
+            return false;
+        }
+
+        return switch (role) {
+            case Role.Admin, Role.Organisator, Role.Instructor, Role.Customer -> true;
+            default -> false;
+        };
+    }
+
+    public void setRole(UUID id, String roleName) {
+        RoleRepresentation role = keycloak.realm(realmName).roles().get(roleName).toRepresentation();
+        getUsers().get(id.toString()).roles().realmLevel().add(List.of(role));
     }
 }
