@@ -10,7 +10,7 @@ import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
-import java.util.stream.Stream;
+import java.util.List;
 
 @Path("users")
 public class UserResource {
@@ -21,16 +21,9 @@ public class UserResource {
     @RolesAllowed(Role.Admin)
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAllUsers() {
-        Stream<AdminUserDTO> users = userRepository
-                .getUsers()
-                .list()
-                .stream()
-                .map(AdminUserDTO::fromUserRepresentation);
+        List<AdminUserDTO> users = userRepository
+                .getAllUsers();
 
-        userRepository.getRoles();
-
-        //users.forEach(System.out::println);
-
-        return Response.ok(users.toList()).build();
+        return Response.ok(users).build();
     }
 }

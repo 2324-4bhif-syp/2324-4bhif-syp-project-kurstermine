@@ -1,11 +1,13 @@
 package at.htl.courseschedule.controller;
 
+import at.htl.courseschedule.dto.AdminUserDTO;
 import at.htl.courseschedule.dto.UserDTO;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.keycloak.admin.client.Keycloak;
 import org.keycloak.admin.client.resource.UsersResource;
+import org.keycloak.representations.idm.RoleRepresentation;
 import org.keycloak.representations.idm.UserRepresentation;
 
 import java.util.List;
@@ -19,8 +21,15 @@ public class KeycloakUserRepository {
     @ConfigProperty(name = "realm.name")
     String realmName;
 
-    public UsersResource getUsers() {
+    private UsersResource getUsers() {
         return keycloak.realm(realmName).users();
+    }
+
+    public List<AdminUserDTO> getAllUsers() {
+        var users = getUsers().list().stream();
+
+        return users.map(user ->
+                        AdminUserDTO.fromUserRepresentation(user, getRolesForUser(user.getId()))).toList();
     }
 
     public UserRepresentation getById(UUID id, String role) {
@@ -44,6 +53,18 @@ public class KeycloakUserRepository {
                         .findFirst().orElse(null)).toList();
     }
 
+    public List<String> getRolesForUser(String id) {
+        return getUsers()
+                .get(id)
+                .roles()
+                .realmLevel()
+                .listAll()
+                .stream()
+                .filter(role -> !role.isComposite())
+                .map(RoleRepresentation::getName)
+                .toList();
+    }
+
     public UserDTO update(String id, UserDTO newCustomer, String role) {
         UserRepresentation userRepresentation = getById(UUID.fromString(id), role);
 
@@ -63,9 +84,4 @@ public class KeycloakUserRepository {
 
         return UserDTO.fromUserRepresentation(userRepresentation);
     }
-
-    /*public void delete(String id) {
-        getUsers().delete(id);
-        getUsers().get(id).remove();
-    }*/
 }
