@@ -10,6 +10,7 @@ import {
 import { Draft, produce } from "immer";
 import { KeycloakProfile } from "keycloak-js";
 import { BehaviorSubject } from "rxjs";
+import {AdminUser} from "@models/admin-user";
 
 export interface Model {
     readonly appointments: Appointment[];
@@ -18,6 +19,7 @@ export interface Model {
     readonly instructors: User[];
     readonly customers: User[];
     readonly users: User[];
+    readonly adminUsers: AdminUser[];
     readonly courses: Course[];
     readonly tokensForCurrentUser: Token[];
     readonly tokensForCurrentOrganisation: Token[];
@@ -46,6 +48,7 @@ export const store = new BehaviorSubject<Model>({
     tokensForCurrentUser: [],
     tokensForCurrentOrganisation: [],
     users: [],
+    adminUsers: [],
     courseView: {},
     appointmentView: {
         appointmentManagements: [],
