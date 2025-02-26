@@ -87,12 +87,12 @@ public class KeycloakUserRepository {
         return UserDTO.fromUserRepresentation(userRepresentation);
     }
 
-    public boolean isValidRole(String role) {
+    public boolean isInValidRole(String role) {
         if (role == null || role.isEmpty()) {
-            return false;
+            return true;
         }
 
-        return switch (role) {
+        return !switch (role) {
             case Role.Admin, Role.Organisator, Role.Instructor, Role.Customer -> true;
             default -> false;
         };
@@ -101,5 +101,10 @@ public class KeycloakUserRepository {
     public void setRole(UUID id, String roleName) {
         RoleRepresentation role = keycloak.realm(realmName).roles().get(roleName).toRepresentation();
         getUsers().get(id.toString()).roles().realmLevel().add(List.of(role));
+    }
+
+    public void deleteRole(UUID id, String roleName) {
+        RoleRepresentation role = keycloak.realm(realmName).roles().get(roleName).toRepresentation();
+        getUsers().get(id.toString()).roles().realmLevel().remove(List.of(role));
     }
 }
