@@ -1,1 +1,22 @@
-<p>admin-roles works!</p>
+<div class="overflow-x-auto">
+  <table class="table">
+    <thead>
+    <tr>
+      <th>Firstname</th>
+      <th>Lastname</th>
+      <th>Email</th>
+      <th>Roles</th>
+    </tr>
+    </thead>
+    <tbody>
+      @for (user of viewModel | async; track $index) {
+        <tr>
+          <td>{{ user.firstName }}</td>
+          <td>{{ user.lastName }}</td>
+          <td>{{ user.email }}</td>
+          <td>{{ user.roles.join(";")}}</td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</div>
