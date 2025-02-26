@@ -14,9 +14,24 @@
           <td>{{ user.firstName }}</td>
           <td>{{ user.lastName }}</td>
           <td>{{ user.email }}</td>
-          <td>{{ user.roles.join(";")}}</td>
+          <td>
+            @for (role of user.roles; track $index) {
+              <div class="badge badge-primary badge-outline">{{role}}</div>
+            }
+          </td>
         </tr>
+        <button (click)="openRoleAdder(user.id!)">Add Role</button>
       }
     </tbody>
   </table>
 </div>
+<dialog #RoleAdder>
+  <p>Choose a Role</p>
+  <select [(ngModel)]="userRole">
+    @for (role of roles; track $index) {
+      <option>{{role}}</option>
+    }
+  </select>
+  <button (click)="addRole()">Add</button>
+  <button (click)="close()">Close</button>
+</dialog>

@@ -19,10 +19,16 @@ export class AdminUserApiService extends ApiService {
       })
       .subscribe((appointments) => {
         set((model) => {
-          if (model.adminUsers.length === 0) {
-            model.adminUsers = appointments;
-          }
+          model.adminUsers = appointments;
         });
+      });
+  }
+
+  addRole(userId: string, role: string) {
+    this.http
+      .put(`${this.url}/${userId}?role=${role}`, {})
+      .subscribe(() => {
+        this.getAll();
       });
   }
 }
