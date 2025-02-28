@@ -8,11 +8,14 @@ import jakarta.inject.Inject;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.keycloak.admin.client.Keycloak;
 import org.keycloak.admin.client.resource.UsersResource;
+import org.keycloak.representations.idm.AbstractUserRepresentation;
 import org.keycloak.representations.idm.RoleRepresentation;
 import org.keycloak.representations.idm.UserRepresentation;
 
 import java.util.List;
 import java.util.UUID;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 @ApplicationScoped
 public class KeycloakUserRepository {
@@ -27,11 +30,21 @@ public class KeycloakUserRepository {
     }
 
     public List<AdminUserDTO> getAllUsers() {
-        var users = getUsers().list().stream();
+        var users = getUsers()
+                .list()
+                .stream()
+                .map(AdminUserDTO::fromUserRepresentation)
+                .collect(Collectors.toMap(AdminUserDTO::id, Function.identity()));
 
-        //TODO: Use Role.get instead of User.get
-        return users.map(user ->
-                        AdminUserDTO.fromUserRepresentation(user, getRolesForUser(user.getId()))).toList();
+        Role.EditableRoleNames.forEach(role ->
+                keycloak.realm(realmName).roles()
+                        .get(role)
+                        .getUserMembers()
+                        .stream()
+                        .map(AbstractUserRepresentation::getId)
+                        .forEach(id -> users.get(id).roles().add(role)));
+
+        return users.values().stream().toList();
     }
 
     public UserRepresentation getById(UUID id, String role) {
@@ -53,18 +66,6 @@ public class KeycloakUserRepository {
         return ids.stream().filter(id -> getById(UUID.fromString(id), role) != null)
                 .map(id -> users.list().stream().filter(user -> user.getId().equals(id))
                         .findFirst().orElse(null)).toList();
-    }
-
-    public List<String> getRolesForUser(String id) {
-        return getUsers()
-                .get(id)
-                .roles()
-                .realmLevel()
-                .listAll()
-                .stream()
-                .filter(role -> !role.isComposite())
-                .map(RoleRepresentation::getName)
-                .toList();
     }
 
     public UserDTO update(String id, UserDTO newCustomer, String role) {
@@ -92,10 +93,7 @@ public class KeycloakUserRepository {
             return true;
         }
 
-        return !switch (role) {
-            case Role.Admin, Role.Organisator, Role.Instructor -> true;
-            default -> false;
-        };
+        return Role.EditableRoleNames.contains(role);
     }
 
     public void setRole(UUID id, String roleName) {
