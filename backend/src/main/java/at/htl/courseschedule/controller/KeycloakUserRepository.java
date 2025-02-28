@@ -93,7 +93,7 @@ public class KeycloakUserRepository {
         }
 
         return !switch (role) {
-            case Role.Admin, Role.Organisator, Role.Instructor, Role.Customer -> true;
+            case Role.Admin, Role.Organisator, Role.Instructor -> true;
             default -> false;
         };
     }
