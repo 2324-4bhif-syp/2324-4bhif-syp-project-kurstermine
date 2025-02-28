@@ -13,49 +13,64 @@
                     tabindex="0"
                     class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-64"
                 >
-                    @if (isOrganisator) {
-                        <a
-                            routerLink="organisator/appointments"
-                            class="text-xl btn btn-ghost justify-normal"
-                            routerLinkActive="border-2 border-accent"
-                        >
-                            <span class="material-symbols-outlined">
-                                calendar_today
-                            </span>
-                            Your organisation
-                        </a>
+                    @switch (currentRole) {
+                        @case(Roles.Organisator) {
+                              <a
+                                  routerLink="organisator/appointments"
+                                  class="text-xl btn btn-ghost justify-normal"
+                                  routerLinkActive="border-2 border-accent"
+                              >
+                                  <span class="material-symbols-outlined">
+                                      calendar_today
+                                  </span>
+                                  Your organisation
+                              </a>
+                        }
+                        @case (Roles.Customer) {
+                            <a
+                                routerLink="organisations"
+                                class="text-xl btn btn-ghost justify-normal"
+                                routerLinkActive="border-2 border-accent"
+                            >
+                                <span class="material-symbols-outlined">
+                                    business
+                                </span>
+                                Organisations
+                            </a>
+                            <a
+                                routerLink="appointments"
+                                class="text-xl btn btn-ghost justify-normal"
+                                routerLinkActive="border-2 border-accent"
+                            >
+                                <span class="material-symbols-outlined">
+                                    today
+                                </span>
+                                Appointments
+                            </a>
+                            <a
+                                routerLink="courses"
+                                class="text-xl btn btn-ghost justify-normal"
+                                routerLinkActive="border-2 border-accent"
+                            >
+                                <span class="material-symbols-outlined">
+                                    category
+                                </span>
+                                Course Explorer
+                            </a>
+                        }
+                        @case (Roles.Admin) {
+                            <a
+                                routerLink="admin/roles"
+                                class="text-xl btn btn-ghost"
+                                routerLinkActive="border-2 border-accent"
+                            >
+                                <span class="material-symbols-outlined">
+                                    admin_panel_settings
+                                </span>
+                                Roles
+                            </a>
+                        }
                     }
-
-                    <a
-                        routerLink="organisations"
-                        class="text-xl btn btn-ghost justify-normal"
-                        routerLinkActive="border-2 border-accent"
-                    >
-                        <span class="material-symbols-outlined">
-                            business
-                        </span>
-                        Organisations
-                    </a>
-                    <a
-                        routerLink="appointments"
-                        class="text-xl btn btn-ghost justify-normal"
-                        routerLinkActive="border-2 border-accent"
-                    >
-                        <span class="material-symbols-outlined">
-                            today
-                        </span>
-                        Appointments
-                    </a>
-                    <a
-                        routerLink="courses"
-                        class="text-xl btn btn-ghost justify-normal"
-                        routerLinkActive="border-2 border-accent"
-                    >
-                        <span class="material-symbols-outlined">
-                            category
-                        </span>
-                        Course Explorer
-                    </a>
                     <a
                         routerLink="user"
                         class="text-xl btn btn-ghost justify-normal"
@@ -73,41 +88,55 @@
     </div>
 
     <div class="hidden gap-4 navbar-center lg:flex">
-        @if (isOrganisator) {
-            <a
-                routerLink="organisator/appointments"
-                class="text-xl btn btn-ghost justify-normal"
-                routerLinkActive="border-2 border-accent"
-            >
-                <span class="material-symbols-outlined"> calendar_today </span>
-                Your organisation
-            </a>
+        @switch (currentRole) {
+            @case (Roles.Organisator) {
+                <a
+                    routerLink="organisator/appointments"
+                    class="text-xl btn btn-ghost justify-normal"
+                    routerLinkActive="border-2 border-accent"
+                >
+                    <span class="material-symbols-outlined"> calendar_today </span>
+                    Your organisation
+                </a>
+            }
+            @case (Roles.Customer) {
+                <a
+                    routerLink="organisations"
+                    routerLinkActive="border-2 border-accent"
+                    class="text-xl btn btn-ghost"
+                >
+                    <span class="material-symbols-outlined"> business </span>
+                    Organisations
+                </a>
+                <a
+                    routerLink="appointments"
+                    class="text-xl btn btn-ghost"
+                    routerLinkActive="border-2 border-accent"
+                >
+                    <span class="material-symbols-outlined"> today </span>
+                    Appointments
+                </a>
+                <a
+                    routerLink="courses"
+                    class="text-xl btn btn-ghost justify-normal"
+                    routerLinkActive="border-2 border-accent"
+                >
+                    <span class="material-symbols-outlined"> category </span>
+                    Course Explorer
+                </a>
+            }
+            @case (Roles.Admin) {
+                <a
+                    routerLink="admin/roles"
+                    class="text-xl btn btn-ghost"
+                    routerLinkActive="border-2 border-accent"
+                >
+                    <span class="material-symbols-outlined"> admin_panel_settings </span>
+                    Roles
+                </a>
+            }
         }
 
-        <a
-            routerLink="organisations"
-            routerLinkActive="border-2 border-accent"
-            class="text-xl btn btn-ghost"
-        >
-            <span class="material-symbols-outlined"> business </span>
-            Organisations
-        </a>
-        <a
-            routerLink="appointments"
-            class="text-xl btn btn-ghost"
-            routerLinkActive="border-2 border-accent"
-        >
-            <span class="material-symbols-outlined"> today </span>
-            Appointments
-        </a>
-        <a
-            routerLink="courses"
-            class="text-xl btn btn-ghost justify-normal"
-            routerLinkActive="border-2 border-accent"
-        >
-            <span class="material-symbols-outlined"> category </span>
-            Course Explorer
-        </a>
         <a
             routerLink="user"
             class="text-xl btn btn-ghost"
@@ -119,11 +148,18 @@
     </div>
 
     <div class="navbar-end">
+        @if (getRoles().length > 1) {
+            <select [(ngModel)]="currentRole">
+                @for (role of getRoles(); track role) {
+                    <option>{{role}}</option>
+                }
+            </select>
+        }
         <label for="logout" class="btn btn-circle btn-ghost modal-button">
             <span class="material-symbols-outlined"> Logout </span>
         </label>
 
-        <input type="checkbox" id="logout" class="modal-toggle" />
+        <input type="checkbox" id="logout" class="modal-toggle"/>
         <div class="modal">
             <div class="modal-box">
                 <p class="text-2xl text-center">Logout</p>
