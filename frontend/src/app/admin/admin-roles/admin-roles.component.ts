@@ -5,6 +5,7 @@ import {AsyncPipe} from "@angular/common";
 import {AdminUserApiService} from "@services/api/admin-user-api.service";
 import {FormsModule} from "@angular/forms";
 import {AdminUser} from "@models/admin-user";
+import {Roles} from "@models";
 
 @Component({
   selector: 'app-admin-roles',
@@ -26,7 +27,7 @@ export class AdminRolesComponent implements OnInit {
 
   protected userRole: string = "";
   protected user!: AdminUser;
-  readonly roles = ["admin", "organisator", "instructor", "customer"];
+  readonly roles = [Roles.Admin, Roles.Organisator, Roles.Instructor];
 
   openRoleAdder(user: AdminUser) {
     console.log(this.roleAdder);

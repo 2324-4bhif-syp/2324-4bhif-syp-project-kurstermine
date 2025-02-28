@@ -6,6 +6,7 @@
       <th>Lastname</th>
       <th>Email</th>
       <th>Roles</th>
+      <th></th>
     </tr>
     </thead>
     <tbody>
@@ -19,9 +20,12 @@
               <div class="badge badge-primary badge-outline cursor-pointer hover:line-through hover:badge-outline hover:badge-error"
               (click)="deleteRole(user.id!, role)">{{role}}</div>
             }
+            <div class="badge badge-primary badge-outline">customer</div>
+          </td>
+          <td>
+            <button (click)="openRoleAdder(user)" class="btn btn-xs btn-primary">Add Role</button>
           </td>
         </tr>
-        <button (click)="openRoleAdder(user)">Add Role</button>
       }
     </tbody>
   </table>
