@@ -6,6 +6,7 @@ import {AdminUserApiService} from "@services/api/admin-user-api.service";
 import {FormsModule} from "@angular/forms";
 import {AdminUser} from "@models/admin-user";
 import {Roles} from "@models";
+import {KeycloakService} from "keycloak-angular";
 
 @Component({
   selector: 'app-admin-roles',
@@ -28,6 +29,8 @@ export class AdminRolesComponent implements OnInit {
   protected userRole: string = "";
   protected user!: AdminUser;
   readonly roles = [Roles.Admin, Roles.Organisator, Roles.Instructor];
+  private readonly keycloak = inject(KeycloakService);
+  private connectedUserId?: string;
 
   openRoleAdder(user: AdminUser) {
     console.log(this.roleAdder);
@@ -37,6 +40,9 @@ export class AdminRolesComponent implements OnInit {
 
   ngOnInit() {
     this.adminUserApi.getAll();
+    this.keycloak.loadUserProfile().then(userProfile => {
+      this.connectedUserId = userProfile.id;
+    })
   }
 
   close() {
@@ -57,6 +63,9 @@ export class AdminRolesComponent implements OnInit {
   }
 
   deleteRole(id: string, role: string) {
+    if (!this.connectedUserId || this.connectedUserId === id) {
+      return;
+    }
     this.adminUserApi.deleteRole(id, role);
   }
 }
