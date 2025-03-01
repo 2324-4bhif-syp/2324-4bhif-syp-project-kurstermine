@@ -18,16 +18,16 @@ Follow the steps below to start the application:
 cd keycloak
 ----
 
-* If no postgres db is running, start up the postgres
-[source, bash]
-----
-./postgres-run-in-docker.sh
-----
-
 * Start the keycloak server
 [source, bash]
 ----
 docker compose up
+----
+
+* If no postgres db is running, start up the postgres
+[source, bash]
+----
+./postgres-run-in-docker.sh
 ----
 
 * Go to the backend folder in your console.
@@ -42,7 +42,7 @@ cd backend
 mvn clean quarkus:dev
 ----
 
-* Finally navigate into the frontend directory in a new terminal
+* Finally, navigate into the frontend directory in a new terminal
 [source, bash]
 ----
 cd frontend
