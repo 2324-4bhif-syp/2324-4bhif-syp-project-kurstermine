@@ -18,6 +18,12 @@ Follow the steps below to start the application:
 cd keycloak
 ----
 
+* If no postgres db is running, start up the postgres
+[source, bash]
+----
+./postgres-run-in-docker.sh
+----
+
 * Start the keycloak server
 [source, bash]
 ----
