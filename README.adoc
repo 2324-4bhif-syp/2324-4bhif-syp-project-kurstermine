@@ -12,6 +12,18 @@ Since some people have been dropping out of courses more and more often for some
 == How to start
 Follow the steps below to start the application:
 
+* Go to the keycloak folder in your console.
+[source, bash]
+----
+cd keycloak
+----
+
+* Start the keycloak server
+[source, bash]
+----
+docker compose up
+----
+
 * Go to the backend folder in your console.
 [source, bash]
 ----
@@ -21,7 +33,7 @@ cd backend
 * Now you can start the quarkus app with the following command.
 [source, bash]
 ----
-./mvnw clean quarkus:dev
+mvn clean quarkus:dev
 ----
 
 * Finally navigate into the frontend directory in a new terminal
