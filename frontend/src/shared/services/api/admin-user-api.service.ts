@@ -1,7 +1,7 @@
 import {Injectable} from "@angular/core";
 import {ApiService} from "@services/api/api.service";
 import {HttpClient} from "@angular/common/http";
-import {set} from "@models";
+import {Organisation, set} from "@models";
 import {AdminUser} from "@models/admin-user";
 
 @Injectable({
@@ -17,9 +17,20 @@ export class AdminUserApiService extends ApiService {
       .get<AdminUser[]>(this.url, {
         headers: this.headers,
       })
-      .subscribe((appointments) => {
+      .subscribe((users) => {
         set((model) => {
-          model.adminUsers = appointments;
+          model.adminUsers = users;
+        });
+      });
+  }
+
+  getOrganisationForUser(userId: string) {
+    this.http
+      .get<Organisation>(`${this.url}/${userId}`, {
+        headers: this.headers,
+      }).subscribe((organisation) => {
+        set((model) => {
+          model.organisationOfCurrentUser = organisation;
         });
       });
   }

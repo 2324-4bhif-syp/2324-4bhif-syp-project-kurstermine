@@ -24,6 +24,7 @@ export interface Model {
     readonly tokensForCurrentUser: Token[];
     readonly tokensForCurrentOrganisation: Token[];
     readonly currentUser?: User;
+    readonly organisationOfCurrentUser?: Organisation;
     readonly categories: Category[];
     readonly courseView: {
         readonly selectedCategoryId?: number;
@@ -44,6 +45,7 @@ export const store = new BehaviorSubject<Model>({
     customers: [],
     categories: [],
     currentUser: undefined,
+    organisationOfCurrentUser: undefined,
     courses: [],
     tokensForCurrentUser: [],
     tokensForCurrentOrganisation: [],

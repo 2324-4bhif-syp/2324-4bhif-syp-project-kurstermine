@@ -13,6 +13,7 @@ import {
 } from "@services/api";
 import { KeycloakService } from "keycloak-angular";
 import {FormsModule} from "@angular/forms";
+import {AdminUserApiService} from "@services/api/admin-user-api.service";
 
 @Component({
     standalone: true,
@@ -31,6 +32,7 @@ export class AppComponent implements OnInit {
     private tokenApiService = inject(TokenApiService);
     private instructorApiService = inject(InstructorApiService);
     private categoryApiService = inject(CategoryApiService);
+    protected adminUserApi = inject(AdminUserApiService);
     private keycloak = inject(KeycloakService);
     protected currentRole!: string;
 
@@ -52,6 +54,9 @@ export class AppComponent implements OnInit {
                     if (this.getRoles().includes(Roles.Organisator)) {
                         this.tokenApiService.getAllForOrganisation();
                         this.instructorApiService.getAllForOrganisation();
+                        if (user.id) {
+                          this.adminUserApi.getOrganisationForUser(user.id)
+                        }
                     }
 
                     this.appointmentApiService.getAll();

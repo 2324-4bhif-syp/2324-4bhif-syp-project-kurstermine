@@ -10,29 +10,33 @@
 </div>
 
 <div class="overflow-x-auto mb-60">
-    <table class="table">
-        <thead>
-            <tr>
-                <th></th>
-                <th>Appointment</th>
-                <th>Where</th>
-                <th>When</th>
-                <th>Bookings</th>
-            </tr>
-        </thead>
-        <tbody>
-            @for (appointment of viewModel | async; track $index) {
-                <tr
-                    class="cursor-pointer hover"
-                    [routerLink]="[appointment.id]"
-                >
-                    <th>{{ $index + 1 }}</th>
-                    <td>{{ appointment.name }}</td>
-                    <td>{{ appointment.address }}</td>
-                    <td>{{ appointment.date.toDateString() }}</td>
-                    <td>{{ appointment.bookings }}</td>
+    @if ((viewModel | async)?.organisationOfCurrentUser) {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Appointment</th>
+                    <th>Where</th>
+                    <th>When</th>
+                    <th>Bookings</th>
                 </tr>
-            }
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                @for (appointment of (viewModel | async)?.appointments; track $index) {
+                    <tr
+                        class="cursor-pointer hover"
+                        [routerLink]="[appointment.id]"
+                    >
+                        <th>{{ $index + 1 }}</th>
+                        <td>{{ appointment.name }}</td>
+                        <td>{{ appointment.address }}</td>
+                        <td>{{ appointment.date.toDateString() }}</td>
+                        <td>{{ appointment.bookings }}</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    } @else {
+        <p class="text-center">You are not assigned to an organisation. Please contact an administrator in order to be assigned to your organisation.</p>
+    }
 </div>
