@@ -1,0 +1,45 @@
+<div class="overflow-x-auto">
+  <table class="table">
+    <thead>
+    <tr>
+      <th>Firstname</th>
+      <th>Lastname</th>
+      <th>Email</th>
+      <th>Organisation</th>
+      <th></th>
+    </tr>
+    </thead>
+    <tbody>
+      @for (user of (viewModel | async)?.adminUsers; track $index) {
+        <tr>
+          <td>{{ user.firstName }}</td>
+          <td>{{ user.lastName }}</td>
+          <td>{{ user.email }}</td>
+          <td>
+            @if (hasOrganisation(user)){
+              <div class="badge badge-primary badge-outline cursor-pointer hover:line-through hover:badge-outline hover:badge-error"
+                   (click)="deleteOrganisation(user.id!)">{{user.organisation?.name}}
+              </div>
+            } @else {
+              <div class="badge badge-primary badge-outline">No Organisation</div>
+            }
+          </td>
+          <td>
+            <button (click)="openOrganisationAdder(user)" [disabled]="hasOrganisation(user)" class="btn btn-xs btn-primary">Add Organisation</button>
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</div>
+<dialog #OrganisationAdder>
+  <p>Choose a Organisation</p>
+  <select [(ngModel)]="selectedOrganisation">
+    <option [ngValue]="null" disabled selected> -- select an organisation -- </option>
+    @for (org of (viewModel | async)?.organisations; track $index) {
+      <option [ngValue]="org">{{org.name}}</option>
+    }
+  </select>
+  <button (click)="addOrganisation()">Add</button>
+  <button (click)="close()">Close</button>
+</dialog>
