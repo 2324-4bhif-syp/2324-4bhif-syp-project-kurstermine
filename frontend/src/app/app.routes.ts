@@ -12,6 +12,9 @@ import { routes as userExplorerRouters } from "@components/user/user-course-expl
 import { OrgAppointmentsComponent } from "@components/organisator/org-appointments/org-appointments.component";
 import { OrgAppointmentComponent } from "./organisator/org-appointment/org-appointment.component";
 import {AdminRolesComponent} from "@components/admin/admin-roles/admin-roles.component";
+import {
+  AdminOrganisationsAssignmentComponent
+} from "@components/admin/admin-organisations-assignment/admin-organisations-assignment.component";
 
 export const routes: Routes = [
     { path: "", redirectTo: "home", pathMatch: "full" },
@@ -67,6 +70,12 @@ export const routes: Routes = [
                 canActivate: [AuthGuard, RoleGuard],
                 data: { roles: [Roles.Admin] },
             },
+            {
+                path: "organisators",
+                component: AdminOrganisationsAssignmentComponent,
+                canActivate: [AuthGuard, RoleGuard],
+                data: { roles: [Roles.Admin] },
+            }
         ],
     },
     {
