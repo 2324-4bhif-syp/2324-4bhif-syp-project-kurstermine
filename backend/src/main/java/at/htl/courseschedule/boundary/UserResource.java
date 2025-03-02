@@ -45,6 +45,16 @@ public class UserResource {
         return Response.ok(users).build();
     }
 
+    @GET
+    @Transactional
+    @Path("{id}")
+    @RolesAllowed({Role.Organisator, Role.Admin})
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getOrganisationOfUser(@PathParam("id") UUID id) {
+        Organisation organisation = userRepository.getOrCreateUser(id).getOrganisation();
+        return Response.ok(organisation).build();
+    }
+
     @PUT
     @Path("{id}")
     @RolesAllowed(Role.Admin)
