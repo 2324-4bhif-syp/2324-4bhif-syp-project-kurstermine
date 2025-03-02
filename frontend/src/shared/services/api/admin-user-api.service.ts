@@ -39,4 +39,20 @@ export class AdminUserApiService extends ApiService {
         this.getAll();
       });
   }
+
+  addOrganisation(userId: string, organisationId: number) {
+    this.http
+      .put(`${this.url}/${userId}/${organisationId}`, {})
+      .subscribe(() => {
+        this.getAll();
+      });
+  }
+
+  deleteOrganisation(userId: string) {
+    this.http
+      .delete(`${this.url}/${userId}/organisation`, {})
+      .subscribe(() => {
+        this.getAll();
+      });
+  }
 }
