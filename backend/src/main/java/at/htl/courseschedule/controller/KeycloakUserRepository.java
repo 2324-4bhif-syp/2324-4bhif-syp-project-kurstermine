@@ -88,9 +88,9 @@ public class KeycloakUserRepository {
         return UserDTO.fromUserRepresentation(userRepresentation);
     }
 
-    public boolean isInValidRole(String role) {
+    public boolean isInEditableRoles(String role) {
         if (role == null || role.isEmpty()) {
-            return true;
+            return false;
         }
 
         return Role.EditableRoleNames.contains(role);

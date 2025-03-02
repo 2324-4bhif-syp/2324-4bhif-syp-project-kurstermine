@@ -12,7 +12,7 @@ public class User extends PanacheEntityBase {
     private UUID id;
 
     @ManyToOne(
-            fetch = FetchType.LAZY,
+            fetch = FetchType.EAGER,
             cascade = {
                     CascadeType.DETACH,
                     CascadeType.MERGE,

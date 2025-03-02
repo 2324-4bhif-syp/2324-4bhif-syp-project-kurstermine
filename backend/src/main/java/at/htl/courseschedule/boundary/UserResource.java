@@ -4,6 +4,7 @@ import at.htl.courseschedule.controller.KeycloakUserRepository;
 import at.htl.courseschedule.controller.OrganisationRepository;
 import at.htl.courseschedule.controller.UserRepository;
 import at.htl.courseschedule.dto.AdminUserDTO;
+import at.htl.courseschedule.entity.Organisation;
 import at.htl.courseschedule.entity.User;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
@@ -49,7 +50,7 @@ public class UserResource {
     @RolesAllowed(Role.Admin)
     @Produces(MediaType.APPLICATION_JSON)
     public Response addRole(@PathParam("id") UUID id, @QueryParam("role") String role) {
-        if (keycloakUserRepository.isInValidRole(role)) {
+        if (!keycloakUserRepository.isInEditableRoles(role)) {
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
 
@@ -63,12 +64,11 @@ public class UserResource {
     @RolesAllowed(Role.Admin)
     @Produces(MediaType.APPLICATION_JSON)
     public Response deleteRole(@PathParam("id") UUID id, @QueryParam("role") String role) {
-        if (keycloakUserRepository.isInValidRole(role)) {
+        if (!keycloakUserRepository.isInEditableRoles(role)) {
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
 
         keycloakUserRepository.deleteRole(id, role);
-
         return Response.ok().build();
     }
 
@@ -83,7 +83,6 @@ public class UserResource {
         }
 
         User user = userRepository.getOrCreateUser(userId);
-
         user.setOrganisation(organisationRepository.findById(orgId));
         em.merge(user);
 
