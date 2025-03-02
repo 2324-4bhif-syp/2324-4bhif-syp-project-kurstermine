@@ -1,9 +1,9 @@
 <div
-    class="bg-[url('/assets/course-explorer-banner.jpg')] bg-cover bg-center pb-10 pt-10 shadow-lg"
+    class="bg-[url('/assets/course-explorer-banner.jpg')] bg-cover bg-center pb-20 pt-20 shadow-lg"
 >
     <p
         class="text-5xl text-center text-white"
-        style="text-shadow: black 0px 0px 10px"
+        style="text-shadow: black 0 0 10px"
     >
         Course Explorer
     </p>
@@ -15,56 +15,46 @@
             organisation of (viewModel | async)?.organisations;
             track organisation
         ) {
-            @if (organisation !== undefined) {
-                <li>
-                    <a
-                        class="border-b-2 rounded-none h-10"
-                        [routerLink]="[organisation.id]"
-                        routerLinkActive="border-accent border-solid"
-                        (click)="selectOrganisation(organisation)"
-                    >
-                        <p>
-                            {{ organisation.name }}
-                        </p>
-                    </a>
-                    <ul>
-                        @for (
-                            category of organisation.categories;
-                            track category
-                        ) {
-                            <li>
-                                <a
-                                    class="border-b-2 flex justify-between rounded-none h-10"
-                                    [routerLink]="[
-                                        organisation.id,
-                                        category.id,
-                                    ]"
-                                    routerLinkActive="border-accent"
-                                    (click)="selectCategory(category)"
-                                >
-                                    <p>
-                                        {{ category.name }}
-                                    </p>
-                                    @if (category.unusedTokens > 0) {
-                                        <div
-                                            class="border flex justify-around items-center gap-1 p-1 rounded-md"
-                                        >
-                                            <p>
-                                                {{ category.unusedTokens }}
-                                            </p>
-                                            <span
-                                                class="material-symbols-outlined"
-                                            >
-                                                poker_chip
-                                            </span>
-                                        </div>
-                                    }
-                                </a>
-                            </li>
-                        }
-                    </ul>
-                </li>
-            }
+            <li>
+                <a
+                    class="border-b-2 rounded-none h-10"
+                    [routerLink]="[organisation.id]"
+                    routerLinkActive="border-accent border-solid"
+                    (click)="selectOrganisation(organisation)"
+                >
+                    <p>
+                        {{ organisation.name }}
+                    </p>
+                </a>
+                <ul>
+                    @for (category of organisation.categories; track category) {
+                        <li>
+                            <a
+                                class="border-b-2 flex justify-between rounded-none h-10"
+                                [routerLink]="[organisation.id, category.id]"
+                                routerLinkActive="border-accent"
+                                (click)="selectCategory(category)"
+                            >
+                                <p>
+                                    {{ category.name }}
+                                </p>
+                                @if (category.unusedTokens > 0) {
+                                    <div
+                                        class="border flex justify-around items-center gap-1 p-1 rounded-md"
+                                    >
+                                        <p>
+                                            {{ category.unusedTokens }}
+                                        </p>
+                                        <span class="material-symbols-outlined">
+                                            poker_chip
+                                        </span>
+                                    </div>
+                                }
+                            </a>
+                        </li>
+                    }
+                </ul>
+            </li>
         }
     </ul>
 

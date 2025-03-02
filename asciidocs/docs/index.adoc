@@ -47,5 +47,11 @@ https://2324-4bhif-syp.github.io/2324-4bhif-syp-project-kurstermine/ucd[UCD]
 [discrete]
 === https://2324-4bhif-syp.github.io/2324-4bhif-syp-project-kurstermine/mom/2024-04-30[2024-04-30]
 
+[discrete]
+=== https://2324-4bhif-syp.github.io/2324-4bhif-syp-project-kurstermine/mom/2024-10-11[2024-10-11]
+
+[discrete]
+=== https://2324-4bhif-syp.github.io/2324-4bhif-syp-project-kurstermine/mom/2025-01-31[2025-01-31]
+
 == Product-Backlog
 link:https://vm81.htl-leonding.ac.at/agiles/99-373/current[Youtrack]

@@ -1,20 +1,15 @@
 package at.htl.courseschedule.boundary;
 
-import at.htl.courseschedule.controller.AppointmentRepository;
-import at.htl.courseschedule.controller.CategoryRepository;
 import at.htl.courseschedule.controller.TokenRepository;
-import at.htl.courseschedule.controller.UserRepository;
 import at.htl.courseschedule.dto.TokenDto;
-import at.htl.courseschedule.entity.Appointment;
-import at.htl.courseschedule.entity.Category;
 import at.htl.courseschedule.entity.Token;
-import io.quarkus.logging.Log;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @Path("tokens")
@@ -22,20 +17,32 @@ public class TokenResource {
     @Inject
     TokenRepository tokenRepository;
 
-    @Inject
-    AppointmentRepository appointmentRepository;
-
-    @Inject
-    CategoryRepository categoryRepository;
-
-    @Inject
-    UserRepository userRepository;
-
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @RolesAllowed({Role.Admin, Role.Instructor, Role.Customer, Role.Organisator}) //TODO - only admin
+    @RolesAllowed({Role.Admin, Role.Organisator})
     public Response getAllTokens() {
         return Response.ok(tokenRepository.listAll().stream().map(TokenDto::fromToken)).build();
+    }
+
+    @GET
+    @Path("organisation") // Get all Tokens for the Organisation of the current logged in organisator
+    @Produces(MediaType.APPLICATION_JSON)
+    @RolesAllowed({Role.Admin, Role.Organisator})
+    public Response getAllTokensForOrganisation() {
+        // Not implemented yet
+        return Response.ok().build();
+    }
+
+    @GET
+    @Path("{user-id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    @RolesAllowed({Role.Admin, Role.Instructor, Role.Customer, Role.Organisator})
+    public Response getAllTokensForUser(@PathParam("user-id") UUID userId) {
+        return Response.ok(
+                tokenRepository.listAll().stream()
+                        .filter(t -> t.getUser().getId().equals(userId))
+                        .map(TokenDto::fromToken)
+        ).build();
     }
 
     @GET
@@ -47,26 +54,23 @@ public class TokenResource {
     }
 
     @POST
+    @Path("{amount-of-tokens}")
     @Transactional
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @RolesAllowed({Role.Admin, Role.Instructor, Role.Customer, Role.Organisator})
-    public Response createToken(TokenDto dto, @Context UriInfo uriInfo) {
-        if(dto == null) {
+    public Response createToken(TokenDto dto, @PathParam("amount-of-tokens") int amountOfTokens, @Context UriInfo uriInfo) {
+        if(dto == null || amountOfTokens < 1) {
             return Response.status(400).build();
         }
 
-        var token = new Token();
-        token.setCategory(categoryRepository.findById(dto.categoryId()));
-        token.setUser(userRepository.getOrCreateUser(dto.userId()));
-
-        tokenRepository.persist(token);
+        List<Token> tokens = tokenRepository.createTokens(amountOfTokens, dto);
 
         UriBuilder uriBuilder = uriInfo
                 .getAbsolutePathBuilder()
-                .path(token.getId().toString());
+                .path(tokens.get(tokens.size() - 1).getId().toString());
 
-        return Response.created(uriBuilder.build()).entity(TokenDto.fromToken(token)).build();
+        return Response.created(uriBuilder.build()).entity(tokens.stream().map(TokenDto::fromToken)).build();
     }
 
     @DELETE
@@ -100,12 +104,6 @@ public class TokenResource {
             return Response.status(404).build();
         }
 
-        Category category = categoryRepository.findById(token.categoryId());
-        Appointment appointment = appointmentRepository.getById(token.appointmentId());
-
-        oldToken.setCategory(category);
-        oldToken.setAppointment(appointment);
-
-        return Response.ok(TokenDto.fromToken(oldToken)).build();
+        return Response.ok(TokenDto.fromToken(tokenRepository.updateToken(oldToken, token))).build();
     }
 }

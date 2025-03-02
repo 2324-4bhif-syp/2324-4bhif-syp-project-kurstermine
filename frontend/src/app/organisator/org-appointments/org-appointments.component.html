@@ -1,0 +1,42 @@
+<div
+    class="bg-[url('/assets/appointments-banner.jpg')] bg-cover bg-center pb-20 pt-20 mb-10 shadow-lg"
+>
+    <p
+        class="text-5xl text-center text-white"
+        style="text-shadow: black 0 0 10px"
+    >
+        Your Organisation's Appointments
+    </p>
+</div>
+
+<div class="overflow-x-auto mb-60">
+    @if ((viewModel | async)?.organisationOfCurrentUser) {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Appointment</th>
+                    <th>Where</th>
+                    <th>When</th>
+                    <th>Bookings</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (appointment of (viewModel | async)?.appointments; track $index) {
+                    <tr
+                        class="cursor-pointer hover"
+                        [routerLink]="[appointment.id]"
+                    >
+                        <th>{{ $index + 1 }}</th>
+                        <td>{{ appointment.name }}</td>
+                        <td>{{ appointment.address }}</td>
+                        <td>{{ appointment.date.toDateString() }}</td>
+                        <td>{{ appointment.bookings }}</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    } @else {
+        <p class="text-center">You are not assigned to an organisation. Please contact an administrator in order to be assigned to your organisation.</p>
+    }
+</div>

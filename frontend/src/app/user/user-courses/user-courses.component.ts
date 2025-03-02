@@ -62,12 +62,12 @@ export class UserCoursesComponent implements OnInit {
       return;
     }
 
-    for (let i = 0; i < amount; i++) {
-      this.tokenApiService.add({
+    this.tokenApiService.add({
         userId: userId,
         categoryId: categoryId,
-      });
-    }
+      },
+      amount
+    );
   }
 
   public ngOnInit(): void {

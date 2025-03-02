@@ -1,0 +1,72 @@
+= Zwölfte Sprintplanung
+ifndef::imagesdir[:imagesdir: images]
+:icons: font
+//:sectnums:    // Nummerierung der Überschriften / section numbering
+//:toc: left
+
+//Need this blank line after ifdef, don't know why...
+ifdef::backend-html5[]
+
+// https://fontawesome.com/v4.7.0/icons/
+icon:file-text-o[link=https://raw.githubusercontent.com/2324-4bhif-syp/2324-4bhif-syp-project-kurstermine/main/asciidocs/docs/mom/{docname}.adoc] ‏ ‏ ‎
+icon:github-square[link=https://github.com/2324-4bhif-syp/2324-4bhif-syp-project-kurstermine] ‏ ‏ ‎
+icon:home[link=https://htl-leonding.github.io/]
+endif::backend-html5[]
+
+.Teilnehmer
+|===
+|anwesend
+
+|Herr Prof. Aberger
+
+|Herr Prof. Stütz
+
+|Winnie Ilming
+
+|Moritz Gruber
+
+|Lukas Sonnleitner
+
+|Bajtik Berg
+|===
+
+.Ort und Zeit
+[cols=2*]
+|===
+|Ort
+|HTL Leonding, 5BHIF
+
+|von-bis
+|Fr. 2025-01-31, 5. EH
+|Dauer
+|10 min
+|===
+
+== Besprochene Themen
+* Neue frontend features gezeigt und Probleme besprochen, die gerade auftreten
+
+== Vereinbarungen und Entscheidungen
+* Probleme fixen
+
+.Was wurde vereinbart?
+[%autowidth]
+|===
+|wer |macht was |bis wann
+
+| Hr. Ilming
+a| link:https://vm81.htl-leonding.ac.at/agiles/99-373/current[Youtrack]
+| asap
+
+| Hr. Gruber
+a| link:https://vm81.htl-leonding.ac.at/agiles/99-373/current[Youtrack]
+| asap
+
+| Hr. Sonnleitner
+a| link:https://vm81.htl-leonding.ac.at/agiles/99-373/current[Youtrack]
+| asap
+
+| Hr. Berg
+a| link:https://vm81.htl-leonding.ac.at/agiles/99-373/current[Youtrack]
+| asap
+
+|===

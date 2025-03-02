@@ -1,0 +1,183 @@
+<div class="m-4 space-y-4">
+    <div class="grid grid-cols-2 gap-4">
+        <div class="border rounded-md p-4 space-y-1">
+            <div class="flex justify-between items-center">
+                <p class="font-semibold text-lg">Overview</p>
+                <button class="btn btn-sm">
+                    <span class="material-symbols-outlined">edit</span>
+                </button>
+            </div>
+
+            <div class="flex flex-row">
+                <div class="w-10 flex items-center justify-center">
+                    <span class="material-symbols-outlined"> tag </span>
+                </div>
+                <p>
+                    {{ viewModel()?.appointment?.name }}
+                </p>
+            </div>
+
+            <div class="flex flex-row">
+                <div class="w-10 flex items-center justify-center">
+                    <span class="material-symbols-outlined"> location_on </span>
+                </div>
+                <span>{{ viewModel()?.appointment?.address }} </span>
+            </div>
+
+            <div class="flex flex-row">
+                <div class="w-10 flex items-center justify-center">
+                    <span class="material-symbols-outlined"> schedule </span>
+                </div>
+                <span>{{ viewModel()?.appointment?.date?.toDateString() }} </span>
+            </div>
+
+            <div class="flex flex-row">
+                <div class="w-10 flex items-center justify-center">
+                    <span class="material-symbols-outlined"> timelapse </span>
+                </div>
+                <span>{{ viewModel()?.appointment?.duration }} min </span>
+            </div>
+        </div>
+
+        <div class="border rounded-md p-4 space-y-1">
+            <div class="flex justify-between items-center">
+                <p class="font-semibold text-lg">Instructors</p>
+                <button class="btn btn-sm" onclick="instructor.showModal()">
+                    <span class="material-symbols-outlined">edit</span>
+                </button>
+            </div>
+
+            <div class="overflow-x-auto">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Firstname</th>
+                            <th>LastName</th>
+                        </tr>
+                    </thead>
+                    @if (viewModel()?.appointment?.instructors?.length ?? 0 > 0) {
+                        <tbody>
+                            @for (instructor of viewModel()?.appointment?.instructors; track $index) {
+                                <tr class="hover">
+                                    <td>{{ $index + 1 }}</td>
+                                    <td>{{ instructor?.firstName }}</td>
+                                    <td>{{ instructor?.lastName }}</td>
+                                </tr>
+                            }
+                        </tbody>
+                    } @else {
+                        <tbody>
+                            <tr>
+                                <td colspan="5">
+                                    <div class="flex justify-center font-semibold text-gray-500">No Data</div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    }
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="border rounded-md p-4 space-y-1">
+        <p class="font-semibold text-lg">Bookings</p>
+
+        <div class="overflow-x-auto">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Firstname</th>
+                        <th>Lastname</th>
+                        <th>E-Mail</th>
+                        <th>Booked at</th>
+                    </tr>
+                </thead>
+                @if (viewModel()?.appointment?.bookings?.length ?? 0 > 0) {
+                    <tbody>
+                        @for (booking of viewModel()?.appointment?.bookings; track $index) {
+                            <tr class="hover">
+                                <td>{{ $index + 1 }}</td>
+                                <td>{{ (booking.user | async)?.firstName }}</td>
+                                <td>{{ (booking.user | async)?.lastName }}</td>
+                                <td>{{ (booking.user | async)?.email }}</td>
+                                <td>
+                                    {{ booking.redeemedAt?.toDateString() }}
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                } @else {
+                    <tbody>
+                        <tr>
+                            <td colspan="5">
+                                <div class="flex justify-center font-semibold text-gray-500">No Data</div>
+                            </td>
+                        </tr>
+                    </tbody>
+                }
+            </table>
+        </div>
+    </div>
+</div>
+
+<dialog id="instructor" class="modal">
+    <div class="modal-box flex flex-col p-4 space-y-1">
+        <form method="dialog">
+            <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+        </form>
+        <p class="font-semibold text-lg">Instructors</p>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Firstname</th>
+                    <th>LastName</th>
+                </tr>
+            </thead>
+            @if (viewModel()?.instructors?.length ?? 0 > 0) {
+                <tbody>
+                    @for (instructor of viewModel()?.instructors; track $index) {
+                        <tr class="hover">
+                            <td>
+                                <label>
+                                    <input
+                                        type="checkbox"
+                                        class="checkbox"
+                                        [checked]="instructor?.selected ?? false"
+                                        (click)="instructorSelectionChanged($event, instructor)"
+                                    />
+                                </label>
+                            </td>
+
+                            <td>{{ instructor?.firstName }}</td>
+                            <td>{{ instructor?.lastName }}</td>
+                        </tr>
+                    }
+                </tbody>
+            } @else {
+                <tbody>
+                    <tr>
+                        <td colspan="5">
+                            <div class="flex justify-center font-semibold text-gray-500">No Data</div>
+                        </td>
+                    </tr>
+                </tbody>
+            }
+        </table>
+
+        <div class="flex gap-1 w-full justify-end">
+            <form method="dialog" (submit)="onInstructorSelectionSubmit()">
+                <button class="btn btn-sm">Submit</button>
+            </form>
+            <form method="dialog">
+                <button class="btn btn-sm">Cancel</button>
+            </form>
+        </div>
+    </div>
+    <form method="dialog" class="modal-backdrop">
+        <button></button>
+    </form>
+</dialog>

@@ -31,7 +31,7 @@ public class CustomerResource {
     @GET
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    @RolesAllowed(Role.Admin)
+    @RolesAllowed({Role.Admin, Role.Organisator})
     public Response getCustomer(@PathParam("id") String id) {
         UserRepresentation customer = userRepository.getById(UUID.fromString(id), Role.Customer);
 
