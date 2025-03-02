@@ -8,5 +8,5 @@
 == Diagram
 [plantuml,cld,svg]
 ----
-include::plantuml/cld.puml[]
+include::plantuml/cldRefactored.puml[]
 ----

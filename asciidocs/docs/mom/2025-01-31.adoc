@@ -55,18 +55,18 @@ endif::backend-html5[]
 
 | Hr. Ilming
 a| link:https://vm81.htl-leonding.ac.at/agiles/99-373/current[Youtrack]
-| 25.10.2024
+| asap
 
 | Hr. Gruber
 a| link:https://vm81.htl-leonding.ac.at/agiles/99-373/current[Youtrack]
-| 25.10.2024
+| asap
 
 | Hr. Sonnleitner
 a| link:https://vm81.htl-leonding.ac.at/agiles/99-373/current[Youtrack]
-| 25.10.2024
+| asap
 
 | Hr. Berg
 a| link:https://vm81.htl-leonding.ac.at/agiles/99-373/current[Youtrack]
-| 25.10.2024
+| asap
 
 |===
