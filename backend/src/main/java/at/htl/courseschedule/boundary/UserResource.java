@@ -1,10 +1,14 @@
 package at.htl.courseschedule.boundary;
 
 import at.htl.courseschedule.controller.KeycloakUserRepository;
+import at.htl.courseschedule.controller.OrganisationRepository;
 import at.htl.courseschedule.controller.UserRepository;
 import at.htl.courseschedule.dto.AdminUserDTO;
+import at.htl.courseschedule.entity.User;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
+import jakarta.persistence.EntityManager;
+import jakarta.transaction.Transactional;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
@@ -18,9 +22,16 @@ public class UserResource {
     KeycloakUserRepository keycloakUserRepository;
 
     @Inject
+    EntityManager em;
+
+    @Inject
     UserRepository userRepository;
 
+    @Inject
+    OrganisationRepository organisationRepository;
+
     @GET
+    @Transactional
     @RolesAllowed(Role.Admin)
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAllUsers() {
@@ -44,7 +55,7 @@ public class UserResource {
 
         keycloakUserRepository.setRole(id, role);
 
-        return Response.ok().build();
+        return Response.noContent().build();
     }
 
     @DELETE
@@ -58,6 +69,34 @@ public class UserResource {
 
         keycloakUserRepository.deleteRole(id, role);
 
+        return Response.ok().build();
+    }
+
+    @PUT
+    @Transactional
+    @Path("{userId}/{orgId}")
+    @RolesAllowed(Role.Admin)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response addOrganisationToUser(@PathParam("userId") UUID userId, @PathParam("orgId") Long orgId) {
+        if (organisationRepository.findById(orgId) == null) {
+            return Response.status(Response.Status.BAD_REQUEST).build();
+        }
+
+        User user = userRepository.getOrCreateUser(userId);
+
+        user.setOrganisation(organisationRepository.findById(orgId));
+        em.merge(user);
+
+        return Response.noContent().build();
+    }
+
+    @DELETE
+    @Transactional
+    @Path("{userId}/organisation")
+    @RolesAllowed(Role.Admin)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response deleteOrganisationFromUser(@PathParam("userId") UUID id) {
+        userRepository.getOrCreateUser(id).setOrganisation(null);
         return Response.ok().build();
     }
 }
