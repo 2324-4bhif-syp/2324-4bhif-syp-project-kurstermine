@@ -23,7 +23,7 @@ public class Organisation extends PanacheEntityBase {
                     CascadeType.REFRESH
             }
     )
-    @JoinColumn(name = "organisator_id")
+    @JoinColumn(name = "organisation_id")
     private Set<User> organisators;
 
     public Organisation() {}

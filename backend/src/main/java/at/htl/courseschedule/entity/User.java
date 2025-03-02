@@ -1,9 +1,7 @@
 package at.htl.courseschedule.entity;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import java.util.UUID;
 
@@ -12,6 +10,18 @@ import java.util.UUID;
 public class User extends PanacheEntityBase {
     @Id
     private UUID id;
+
+    @ManyToOne(
+            fetch = FetchType.LAZY,
+            cascade = {
+                    CascadeType.DETACH,
+                    CascadeType.MERGE,
+                    CascadeType.PERSIST,
+                    CascadeType.REFRESH
+            }
+    )
+    @JoinColumn(name = "organisation_id")
+    private Organisation organisation;
 
     public User() {
     }
@@ -28,10 +38,19 @@ public class User extends PanacheEntityBase {
         this.id = id;
     }
 
+    public Organisation getOrganisation() {
+        return organisation;
+    }
+
+    public void setOrganisation(Organisation organisation) {
+        this.organisation = organisation;
+    }
+
     @Override
     public String toString() {
         return "User{" +
                 "id=" + id +
+                ", organisation=" + organisation +
                 '}';
     }
 
