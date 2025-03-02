@@ -1,4 +1,4 @@
-import {Component, inject, OnInit} from "@angular/core";
+import {Component, inject} from "@angular/core";
 import { AsyncPipe } from "@angular/common";
 import { StoreService } from "@services";
 import { distinctUntilChanged, map } from "rxjs";

@@ -6,7 +6,7 @@ import {AsyncPipe} from "@angular/common";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {AdminUser} from "@models/admin-user";
 import {KeycloakService} from "keycloak-angular";
-import {Organisation} from "@models";
+import {Organisation, Roles} from "@models";
 
 @Component({
   selector: 'app-admin-organisations-assignment',
@@ -36,7 +36,10 @@ export class AdminOrganisationsAssignmentComponent implements OnInit{
   }
 
   protected viewModel = inject(StoreService).store.pipe(
-    map((model) => ({adminUsers: model.adminUsers, organisations: model.organisations})),
+    map((model) => ({
+      adminUsers: model.adminUsers.filter(u => u.roles.includes(Roles.Organisator)),
+      organisations: model.organisations
+    })),
     distinctUntilChanged(),
   );
 
