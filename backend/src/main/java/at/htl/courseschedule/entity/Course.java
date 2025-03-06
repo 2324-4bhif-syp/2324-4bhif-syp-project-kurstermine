@@ -5,22 +5,16 @@ import jakarta.persistence.*;
 
 @Entity
 public class Course {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @JsonProperty("name")
     @Column(name = "name")
     private String name;
 
-    @ManyToOne(
-            fetch = FetchType.LAZY,
-            cascade = {
-                    CascadeType.DETACH,
-                    CascadeType.MERGE,
-                    CascadeType.PERSIST,
-                    CascadeType.REFRESH
-            }
-    )
+    @ManyToOne(fetch = FetchType.EAGER, cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH })
     @JoinColumn(name = "category_id")
     private Category category;
 
@@ -57,10 +51,6 @@ public class Course {
 
     @Override
     public String toString() {
-        return "Course{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", category=" + category +
-                '}';
+        return "Course{" + "id=" + id + ", name='" + name + '\'' + ", category=" + category + '}';
     }
 }

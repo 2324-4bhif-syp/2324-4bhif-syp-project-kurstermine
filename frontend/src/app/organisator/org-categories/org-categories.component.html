@@ -1,0 +1,66 @@
+<div class="bg-[url('/assets/appointments-banner.jpg')] bg-cover bg-center pb-20 pt-20 shadow-lg">
+  <p class="text-5xl text-center text-white" style="text-shadow: black 0 0 10px">Categories</p>
+</div>
+
+<div class="m-4 space-y-4">
+  <div class="border rounded-md p-4 space-y-1">
+    <div class="flex justify-between items-center">
+      <p class="font-semibold text-lg">Categories</p>
+      <button class="btn btn-sm" onclick="category.showModal()">
+        <span class="material-symbols-outlined">add</span>
+      </button>
+    </div>
+
+    <div class="overflow-x-auto mb-60">
+      @if ((viewModel | async)?.organisationOfCurrentUser) {
+        <table class="table">
+          <thead>
+            <tr>
+              <th></th>
+              <th>Name</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (category of (viewModel | async)?.categories; track $index) {
+              <tr class="cursor-pointer hover" [routerLink]="[category.id]">
+                <th>{{ $index + 1 }}</th>
+                <td>{{ category.name }}</td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      } @else {
+        <p class="text-center">
+          You are not assigned to an organisation. Please contact an administrator in order to be assigned to your organisation.
+        </p>
+      }
+    </div>
+  </div>
+</div>
+
+<dialog id="category" class="modal">
+  <div class="modal-box flex flex-col p-4 space-y-1">
+    <form method="dialog">
+      <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+    </form>
+    <p class="font-semibold text-lg">Add Category</p>
+
+    <form method="dialog" class="flex flex-col" (submit)="onCategoryAddSubmit()">
+      <div class="space-y-1">
+        <label class="input input-bordered flex items-center gap-2">
+          Name
+          <input type="text" [(ngModel)]="newCategoryName" name="name" class="grow" placeholder="" />
+        </label>
+        <div class="flex w-full gap-1 justify-end">
+          <button class="btn btn-sm">Submit</button>
+          <form method="dialog">
+            <button class="btn btn-sm">Cancel</button>
+          </form>
+        </div>
+      </div>
+    </form>
+  </div>
+  <form method="dialog" class="modal-backdrop">
+    <button></button>
+  </form>
+</dialog>

@@ -11,88 +11,100 @@ import { Routes } from "@angular/router";
 import { routes as userExplorerRouters } from "@components/user/user-course-explorer/user-course-explorer.component";
 import { OrgAppointmentsComponent } from "@components/organisator/org-appointments/org-appointments.component";
 import { OrgAppointmentComponent } from "./organisator/org-appointment/org-appointment.component";
-import {AdminRolesComponent} from "@components/admin/admin-roles/admin-roles.component";
-import {
-  AdminOrganisationsAssignmentComponent
-} from "@components/admin/admin-organisations-assignment/admin-organisations-assignment.component";
+import { AdminRolesComponent } from "@components/admin/admin-roles/admin-roles.component";
+import { AdminOrganisationsAssignmentComponent } from "@components/admin/admin-organisations-assignment/admin-organisations-assignment.component";
+import { OrgCategoriesComponent } from "./organisator/org-categories/org-categories.component";
+import { OrgCoursesComponent } from "./organisator/org-courses/org-courses.component";
 
 export const routes: Routes = [
-    { path: "", redirectTo: "home", pathMatch: "full" },
-    {
+  { path: "", redirectTo: "home", pathMatch: "full" },
+  {
+    path: "appointments",
+    component: UserAppointmentsComponent,
+    canActivate: [AuthGuard, RoleGuard],
+    data: {
+      roles: [Roles.Customer],
+      onlyBooked: true,
+    },
+  },
+  {
+    path: "organisations",
+    component: UserOrganisationsComponent,
+    canActivate: [AuthGuard, RoleGuard],
+    data: { roles: [Roles.Customer] },
+  },
+  {
+    path: "home",
+    component: HomeComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: "user",
+    component: UserComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: "courses",
+    children: userExplorerRouters,
+    canActivate: [AuthGuard, RoleGuard],
+    data: { roles: [Roles.Customer] },
+  },
+  {
+    path: "admin",
+    children: [
+      {
+        path: "roles",
+        component: AdminRolesComponent,
+        canActivate: [AuthGuard, RoleGuard],
+        data: { roles: [Roles.Admin] },
+      },
+      {
         path: "appointments",
-        component: UserAppointmentsComponent,
+        component: AdminAppointmentsComponent,
         canActivate: [AuthGuard, RoleGuard],
-        data: {
-            roles: [Roles.Customer],
-            onlyBooked: true,
-        },
-    },
-    {
-        path: "organisations",
-        component: UserOrganisationsComponent,
+        data: { roles: [Roles.Admin] },
+      },
+      {
+        path: "appointments/:id",
+        component: AdminAppointmentComponent,
         canActivate: [AuthGuard, RoleGuard],
-        data: { roles: [Roles.Customer] },
-    },
-    {
-        path: "home",
-        component: HomeComponent,
-        canActivate: [AuthGuard],
-    },
-    {
-        path: "user",
-        component: UserComponent,
-        canActivate: [AuthGuard],
-    },
-    {
+        data: { roles: [Roles.Admin] },
+      },
+      {
+        path: "organisators",
+        component: AdminOrganisationsAssignmentComponent,
+        canActivate: [AuthGuard, RoleGuard],
+        data: { roles: [Roles.Admin] },
+      },
+    ],
+  },
+  {
+    path: "organisator",
+    children: [
+      {
+        path: "appointments",
+        component: OrgAppointmentsComponent,
+        canActivate: [AuthGuard, RoleGuard],
+        data: { roles: [Roles.Organisator] },
+      },
+      {
+        path: "appointments/:id",
+        component: OrgAppointmentComponent,
+        canActivate: [AuthGuard, RoleGuard],
+        data: { roles: [Roles.Organisator] },
+      },
+      {
+        path: "categories",
+        component: OrgCategoriesComponent,
+        canActivate: [AuthGuard, RoleGuard],
+        data: { roles: [Roles.Organisator] },
+      },
+      {
         path: "courses",
-        children: userExplorerRouters,
+        component: OrgCoursesComponent,
         canActivate: [AuthGuard, RoleGuard],
-        data: { roles: [Roles.Customer] },
-    },
-    {
-        path: "admin",
-        children: [
-            {
-              path: 'roles',
-              component: AdminRolesComponent,
-              canActivate: [AuthGuard, RoleGuard],
-              data: { roles: [Roles.Admin] },
-            },
-            {
-                path: 'appointments',
-                component: AdminAppointmentsComponent,
-                canActivate: [AuthGuard, RoleGuard],
-                data: { roles: [Roles.Admin] },
-            },
-            {
-                path: "appointments/:id",
-                component: AdminAppointmentComponent,
-                canActivate: [AuthGuard, RoleGuard],
-                data: { roles: [Roles.Admin] },
-            },
-            {
-                path: "organisators",
-                component: AdminOrganisationsAssignmentComponent,
-                canActivate: [AuthGuard, RoleGuard],
-                data: { roles: [Roles.Admin] },
-            }
-        ],
-    },
-    {
-        path: "organisator",
-        children: [
-            {
-                path: "appointments",
-                component: OrgAppointmentsComponent,
-                canActivate: [AuthGuard, RoleGuard],
-                data: { roles: [Roles.Organisator] },
-            },
-            {
-                path: "appointments/:id",
-                component: OrgAppointmentComponent,
-                canActivate: [AuthGuard, RoleGuard],
-                data: { roles: [Roles.Organisator] },
-            },
-        ],
-    },
+        data: { roles: [Roles.Organisator] },
+      },
+    ],
+  },
 ];
