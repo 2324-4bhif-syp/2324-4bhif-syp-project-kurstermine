@@ -22,20 +22,35 @@ export class OrgAppointmentsComponent {
 
   protected viewModel = this.store.pipe(
     map((model) => ({
-      appointments: model.appointments.map((a) => ({
-        ...a,
-        bookings: model.tokensForCurrentOrganisation.filter((t) => t.appointmentId === a.id).length,
-        course: {
-          ...model.courses.find((c) => c.id === a.courseId),
-          category: model.categories.find((c) => c.id === model.courses.find((c) => c.id === a.courseId)?.categoryId),
-        },
-      })),
+      appointments: model.appointments
+        .map((a) => ({
+          ...a,
+          bookings: model.tokensForCurrentOrganisation.filter(
+            (t) => t.appointmentId === a.id,
+          ).length,
+          course: {
+            ...model.courses.find((c) => c.id === a.courseId),
+            category: model.categories.find(
+              (c) =>
+                c.id ===
+                model.courses.find((c) => c.id === a.courseId)?.categoryId,
+            ),
+          },
+        }))
+        .filter(
+          (a) =>
+            a.course.category?.organisationId ===
+            model.organisationOfCurrentUser?.id,
+        ),
       courses: model.courses
         .map((c) => ({
           ...c,
           category: model.categories.find((ca) => ca.id === c.categoryId),
         }))
-        .filter((c) => c.category?.organisationId === model.organisationOfCurrentUser?.id),
+        .filter(
+          (c) =>
+            c.category?.organisationId === model.organisationOfCurrentUser?.id,
+        ),
       organisationOfCurrentUser: model.organisationOfCurrentUser,
     })),
     distinctUntilChanged(),
@@ -55,7 +70,8 @@ export class OrgAppointmentsComponent {
     let courseId = this.newCourseId;
     let organisationId = this.store.value.organisationOfCurrentUser?.id;
 
-    if (!name || !date || !duration || !address || !courseId || !organisationId) return;
+    if (!name || !date || !duration || !address || !courseId || !organisationId)
+      return;
 
     let appointment: Appointment = {
       name: name,

@@ -1,5 +1,12 @@
-<div class="bg-[url('/assets/appointments-banner.jpg')] bg-cover bg-center pb-20 pt-20 shadow-lg">
-  <p class="text-5xl text-center text-white" style="text-shadow: black 0 0 10px">Courses</p>
+<div
+  class="bg-[url('/assets/appointments-banner.jpg')] bg-cover bg-center pb-20 pt-20 shadow-lg"
+>
+  <p
+    class="text-5xl text-center text-white"
+    style="text-shadow: black 0 0 10px"
+  >
+    Courses
+  </p>
 </div>
 
 <div class="m-4 space-y-4">
@@ -22,7 +29,8 @@
           </thead>
           <tbody>
             @for (course of (viewModel | async)?.courses; track $index) {
-              <tr class="cursor-pointer hover" [routerLink]="[course.id]">
+              <tr class="hover">
+                <!-- class="cursor-pointer" [routerLink]="[category.id]" -->
                 <th>{{ $index + 1 }}</th>
                 <td>{{ course.name }}</td>
               </tr>
@@ -31,7 +39,8 @@
         </table>
       } @else {
         <p class="text-center">
-          You are not assigned to an organisation. Please contact an administrator in order to be assigned to your organisation.
+          You are not assigned to an organisation. Please contact an
+          administrator in order to be assigned to your organisation.
         </p>
       }
     </div>
@@ -41,7 +50,9 @@
 <dialog id="course" class="modal">
   <div class="modal-box flex flex-col p-4 space-y-1">
     <form method="dialog">
-      <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+      <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
+        ✕
+      </button>
     </form>
     <p class="font-semibold text-lg">Add Course</p>
 
@@ -49,9 +60,19 @@
       <div class="space-y-1">
         <label class="input input-bordered flex items-center gap-2">
           Name
-          <input type="text" [(ngModel)]="newCourseName" name="name" class="grow" placeholder="" />
+          <input
+            type="text"
+            [(ngModel)]="newCourseName"
+            name="name"
+            class="grow"
+            placeholder=""
+          />
         </label>
-        <select [(ngModel)]="newCategoryId" name="category" class="select w-full input-bordered">
+        <select
+          [(ngModel)]="newCategoryId"
+          name="category"
+          class="select w-full input-bordered"
+        >
           <option disabled selected [value]="undefined">Category</option>
           @for (category of (viewModel | async)?.categories; track $index) {
             <option [value]="category.id">{{ category.name }}</option>
