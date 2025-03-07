@@ -34,11 +34,6 @@ public class InitBean {
     void setImages(@Observes StartupEvent event) {
         List<Organisation> organisations = organisationRepository.listAll();
         List<String> imgNames = List.of(
-                "google.png",
-                "microsoft.png",
-                "amazon.png",
-                "apple.png",
-                "facebook.png",
                 "akw.jpg",
                 "elvira.jpg"
         );
