@@ -12,13 +12,13 @@
 <div class="overflow-x-auto">
   <table class="table">
     <thead>
-    <tr>
-      <th>Firstname</th>
-      <th>Lastname</th>
-      <th>Email</th>
-      <th>Organisation</th>
-      <th></th>
-    </tr>
+      <tr>
+        <th>Firstname</th>
+        <th>Lastname</th>
+        <th>Email</th>
+        <th>Organisation</th>
+        <th></th>
+      </tr>
     </thead>
     <tbody>
       @for (user of (viewModel | async)?.adminUsers; track $index) {
@@ -27,30 +27,48 @@
           <td>{{ user.lastName }}</td>
           <td>{{ user.email }}</td>
           <td>
-            @if (hasOrganisation(user)){
-              <div class="badge badge-primary badge-outline cursor-pointer hover:line-through hover:badge-outline hover:badge-error"
-                   (click)="deleteOrganisation(user.id!)">{{user.organisation?.name}}
+            @if (hasOrganisation(user)) {
+              <div
+                class="badge badge-primary badge-outline cursor-pointer hover:line-through hover:badge-outline hover:badge-error"
+                (click)="deleteOrganisation(user.id!)"
+              >
+                {{ user.organisation?.name }}
               </div>
             } @else {
-              <div class="badge badge-primary badge-outline">No Organisation</div>
+              <div class="badge badge-primary badge-outline">
+                No Organisation
+              </div>
             }
           </td>
           <td>
-            <button (click)="openOrganisationAdder(user)" [disabled]="hasOrganisation(user)" class="btn btn-xs btn-primary">Add Organisation</button>
+            <button
+              (click)="openOrganisationAdder(user)"
+              [disabled]="hasOrganisation(user)"
+              class="btn btn-xs btn-primary"
+            >
+              Add Organisation
+            </button>
           </td>
         </tr>
       }
     </tbody>
   </table>
 </div>
-<dialog #OrganisationAdder>
-  <p>Choose a Organisation</p>
-  <select [(ngModel)]="selectedOrganisation">
-    <option [ngValue]="null" disabled selected> -- select an organisation -- </option>
-    @for (org of (viewModel | async)?.organisations; track $index) {
-      <option [ngValue]="org">{{org.name}}</option>
-    }
-  </select>
-  <button (click)="addOrganisation()">Add</button>
-  <button (click)="close()">Close</button>
+<dialog #OrganisationAdder class="modal">
+  <div class="modal-box flex flex-col p-4 space-y-1">
+    <p class="font-semibold text-lg">Choose a Organisation</p>
+    <select [(ngModel)]="selectedOrganisation" class="select select-bordered">
+      <option [ngValue]="undefined" disabled selected>
+        -- select an organisation --
+      </option>
+      @for (org of (viewModel | async)?.organisations; track $index) {
+        <option [ngValue]="org">{{ org.name }}</option>
+      }
+    </select>
+
+    <div class="flex w-full gap-1 justify-end">
+      <button class="btn btn-sm" (click)="addOrganisation()">Add</button>
+      <button class="btn btn-sm" (click)="close()">Close</button>
+    </div>
+  </div>
 </dialog>

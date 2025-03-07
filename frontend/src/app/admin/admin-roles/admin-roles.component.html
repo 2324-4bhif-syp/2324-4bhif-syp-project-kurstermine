@@ -12,13 +12,13 @@
 <div class="overflow-x-auto">
   <table class="table">
     <thead>
-    <tr>
-      <th>Firstname</th>
-      <th>Lastname</th>
-      <th>Email</th>
-      <th>Roles</th>
-      <th></th>
-    </tr>
+      <tr>
+        <th>Firstname</th>
+        <th>Lastname</th>
+        <th>Email</th>
+        <th>Roles</th>
+        <th></th>
+      </tr>
     </thead>
     <tbody>
       @for (user of viewModel | async; track $index) {
@@ -28,26 +28,41 @@
           <td>{{ user.email }}</td>
           <td>
             @for (role of user.roles; track $index) {
-              <div class="badge badge-primary badge-outline cursor-pointer hover:line-through hover:badge-outline hover:badge-error"
-              (click)="deleteRole(user.id!, role)">{{role}}</div>
+              <div
+                class="badge badge-primary badge-outline cursor-pointer hover:line-through hover:badge-outline hover:badge-error"
+                (click)="deleteRole(user.id!, role)"
+              >
+                {{ role }}
+              </div>
             }
             <div class="badge badge-primary badge-outline">customer</div>
           </td>
           <td>
-            <button (click)="openRoleAdder(user)" class="btn btn-xs btn-primary">Add Role</button>
+            <button
+              (click)="openRoleAdder(user)"
+              class="btn btn-xs btn-primary"
+            >
+              Add Role
+            </button>
           </td>
         </tr>
       }
     </tbody>
   </table>
 </div>
-<dialog #RoleAdder>
-  <p>Choose a Role</p>
-  <select [(ngModel)]="userRole">
-    @for (role of getRoles(); track $index) {
-      <option>{{role}}</option>
-    }
-  </select>
-  <button (click)="addRole()">Add</button>
-  <button (click)="close()">Close</button>
+
+<dialog #RoleAdder class="modal">
+  <div class="modal-box flex flex-col p-4 space-y-1">
+    <p class="font-semibold text-lg">Choose a Role</p>
+
+    <select [(ngModel)]="userRole" class="select select-bordered">
+      @for (role of getRoles(); track $index) {
+        <option>{{ role }}</option>
+      }
+    </select>
+    <div class="flex w-full gap-1 justify-end">
+      <button class="btn btn-sm" (click)="addRole()">Add</button>
+      <button class="btn btn-sm" (click)="close()">Close</button>
+    </div>
+  </div>
 </dialog>
