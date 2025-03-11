@@ -29,9 +29,9 @@ export class CourseApiService extends ApiService {
       });
   }
 
-  public add(course: Course) {
+  public add(course: Course, categoryId: number) {
     this.http
-      .post<CourseDto>(`${this.url}`, fromModel(course), {
+      .post<CourseDto>(`${this.url}/${categoryId}`, fromModel(course), {
         headers: this.headers.set("Content-Type", "application/json"),
       })
       .pipe(map(fromDto))

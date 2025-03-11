@@ -2,10 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { map } from "rxjs";
 import { ApiService } from "@services/api/api.service";
-import {
-  CategoryDto,
-  fromCategory as fromModel,
-} from "@models/dtos/category-dto";
+import { CategoryDto, fromCategory as fromModel } from "@models/dtos/category-dto";
 import { Category, fromCategoryDto as fromDto } from "@models/category";
 import { set } from "@models/model";
 
@@ -32,9 +29,9 @@ export class CategoryApiService extends ApiService {
       });
   }
 
-  public add(category: Category) {
+  public add(category: Category, organisationId: number) {
     this.http
-      .post<CategoryDto>(`${this.url}`, fromModel(category), {
+      .post<CategoryDto>(`${this.url}/${organisationId}`, fromModel(category), {
         headers: this.headers.set("Content-Type", "application/json"),
       })
       .pipe(map(fromDto))

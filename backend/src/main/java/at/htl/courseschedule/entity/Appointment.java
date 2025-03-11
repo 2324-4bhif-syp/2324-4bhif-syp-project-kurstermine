@@ -2,12 +2,12 @@ package at.htl.courseschedule.entity;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
-
 import java.time.Duration;
 import java.time.LocalDateTime;
 
 @Entity
 public class Appointment {
+
     //region member variables
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,22 +29,14 @@ public class Appointment {
     @Column(name = "address")
     private String address;
 
-    @ManyToOne(
-            fetch = FetchType.LAZY,
-            cascade = {
-                    CascadeType.DETACH,
-                    CascadeType.MERGE,
-                    CascadeType.PERSIST,
-                    CascadeType.REFRESH
-            }
-    )
+    @ManyToOne(fetch = FetchType.EAGER, cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH })
     @JoinColumn(name = "course_id")
     private Course course;
+
     //endregion
 
     //region constructors
-    public Appointment() {
-    }
+    public Appointment() {}
 
     public Appointment(String name, LocalDateTime startDate, Duration duration, String address) {
         this.name = name;
@@ -57,6 +49,7 @@ public class Appointment {
         this(name, startDate, duration, address);
         this.course = course;
     }
+
     //endregion
 
     //region getter and setter
@@ -110,16 +103,25 @@ public class Appointment {
 
     //endregion
 
-
     @Override
     public String toString() {
-        return "Appointment{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", startDate=" + startDate +
-                ", duration=" + duration +
-                ", address='" + address + '\'' +
-                ", course=" + course +
-                '}';
+        return (
+            "Appointment{" +
+            "id=" +
+            id +
+            ", name='" +
+            name +
+            '\'' +
+            ", startDate=" +
+            startDate +
+            ", duration=" +
+            duration +
+            ", address='" +
+            address +
+            '\'' +
+            ", course=" +
+            course +
+            '}'
+        );
     }
 }

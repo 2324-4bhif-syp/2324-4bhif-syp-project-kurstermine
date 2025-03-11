@@ -17,7 +17,7 @@ public class OrganisationRepository implements PanacheRepository<Organisation> {
     EntityManager em;
 
     public List<Organisation> search(String pattern) {
-        if (pattern.isEmpty()) {
+        if (pattern == null || pattern.isEmpty()) {
             return listAll();
         }
 

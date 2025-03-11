@@ -1,42 +1,91 @@
-<div
-    class="bg-[url('/assets/appointments-banner.jpg')] bg-cover bg-center pb-20 pt-20 mb-10 shadow-lg"
->
-    <p
-        class="text-5xl text-center text-white"
-        style="text-shadow: black 0 0 10px"
-    >
-        Your Organisation's Appointments
-    </p>
+<div class="bg-[url('/assets/appointments-banner.jpg')] bg-cover bg-center pb-20 pt-20 shadow-lg">
+  <p class="text-5xl text-center text-white" style="text-shadow: black 0 0 10px">Appointments</p>
 </div>
 
-<div class="overflow-x-auto mb-60">
-    @if ((viewModel | async)?.organisationOfCurrentUser) {
+<div class="m-4 space-y-4">
+  <div class="border rounded-md p-4 space-y-1">
+    <div class="flex justify-between items-center">
+      <p class="font-semibold text-lg">Appointments</p>
+      <button class="btn btn-sm" onclick="appointment.showModal()">
+        <span class="material-symbols-outlined">add</span>
+      </button>
+    </div>
+
+    <div class="overflow-x-auto mb-60">
+      @if ((viewModel | async)?.organisationOfCurrentUser) {
         <table class="table">
-            <thead>
-                <tr>
-                    <th></th>
-                    <th>Appointment</th>
-                    <th>Where</th>
-                    <th>When</th>
-                    <th>Bookings</th>
-                </tr>
-            </thead>
-            <tbody>
-                @for (appointment of (viewModel | async)?.appointments; track $index) {
-                    <tr
-                        class="cursor-pointer hover"
-                        [routerLink]="[appointment.id]"
-                    >
-                        <th>{{ $index + 1 }}</th>
-                        <td>{{ appointment.name }}</td>
-                        <td>{{ appointment.address }}</td>
-                        <td>{{ appointment.date.toDateString() }}</td>
-                        <td>{{ appointment.bookings }}</td>
-                    </tr>
-                }
-            </tbody>
+          <thead>
+            <tr>
+              <th></th>
+              <th>Appointment</th>
+              <th>Where</th>
+              <th>When</th>
+              <th>Bookings</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (appointment of (viewModel | async)?.appointments; track $index) {
+              <tr class="cursor-pointer hover" [routerLink]="[appointment.id]">
+                <th>{{ $index + 1 }}</th>
+                <td>{{ appointment.name }}</td>
+                <td>{{ appointment.address }}</td>
+                <td>{{ appointment.date.toDateString() }}</td>
+                <td>{{ appointment.bookings }}</td>
+              </tr>
+            }
+          </tbody>
         </table>
-    } @else {
-        <p class="text-center">You are not assigned to an organisation. Please contact an administrator in order to be assigned to your organisation.</p>
-    }
+      } @else {
+        <p class="text-center">
+          You are not assigned to an organisation. Please contact an administrator in order to be assigned to your organisation.
+        </p>
+      }
+    </div>
+  </div>
 </div>
+
+<dialog id="appointment" class="modal">
+  <div class="modal-box flex flex-col p-4 space-y-1">
+    <form method="dialog">
+      <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+    </form>
+    <p class="font-semibold text-lg">Add Appointment</p>
+
+    <form method="dialog" class="flex flex-col" (submit)="onAppointmentAddSubmit()">
+      <div class="space-y-1">
+        <label class="input input-bordered flex items-center gap-2">
+          Name
+          <input type="text" [(ngModel)]="newAppointmentName" name="name" class="grow" placeholder="" />
+        </label>
+        <label class="input input-bordered flex items-center gap-2">
+          Address
+          <input type="text" [(ngModel)]="newAppointmentAddress" name="address" class="grow" placeholder="" />
+        </label>
+        <label class="input input-bordered flex items-center gap-2">
+          Date
+          <input type="datetime-local" [(ngModel)]="newAppointmentDate" name="date" class="grow" />
+        </label>
+        <label class="input input-bordered flex items-center gap-2">
+          Duration [m]
+          <input type="number" [(ngModel)]="newAppointmentDuration" name="duration" class="grow" placeholder="" />
+        </label>
+
+        <select [(ngModel)]="newCourseId" name="course" class="select w-full input-bordered">
+          <option disabled selected [value]="undefined">Course</option>
+          @for (course of (viewModel | async)?.courses; track $index) {
+            <option [value]="course.id">{{ course.name }}</option>
+          }
+        </select>
+        <div class="flex w-full gap-1 justify-end">
+          <button class="btn btn-sm">Submit</button>
+          <form method="dialog">
+            <button class="btn btn-sm">Cancel</button>
+          </form>
+        </div>
+      </div>
+    </form>
+  </div>
+  <form method="dialog" class="modal-backdrop">
+    <button></button>
+  </form>
+</dialog>

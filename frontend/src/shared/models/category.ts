@@ -1,7 +1,7 @@
 import { CategoryDto } from "@models/dtos/category-dto";
 
 export interface Category {
-  id: number;
+  id?: number;
   name: string;
   organisationId: number;
 }
@@ -12,4 +12,4 @@ export const fromCategoryDto = (category: CategoryDto): Category => {
     name: category.name,
     organisationId: category.organisation.id,
   };
-}
+};

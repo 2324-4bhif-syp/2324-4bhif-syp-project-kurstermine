@@ -3,19 +3,14 @@ create extension if not exists pg_trgm;
 
 -- Insert for Organisation
 INSERT INTO organisation (name, uniquename) VALUES
-    ('Google', 'google'),
-    ('Microsoft', 'microsoft'),
-    ('Amazon', 'amazon'),
-    ('Apple', 'apple'),
-    ('Facebook', 'facebook'),
     ('Akademie',  'akw'),
     ('Ich gebe dir Raum', 'elvira');
 
 -- Insert for Category
 INSERT INTO category (name, organisation_id) VALUES
-    ('Schwimmen', 6),
-    ('Aqua-relax', 6),
-    ('Körperorientierte Visualisierung', 7);
+    ('Schwimmen', 1),
+    ('Aqua-relax', 1),
+    ('Körperorientierte Visualisierung', 2);
 
 -- Insert for Course
 INSERT INTO course (name, category_id) VALUES

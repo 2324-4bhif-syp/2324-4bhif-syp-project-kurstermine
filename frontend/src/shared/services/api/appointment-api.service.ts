@@ -1,6 +1,6 @@
 import { HttpClient } from "@angular/common/http";
-import { Injectable } from "@angular/core";
-import { map } from "rxjs";
+import { Injectable, model } from "@angular/core";
+import { map, tap } from "rxjs";
 import { set, Appointment, fromAppointmentDto as fromDto } from "@models";
 import { AppointmentDto, fromAppointment as fromModel } from "@models/dtos";
 import { ApiService } from "@services/api/api.service";
