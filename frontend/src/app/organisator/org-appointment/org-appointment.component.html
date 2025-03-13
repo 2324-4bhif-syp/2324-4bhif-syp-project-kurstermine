@@ -91,7 +91,7 @@
                         <th>Firstname</th>
                         <th>Lastname</th>
                         <th>E-Mail</th>
-                        <th>Booked at</th>
+                        <!--<th>Booked at</th>-->
                     </tr>
                 </thead>
                 @if (viewModel()?.appointment?.bookings?.length ?? 0 > 0) {
@@ -102,9 +102,11 @@
                                 <td>{{ (booking.user | async)?.firstName }}</td>
                                 <td>{{ (booking.user | async)?.lastName }}</td>
                                 <td>{{ (booking.user | async)?.email }}</td>
+                                <!-- 
                                 <td>
                                     {{ booking.redeemedAt?.toDateString() }}
                                 </td>
+                                -->
                             </tr>
                         }
                     </tbody>
