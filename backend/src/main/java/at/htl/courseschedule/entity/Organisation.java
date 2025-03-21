@@ -1,10 +1,9 @@
 package at.htl.courseschedule.entity;
 
-import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import jakarta.persistence.*;
 
 @Entity
-public class Organisation extends PanacheEntityBase {
+public class Organisation {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 

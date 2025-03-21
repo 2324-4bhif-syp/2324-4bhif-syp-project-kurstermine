@@ -9,7 +9,7 @@ import java.util.UUID;
 @ApplicationScoped
 public class UserRepository implements PanacheRepositoryBase<User, UUID> {
     public User getOrCreateUser(UUID uuid) {
-        User user = User.findById(uuid);
+        User user = findById(uuid);
         return user == null ? createUser(uuid) : user;
     }
 

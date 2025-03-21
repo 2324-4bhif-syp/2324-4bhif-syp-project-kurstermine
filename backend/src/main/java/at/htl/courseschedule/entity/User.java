@@ -1,13 +1,12 @@
 package at.htl.courseschedule.entity;
 
-import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import jakarta.persistence.*;
 
 import java.util.UUID;
 
 @Entity
 @Table(name = "B_User")
-public class User extends PanacheEntityBase {
+public class User {
     @Id
     private UUID id;
 

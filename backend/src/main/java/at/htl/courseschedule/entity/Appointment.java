@@ -7,7 +7,6 @@ import java.time.LocalDateTime;
 
 @Entity
 public class Appointment {
-
     //region member variables
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
