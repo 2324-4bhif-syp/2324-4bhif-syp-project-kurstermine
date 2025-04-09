@@ -62,6 +62,21 @@
             />
         </label>
     </div>
+    <div class="form-control w-16">
+        <label class="label cursor-pointer">
+            <span class="label-text">
+                <span class="material-symbols-outlined align-middle"
+                >calendar_month</span
+                >
+            </span>
+            <input
+                (change)="changeView('calendar')"
+                type="radio"
+                name="radio-10"
+                class="radio checked:bg-accent"
+            />
+        </label>
+    </div>
 </div>
 
 @if (view === "table") {
@@ -259,4 +274,8 @@
             No appointments available!
         }
     </div>
+}
+
+@if (view === "calendar") {
+    <app-user-calendar [appointments]="(viewModel | async)?.appointments"></app-user-calendar>
 }

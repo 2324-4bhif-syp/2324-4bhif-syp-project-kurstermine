@@ -7,11 +7,12 @@ import { AsyncPipe, NgTemplateOutlet } from "@angular/common";
 import { ActivatedRoute } from "@angular/router";
 import { set } from "@models/model";
 import { Token } from "@models";
+import {UserCalendarComponent} from "@components/user/user-calendar/user-calendar.component";
 
 @Component({
     selector: "app-user-appointments",
     standalone: true,
-    imports: [FormsModule, AsyncPipe, NgTemplateOutlet],
+  imports: [FormsModule, AsyncPipe, NgTemplateOutlet, UserCalendarComponent],
     templateUrl: "./user-appointments.component.html",
     styleUrl: "./user-appointments.component.css",
 })
@@ -144,13 +145,13 @@ export class UserAppointmentsComponent implements OnInit {
     );
 
     protected searchValue: string = "";
-    protected view: "table" | "card" = "card";
+    protected view: "table" | "card" | "calendar" = "card";
 
     protected search(): void {
         this.appointmentApiService.search(this.searchValue);
     }
 
-    protected changeView(view: "table" | "card"): void {
+    protected changeView(view: "table" | "card" | "calendar"): void {
         this.view = view;
     }
 

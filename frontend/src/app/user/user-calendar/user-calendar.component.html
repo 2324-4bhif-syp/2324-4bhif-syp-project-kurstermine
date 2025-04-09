@@ -1,0 +1,81 @@
+<div class="grid grid-cols-3 items-center">
+  <div class="flex gap-2 ml-2">
+    <button (click)="onBtnPrevious()" class="btn btn-outline">Previous</button>
+    <button (click)="onBtnToday()" class="btn btn-outline btn-accent">Today</button>
+    <button (click)="onBtnNext()" class="btn btn-outline">Next</button>
+  </div>
+  <p class="text-center text-3xl m-5">
+    {{date.toLocaleDateString("default", {month: "long"})}} {{date.getFullYear()}}
+  </p>
+</div>
+
+<div class="overflow-x-auto rounded-box bg-base-100 mb-20 mx-2">
+  <table class="table">
+    <thead>
+    <tr>
+      @for (w of weekdays; track $index) {
+        <th class="text-center">{{w.toLocaleDateString("default", {weekday: "short"})}}</th>
+      }
+    </tr>
+    </thead>
+    <tbody>
+      @for (w of getWeeksInMonth(date.getMonth(), date.getFullYear()); track $index) {
+        <tr>
+          @for (d of w; track $index) {
+            <td (click)="showAppointmentDetails(d)"
+                [class.bg-green-200]="compareDates(currentDate, d)"
+                [class.cursor-pointer]="getAppointmentsOfDay(d).length > 0"
+                [class.opacity-25]="d.getMonth() !== date.getMonth()"
+                class="w-1/7 h-20 border-2 text-center relative hover:bg-base-300">
+              @if (getAppointmentsOfDay(d).length > 0) {
+                <div class="badge badge-sm badge-error text-base-100 aspect-square absolute top-2 left-2">
+                  {{getAppointmentsOfDay(d).length}}
+                </div>
+              }
+              <div class="absolute bottom-2 left-2 flex flex-wrap gap-1">
+                @for (a of getAppointmentsOfDay(d); track $index) {
+                  <div class="rounded-full bg-primary w-2 h-2"></div>
+                }
+              </div>
+              <p [class.text-xl]="compareDates(currentDate, d)"
+                  [class.font-bold]="compareDates(currentDate, d)"
+                 class="absolute top-2 right-2 text-md">{{d.getDate()}}
+              </p>
+            </td>
+          }
+        </tr>
+      }
+    </tbody>
+  </table>
+</div>
+
+@if (selectedDate && getAppointmentsOfDay(selectedDate).length !== 0) {
+  <div class="overflow-x-auto mb-20">
+    <table class="table">
+      <thead>
+      <tr>
+        <th></th>
+        <th>Name</th>
+        <th>Address</th>
+        <th>Date</th>
+        <th>Time</th>
+        <th>Duration</th>
+      </tr>
+      </thead>
+      <tbody>
+        @for (a of getAppointmentsOfDay(selectedDate); track $index) {
+          <tr>
+            <th>{{ $index + 1 }}</th>
+            <td>{{ a.name }}</td>
+            <td>{{ a.address }}</td>
+            <td>{{ a.date.toLocaleDateString() }}</td>
+            <td>
+              {{String(a.date.getHours()).padStart(2, "0") }}:{{String(a.date.getMinutes()).padStart(2, "0")}}
+            </td>
+            <td>{{ a.duration }} min</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+}
